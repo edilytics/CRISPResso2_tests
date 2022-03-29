@@ -1,0 +1,27 @@
+CRISPResso version 2.2.7
+[Command used]:
+/home/snichol2/anaconda3/envs/crispresso2_env/bin/CRISPResso -r1 CRISPRessoPooled_on_prime.editing/AMPL_pe_seq1.fastq.gz -a GCGCGCCCGGCTATTCTCGCAGCTCACCATGGATGATGATATCGCCGCGCTCGTCGTCGACAACGGCTCCGGCATGTGCAAGGCCGGCTTCGCGGCGACGATTTTGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG -o CRISPRessoPooled_on_prime.editing --name pe_seq1 --prime_editing_pegRNA_spacer_seq GCTATTCTCGCAGCTCACCA --prime_editing_nicking_guide_seq GAAGCCGGCCTTGCACATGC --prime_editing_pegRNA_extension_seq GACGAGCGCGGCGATATCATCATCCATGGCCGGATGATCCTGACGACGGAGACCGCCGTCGTCGACAAGCCGGCCTGAGCTGCGAGAA --prime_editing_pegRNA_scaffold_seq GGCACCGAGTCGGTGC --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_incentive 1 --keep_intermediate --needleman_wunsch_gap_extend -2 --flash_command flash --aln_seed_min 2 --conversion_nuc_from C --prime_editing_pegRNA_extension_quantification_window_size 5 --quantification_window_center -3 --min_paired_end_reads_overlap 10 --aln_seed_len 10 --min_single_bp_quality 0 --min_bp_quality_or_N 0 --exclude_bp_from_right 15 --debug --aln_seed_count 5 --trimmomatic_command trimmomatic --flexiguide_homology 80 --quantification_window_size 1 --prime_editing_pegRNA_scaffold_min_match_length 1 --plot_window_size 20 --min_average_read_quality 0 --needleman_wunsch_gap_open -20 --default_min_aln_score 60 --min_frequency_alleles_around_cut_to_plot 0.2 --exclude_bp_from_left 15 --conversion_nuc_to T --needleman_wunsch_aln_matrix_loc EDNAFULL --n_processes 1 --max_paired_end_reads_overlap 100
+
+[Execution log]:
+Alignment between extension sequence and reference sequence: 
+-------------TTCTCGCAGCTCAGGCCGGCTTGTCGACGACGGCGGTCTCCGTCGTCAGGATCATCCGGCCATGGATGATGATATCGCCGCGCTCGTC-----------------------------------------------------------------------------------
+GCGCGCCCGGCTATTCTCGCAGCTCA----------------------------------------------CCATGGATGATGATATCGCCGCGCTCGTCGTCGACAACGGCTCCGGCATGTGCAAGGCCGGCTTCGCGGCGACGATTTTGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+Using cut points from Reference as template for other references
+Reference 'Prime-edited' has cut points defined: [100, 25, 119]. Not inferring.
+Reference 'Prime-edited' has sgRNA_intervals defined: [(13, 100), (9, 74), (117, 136)]. Not inferring.
+Aligning sequences...
+Processing pegRNA scaffold sequence...
+Searching for scaffold-templated reads with the sequence: 'GC' starting at position 101 in reads that align to the prime-edited sequence
+Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Finished reads; N_TOT_READS: 5 N_COMPUTED_ALN: 3 N_CACHED_ALN: 2 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Processing pegRNA scaffold sequence...
+Searching for scaffold-templated reads with the sequence: 'GC' starting at position 101 in reads that align to the prime-edited sequence
+Done!
+Analysis Complete!
