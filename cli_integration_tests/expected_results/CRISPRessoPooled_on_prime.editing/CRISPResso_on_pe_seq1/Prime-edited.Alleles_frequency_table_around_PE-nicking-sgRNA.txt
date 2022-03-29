@@ -1,0 +1,2 @@
+Aligned_Sequence	Reference_Sequence	Unedited	n_deleted	n_inserted	n_mutated	#Reads	%Reads
+CGTCGACAACGGCTCCGGCATGTGCAAGGCCGGCTTCGCG	CGTCGACAACGGCTCCGGCATGTGCAAGGCCGGCTTCGCG	True	0	0	0	2	40.0
