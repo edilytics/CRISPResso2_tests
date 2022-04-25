@@ -19,9 +19,9 @@ class Main:
             ).decode('utf-8').strip()
             if running_container_id:
                 os.system('docker rm -f {0}'.format(running_container_id))
-            #results = subprocess.Popen('docker run --name web_automated_tests -e "USE_DEFAULT_USER=False" -e "ALLOW_ADMIN_INIT=True" -i -p 1234:80 -v C:/Users/Snic9/Edilytics/C2Web:/var/www/webapps/CRISPRessoWEB:rw --rm crispresso2web')
-            results = subprocess.Popen(
-                'docker run --name web_automated_tests -e "USE_DEFAULT_USER=False" -e "ALLOW_ADMIN_INIT=True" -i -p 1234:80 --rm crispresso2web')
+            results = subprocess.Popen('docker run --name web_automated_tests -e "USE_DEFAULT_USER=False" -e "ALLOW_ADMIN_INIT=True" -i -p 1234:80 -v C:/Users/Snic9/Edilytics/C2Web:/var/www/webapps/CRISPRessoWEB:rw --rm crispresso2web')
+            # results = subprocess.Popen(
+            #     'docker run --name web_automated_tests -e "USE_DEFAULT_USER=False" -e "ALLOW_ADMIN_INIT=True" -i -p 1234:80 --rm crispresso2web')
             time.sleep(15)
             print(results)
         except subprocess.CalledProcessError as e:
@@ -44,10 +44,14 @@ class Main:
         #     failed_tests.append("Base Single End Test Failed")
         # else:
         #     passed_tests.append("Base Single End Test Passed")
-        if not self.base_batch_test():
-            failed_tests.append("Base Batch Test Failed")
+        # if not self.base_batch_test():
+        #     failed_tests.append("Base Batch Test Failed")
+        # else:
+        #     passed_tests.append("Base Batch Test Passed")
+        if not self.pooled_single_end_test():
+            failed_tests.append("Pooled Single End Test Failed")
         else:
-            passed_tests.append("Base Batch Test Passed")
+            passed_tests.append("Pooled Single End Test Passed")
         self.driver.quit()
         subprocess.run('docker container stop web_automated_tests')
         print("\nSuccessful Tests:")
@@ -137,6 +141,26 @@ class Main:
             return False
         time.sleep(5)
         validate = mainPage.validate_batch()
+        if not validate:
+            print("Unable to validate results from single end test.")
+            return False
+        return True
+
+    def pooled_single_end_test(self):
+        self.driver.get("http://localhost:1234/submission_pooled")
+        mainPage = page.CRISPRessoPooledPage(self.driver)
+        success = mainPage.enter_single_end_values()
+        time.sleep(1)
+        if not success:
+            print("Unable to enter file values.")
+            return False
+        time.sleep(1)
+        success = mainPage.click_submit()
+        if not success:
+            print("Unable to click submit.")
+            return False
+        time.sleep(5)
+        validate = mainPage.validate_single_end()
         if not validate:
             print("Unable to validate results from single end test.")
             return False
