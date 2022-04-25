@@ -44,6 +44,10 @@ class Main:
         #     failed_tests.append("Base Single End Test Failed")
         # else:
         #     passed_tests.append("Base Single End Test Passed")
+        # if not self.base_interleaved_test():
+        #     failed_tests.append("Base Interleaved Test Failed")
+        # else:
+        #     passed_tests.append("Base Interleaved Test Passed")
         # if not self.base_batch_test():
         #     failed_tests.append("Base Batch Test Failed")
         # else:
@@ -126,6 +130,26 @@ class Main:
             return False
         return True
 
+    def base_interleaved_test(self):
+        self.driver.get("http://localhost:1234/submission")
+        mainPage = page.CRISPRessoCorePage(self.driver)
+        success = mainPage.enter_interleaved_values()
+        time.sleep(1)
+        if not success:
+            print("Unable to enter interleaved values.")
+            return False
+        time.sleep(1)
+        success = mainPage.click_submit()
+        if not success:
+            print("Unable to click submit.")
+            return False
+        time.sleep(5)
+        validate = mainPage.validate_interleaved()
+        if not validate:
+            print("Unable to validate results from interleaved test.")
+            return False
+        return True
+
     def base_batch_test(self):
         self.driver.get("http://localhost:1234/submission")
         mainPage = page.CRISPRessoCorePage(self.driver)
@@ -142,7 +166,7 @@ class Main:
         time.sleep(5)
         validate = mainPage.validate_batch()
         if not validate:
-            print("Unable to validate results from single end test.")
+            print("Unable to validate results from batch test.")
             return False
         return True
 

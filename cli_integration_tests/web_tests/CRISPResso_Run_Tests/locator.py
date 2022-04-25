@@ -18,7 +18,7 @@ class Register_Login_Locators(object):
     PASSWORD_VALUE = "TEST_PASSWORD"
 
 
-class Paired_Ends_Results_Locators(object):
+class Paired_Ends_Locators(object):
     IMAGE_SOURCES = ["1a.Read_barplot.png",
                      "1b.Alignment_pie_chart.png",
                      "1c.Alignment_barplot.png",
@@ -40,7 +40,7 @@ class Paired_Ends_Results_Locators(object):
     INDEL_CHARACTERIZATION_TAB = (By.ID, "indel-characterization-tabs")
 
 
-class Single_End_Results_Locators(object):
+class Single_End_Locators(object):
     IMAGE_SOURCES = ["1a.Read_barplot.png",
                      "1b.Alignment_pie_chart.png",
                      "1c.Alignment_barplot.png",
@@ -64,7 +64,7 @@ class Single_End_Results_Locators(object):
     INDEL_CHARACTERIZATION_TAB = (By.ID, "indel-characterization-tab")
 
 
-class Batch_Results_Locators(object):
+class Batch_Locators(object):
     IMAGE_SOURCES = ["Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.png",
                      "Nucleotide_percentage_quilt.png",
                      "Nucleotide_conversion_map_around_sgRNA_GGAATCCCTTCTGCAGCACC.png",
@@ -156,8 +156,37 @@ class Batch_Results_Locators(object):
                          "10g.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.png"]
 
 
-class Pooled_Single_End_Locators(object):
-    FASTQ_FILE = (By.ID, "single_sample_1_fastq_se_label")
-    AMPLICON_FILE = (By.ID, "amplicons_file")
-    MINIMUM_READS_OPTIONAL_PARAMETER = (By.ID, "minimum_reads_optional_text_region")
-    SINGLE_END_READS_BUTTON = (By.ID, "btn_single_end")
+class Interleaved_Locators(object):
+    IMAGE_SOURCES = ["1a.Read_barplot.png",
+                     "1b.Alignment_pie_chart.png",
+                     "1c.Alignment_barplot.png",
+                     "2a.Inferred.Nucleotide_percentage_quilt.png",
+                     "2b.Inferred.Nucleotide_percentage_quilt_around_Guessed-sgRNA.png",
+                     "3a.Inferred.Indel_size_distribution.png",
+                     "3b.Inferred.Insertion_deletion_substitutions_size_hist.png",
+                     "4a.Inferred.Combined_insertion_deletion_substitution_locations.png",
+                     "4b.Inferred.Insertion_deletion_substitution_locations.png",
+                     "4c.Inferred.Quantification_window_insertion_deletion_substitution_locations.png",
+                     "4d.Inferred.Position_dependent_average_indel_size.png",
+                     "9.Inferred.Alleles_frequency_table_around_Guessed-sgRNA.png",
+                     "2a.Inferred2.Nucleotide_percentage_quilt.png",
+                     "2b.Inferred2.Nucleotide_percentage_quilt_around_Guessed-sgRNA.png",
+                     "3a.Inferred2.Indel_size_distribution.png",
+                     "3b.Inferred2.Insertion_deletion_substitutions_size_hist.png",
+                     "4a.Inferred2.Combined_insertion_deletion_substitution_locations.png",
+                     "4b.Inferred2.Insertion_deletion_substitution_locations.png",
+                     "4c.Inferred2.Quantification_window_insertion_deletion_substitution_locations.png",
+                     "4d.Inferred2.Position_dependent_average_indel_size.png",
+                     "9.Inferred2.Alleles_frequency_table_around_Guessed-sgRNA.png"]
+    NUCLEOTIDE_ZOOM = (By.ID, "zoomview_nucs_P23H")
+    STATISTICS_PARAMETERS_CONTAINER = (By.ID, "log-tab")
+    ALIGNMENT_STATISTICS_TAB = (By.ID, "log_aln-tab")
+    RUN_PARAMETERS_TAB = (By.ID, "log_params-tab")
+    PIECHART_BARPLOT_CONTAINER = (By.ID, "tabContent")
+    PIECHART_TAB = (By.ID, "aln_pie-tab")
+    BARPLOT_TAB = (By.ID, "aln_bar-tab")
+    MODIFICATION_LENGTHS_TAB = (By.ID, "modification-lengths-tab")
+    INDEL_CHARACTERIZATION_TAB = (By.ID, "indel-characterization-tab")
+
+class Pooled_Locators(object):
+    STATISTICS_PARAMETERS_CONTAINER = (By.ID, "log-tab")
