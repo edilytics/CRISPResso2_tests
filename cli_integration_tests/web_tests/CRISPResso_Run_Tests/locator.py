@@ -188,5 +188,7 @@ class Interleaved_Locators(object):
     MODIFICATION_LENGTHS_TAB = (By.ID, "modification-lengths-tab")
     INDEL_CHARACTERIZATION_TAB = (By.ID, "indel-characterization-tab")
 
+
 class Pooled_Locators(object):
-    STATISTICS_PARAMETERS_CONTAINER = (By.ID, "log-tab")
+    IMAGE_SOURCES = ["CRISPRessoPooled_reads_summary.png",
+                     "CRISPRessoPooled_modification_summary.png"]

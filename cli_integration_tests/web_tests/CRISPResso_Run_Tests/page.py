@@ -485,4 +485,19 @@ class CRISPRessoPooledPage(BasePage):
         return True
 
     def validate_single_end(self):
+        missing_elements = []
+        images = self.driver.find_elements_by_tag_name('img')
+        if len(images) < len(locator.Pooled_Locators.IMAGE_SOURCES):
+            missing_elements.append("Images missing from Pooled results.")
+        for image in images:
+            image = image.get_attribute('src')
+            loc = image.rfind('/')
+            image = image[loc + 1:]
+            if image not in locator.Pooled_Locators.IMAGE_SOURCES:
+                missing_elements.append(f"{image} is the incorrect image.")
+        if len(missing_elements) != 0:
+            print("Missing elements for Pooled validation:")
+            for missing in missing_elements:
+                print(missing)
+            return False
         return True

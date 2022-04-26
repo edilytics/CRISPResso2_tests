@@ -178,7 +178,7 @@ class Main:
         if not success:
             print("Unable to enter file values.")
             return False
-        time.sleep(1)
+        time.sleep(3)
         success = mainPage.click_submit()
         if not success:
             print("Unable to click submit.")
