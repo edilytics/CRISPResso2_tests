@@ -1,7 +1,5 @@
 import time
 import locator
-import os
-import keyboard
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -345,7 +343,7 @@ class CRISPRessoCorePage(BasePage):
 
         tabs = []
         try:
-            time.sleep(3)
+            time.sleep(2)
             element = WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located(locator.Batch_Locators.FANCF_UNTR_LINK))
             href = element.get_attribute('href')
@@ -486,6 +484,12 @@ class CRISPRessoPooledPage(BasePage):
 
     def validate_single_end(self):
         missing_elements = []
+        try:
+            title = WebDriverWait(self.driver, 50).until(
+                EC.visibility_of_element_located(locator.Pooled_Locators.MODIFICATION_TITLE))
+        except Exception as e:
+            print(e)
+            missing_elements.append("Page not loading")
         images = self.driver.find_elements_by_tag_name('img')
         if len(images) < len(locator.Pooled_Locators.IMAGE_SOURCES):
             missing_elements.append("Images missing from Pooled results.")
@@ -501,3 +505,16 @@ class CRISPRessoPooledPage(BasePage):
                 print(missing)
             return False
         return True
+
+
+class CRISPRessoWGSPage(BasePage):
+    def enter_cas9_values(self):
+        try:
+            self.driver.execute_script("populateWGSSingleEnd()")
+        except Exception as e:
+            print(e)
+            return False
+        return True
+
+    def validate_cas9(self):
+        return False

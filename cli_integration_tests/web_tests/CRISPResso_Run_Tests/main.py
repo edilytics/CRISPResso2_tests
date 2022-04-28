@@ -52,10 +52,14 @@ class Main:
         #     failed_tests.append("Base Batch Test Failed")
         # else:
         #     passed_tests.append("Base Batch Test Passed")
-        if not self.pooled_single_end_test():
-            failed_tests.append("Pooled Single End Test Failed")
+        # if not self.pooled_single_end_test():
+        #     failed_tests.append("Pooled Single End Test Failed")
+        # else:
+        #     passed_tests.append("Pooled Single End Test Passed")
+        if not self.wgs_single_cas9_test():
+            failed_tests.append("WGS Single End Test Failed")
         else:
-            passed_tests.append("Pooled Single End Test Passed")
+            passed_tests.append("WGS Single End Test Passed")
         self.driver.quit()
         subprocess.run('docker container stop web_automated_tests')
         print("\nSuccessful Tests:")
@@ -178,15 +182,35 @@ class Main:
         if not success:
             print("Unable to enter file values.")
             return False
-        time.sleep(3)
+        time.sleep(1)
         success = mainPage.click_submit()
         if not success:
             print("Unable to click submit.")
             return False
-        time.sleep(5)
+        time.sleep(2)
         validate = mainPage.validate_single_end()
         if not validate:
-            print("Unable to validate results from single end test.")
+            print("Unable to validate results from pooled single end test.")
+            return False
+        return True
+
+    def wgs_single_cas9_test(self):
+        self.driver.get("http://localhost:1234/submission_submission_wgs")
+        mainPage = page.CRISPRessoWGSPage(self.driver)
+        success = mainPage.enter_cas9_values()
+        time.sleep(1)
+        if not success:
+            print("Unable to enter file values.")
+            return False
+        time.sleep(1)
+        success = mainPage.click_submit()
+        if not success:
+            print("Unable to click submit.")
+            return False
+        time.sleep(2)
+        validate = mainPage.validate_cas9()
+        if not validate:
+            print("Unable to validate results from WGS single end test.")
             return False
         return True
 

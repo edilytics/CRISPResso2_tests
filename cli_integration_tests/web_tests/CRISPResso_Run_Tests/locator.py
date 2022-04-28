@@ -190,5 +190,6 @@ class Interleaved_Locators(object):
 
 
 class Pooled_Locators(object):
+    MODIFICATION_TITLE = (By.ID, "modification_summary_title")
     IMAGE_SOURCES = ["CRISPRessoPooled_reads_summary.png",
                      "CRISPRessoPooled_modification_summary.png"]
