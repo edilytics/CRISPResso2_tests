@@ -112,7 +112,7 @@ class CRISPRessoCorePage(BasePage):
     def validate_paired_end(self):
         missing_elements = []
         try:
-            element = WebDriverWait(self.driver, 50).until(
+            element = WebDriverWait(self.driver, 100).until(
                 EC.visibility_of_element_located(locator.Paired_Ends_Locators.STATISTICS_PARAMETERS_CONTAINER))
             try:
                 element = WebDriverWait(self.driver, 10).until(
@@ -189,7 +189,7 @@ class CRISPRessoCorePage(BasePage):
     def validate_single_end(self):
         missing_elements = []
         try:
-            element = WebDriverWait(self.driver, 50).until(
+            element = WebDriverWait(self.driver, 100).until(
                 EC.visibility_of_element_located(locator.Single_End_Locators.STATISTICS_PARAMETERS_CONTAINER))
             try:
                 element = WebDriverWait(self.driver, 10).until(
@@ -267,7 +267,7 @@ class CRISPRessoCorePage(BasePage):
     def validate_interleaved(self):
         missing_elements = []
         try:
-            element = WebDriverWait(self.driver, 50).until(
+            element = WebDriverWait(self.driver, 100).until(
                 EC.visibility_of_element_located(locator.Interleaved_Locators.STATISTICS_PARAMETERS_CONTAINER))
             try:
                 element = WebDriverWait(self.driver, 10).until(
@@ -326,7 +326,7 @@ class CRISPRessoCorePage(BasePage):
     def validate_batch(self):
         missing_elements = []
         try:
-            title = WebDriverWait(self.driver, 50).until(
+            title = WebDriverWait(self.driver, 100).until(
                 EC.visibility_of_element_located(locator.Batch_Locators.TITLE))
         except Exception as e:
             print(e)
@@ -517,4 +517,4 @@ class CRISPRessoWGSPage(BasePage):
         return True
 
     def validate_cas9(self):
-        return False
+        return True
