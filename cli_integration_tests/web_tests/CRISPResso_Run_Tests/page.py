@@ -393,6 +393,9 @@ class CRISPRessoCorePage(BasePage):
             elif tabs[tab] == "FANCF_BE3":
                 if not self.validate_batch_FANCF_BE3():
                     missing_elements.append("FANCF_BE3 page validation failed")
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.close_extra_tabs()
+        self.driver.switch_to.window(self.driver.window_handles[0])
         if len(missing_elements) != 0:
             print("Missing elements for page validation:")
             for missing in missing_elements:
@@ -472,6 +475,13 @@ class CRISPRessoCorePage(BasePage):
             return False
         return True
 
+    def close_extra_tabs(self):
+        curr = self.driver.current_window_handle
+        for handle in self.driver.window_handles:
+            self.driver.switch_to.window(handle)
+            if handle != curr:
+                self.driver.close()
+
 
 class CRISPRessoPooledPage(BasePage):
     def enter_single_end_values(self):
@@ -510,11 +520,78 @@ class CRISPRessoPooledPage(BasePage):
 class CRISPRessoWGSPage(BasePage):
     def enter_cas9_values(self):
         try:
-            self.driver.execute_script("populateWGSSingleEnd()")
+            self.driver.execute_script("populateWGSCas9()")
         except Exception as e:
             print(e)
             return False
         return True
 
     def validate_cas9(self):
+        missing_elements = []
+        try:
+            title = WebDriverWait(self.driver, 100).until(
+                EC.visibility_of_element_located(locator.WGS_Locators.OUTPUT_TITLE))
+        except Exception as e:
+            print(e)
+            missing_elements.append("Title not loading")
+        images = self.driver.find_elements_by_tag_name('img')
+        if len(images) < len(locator.WGS_Locators.IMAGE_SOURCES):
+            missing_elements.append("Images missing.")
+        for image in images:
+            image = image.get_attribute('src')
+            loc = image.rfind('/')
+            image = image[loc + 1:]
+            if image not in locator.WGS_Locators.IMAGE_SOURCES:
+                missing_elements.append(f"{image} is the incorrect image.")
+
+        tabs = []
+        try:
+            time.sleep(2)
+            element = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(locator.WGS_Locators.FANCF_LINK))
+            href = element.get_attribute('href')
+            self.driver.execute_script("window.open('%s', '_blank')" % href)
+            tabs.append("FANCF")
+        except Exception as e:
+            print(e)
+            missing_elements.append("FANCF link missing or unclickable")
+
+        for tab in range(len(tabs)):
+            self.driver.switch_to.window(self.driver.window_handles[tab + 1])
+            if tabs[tab] == "FANCF":
+                if not self.validate_WGS_FANCF():
+                    missing_elements.append("FANCF page validation failed")
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        self.close_extra_tabs()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        if len(missing_elements) != 0:
+            print("Missing elements for page validation:")
+            for missing in missing_elements:
+                print(missing)
+            return False
         return True
+
+    def validate_WGS_FANCF(self):
+        missing_elements = []
+        images = self.driver.find_elements_by_tag_name('img')
+        if len(images) < len(locator.WGS_Locators.FANCF_IMAGE_SOURCES):
+            missing_elements.append("Images missing from FANCF.")
+        for image in images:
+            image = image.get_attribute('src')
+            loc = image.rfind('/')
+            image = image[loc + 1:]
+            if image not in locator.WGS_Locators.FANCF_IMAGE_SOURCES:
+                missing_elements.append(f"{image} is the incorrect image on FANCF.")
+        if len(missing_elements) != 0:
+            print("Missing elements for FANCF validation:")
+            for missing in missing_elements:
+                print(missing)
+            return False
+        return True
+
+    def close_extra_tabs(self):
+        curr = self.driver.current_window_handle
+        for handle in self.driver.window_handles:
+            self.driver.switch_to.window(handle)
+            if handle != curr:
+                self.driver.close()

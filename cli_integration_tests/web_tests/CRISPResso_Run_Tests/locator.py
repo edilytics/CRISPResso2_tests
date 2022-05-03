@@ -193,3 +193,19 @@ class Pooled_Locators(object):
     MODIFICATION_TITLE = (By.ID, "modification_summary_title")
     IMAGE_SOURCES = ["CRISPRessoPooled_reads_summary.png",
                      "CRISPRessoPooled_modification_summary.png"]
+
+class WGS_Locators(object):
+    OUTPUT_TITLE = (By.ID, "CRISPResso2 WGS Output")
+    IMAGE_SOURCES = ["CRISPRessoWGS_reads_summary.png",
+                     "CRISPRessoWGS_modification_summary.png"]
+    FANCF_LINK = (By.ID, "FANCF")
+    FANCF_IMAGE_SOURCES = ["1a.Read_barplot.png",
+                           "1b.Alignment_pie_chart.png",
+                           "1c.Alignment_barplot.png",
+                           "2a.Nucleotide_percentage_quilt.png",
+                           "3a.Indel_size_distribution.png",
+                           "3b.Insertion_deletion_substitutions_size_hist.png",
+                           "4a.Combined_insertion_deletion_substitution_locations.png",
+                           "4b.Insertion_deletion_substitution_locations.png",
+                           "4c.Quantification_window_insertion_deletion_substitution_locations.png",
+                           "4d.Position_dependent_average_indel_size.png"]

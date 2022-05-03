@@ -36,26 +36,26 @@ class Main:
             return 1
         else:
             passed_tests.append("Register and Login Test Passed")
-        # if not self.base_paired_end_test():
-        #     failed_tests.append("Base Paired End Test Failed")
-        # else:
-        #     passed_tests.append("Base Paired End Test Passed")
-        # if not self.base_single_end_test():
-        #     failed_tests.append("Base Single End Test Failed")
-        # else:
-        #     passed_tests.append("Base Single End Test Passed")
-        # if not self.base_interleaved_test():
-        #     failed_tests.append("Base Interleaved Test Failed")
-        # else:
-        #     passed_tests.append("Base Interleaved Test Passed")
-        # if not self.base_batch_test():
-        #     failed_tests.append("Base Batch Test Failed")
-        # else:
-        #     passed_tests.append("Base Batch Test Passed")
-        # if not self.pooled_single_end_test():
-        #     failed_tests.append("Pooled Single End Test Failed")
-        # else:
-        #     passed_tests.append("Pooled Single End Test Passed")
+        if not self.base_paired_end_test():
+            failed_tests.append("Base Paired End Test Failed")
+        else:
+            passed_tests.append("Base Paired End Test Passed")
+        if not self.base_single_end_test():
+            failed_tests.append("Base Single End Test Failed")
+        else:
+            passed_tests.append("Base Single End Test Passed")
+        if not self.base_interleaved_test():
+            failed_tests.append("Base Interleaved Test Failed")
+        else:
+            passed_tests.append("Base Interleaved Test Passed")
+        if not self.base_batch_test():
+            failed_tests.append("Base Batch Test Failed")
+        else:
+            passed_tests.append("Base Batch Test Passed")
+        if not self.pooled_single_end_test():
+            failed_tests.append("Pooled Single End Test Failed")
+        else:
+            passed_tests.append("Pooled Single End Test Passed")
         if not self.wgs_single_cas9_test():
             failed_tests.append("WGS Single End Test Failed")
         else:
@@ -195,7 +195,7 @@ class Main:
         return True
 
     def wgs_single_cas9_test(self):
-        self.driver.get("http://localhost:1234/submission_submission_wgs")
+        self.driver.get("http://localhost:1234/submission_wgs")
         mainPage = page.CRISPRessoWGSPage(self.driver)
         success = mainPage.enter_cas9_values()
         time.sleep(1)
@@ -207,10 +207,10 @@ class Main:
         if not success:
             print("Unable to click submit.")
             return False
-        time.sleep(2)
+        time.sleep(1)
         validate = mainPage.validate_cas9()
         if not validate:
-            print("Unable to validate results from WGS single end test.")
+            print("Unable to validate results from WGS Cas9 test.")
             return False
         return True
 
