@@ -27,7 +27,8 @@ cli_integration_tests/CRISPRessoBatch_on_FANC* \
 cli_integration_tests/CRISPRessoPooled_on_Both.Cas9* \
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
-cli_integration_tests/CRISPRessoPooled_on_prime.editing*
+cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
+	log.txt
 
 
 basic: cli_integration_tests/CRISPResso_on_FANC.Cas9
@@ -76,3 +77,6 @@ compare: cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install cli_integration_tests/CRISPRessoBatch_on_FANC
 	cd cli_integration_tests && output=`CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --debug 2>&1` || echo "$$output"
 	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPRessoCompare_on_Cas9_VS_Untreated
+
+stress: web_stress_test.py
+	python web_stress_test.py
