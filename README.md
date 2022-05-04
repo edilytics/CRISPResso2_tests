@@ -22,4 +22,6 @@ In order to test the web UI using Selenium there are several pre-requisites:
   + Selenium `conda install -c conda-forge selenium`
   + webdriver_manager `conda install webdriver-manager`
 
-**Warning:** The tests will fail if the pages fail to load.
+The test can be run using `make web_ui`
+
+**Warning:** The tests will fail if the pages fail to load within a buffer period.
