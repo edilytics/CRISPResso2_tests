@@ -3,6 +3,7 @@ import web_ui_test_locators
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+TEST_LOG_FILE_PATH = '../UI_test_summary_log.txt'
 
 class BasePage(object):
     def __init__(self, driver):
@@ -24,6 +25,13 @@ class BasePage(object):
             self.driver.switch_to.window(handle)
             if handle != curr:
                 self.driver.close()
+
+    def log(self, run, elements):
+        with open(TEST_LOG_FILE_PATH, 'a') as out:
+            out.write("TEST: " + run)
+            out.write("Missing elements:")
+            for element in elements:
+                out.write(element)
 
 
 class RegisterLoginPage(BasePage):
@@ -189,9 +197,7 @@ class CRISPRessoCorePage(BasePage):
             if image not in web_ui_test_locators.Paired_Ends_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
-            print("Missing elements for page validation:")
-            for missing in missing_elements:
-                print(missing)
+            self.log("Paired End", missing_elements)
             return False
         return True
 
@@ -276,9 +282,7 @@ class CRISPRessoCorePage(BasePage):
             if image not in web_ui_test_locators.Single_End_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
-            print("Missing elements for page validation:")
-            for missing in missing_elements:
-                print(missing)
+            self.log("Single End", missing_elements)
             return False
         return True
 
@@ -337,9 +341,7 @@ class CRISPRessoCorePage(BasePage):
             if image not in web_ui_test_locators.Interleaved_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
-            print("Missing elements for page validation:")
-            for missing in missing_elements:
-                print(missing)
+            self.log("Interleaved", missing_elements)
             return False
         return True
 
@@ -422,9 +424,7 @@ class CRISPRessoCorePage(BasePage):
         self.close_extra_tabs()
         self.driver.switch_to.window(self.driver.window_handles[0])
         if len(missing_elements) != 0:
-            print("Missing elements for page validation:")
-            for missing in missing_elements:
-                print(missing)
+            self.log("Batch", missing_elements)
             return False
         return True
 
@@ -528,9 +528,7 @@ class CRISPRessoPooledPage(BasePage):
             if image not in web_ui_test_locators.Pooled_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
-            print("Missing elements for Pooled validation:")
-            for missing in missing_elements:
-                print(missing)
+            self.log("Pooled Single End", missing_elements)
             return False
         return True
 
@@ -585,9 +583,7 @@ class CRISPRessoWGSPage(BasePage):
         self.close_extra_tabs()
         self.driver.switch_to.window(self.driver.window_handles[0])
         if len(missing_elements) != 0:
-            print("Missing elements for page validation:")
-            for missing in missing_elements:
-                print(missing)
+            self.log("WGS Cas9", missing_elements)
             return False
         return True
 

@@ -7,6 +7,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 
+TEST_LOG_FILE_PATH = '../UI_test_summary_log.txt'
 
 class Web_UI_Test_Main:
     def __init__(self):
@@ -32,6 +33,8 @@ class Web_UI_Test_Main:
             print(e)
 
     def main(self):
+        with open(TEST_LOG_FILE_PATH, 'w') as out:
+            out.write("Starting Tests:")
         passed_tests = []
         failed_tests = []
         if not self.register_login_test():
@@ -72,18 +75,22 @@ class Web_UI_Test_Main:
         time.sleep(1)
         self.driver.quit()
         subprocess.run('docker container stop web_automated_tests'.split())
-        print("\nSuccessful Tests:")
-        if len(passed_tests) > 0:
-            for passed in passed_tests:
-                print(passed)
-        print("\nFailed Tests:")
-        if len(failed_tests) > 0:
-            for failed in failed_tests:
-                print(failed)
-            return 1
-        else:
-            print("None")
-        return 0
+        passed = True
+        with open(TEST_LOG_FILE_PATH, 'a') as out:
+            out.write("Successful Tests:")
+            if len(passed_tests) > 0:
+                for passed in passed_tests:
+                    out.write(passed)
+            out.write("\nFailed Tests:")
+            if len(failed_tests) > 0:
+                passed = False
+                for failed in failed_tests:
+                    out.write(failed)
+            else:
+                out.write("None")
+        if passed:
+            return 0
+        return 1
 
     def register_login_test(self):
         self.driver.get("http://localhost:1234/startup")
