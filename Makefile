@@ -28,7 +28,8 @@ cli_integration_tests/CRISPRessoPooled_on_Both.Cas9* \
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 web_tests/stress_test_log.txt \
-web_tests/UI_test_summary_log.txt
+web_tests/UI_docker_log.txt \
+web_tests/UI_selenium_log.txt
 
 basic: cli_integration_tests/CRISPResso_on_FANC.Cas9
 

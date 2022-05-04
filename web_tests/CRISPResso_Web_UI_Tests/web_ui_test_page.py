@@ -3,7 +3,7 @@ import web_ui_test_locators
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-TEST_LOG_FILE_PATH = '../UI_test_summary_log.txt'
+TEST_LOG_FILE_PATH = '../UI_selenium_log.txt'
 
 class BasePage(object):
     def __init__(self, driver):
@@ -27,11 +27,12 @@ class BasePage(object):
                 self.driver.close()
 
     def log(self, run, elements):
-        with open(TEST_LOG_FILE_PATH, 'a') as out:
-            out.write("TEST: " + run)
-            out.write("Missing elements:")
+        with open(TEST_LOG_FILE_PATH, 'a+') as out:
+            out.write("\nTEST: " + run + '\n')
+            out.write("Missing elements:\n")
             for element in elements:
-                out.write(element)
+                out.write(element + '\n')
+            out.write('\n')
 
 
 class RegisterLoginPage(BasePage):
@@ -175,12 +176,13 @@ class CRISPRessoCorePage(BasePage):
             print(e)
             missing_elements.append("Nucleotide Zoom Image Missing")
         try:
-            element = WebDriverWait(self.driver, 10).until(
+            element = WebDriverWait(self.driver, 20).until(
                 EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.INDEL_CHARACTERIZATION_TAB))
             try:
                 list_items = element.find_elements_by_tag_name("li")
                 for item in list_items:
                     item.click()
+                    time.sleep(1)
             except Exception as e:
                 print(e)
                 missing_elements.append("Missing Indel Characterization Tabs")
