@@ -6,7 +6,8 @@ CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*)
 TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPResso_on_FANC.Cas9 \
 CRISPResso_on_params CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
-CRISPRessoCompare_on_Cas9_VS_Untreated)
+CRISPRessoCompare_on_Cas9_VS_Untreated \
+CRISPRessoPooled_on_prime.editing)
 
 all: test
 
@@ -26,8 +27,9 @@ cli_integration_tests/CRISPRessoBatch_on_FANC* \
 cli_integration_tests/CRISPRessoPooled_on_Both.Cas9* \
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
-	log.txt
-
+web_tests/stress_test_log.txt \
+web_tests/UI_docker_log.txt \
+web_tests/UI_selenium_log.txt
 
 basic: cli_integration_tests/CRISPResso_on_FANC.Cas9
 
@@ -58,6 +60,12 @@ cli_integration_tests/CRISPRessoPooled_on_Both.Cas9: install cli_integration_tes
 	cd cli_integration_tests && output=`CRISPRessoPooled -r1 inputs/Both.Cas9.fastq -f inputs/Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 -p 4 --debug 2>&1` || echo "$$output"
 	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPRessoPooled_on_Both.Cas9
 
+pooled_prime_editing: cli_integration_tests/CRISPRessoPooled_on_prime.editing
+
+cli_integration_tests/CRISPRessoPooled_on_prime.editing: install cli_integration_tests/inputs/prime.editing.fastq cli_integration_tests/inputs/prime.editing.amplicons.txt
+	cd cli_integration_tests && output=`CRISPRessoPooled -r1 inputs/prime.editing.fastq -f inputs/prime.editing.amplicons.txt --keep_intermediate --min_reads_to_use_region 1 --debug 2>&1` || echo "$$output"
+	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPRessoPooled_on_prime.editing
+
 wgs: cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome
 
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome: install cli_integration_tests/inputs/Both.Cas9.fastq.smallGenome.bam cli_integration_tests/inputs/small_genome/smallGenome.fa cli_integration_tests/inputs/Cas9.regions.txt
@@ -70,5 +78,8 @@ cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install cli_integr
 	cd cli_integration_tests && output=`CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --debug 2>&1` || echo "$$output"
 	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPRessoCompare_on_Cas9_VS_Untreated
 
-stress: web_stress_test.py
-	python web_stress_test.py
+stress: web_tests/web_stress_test.py
+	python $^
+
+web_ui: web_tests/CRISPResso_Web_UI_Tests/web_ui_test.py
+	python $^
