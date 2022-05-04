@@ -1,5 +1,5 @@
 import time
-import locator
+import web_ui_test_locators
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -11,48 +11,55 @@ class BasePage(object):
     def click_submit(self):
         try:
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Base_Page_Locators.SUBMIT_BUTTON))
+                EC.visibility_of_element_located(web_ui_test_locators.Base_Page_Locators.SUBMIT_BUTTON))
             element.click()
         except Exception as e:
             print(e)
             return False
         return True
 
+    def close_extra_tabs(self):
+        curr = self.driver.current_window_handle
+        for handle in self.driver.window_handles:
+            self.driver.switch_to.window(handle)
+            if handle != curr:
+                self.driver.close()
+
 
 class RegisterLoginPage(BasePage):
     def enter_register_values(self):
         try:
             name = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Register_Login_Locators.NAME_FIELD))
-            name.send_keys(locator.Register_Login_Locators.NAME_VALUE)
+                EC.visibility_of_element_located(web_ui_test_locators.Register_Login_Locators.NAME_FIELD))
+            name.send_keys(web_ui_test_locators.Register_Login_Locators.NAME_VALUE)
         except Exception as e:
             print(e)
             return False
         try:
             name = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Register_Login_Locators.USERNAME_FIELD))
-            name.send_keys(locator.Register_Login_Locators.USERNAME_VALUE)
+                EC.visibility_of_element_located(web_ui_test_locators.Register_Login_Locators.USERNAME_FIELD))
+            name.send_keys(web_ui_test_locators.Register_Login_Locators.USERNAME_VALUE)
         except Exception as e:
             print(e)
             return False
         try:
             name = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Register_Login_Locators.EMAIL_FIELD))
-            name.send_keys(locator.Register_Login_Locators.EMAIL_VALUE)
+                EC.visibility_of_element_located(web_ui_test_locators.Register_Login_Locators.EMAIL_FIELD))
+            name.send_keys(web_ui_test_locators.Register_Login_Locators.EMAIL_VALUE)
         except Exception as e:
             print(e)
             return False
         try:
             name = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Register_Login_Locators.PASSWORD_FIELD))
-            name.send_keys(locator.Register_Login_Locators.PASSWORD_VALUE)
+                EC.visibility_of_element_located(web_ui_test_locators.Register_Login_Locators.PASSWORD_FIELD))
+            name.send_keys(web_ui_test_locators.Register_Login_Locators.PASSWORD_VALUE)
         except Exception as e:
             print(e)
             return False
         try:
             name = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Register_Login_Locators.CONFIRM_PASSWORD_FIELD))
-            name.send_keys(locator.Register_Login_Locators.PASSWORD_VALUE)
+                EC.visibility_of_element_located(web_ui_test_locators.Register_Login_Locators.CONFIRM_PASSWORD_FIELD))
+            name.send_keys(web_ui_test_locators.Register_Login_Locators.PASSWORD_VALUE)
         except Exception as e:
             print(e)
             return False
@@ -61,15 +68,15 @@ class RegisterLoginPage(BasePage):
     def enter_login_values(self):
         try:
             name = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Register_Login_Locators.USERNAME_FIELD))
-            name.send_keys(locator.Register_Login_Locators.USERNAME_VALUE)
+                EC.visibility_of_element_located(web_ui_test_locators.Register_Login_Locators.USERNAME_FIELD))
+            name.send_keys(web_ui_test_locators.Register_Login_Locators.USERNAME_VALUE)
         except Exception as e:
             print(e)
             return False
         try:
             name = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Register_Login_Locators.PASSWORD_FIELD))
-            name.send_keys(locator.Register_Login_Locators.PASSWORD_VALUE)
+                EC.visibility_of_element_located(web_ui_test_locators.Register_Login_Locators.PASSWORD_FIELD))
+            name.send_keys(web_ui_test_locators.Register_Login_Locators.PASSWORD_VALUE)
         except Exception as e:
             print(e)
             return False
@@ -112,18 +119,20 @@ class CRISPRessoCorePage(BasePage):
     def validate_paired_end(self):
         missing_elements = []
         try:
-            element = WebDriverWait(self.driver, 100).until(
-                EC.visibility_of_element_located(locator.Paired_Ends_Locators.STATISTICS_PARAMETERS_CONTAINER))
+            element = WebDriverWait(self.driver, 25).until(
+                EC.visibility_of_element_located(
+                    web_ui_test_locators.Paired_Ends_Locators.STATISTICS_PARAMETERS_CONTAINER))
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Paired_Ends_Locators.ALIGNMENT_STATISTICS_TAB))
+                    EC.visibility_of_element_located(
+                        web_ui_test_locators.Paired_Ends_Locators.ALIGNMENT_STATISTICS_TAB))
                 element.click()
             except Exception as e:
                 print(e)
                 missing_elements.append("Alignment Statistics Tab missing or non-functional")
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Paired_Ends_Locators.RUN_PARAMETERS_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.RUN_PARAMETERS_TAB))
                 element.click()
             except Exception as e:
                 print(e)
@@ -133,17 +142,17 @@ class CRISPRessoCorePage(BasePage):
             missing_elements.append("Alignment Statistics and Run Parameters Tabs Container")
         try:
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Paired_Ends_Locators.PIECHART_BARPLOT_CONTAINER))
+                EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.PIECHART_BARPLOT_CONTAINER))
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Paired_Ends_Locators.PIECHART_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.PIECHART_TAB))
                 element.click()
             except Exception as e:
                 print(e)
                 missing_elements.append("Pie Chart Tab missing or non-functional")
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Paired_Ends_Locators.BARPLOT_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.BARPLOT_TAB))
                 element.click()
             except Exception as e:
                 print(e)
@@ -153,13 +162,13 @@ class CRISPRessoCorePage(BasePage):
             missing_elements.append("Pie Chart and Bar Plot Tabs Container")
         try:
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Paired_Ends_Locators.NUCLEOTIDE_ZOOM))
+                EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.NUCLEOTIDE_ZOOM))
         except Exception as e:
             print(e)
             missing_elements.append("Nucleotide Zoom Image Missing")
         try:
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Paired_Ends_Locators.INDEL_CHARACTERIZATION_TAB))
+                EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.INDEL_CHARACTERIZATION_TAB))
             try:
                 list_items = element.find_elements_by_tag_name("li")
                 for item in list_items:
@@ -177,7 +186,7 @@ class CRISPRessoCorePage(BasePage):
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Paired_Ends_Locators.IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Paired_Ends_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
             print("Missing elements for page validation:")
@@ -189,18 +198,21 @@ class CRISPRessoCorePage(BasePage):
     def validate_single_end(self):
         missing_elements = []
         try:
-            element = WebDriverWait(self.driver, 100).until(
-                EC.visibility_of_element_located(locator.Single_End_Locators.STATISTICS_PARAMETERS_CONTAINER))
+            element = WebDriverWait(self.driver, 25).until(
+                EC.visibility_of_element_located(
+                    web_ui_test_locators.Single_End_Locators.STATISTICS_PARAMETERS_CONTAINER))
             try:
+                time.sleep(1)
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Single_End_Locators.ALIGNMENT_STATISTICS_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Single_End_Locators.ALIGNMENT_STATISTICS_TAB))
                 element.click()
             except Exception as e:
                 print(e)
                 missing_elements.append("Alignment Statistics Tab missing or non-functional")
             try:
+                time.sleep(1)
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Single_End_Locators.RUN_PARAMETERS_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Single_End_Locators.RUN_PARAMETERS_TAB))
                 element.click()
             except Exception as e:
                 print(e)
@@ -209,18 +221,21 @@ class CRISPRessoCorePage(BasePage):
             print(e)
             missing_elements.append("Alignment Statistics and Run Parameters Tabs Container")
         try:
+            time.sleep(1)
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Single_End_Locators.PIECHART_BARPLOT_CONTAINER))
+                EC.visibility_of_element_located(web_ui_test_locators.Single_End_Locators.PIECHART_BARPLOT_CONTAINER))
             try:
+                time.sleep(1)
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Single_End_Locators.PIECHART_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Single_End_Locators.PIECHART_TAB))
                 element.click()
             except Exception as e:
                 print(e)
                 missing_elements.append("Pie Chart Tab missing or non-functional")
             try:
+                time.sleep(1)
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Single_End_Locators.BARPLOT_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Single_End_Locators.BARPLOT_TAB))
                 element.click()
             except Exception as e:
                 print(e)
@@ -229,14 +244,16 @@ class CRISPRessoCorePage(BasePage):
             print(e)
             missing_elements.append("Pie Chart and Bar Plot Tabs Container")
         try:
+            time.sleep(1)
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Single_End_Locators.NUCLEOTIDE_ZOOM))
+                EC.visibility_of_element_located(web_ui_test_locators.Single_End_Locators.NUCLEOTIDE_ZOOM))
         except Exception as e:
             print(e)
             missing_elements.append("Nucleotide Zoom Image Missing")
         try:
+            time.sleep(1)
             element = WebDriverWait(self.driver, 15).until(
-                EC.visibility_of_element_located(locator.Paired_Ends_Locators.INDEL_CHARACTERIZATION_TAB))
+                EC.visibility_of_element_located(web_ui_test_locators.Paired_Ends_Locators.INDEL_CHARACTERIZATION_TAB))
             try:
                 list_items = element.find_elements_by_tag_name("li")
                 for item in list_items:
@@ -248,6 +265,7 @@ class CRISPRessoCorePage(BasePage):
             print(e)
             missing_elements.append("Indel Characterization Container")
         images = self.driver.find_elements_by_tag_name('img')
+        time.sleep(1)
         if len(images) < 12:
             missing_elements.append("Images missing.")
             print(len(images))
@@ -255,7 +273,7 @@ class CRISPRessoCorePage(BasePage):
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Single_End_Locators.IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Single_End_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
             print("Missing elements for page validation:")
@@ -267,18 +285,20 @@ class CRISPRessoCorePage(BasePage):
     def validate_interleaved(self):
         missing_elements = []
         try:
-            element = WebDriverWait(self.driver, 100).until(
-                EC.visibility_of_element_located(locator.Interleaved_Locators.STATISTICS_PARAMETERS_CONTAINER))
+            element = WebDriverWait(self.driver, 25).until(
+                EC.visibility_of_element_located(
+                    web_ui_test_locators.Interleaved_Locators.STATISTICS_PARAMETERS_CONTAINER))
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Interleaved_Locators.ALIGNMENT_STATISTICS_TAB))
+                    EC.visibility_of_element_located(
+                        web_ui_test_locators.Interleaved_Locators.ALIGNMENT_STATISTICS_TAB))
                 element.click()
             except Exception as e:
                 print(e)
                 missing_elements.append("Alignment Statistics Tab missing or non-functional")
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Interleaved_Locators.RUN_PARAMETERS_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Interleaved_Locators.RUN_PARAMETERS_TAB))
                 element.click()
             except Exception as e:
                 print(e)
@@ -288,17 +308,17 @@ class CRISPRessoCorePage(BasePage):
             missing_elements.append("Alignment Statistics and Run Parameters Tabs Container")
         try:
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Interleaved_Locators.PIECHART_BARPLOT_CONTAINER))
+                EC.visibility_of_element_located(web_ui_test_locators.Interleaved_Locators.PIECHART_BARPLOT_CONTAINER))
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Interleaved_Locators.PIECHART_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Interleaved_Locators.PIECHART_TAB))
                 element.click()
             except Exception as e:
                 print(e)
                 missing_elements.append("Pie Chart Tab missing or non-functional")
             try:
                 element = WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(locator.Interleaved_Locators.BARPLOT_TAB))
+                    EC.visibility_of_element_located(web_ui_test_locators.Interleaved_Locators.BARPLOT_TAB))
                 element.click()
             except Exception as e:
                 print(e)
@@ -314,7 +334,7 @@ class CRISPRessoCorePage(BasePage):
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Interleaved_Locators.IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Interleaved_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
             print("Missing elements for page validation:")
@@ -326,26 +346,27 @@ class CRISPRessoCorePage(BasePage):
     def validate_batch(self):
         missing_elements = []
         try:
-            title = WebDriverWait(self.driver, 100).until(
-                EC.visibility_of_element_located(locator.Batch_Locators.TITLE))
+            time.sleep(1)
+            title = WebDriverWait(self.driver, 25).until(
+                EC.visibility_of_element_located(web_ui_test_locators.Batch_Locators.TITLE))
         except Exception as e:
             print(e)
             missing_elements.append("Title not loading")
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.Batch_Locators.IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.Batch_Locators.IMAGE_SOURCES):
             missing_elements.append("Images missing.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Batch_Locators.IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Batch_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
 
         tabs = []
         try:
             time.sleep(2)
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Batch_Locators.FANCF_UNTR_LINK))
+                EC.visibility_of_element_located(web_ui_test_locators.Batch_Locators.FANCF_UNTR_LINK))
             href = element.get_attribute('href')
             self.driver.execute_script("window.open('%s', '_blank')" % href)
             tabs.append("FANCF_untr")
@@ -353,8 +374,9 @@ class CRISPRessoCorePage(BasePage):
             print(e)
             missing_elements.append("FANCF_untr link missing or unclickable")
         try:
+            time.sleep(1)
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Batch_Locators.FANCF_BE1_LINK))
+                EC.visibility_of_element_located(web_ui_test_locators.Batch_Locators.FANCF_BE1_LINK))
             href = element.get_attribute('href')
             self.driver.execute_script("window.open('%s', '_blank')" % href)
             tabs.append("FANCF_BE1")
@@ -362,8 +384,9 @@ class CRISPRessoCorePage(BasePage):
             print(e)
             missing_elements.append("FANCF_BE1 link missing or unclickable")
         try:
+            time.sleep(1)
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Batch_Locators.FANCF_BE2_LINK))
+                EC.visibility_of_element_located(web_ui_test_locators.Batch_Locators.FANCF_BE2_LINK))
             href = element.get_attribute('href')
             self.driver.execute_script("window.open('%s', '_blank')" % href)
             tabs.append("FANCF_BE2")
@@ -371,8 +394,9 @@ class CRISPRessoCorePage(BasePage):
             print(e)
             missing_elements.append("FANCF_BE2 link missing or unclickable")
         try:
+            time.sleep(1)
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.Batch_Locators.FANCF_BE3_LINK))
+                EC.visibility_of_element_located(web_ui_test_locators.Batch_Locators.FANCF_BE3_LINK))
             href = element.get_attribute('href')
             self.driver.execute_script("window.open('%s', '_blank')" % href)
             tabs.append("FANCF_BE3")
@@ -393,6 +417,7 @@ class CRISPRessoCorePage(BasePage):
             elif tabs[tab] == "FANCF_BE3":
                 if not self.validate_batch_FANCF_BE3():
                     missing_elements.append("FANCF_BE3 page validation failed")
+            time.sleep(2)
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.close_extra_tabs()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -406,13 +431,13 @@ class CRISPRessoCorePage(BasePage):
     def validate_batch_FANCF_untr(self):
         missing_elements = []
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.Batch_Locators.UNTR_IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.Batch_Locators.UNTR_IMAGE_SOURCES):
             missing_elements.append("Images missing from FANCF_untr.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Batch_Locators.UNTR_IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Batch_Locators.UNTR_IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image on FANCF_untr.")
         if len(missing_elements) != 0:
             print("Missing elements for FANCF_untr validation:")
@@ -424,13 +449,13 @@ class CRISPRessoCorePage(BasePage):
     def validate_batch_FANCF_BE1(self):
         missing_elements = []
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.Batch_Locators.BE1_IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.Batch_Locators.BE1_IMAGE_SOURCES):
             missing_elements.append("Images missing from FANCF_BE1.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Batch_Locators.BE1_IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Batch_Locators.BE1_IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image on FANCF_BE1.")
         if len(missing_elements) != 0:
             print("Missing elements for FANCF_BE1 validation:")
@@ -442,13 +467,13 @@ class CRISPRessoCorePage(BasePage):
     def validate_batch_FANCF_BE2(self):
         missing_elements = []
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.Batch_Locators.BE2_IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.Batch_Locators.BE2_IMAGE_SOURCES):
             missing_elements.append("Images missing from FANCF_BE2.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Batch_Locators.BE2_IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Batch_Locators.BE2_IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image on FANCF_BE2.")
         if len(missing_elements) != 0:
             print("Missing elements for FANCF_BE2 validation:")
@@ -460,13 +485,13 @@ class CRISPRessoCorePage(BasePage):
     def validate_batch_FANCF_BE3(self):
         missing_elements = []
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.Batch_Locators.BE3_IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.Batch_Locators.BE3_IMAGE_SOURCES):
             missing_elements.append("Images missing from FANCF_BE3.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Batch_Locators.BE3_IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Batch_Locators.BE3_IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image on FANCF_BE3.")
         if len(missing_elements) != 0:
             print("Missing elements for FANCF_BE3 validation:")
@@ -474,13 +499,6 @@ class CRISPRessoCorePage(BasePage):
                 print(missing)
             return False
         return True
-
-    def close_extra_tabs(self):
-        curr = self.driver.current_window_handle
-        for handle in self.driver.window_handles:
-            self.driver.switch_to.window(handle)
-            if handle != curr:
-                self.driver.close()
 
 
 class CRISPRessoPooledPage(BasePage):
@@ -496,18 +514,18 @@ class CRISPRessoPooledPage(BasePage):
         missing_elements = []
         try:
             title = WebDriverWait(self.driver, 50).until(
-                EC.visibility_of_element_located(locator.Pooled_Locators.MODIFICATION_TITLE))
+                EC.visibility_of_element_located(web_ui_test_locators.Pooled_Locators.MODIFICATION_TITLE))
         except Exception as e:
             print(e)
             missing_elements.append("Page not loading")
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.Pooled_Locators.IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.Pooled_Locators.IMAGE_SOURCES):
             missing_elements.append("Images missing from Pooled results.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.Pooled_Locators.IMAGE_SOURCES:
+            if image not in web_ui_test_locators.Pooled_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
         if len(missing_elements) != 0:
             print("Missing elements for Pooled validation:")
@@ -529,26 +547,27 @@ class CRISPRessoWGSPage(BasePage):
     def validate_cas9(self):
         missing_elements = []
         try:
-            title = WebDriverWait(self.driver, 100).until(
-                EC.visibility_of_element_located(locator.WGS_Locators.OUTPUT_TITLE))
+            time.sleep(1)
+            title = WebDriverWait(self.driver, 25).until(
+                EC.visibility_of_element_located(web_ui_test_locators.WGS_Locators.OUTPUT_TITLE))
         except Exception as e:
             print(e)
             missing_elements.append("Title not loading")
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.WGS_Locators.IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.WGS_Locators.IMAGE_SOURCES):
             missing_elements.append("Images missing.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.WGS_Locators.IMAGE_SOURCES:
+            if image not in web_ui_test_locators.WGS_Locators.IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image.")
 
         tabs = []
         try:
             time.sleep(2)
             element = WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(locator.WGS_Locators.FANCF_LINK))
+                EC.visibility_of_element_located(web_ui_test_locators.WGS_Locators.FANCF_LINK))
             href = element.get_attribute('href')
             self.driver.execute_script("window.open('%s', '_blank')" % href)
             tabs.append("FANCF")
@@ -561,6 +580,7 @@ class CRISPRessoWGSPage(BasePage):
             if tabs[tab] == "FANCF":
                 if not self.validate_WGS_FANCF():
                     missing_elements.append("FANCF page validation failed")
+            time.sleep(1)
         self.driver.switch_to.window(self.driver.window_handles[0])
         self.close_extra_tabs()
         self.driver.switch_to.window(self.driver.window_handles[0])
@@ -574,13 +594,13 @@ class CRISPRessoWGSPage(BasePage):
     def validate_WGS_FANCF(self):
         missing_elements = []
         images = self.driver.find_elements_by_tag_name('img')
-        if len(images) < len(locator.WGS_Locators.FANCF_IMAGE_SOURCES):
+        if len(images) < len(web_ui_test_locators.WGS_Locators.FANCF_IMAGE_SOURCES):
             missing_elements.append("Images missing from FANCF.")
         for image in images:
             image = image.get_attribute('src')
             loc = image.rfind('/')
             image = image[loc + 1:]
-            if image not in locator.WGS_Locators.FANCF_IMAGE_SOURCES:
+            if image not in web_ui_test_locators.WGS_Locators.FANCF_IMAGE_SOURCES:
                 missing_elements.append(f"{image} is the incorrect image on FANCF.")
         if len(missing_elements) != 0:
             print("Missing elements for FANCF validation:")
@@ -588,10 +608,3 @@ class CRISPRessoWGSPage(BasePage):
                 print(missing)
             return False
         return True
-
-    def close_extra_tabs(self):
-        curr = self.driver.current_window_handle
-        for handle in self.driver.window_handles:
-            self.driver.switch_to.window(handle)
-            if handle != curr:
-                self.driver.close()

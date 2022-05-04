@@ -194,6 +194,7 @@ class Pooled_Locators(object):
     IMAGE_SOURCES = ["CRISPRessoPooled_reads_summary.png",
                      "CRISPRessoPooled_modification_summary.png"]
 
+
 class WGS_Locators(object):
     OUTPUT_TITLE = (By.ID, "CRISPResso2 WGS Output")
     IMAGE_SOURCES = ["CRISPRessoWGS_reads_summary.png",

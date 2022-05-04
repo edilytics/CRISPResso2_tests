@@ -78,5 +78,8 @@ cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install cli_integr
 	cd cli_integration_tests && output=`CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --debug 2>&1` || echo "$$output"
 	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPRessoCompare_on_Cas9_VS_Untreated
 
-stress: web_stress_test.py
-	python web_stress_test.py
+stress: web_tests/web_stress_test.py
+	python $^
+
+web_ui: web_tests/CRISPResso_Web_UI_Tests/web_ui_test.py
+	python $^
