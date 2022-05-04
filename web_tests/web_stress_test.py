@@ -18,7 +18,7 @@ import requests
 REQUEST_NUM = 500  # Change this number to change number of requests sent
 CONTAINER_NAME = 'c2web_stress_test'
 PORT_NUM = 1234
-LOG_FILE_PATH = '../stress-test-log.txt'
+LOG_FILE_PATH = '../stress_test_log.txt'
 
 
 def sleep():
