@@ -54,21 +54,25 @@ bam1: cli_integration_tests/CRISPResso_on_bam_test_1
 
 cli_integration_tests/CRISPResso_on_bam_test_1: install cli_integration_tests/inputs/bam_test_1.fq
 	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_1.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC -n bam_test_1 --bam_output --debug 2>&1` || echo "$$output"
+	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPResso_on_bam_test_1
 
 bam1x: cli_integration_tests/CRISPResso_on_bam_test_1x
 
 cli_integration_tests/CRISPResso_on_bam_test_1x: install cli_integration_tests/inputs/bam_test_1.fq
 	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_1.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC -x inputs/small_genome/smallGenome -n bam_test_1x --bam_output --debug 2>&1` || echo "$$output"
+	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPResso_on_bam_test_1x
 
 bam2: cli_integration_tests/CRISPResso_on_bam_test_2
 
 cli_integration_tests/CRISPResso_on_bam_test_2: install cli_integration_tests/inputs/bam_test_2.fq
 	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_2.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam_test_2 2>&1` || echo "$$output"
+	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPResso_on_bam_test_2
 
 bam2x: cli_integration_tests/CRISPResso_on_bam_test_2x
 
 cli_integration_tests/CRISPResso_on_bam_test_2x: install cli_integration_tests/inputs/bam_test_2.fq
 	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_2.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT -x inputs/small_genome/smallGenome --bam_output --debug -n bam_test_2x 2>&1` || echo "$$output"
+	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPResso_on_bam_test_2x
 
 batch: cli_integration_tests/CRISPRessoBatch_on_FANC
 

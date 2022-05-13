@@ -4,11 +4,13 @@ import re
 import sys
 from datetime import timedelta
 from difflib import unified_diff
+from glob import glob
 from pathlib import Path
 from os.path import basename, join
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
+FILE_EXTENSIONS = ['*.txt', '*.sam', '*.html']
 IGNORE_FILES = frozenset([
     'CRISPResso_RUNNING_LOG.txt',
     'CRISPRessoBatch_RUNNING_LOG.txt',
@@ -29,9 +31,16 @@ def diff(file_a, file_b):
         return list(unified_diff(lines_a, lines_b))
 
 
+def get_files(directory):
+    files = []
+    for file_extension in FILE_EXTENSIONS:
+        files += glob(join(directory, '**', file_extension), recursive=True)
+    return files
+
+
 def diff_dir(dir_a, dir_b):
-    files_a = {basename(f): f for f in Path(dir_a).rglob('*.txt')}
-    files_b = {basename(f): f for f in Path(dir_b).rglob('*.txt')}
+    files_a = {basename(f): f for f in get_files(dir_a)}
+    files_b = {basename(f): f for f in get_files(dir_b)}
     diff_exists = False
     for file_basename_a, file_path_a in files_a.items():
         if file_basename_a in IGNORE_FILES:
