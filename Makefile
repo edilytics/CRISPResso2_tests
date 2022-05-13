@@ -5,6 +5,7 @@ CRISPRESSO2_DIR := ../CRISPResso2
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*)
 TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPResso_on_FANC.Cas9 \
 CRISPResso_on_params CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
+CRISPResso_on_bam_test_1 CRISPResso_on_bam_test_1x CRISPResso_on_bam_test_2 CRISPResso_on_bam_test_2x \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
 CRISPRessoCompare_on_Cas9_VS_Untreated \
 CRISPRessoPooled_on_prime.editing)
@@ -27,6 +28,7 @@ cli_integration_tests/CRISPRessoBatch_on_FANC* \
 cli_integration_tests/CRISPRessoPooled_on_Both.Cas9* \
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
+cli_integration_tests/CRISPResso_on_bam_test* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
@@ -47,6 +49,26 @@ nhej: cli_integration_tests/CRISPResso_on_nhej
 
 cli_integration_tests/CRISPResso_on_nhej: install cli_integration_tests/
 	cd cli_integration_tests && CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --debug # || echo "$$output"
+
+bam1: cli_integration_tests/CRISPResso_on_bam_test_1
+
+cli_integration_tests/CRISPResso_on_bam_test_1: install cli_integration_tests/inputs/bam_test_1.fq
+	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_1.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC -n bam_test_1 --bam_output --debug 2>&1` || echo "$$output"
+
+bam1x: cli_integration_tests/CRISPResso_on_bam_test_1x
+
+cli_integration_tests/CRISPResso_on_bam_test_1x: install cli_integration_tests/inputs/bam_test_1.fq
+	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_1.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC -x inputs/small_genome/smallGenome -n bam_test_1x --bam_output --debug 2>&1` || echo "$$output"
+
+bam2: cli_integration_tests/CRISPResso_on_bam_test_2
+
+cli_integration_tests/CRISPResso_on_bam_test_2: install cli_integration_tests/inputs/bam_test_2.fq
+	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_2.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam_test_2 2>&1` || echo "$$output"
+
+bam2x: cli_integration_tests/CRISPResso_on_bam_test_2x
+
+cli_integration_tests/CRISPResso_on_bam_test_2x: install cli_integration_tests/inputs/bam_test_2.fq
+	cd cli_integration_tests && output=`CRISPResso -r1 inputs/bam_test_2.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT -x inputs/small_genome/smallGenome --bam_output --debug -n bam_test_2x 2>&1` || echo "$$output"
 
 batch: cli_integration_tests/CRISPRessoBatch_on_FANC
 
