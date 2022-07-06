@@ -1,3 +1,4 @@
+import argparse
 import os
 import subprocess
 import time
@@ -6,12 +7,12 @@ import web_ui_test_page
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
+from tqdm import tqdm
 
-SELENIUM_LOG_FILE_PATH = '../UI_selenium_log.txt'
-DOCKER_LOG_FILE_PATH = '../UI_docker_log.txt'
 
 class Web_UI_Test_Main:
-    def __init__(self):
+    def __init__(self, log_file_path):
+        self.log_file_path = log_file_path
         chrome_options = Options()
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--headless')
@@ -24,88 +25,55 @@ class Web_UI_Test_Main:
             if running_container_id:
                 os.system('docker rm -f {0}'.format(running_container_id))
             print(os.path.realpath(__file__))
-            with open(DOCKER_LOG_FILE_PATH, 'w+') as docker_out:
-                # Development command. Loads docker from the current local C2Web repo instead of the docker image.
-                # results = subprocess.Popen('docker run --name web_automated_tests -e USE_DEFAULT_USER=False -e
-                    # ALLOW_ADMIN_INIT=True -i -p 1234:80 -v [PATH_TO_REPO]/C2Web:/var/www/webapps/CRISPRessoWEB:rw --rm
-                    # crispresso2web'.split(), stdout=docker_out, stderr=docker_out)
-                results = subprocess.Popen('docker run --name web_automated_tests -e USE_DEFAULT_USER=False -e '
-                                           'ALLOW_ADMIN_INIT=True -i -p 1234:80 --rm crispresso2web'.split(),
-                                           stdout=docker_out, stderr=docker_out)
+            # Development command. Loads docker from the current local C2Web repo instead of the docker image.
+            # self.server_process = subprocess.Popen('docker run --name web_automated_tests -e "USE_DEFAULT_USER=False" -e "ALLOW_ADMIN_INIT=True" -i -p 1234:80 -v [PATH_TO_REPO]/C2Web:/var/www/webapps/CRISPRessoWEB:rw --rm crispresso2web')
+            self.server_process = subprocess.Popen(
+                'docker run --name web_automated_tests -e USE_DEFAULT_USER=False -e ALLOW_ADMIN_INIT=True -i -p 1234:80 --rm crispresso2web'.split(),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
             time.sleep(10)
-            print(results)
         except subprocess.CalledProcessError as e:
             print("Unable to start docker container.")
             print(e)
 
     def main(self):
-        with open(SELENIUM_LOG_FILE_PATH, 'w+') as out:
-            out.write("Starting Tests.\n")
+        print('Starting tests')
         passed_tests = []
         failed_tests = []
-        if not self.register_login_test():
-            failed_tests.append("Register and Login Test Failed")
-            return 1
-        else:
-            passed_tests.append("Register and Login Test Passed")
-        print("Login/Register Test Finished")
-        time.sleep(1)
-        if not self.base_paired_end_test():
-            failed_tests.append("Base Paired End Test Failed")
-        else:
-            passed_tests.append("Base Paired End Test Passed")
-        print("Base Paired End Test Finished")
-        time.sleep(1)
-        if not self.base_single_end_test():
-            failed_tests.append("Base Single End Test Failed")
-        else:
-            passed_tests.append("Base Single End Test Passed")
-        print("Base Single End Test Finished")
-        time.sleep(1)
-        if not self.base_interleaved_test():
-            failed_tests.append("Base Interleaved Test Failed")
-        else:
-            passed_tests.append("Base Interleaved Test Passed")
-        print("Base Interleaved Test Finished")
-        time.sleep(1)
-        if not self.base_batch_test():
-            failed_tests.append("Base Batch Test Failed")
-        else:
-            passed_tests.append("Base Batch Test Passed")
-        print("Base Batch Test Finished")
-        time.sleep(1)
-        if not self.pooled_single_end_test():
-            failed_tests.append("Pooled Single End Test Failed")
-        else:
-            passed_tests.append("Pooled Single End Test Passed")
-        print("Pooled Single End Test Finished")
-        time.sleep(1)
-        if not self.wgs_single_cas9_test():
-            failed_tests.append("WGS Cas9 Test Failed")
-        else:
-            passed_tests.append("WGS Cas9 Test Passed")
-        print("WGS Cas9 Test Finished")
-        time.sleep(1)
+
+        tests = [
+            ('Register Login', self.register_login_test),
+            ('Base Paired End', self.base_paired_end_test),
+            ('Base Single End', self.base_single_end_test),
+            ('Base Interleaved', self.base_interleaved_test),
+            ('Base Batch', self.base_batch_test),
+            ('Pooled Single End', self.pooled_single_end_test),
+            ('WGS Cas9', self.wgs_single_cas9_test),
+        ]
+        for test_name, test in tqdm(tests):
+            if test():
+                passed_tests += [test_name]
+            else:
+                failed_tests += [test_name]
+            time.sleep(1)
+
         self.driver.quit()
-        with open(DOCKER_LOG_FILE_PATH, 'a+') as docker_out:
-            subprocess.run('docker container stop web_automated_tests'.split(), stdout=docker_out, stderr=docker_out)
-        passed = True
-        print("\nSuccessful Tests:")
-        if len(passed_tests) > 0:
-            for passed in passed_tests:
-                print(passed)
-        print("\nFailed Tests:")
-        if len(failed_tests) > 0:
-            passed = False
-            for failed in failed_tests:
-                print(failed)
+        subprocess.run('docker container stop web_automated_tests'.split())
+
+        if passed_tests:
+            print('Passed tests:\n\t{0}\n'.format('\n\t'.join(passed_tests)))
         else:
-            print("None")
-        with open(SELENIUM_LOG_FILE_PATH, 'a+') as out:
-            out.write("Tests Finished.\n")
-        if passed:
-            return 0
-        return 1
+            print('No tests passed')
+        if failed_tests:
+            print('Failed tests:\n\t{0}\n'.format('\n\t'.join(failed_tests)))
+        else:
+            print('No tests failed')
+        if failed_tests:
+            with open(self.log_file_path, 'w') as log_fh:
+                log_fh.write(self.server_process.stdout.read().decode('utf-8'))
+            return 1
+        return 0
 
     def register_login_test(self):
         self.driver.get("http://localhost:1234/startup")
@@ -226,4 +194,8 @@ class Web_UI_Test_Main:
 
 
 if __name__ == "__main__":
-    Web_UI_Test_Main().main()
+    parser = argparse.ArgumentParser('CRIPSRessoWeb Interface Unit Tests')
+    parser.add_argument('--log_file_path', default='UI_test_summary_log.txt')
+
+    args = parser.parse_args()
+    Web_UI_Test_Main(args.log_file_path).main()

@@ -82,4 +82,4 @@ stress: web_tests/web_stress_test.py
 	python $^
 
 web_ui: web_tests/CRISPResso_Web_UI_Tests/web_ui_test.py
-	python $^
+	python $^ --log_file_path web_tests/UI_test_summary_log.txt
