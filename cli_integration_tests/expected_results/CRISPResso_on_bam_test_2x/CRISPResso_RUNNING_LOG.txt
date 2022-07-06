@@ -1,0 +1,21 @@
+CRISPResso version 2.2.7
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/bam_test_2.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT -x inputs/small_genome/smallGenome --bam_output --debug -n bam_test_2x
+
+[Execution log]:
+Writing bam output file: CRISPResso_on_bam_test_2x/CRISPResso_output.bam
+The amplicon [Reference] was mapped to: chr11:1184-1270 
+The amplicon [Amplicon1] was mapped to: chr9:966-1052 
+Aligning sequences...
+Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Finished reads; N_TOT_READS: 14 N_COMPUTED_ALN: 14 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Done!
+Removing Intermediate files...
+Analysis Complete!
