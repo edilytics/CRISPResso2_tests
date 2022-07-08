@@ -18,7 +18,7 @@ test: clean test_cli_integration
 
 test_cli_integration: $(TEST_CLI_INTEGRATION_DIRECTORIES)
 
-clean : clean_cli_integration
+clean: clean_cli_integration
 
 clean_cli_integration:
 	rm -rf cli_integration_tests/CRISPResso_on_FANC.Cas9* \
@@ -27,6 +27,7 @@ cli_integration_tests/CRISPRessoBatch_on_FANC* \
 cli_integration_tests/CRISPRessoPooled_on_Both.Cas9* \
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
+cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
