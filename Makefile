@@ -28,6 +28,7 @@ cli_integration_tests/CRISPRessoPooled_on_Both.Cas9* \
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
+cli_integration_tests/CRISPRessoBatch_on_large_batch* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
@@ -54,6 +55,11 @@ batch: cli_integration_tests/CRISPRessoBatch_on_FANC
 cli_integration_tests/CRISPRessoBatch_on_FANC: install cli_integration_tests/inputs/FANC.batch
 	cd cli_integration_tests && output=`CRISPRessoBatch -bs inputs/FANC.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --base_editor 2>&1` || echo "$$output"
 	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPRessoBatch_on_FANC
+
+large-batch: cli_integration_tests/CRISPRessoBatch_on_large_batch
+
+cli_integration_tests/CRISPRessoBatch_on_large_batch: install cli_integration_tests/inputs/FANC_large.batch
+	cd cli_integration_tests && CRISPRessoBatch -bs inputs/FANC_large.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --no_rerun --base_editor -p 4 -n large_batch # 2>&1` || echo "$$output"
 
 pooled: cli_integration_tests/CRISPRessoPooled_on_Both.Cas9
 

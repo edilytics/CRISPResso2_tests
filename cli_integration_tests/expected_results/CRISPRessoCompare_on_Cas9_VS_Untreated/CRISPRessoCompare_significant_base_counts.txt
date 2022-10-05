@@ -1,0 +1,5 @@
+Amplicon	Modification	sig_base_count	sig_base_count_quant_window
+Reference	Insertions	0	0
+Reference	Deletions	17	2
+Reference	Substitutions	0	0
+Reference	All_modifications	17	2
