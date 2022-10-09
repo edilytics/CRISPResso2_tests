@@ -1,0 +1,25 @@
+CRISPResso version 2.2.11
+[Command used]:
+/home/kenclem1/anaconda3/envs/crispresso3_dev/bin/CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --debug --n_processes max --debug --name bam
+
+[Execution log]:
+Index file for input .bam file exists, skipping generation.
+Writing bam output file: CRISPResso_on_bam/CRISPResso_output.bam
+Inferring reference amplicon sequence..
+Auto-detected 1 reference amplicon
+Detected amplicon 0:TTCTGGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAAAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG
+Auto-detected 1 guide
+Detected guide 0:GGCCCAGACTGAGCACGTGA
+Aligning sequences...
+Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Finished reads; N_TOT_READS: 237 N_COMPUTED_ALN: 214 N_CACHED_ALN: 22 N_COMPUTED_NOTALN: 1 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Done!
+Removing Intermediate files...
+Analysis Complete!

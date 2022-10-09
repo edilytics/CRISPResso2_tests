@@ -1,5 +1,6 @@
 # cli_integration_tests current outputs
 cli_integration_tests/CRISPResso_on_FANC.Cas9*
+cli_integration_tests/CRISPResso_on_bam*
 cli_integration_tests/CRISPResso_on_params*
 cli_integration_tests/CRISPRessoBatch_on_FANC*
 cli_integration_tests/CRISPRessoPooled_on_Both.Cas9*
