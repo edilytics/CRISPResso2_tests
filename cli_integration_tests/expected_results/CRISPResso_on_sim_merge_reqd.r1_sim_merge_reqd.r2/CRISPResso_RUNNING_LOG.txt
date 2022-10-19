@@ -1,0 +1,74 @@
+CRISPResso version 2.2.11
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/sim_merge_reqd.r1.fastq -r2 inputs/sim_merge_reqd.r2.fastq --auto --debug --trim_sequences --force_merge_pairs
+
+[Execution log]:
+Inferring reference amplicon sequence..
+Auto-detected 1 reference amplicon
+Detected amplicon 0:CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG
+Auto-detected 0 guide
+Processing sequences with fastp...
+Detecting adapter sequence for read1...
+No adapter detected for read1
+
+Detecting adapter sequence for read2...
+No adapter detected for read2
+
+Read1 before filtering:
+total reads: 100
+total bases: 26100
+Q20 bases: 26100(100%)
+Q30 bases: 26100(100%)
+
+Read2 before filtering:
+total reads: 100
+total bases: 26100
+Q20 bases: 26100(100%)
+Q30 bases: 26100(100%)
+
+Merged and filtered:
+total reads: 100
+total bases: 22300
+Q20 bases: 22300(100%)
+Q30 bases: 22300(100%)
+
+Filtering result:
+reads passed filter: 200
+reads failed due to low quality: 0
+reads failed due to too many N: 0
+reads failed due to too short: 0
+reads with adapter trimmed: 200
+bases trimmed due to adapters: 7600
+reads corrected by overlap analysis: 0
+bases corrected by overlap analysis: 0
+
+Duplication rate: 0%
+
+Insert size peak (evaluated by paired-end reads): 223
+
+Read pairs merged: 100
+% of original read pairs: 100%
+% in reads after filtering: 100%
+
+
+JSON report: CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/fastp_report.json
+HTML report: CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/fastp_report.html
+
+fastp -i inputs/sim_merge_reqd.r1.fastq -I inputs/sim_merge_reqd.r2.fastq --merge --merged_out CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/out.extendedFrags.fastq.gz --unpaired1 CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/out.notCombined_1.fastq.gz --unpaired2 CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/out.notCombined_2.fastq.gz --overlap_len_require 10 --thread 1 --json CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/fastp_report.json --html CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/fastp_report.html --detect_adapter_for_pe 
+fastp v0.23.2, time used: 2 seconds
+Done!
+Forced 0 read pairs together.
+Wrote force-merged reads to CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2/out.forcemerged_uncombined.fastq.gz
+Aligning sequences...
+Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Finished reads; N_TOT_READS: 100 N_COMPUTED_ALN: 1 N_CACHED_ALN: 99 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Done!
+Removing Intermediate files...
+Analysis Complete!

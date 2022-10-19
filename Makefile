@@ -8,7 +8,9 @@ CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
 CRISPRessoCompare_on_Cas9_VS_Untreated \
-CRISPRessoPooled_on_prime.editing)
+CRISPRessoPooled_on_prime.editing \
+CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2 \
+CRISPResso_on_sim_trim_reqd)
 
 all: test
 
@@ -31,6 +33,8 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2* \
+cli_integration_tests/CRISPResso_on_sim_trim_reqd* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
@@ -92,6 +96,16 @@ compare: cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install cli_integration_tests/CRISPRessoBatch_on_FANC
 	cd cli_integration_tests && output=`CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --debug 2>&1` || echo "$$output"
 	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPRessoCompare_on_Cas9_VS_Untreated
+
+merge: cli_integration_tests/CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2
+
+cli_integration_tests/CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2: install cli_integration_tests/inputs/sim_merge_reqd.r1.fastq cli_integration_tests/inputs/sim_merge_reqd.r2.fastq
+	cd cli_integration_tests && output=`CRISPResso -r1 inputs/sim_merge_reqd.r1.fastq -r2 inputs/sim_merge_reqd.r2.fastq --auto --debug --trim_sequences --force_merge_pairs 2>&1` || echo "$$output"
+
+trim: cli_integration_tests/CRISPResso_on_sim_trim_reqd
+
+cli_integration_tests/CRISPResso_on_sim_trim_reqd: install cli_integration_tests/inputs/sim_trim_reqd.fastq
+	cd cli_integration_tests && output=`CRISPResso -r1 inputs/sim_trim_reqd.fastq --auto --debug --trim_sequences 2>&1` || echo"$$output"
 
 stress: web_tests/web_stress_test.py
 	python $^
