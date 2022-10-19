@@ -101,11 +101,13 @@ merge: cli_integration_tests/CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2
 
 cli_integration_tests/CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2: install cli_integration_tests/inputs/sim_merge_reqd.r1.fastq cli_integration_tests/inputs/sim_merge_reqd.r2.fastq
 	cd cli_integration_tests && output=`CRISPResso -r1 inputs/sim_merge_reqd.r1.fastq -r2 inputs/sim_merge_reqd.r2.fastq --auto --debug --trim_sequences --force_merge_pairs 2>&1` || echo "$$output"
+	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPResso_on_sim_merge_reqd.r1_sim_merge_reqd.r2
 
 trim: cli_integration_tests/CRISPResso_on_sim_trim_reqd
 
 cli_integration_tests/CRISPResso_on_sim_trim_reqd: install cli_integration_tests/inputs/sim_trim_reqd.fastq
 	cd cli_integration_tests && output=`CRISPResso -r1 inputs/sim_trim_reqd.fastq --auto --debug --trim_sequences 2>&1` || echo"$$output"
+	python diff.py $@ --dir_b cli_integration_tests/expected_results/CRISPResso_on_sim_trim_reqd
 
 stress: web_tests/web_stress_test.py
 	python $^
