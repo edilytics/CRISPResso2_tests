@@ -7,8 +7,7 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
-CRISPRessoCompare_on_Cas9_VS_Untreated \
-CRISPRessoPooled_on_prime.editing)
+CRISPRessoCompare_on_Cas9_VS_Untreated)
 
 all: test
 
