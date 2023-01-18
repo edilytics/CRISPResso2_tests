@@ -29,37 +29,37 @@ def diff(file_a, file_b):
         return list(unified_diff(lines_a, lines_b))
 
 
-def diff_dir(dir_a, dir_b):
-    files_a = {basename(f): f for f in Path(dir_a).rglob('*.txt')}
-    files_b = {basename(f): f for f in Path(dir_b).rglob('*.txt')}
+def diff_dir(actual, expected):
+    files_actual = {basename(f): f for f in Path(actual).rglob('*.txt')}
+    files_expected = {basename(f): f for f in Path(expected).rglob('*.txt')}
     diff_exists = False
-    for file_basename_a, file_path_a in files_a.items():
-        if file_basename_a in IGNORE_FILES:
+    for file_basename_actual, file_path_actual in files_actual.items():
+        if file_basename_actual in IGNORE_FILES:
             continue
-        if file_basename_a in files_b:
-            diff_results = diff(file_path_a, files_b[file_basename_a])
+        if file_basename_actual in files_expected:
+            diff_results = diff(file_path_actual, files_expected[file_basename_actual])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[file_basename_a],
+                    file_path_actual, files_expected[file_basename_actual],
                 ))
                 for result in diff_results:
                     print(result, end='')
                 diff_exists |= True
         else:
-            print('{0} is not in {1}'.format(file_basename_a, dir_b))
+            print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
             diff_exists |= True
 
-    for file_basename_b in files_b.keys():
-        if file_basename_b not in files_a:
-            print('{0} is not in {1}'.format(file_basename_b, dir_a))
+    for file_basename_expected in files_expected.keys():
+        if file_basename_expected not in files_actual:
+            print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
             diff_exists |= True
 
     return diff_exists
 
 
 def diff_running_times(
-    dir_a,
-    dir_b,
+    actual,
+    expected,
     percent_time_delta,
     info_file,
     keys=('running_info', 'running_time', 'value'),
@@ -81,7 +81,7 @@ def diff_running_times(
             microseconds=current_obj['microseconds'],
         )
 
-    path_a, path_b = Path(dir_a) / info_file, Path(dir_b) / info_file
+    path_a, path_b = Path(actual) / info_file, Path(expected) / info_file
     if path_a.exists() and path_b.exists():
         with open(path_a) as fh_a, open(path_b) as fh_b:
             info_a, info_b = json.load(fh_a), json.load(fh_b)
@@ -91,7 +91,7 @@ def diff_running_times(
         )
         if abs(percent_different) > percent_time_delta:
             print(
-                'Directory A is {0:.2f}% {1} than directory B.'.format(
+                'Actual is {0:.2f}% {1} than Expected.'.format(
                     abs(percent_different) * 100,
                     'faster' if percent_different < 0 else 'slower',
                 ),
@@ -101,12 +101,12 @@ def diff_running_times(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('dir_a', help='Directory of text files to compare.')
-    parser.add_argument('--dir_b', help='Other directory of text files to compare.')
+    parser.add_argument('actual', help='Directory of text files to compare (labelled "Actual").')
+    parser.add_argument('--expected', help='Other directory of text files to compare (labelled "Expected").')
     parser.add_argument(
         '--expected_prefix',
         default='expected_results',
-        help='Directory to prepend for expected results when `dir_b` is not'
+        help='Directory to prepend for expected results when `expected` is not'
         ' provided. The default is `expected_results`.',
     )
     parser.add_argument(
@@ -122,20 +122,20 @@ if __name__ == '__main__':
         '--time_info_file',
         default='CRISPResso2_info.json',
         help='The name of the JSON file that contains the time information.'
-        ' It is assumed that the file is in the root of `dir_a` and `dir_b`.'
+        ' It is assumed that the file is in the root of `actual` and `expected`.'
         'The default is `CRISPResso2_info.json`.',
     )
 
     args = parser.parse_args()
 
-    if args.dir_b is None:
-        dir_b = join(args.expected_prefix, args.dir_a)
+    if args.expected is None:
+        expected = join(args.expected_prefix, args.actual)
     else:
-        dir_b = args.dir_b
+        expected = args.expected
 
     diff_running_times(
-        args.dir_a, dir_b, args.percent_time_delta, args.time_info_file,
+        args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    if diff_dir(args.dir_a, dir_b):
+    if diff_dir(args.actual, expected):
         sys.exit(1)
     sys.exit(0)
