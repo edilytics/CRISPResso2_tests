@@ -80,7 +80,7 @@ def add_test(args):
         if input_file_key in crispresso2_info['running_info']['args']['value']
     ]
     # check for more input files found in batch file
-    if crispresso2_info['running_info']['args']['value']['batch_settings']:
+    if 'batch_settings' in crispresso2_info['running_info']['args']['value']:
         try:
             with open(crispresso2_info['running_info']['args']['value']['batch_settings']) as fh:
                 column_headers = fh.readline().strip().split('\t')
