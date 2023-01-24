@@ -7,6 +7,7 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPRessoPooled_on_pooled-mixed-mode \
 CRISPRessoCompare_on_Cas9_VS_Untreated)
 
 all: test
@@ -14,7 +15,7 @@ all: test
 install: $(CRISPRESSO2_SOURCES)
 	cd $(CRISPRESSO2_DIR) && output=`pip install -e .` || echo "$$output"
 
-test: clean basic-test params-test batch-test pooled-test wgs-test compare-test
+test: clean basic-test params-test batch-test pooled-test wgs-test compare-test pooled-mixed-mode-test
 
 run: $(TEST_CLI_INTEGRATION_DIRECTORIES)
 
@@ -30,6 +31,7 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
@@ -115,3 +117,13 @@ stress: web_tests/web_stress_test.py
 
 web_ui: web_tests/CRISPResso_Web_UI_Tests/web_ui_test.py
 	python $^ --log_file_path web_tests/UI_test_summary_log.txt
+
+.PHONY: pooled-mixed-mode
+pooled-mixed-mode: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode
+
+.PHONY: pooled-mixed-mode-test
+pooled-mixed-mode-test: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode
+	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoPooled_on_pooled-mixed-mode && echo "$@ test passed!"
+
+cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Cas9.amplicons.txt
+	cd cli_integration_tests && output=`CRISPRessoPooled -r1 inputs/Both.Cas9.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode 2>&1` || echo "$$output"
