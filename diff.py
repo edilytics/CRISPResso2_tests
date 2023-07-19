@@ -5,7 +5,7 @@ import sys
 from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
-from os.path import basename, join
+from os.path import basename, join, dirname
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
@@ -27,16 +27,43 @@ def diff(file_a, file_b):
         lines_a = [FLOAT_REGEXP.sub(round_float, line) for line in fh_a]
         lines_b = [FLOAT_REGEXP.sub(round_float, line) for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
+    
+
+def find_dir_matches(file_path_a, files_b, matches):
+    dir_a = basename(dirname(file_path_a))
+    for ind in matches:
+        dir_b = basename(dirname(files_b[ind]))
+        if dir_a == dir_b:
+            return ind
+    return -1
+        
 
 
 def diff_dir(dir_a, dir_b):
-    files_a = {basename(f): f for f in Path(dir_a).rglob('*.txt')}
-    files_b = {basename(f): f for f in Path(dir_b).rglob('*.txt')}
+    files_a = [f for f in Path(dir_a).rglob('*.txt')]
+    file_basenames_a = [basename(f) for f in files_a]
+    files_b = [f for f in Path(dir_b).rglob('*.txt')]
+    file_basenames_b = [basename(f) for f in files_b]
     diff_exists = False
-    for file_basename_a, file_path_a in files_a.items():
+    for file_path_a in files_a:
+        file_basename_a = basename(file_path_a)
         if file_basename_a in IGNORE_FILES:
             continue
-        if file_basename_a in files_b:
+        matches = [ind for ind, f in enumerate(file_basenames_b) if f == file_basename_a]
+        if len(matches) == 1:
+            diff_results = diff(file_path_a, files_b[file_basename_a])
+            if diff_results:
+                print('Comparing {0} to {1}'.format(
+                    file_path_a, files_b[file_basename_a],
+                ))
+                for result in diff_results:
+                    print(result, end='')
+                diff_exists |= True
+        elif len(matches) > 1:
+            match_dir = find_dir_matches(file_path_a, files_b, matches)
+            if match_dir == -1:
+                print('{0} is not in {1}'.format(file_basename_a, dir_b))
+                diff_exists |= True
             diff_results = diff(file_path_a, files_b[file_basename_a])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
