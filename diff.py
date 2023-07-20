@@ -1,7 +1,9 @@
 import argparse
 import json
+import os
 import re
 import sys
+import subprocess
 from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
@@ -16,6 +18,29 @@ IGNORE_FILES = frozenset([
     'CRISPRessoWGS_RUNNING_LOG.txt',
     'CRISPRessoCompare_RUNNING_LOG.txt',
 ])
+
+
+def which(program):
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
+
+YDIFF_INSTALLED = which('ydiff')
+if not YDIFF_INSTALLED:
+    print('ydiff is not installed. Install it (`pip install ydiff`) for better diffs.')
 
 
 def round_float(f):
@@ -69,8 +94,17 @@ def diff_dir(dir_a, dir_b):
                 print('Comparing {0} to {1}'.format(
                     file_path_a, files_b[match_dir],
                 ))
-                for result in diff_results:
-                    print(result, end='')
+
+                if YDIFF_INSTALLED:
+                    read, write = os.pipe()
+                    os.write(write, ''.join(diff_results).encode('utf-8'))
+                    os.close(write)
+
+                    subprocess.check_call('ydiff -s -w 0 --wrap', stdin=read, shell=True)
+                    os.close(read)
+                else:
+                    for line in diff_results:
+                        print(line, end='')
                 diff_exists |= True
         else:
             print('{0} is not in {1}'.format(file_basename_a, dir_b))
