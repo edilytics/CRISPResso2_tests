@@ -1,7 +1,9 @@
 import argparse
 import json
+import os
 import re
 import sys
+import subprocess
 from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
@@ -42,8 +44,12 @@ def diff_dir(dir_a, dir_b):
                 print('Comparing {0} to {1}'.format(
                     file_path_a, files_b[file_basename_a],
                 ))
-                for result in diff_results:
-                    print(result, end='')
+
+                read, write = os.pipe()
+                os.write(write, ''.join(diff_results).encode('utf-8'))
+                os.close(write)
+
+                subprocess.check_call('ydiff -s -w 0 --wrap', stdin=read, shell=True)
                 diff_exists |= True
         else:
             print('{0} is not in {1}'.format(file_basename_a, dir_b))
