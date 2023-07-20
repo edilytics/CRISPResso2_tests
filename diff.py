@@ -51,10 +51,10 @@ def diff_dir(dir_a, dir_b):
             continue
         matches = [ind for ind, f in enumerate(file_basenames_b) if f == file_basename_a]
         if len(matches) == 1:
-            diff_results = diff(file_path_a, files_b[file_basename_a])
+            diff_results = diff(file_path_a, files_b[file_basenames_b.index(file_basename_a)])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[file_basename_a],
+                    file_path_a, files_b[file_basenames_b.index(file_basename_a)],
                 ))
                 for result in diff_results:
                     print(result, end='')
@@ -64,10 +64,10 @@ def diff_dir(dir_a, dir_b):
             if match_dir == -1:
                 print('{0} is not in {1}'.format(file_basename_a, dir_b))
                 diff_exists |= True
-            diff_results = diff(file_path_a, files_b[file_basename_a])
+            diff_results = diff(file_path_a, files_b[match_dir])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[file_basename_a],
+                    file_path_a, files_b[match_dir],
                 ))
                 for result in diff_results:
                     print(result, end='')
@@ -76,8 +76,8 @@ def diff_dir(dir_a, dir_b):
             print('{0} is not in {1}'.format(file_basename_a, dir_b))
             diff_exists |= True
 
-    for file_basename_b in files_b.keys():
-        if file_basename_b not in files_a:
+    for file_basename_b in file_basenames_b:
+        if file_basename_b not in file_basenames_a:
             print('{0} is not in {1}'.format(file_basename_b, dir_a))
             diff_exists |= True
 
