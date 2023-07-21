@@ -9,6 +9,8 @@ Then to run only the integration tests you can issue `make test_cli_integration`
 
 Furthermore, the running times of each integration test will be checked and if there is a difference > 10% in the two times, it will be reported.
 
+For improved diff output, run `pip install ydiff` and the diffs will be colorized and side by side.
+
 
 ### `Selenium Testing`
 

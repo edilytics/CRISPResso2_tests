@@ -1,11 +1,13 @@
 import argparse
 import json
+import os
 import re
 import sys
+import subprocess
 from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
-from os.path import basename, join
+from os.path import basename, join, dirname
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
@@ -16,6 +18,29 @@ IGNORE_FILES = frozenset([
     'CRISPRessoWGS_RUNNING_LOG.txt',
     'CRISPRessoCompare_RUNNING_LOG.txt',
 ])
+
+
+def which(program):
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
+
+YDIFF_INSTALLED = which('ydiff')
+if not YDIFF_INSTALLED:
+    print('ydiff is not installed. Install it (`pip install ydiff`) for better diffs.')
 
 
 def round_float(f):
@@ -29,28 +54,65 @@ def diff(file_a, file_b):
         return list(unified_diff(lines_a, lines_b))
 
 
+def print_diff(diff_results):
+    if YDIFF_INSTALLED:
+        read, write = os.pipe()
+        os.write(write, ''.join(diff_results).encode('utf-8'))
+        os.close(write)
+
+        subprocess.check_call('ydiff -s -w 0 --wrap', stdin=read, shell=True)
+        os.close(read)
+    else:
+        for line in diff_results:
+            print(line, end='')
+
+
+def find_dir_matches(file_path_a, files_b, matches):
+    dir_a = basename(dirname(file_path_a))
+    for ind in matches:
+        dir_b = basename(dirname(files_b[ind]))
+        if dir_a == dir_b:
+            return ind
+    return -1
+
+
 def diff_dir(dir_a, dir_b):
-    files_a = {basename(f): f for f in Path(dir_a).rglob('*.txt')}
-    files_b = {basename(f): f for f in Path(dir_b).rglob('*.txt')}
+    files_a = [f for f in Path(dir_a).rglob('*.txt')]
+    file_basenames_a = [basename(f) for f in files_a]
+    files_b = [f for f in Path(dir_b).rglob('*.txt')]
+    file_basenames_b = [basename(f) for f in files_b]
     diff_exists = False
-    for file_basename_a, file_path_a in files_a.items():
+    for file_path_a in files_a:
+        file_basename_a = basename(file_path_a)
         if file_basename_a in IGNORE_FILES:
             continue
-        if file_basename_a in files_b:
-            diff_results = diff(file_path_a, files_b[file_basename_a])
+        matches = [ind for ind, f in enumerate(file_basenames_b) if f == file_basename_a]
+        if len(matches) == 1:
+            diff_results = diff(file_path_a, files_b[matches[0]])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[file_basename_a],
+                    file_path_a, files_b[matches[0]],
                 ))
-                for result in diff_results:
-                    print(result, end='')
+                print_diff(diff_results)
+                diff_exists |= True
+        elif len(matches) > 1:
+            match_dir = find_dir_matches(file_path_a, files_b, matches)
+            if match_dir == -1:
+                print('{0} is not in {1}'.format(file_basename_a, dir_b))
+                diff_exists |= True
+            diff_results = diff(file_path_a, files_b[match_dir])
+            if diff_results:
+                print('Comparing {0} to {1}'.format(
+                    file_path_a, files_b[match_dir],
+                ))
+                print_diff(diff_results)
                 diff_exists |= True
         else:
             print('{0} is not in {1}'.format(file_basename_a, dir_b))
             diff_exists |= True
 
-    for file_basename_b in files_b.keys():
-        if file_basename_b not in files_a:
+    for file_basename_b in file_basenames_b:
+        if file_basename_b not in file_basenames_a:
             print('{0} is not in {1}'.format(file_basename_b, dir_a))
             diff_exists |= True
 
