@@ -76,10 +76,10 @@ def diff_dir(dir_a, dir_b):
             continue
         matches = [ind for ind, f in enumerate(file_basenames_b) if f == file_basename_a]
         if len(matches) == 1:
-            diff_results = diff(file_path_a, files_b[file_basenames_b.index(file_basename_a)])
+            diff_results = diff(file_path_a, files_b[matches[0]])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[file_basenames_b.index(file_basename_a)],
+                    file_path_a, files_b[matches[0]],
                 ))
                 for result in diff_results:
                     print(result, end='')
