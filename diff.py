@@ -52,7 +52,20 @@ def diff(file_a, file_b):
         lines_a = [FLOAT_REGEXP.sub(round_float, line) for line in fh_a]
         lines_b = [FLOAT_REGEXP.sub(round_float, line) for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
-    
+
+
+def print_diff(diff_results):
+    if YDIFF_INSTALLED:
+        read, write = os.pipe()
+        os.write(write, ''.join(diff_results).encode('utf-8'))
+        os.close(write)
+
+        subprocess.check_call('ydiff -s -w 0 --wrap', stdin=read, shell=True)
+        os.close(read)
+    else:
+        for line in diff_results:
+            print(line, end='')
+
 
 def find_dir_matches(file_path_a, files_b, matches):
     dir_a = basename(dirname(file_path_a))
@@ -61,7 +74,6 @@ def find_dir_matches(file_path_a, files_b, matches):
         if dir_a == dir_b:
             return ind
     return -1
-        
 
 
 def diff_dir(dir_a, dir_b):
@@ -81,8 +93,7 @@ def diff_dir(dir_a, dir_b):
                 print('Comparing {0} to {1}'.format(
                     file_path_a, files_b[matches[0]],
                 ))
-                for result in diff_results:
-                    print(result, end='')
+                print_diff(diff_results)
                 diff_exists |= True
         elif len(matches) > 1:
             match_dir = find_dir_matches(file_path_a, files_b, matches)
@@ -94,17 +105,7 @@ def diff_dir(dir_a, dir_b):
                 print('Comparing {0} to {1}'.format(
                     file_path_a, files_b[match_dir],
                 ))
-
-                if YDIFF_INSTALLED:
-                    read, write = os.pipe()
-                    os.write(write, ''.join(diff_results).encode('utf-8'))
-                    os.close(write)
-
-                    subprocess.check_call('ydiff -s -w 0 --wrap', stdin=read, shell=True)
-                    os.close(read)
-                else:
-                    for line in diff_results:
-                        print(line, end='')
+                print_diff(diff_results)
                 diff_exists |= True
         else:
             print('{0} is not in {1}'.format(file_basename_a, dir_b))
