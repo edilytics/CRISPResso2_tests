@@ -1,0 +1,8 @@
+import subprocess
+
+def main():
+    basic_cmd = 'CRISPResso -r1 /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug 2>&1'
+    subprocess.run(basic_cmd, shell=True, stderr=subprocess.STDOUT, text=True)
+
+if __name__ == '__main__':
+    main()
