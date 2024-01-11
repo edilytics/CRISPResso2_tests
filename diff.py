@@ -76,52 +76,36 @@ def find_dir_matches(file_path_a, files_b, matches):
     return -1
 
 
-def diff_dir(dir_a, dir_b):
-    files_a = [f for f in Path(dir_a).rglob('*.txt')]
-    file_basenames_a = [basename(f) for f in files_a]
-    files_b = [f for f in Path(dir_b).rglob('*.txt')]
-    file_basenames_b = [basename(f) for f in files_b]
+def diff_dir(actual, expected):
+    files_actual = {basename(f): f for f in Path(actual).rglob('*.txt')}
+    files_expected = {basename(f): f for f in Path(expected).rglob('*.txt')}
     diff_exists = False
-    for file_path_a in files_a:
-        file_basename_a = basename(file_path_a)
-        if file_basename_a in IGNORE_FILES:
+    for file_basename_actual, file_path_actual in files_actual.items():
+        if file_basename_actual in IGNORE_FILES:
             continue
-        matches = [ind for ind, f in enumerate(file_basenames_b) if f == file_basename_a]
-        if len(matches) == 1:
-            diff_results = diff(file_path_a, files_b[matches[0]])
+        if file_basename_actual in files_expected:
+            diff_results = diff(file_path_actual, files_expected[file_basename_actual])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[matches[0]],
-                ))
-                print_diff(diff_results)
-                diff_exists |= True
-        elif len(matches) > 1:
-            match_dir = find_dir_matches(file_path_a, files_b, matches)
-            if match_dir == -1:
-                print('{0} is not in {1}'.format(file_basename_a, dir_b))
-                diff_exists |= True
-            diff_results = diff(file_path_a, files_b[match_dir])
-            if diff_results:
-                print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[match_dir],
+                    file_path_actual, files_expected[file_basename_actual],
                 ))
                 print_diff(diff_results)
                 diff_exists |= True
         else:
-            print('{0} is not in {1}'.format(file_basename_a, dir_b))
+            print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
             diff_exists |= True
 
-    for file_basename_b in file_basenames_b:
-        if file_basename_b not in file_basenames_a:
-            print('{0} is not in {1}'.format(file_basename_b, dir_a))
+    for file_basename_expected in files_expected.keys():
+        if file_basename_expected not in files_actual:
+            print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
             diff_exists |= True
 
     return diff_exists
 
 
 def diff_running_times(
-    dir_a,
-    dir_b,
+    actual,
+    expected,
     percent_time_delta,
     info_file,
     keys=('running_info', 'running_time', 'value'),
@@ -143,7 +127,7 @@ def diff_running_times(
             microseconds=current_obj['microseconds'],
         )
 
-    path_a, path_b = Path(dir_a) / info_file, Path(dir_b) / info_file
+    path_a, path_b = Path(actual) / info_file, Path(expected) / info_file
     if path_a.exists() and path_b.exists():
         with open(path_a) as fh_a, open(path_b) as fh_b:
             info_a, info_b = json.load(fh_a), json.load(fh_b)
@@ -153,7 +137,7 @@ def diff_running_times(
         )
         if abs(percent_different) > percent_time_delta:
             print(
-                'Directory A is {0:.2f}% {1} than directory B.'.format(
+                'Actual is {0:.2f}% {1} than Expected.'.format(
                     abs(percent_different) * 100,
                     'faster' if percent_different < 0 else 'slower',
                 ),
@@ -163,12 +147,12 @@ def diff_running_times(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('dir_a', help='Directory of text files to compare.')
-    parser.add_argument('--dir_b', help='Other directory of text files to compare.')
+    parser.add_argument('actual', help='Directory of text files to compare (labelled "Actual").')
+    parser.add_argument('--expected', help='Other directory of text files to compare (labelled "Expected").')
     parser.add_argument(
         '--expected_prefix',
         default='expected_results',
-        help='Directory to prepend for expected results when `dir_b` is not'
+        help='Directory to prepend for expected results when `expected` is not'
         ' provided. The default is `expected_results`.',
     )
     parser.add_argument(
@@ -184,20 +168,20 @@ if __name__ == '__main__':
         '--time_info_file',
         default='CRISPResso2_info.json',
         help='The name of the JSON file that contains the time information.'
-        ' It is assumed that the file is in the root of `dir_a` and `dir_b`.'
+        ' It is assumed that the file is in the root of `actual` and `expected`.'
         'The default is `CRISPResso2_info.json`.',
     )
 
     args = parser.parse_args()
 
-    if args.dir_b is None:
-        dir_b = join(args.expected_prefix, args.dir_a)
+    if args.expected is None:
+        expected = join(args.expected_prefix, args.actual)
     else:
-        dir_b = args.dir_b
+        expected = args.expected
 
     diff_running_times(
-        args.dir_a, dir_b, args.percent_time_delta, args.time_info_file,
+        args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    if diff_dir(args.dir_a, dir_b):
+    if diff_dir(args.actual, expected):
         sys.exit(1)
     sys.exit(0)
