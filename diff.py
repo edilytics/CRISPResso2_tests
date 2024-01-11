@@ -91,18 +91,6 @@ def diff_dir(actual, expected):
                 ))
                 print_diff(diff_results)
                 diff_exists |= True
-        elif len(matches) > 1:
-            match_dir = find_dir_matches(file_path_a, files_b, matches)
-            if match_dir == -1:
-                print('{0} is not in {1}'.format(file_basename_a, dir_b))
-                diff_exists |= True
-            diff_results = diff(file_path_a, files_b[match_dir])
-            if diff_results:
-                print('Comparing {0} to {1}'.format(
-                    file_path_a, files_b[match_dir],
-                ))
-                print_diff(diff_results)
-                diff_exists |= True
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
             diff_exists |= True

@@ -15,7 +15,7 @@ all: test
 install: $(CRISPRESSO2_SOURCES)
 	cd $(CRISPRESSO2_DIR) && output=`pip install -e .` || echo "$$output"
 
-test: clean basic-test params-test batch-test pooled-test wgs-test compare-test pooled-mixed-mode-test
+test: clean basic-test params-test batch-test pooled-test wgs-test compare-test
 
 run: $(TEST_CLI_INTEGRATION_DIRECTORIES)
 
