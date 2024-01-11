@@ -11,6 +11,7 @@ from os.path import basename, join, dirname
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
+DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 IGNORE_FILES = frozenset([
     'CRISPResso_RUNNING_LOG.txt',
     'CRISPRessoBatch_RUNNING_LOG.txt',
@@ -44,13 +45,61 @@ if not YDIFF_INSTALLED:
 
 
 def round_float(f):
+    """Round float to 3 decimal places
+
+    Parameters
+    ----------
+    f : re.Match
+        Float string
+
+    Returns
+    -------
+    str
+        float rounded to 3 decimal places
+    """
     return str(round(float(f.group(0)), 3))
+
+
+def round_datetime(t):
+    """Round datetime to a random date
+
+    This is to avoid diffs in the datetime format.
+
+    Parameters
+    ----------
+    t : str
+        Datetime string
+
+    Returns
+    -------
+    str
+        Line with datetime of a random date
+    """
+    return '2024-01-11 12:34:56'
+
+
+def substitute_line(line):
+    """Substitute floats and datetimes in a line
+
+    Parameters
+    ----------
+    line : str
+        Line to substitute
+
+    Returns
+    -------
+    str
+        Line with floats and datetimes substituted
+    """
+    line = FLOAT_REGEXP.sub(round_float, line)
+    line = DATETIME_REGEXP.sub(round_datetime, line)
+    return line
 
 
 def diff(file_a, file_b):
     with open(file_a) as fh_a, open(file_b) as fh_b:
-        lines_a = [FLOAT_REGEXP.sub(round_float, line) for line in fh_a]
-        lines_b = [FLOAT_REGEXP.sub(round_float, line) for line in fh_b]
+        lines_a = [substitute_line(line) for line in fh_a]
+        lines_b = [substitute_line(line) for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
 
 
