@@ -76,9 +76,9 @@ def find_dir_matches(file_path_a, files_b, matches):
     return -1
 
 
-def diff_dir(actual, expected):
-    files_actual = {basename(f): f for f in Path(actual).rglob('*.txt')}
-    files_expected = {basename(f): f for f in Path(expected).rglob('*.txt')}
+def diff_dir(actual, expected, suffixes=('.txt', '.html')):
+    files_actual = {basename(f): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
+    files_expected = {basename(f): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
     for file_basename_actual, file_path_actual in files_actual.items():
         if file_basename_actual in IGNORE_FILES:
