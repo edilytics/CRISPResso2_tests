@@ -1,2 +1,2 @@
 Name	Unmodified%	Modified%	Reads_total	Reads_aligned	Unmodified	Modified	Discarded	Insertions	Deletions	Substitutions	Only Insertions	Only Deletions	Only Substitutions	Insertions and Deletions	Insertions and Substitutions	Deletions and Substitutions	Insertions Deletions and Substitutions
-pe_seq1	80.0	20.0	5	5	4	1	0	0	1	0	0	1	0	0	0	0	0
+pe_seq1	66.66666667	33.33333333	6	6	4	2	0	1	1	0	1	1	0	0	0	0	0

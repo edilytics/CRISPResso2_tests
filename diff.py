@@ -1,11 +1,13 @@
 import argparse
 import json
+import os
 import re
 import sys
+import subprocess
 from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
-from os.path import basename, join
+from os.path import basename, join, dirname
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
@@ -18,6 +20,29 @@ IGNORE_FILES = frozenset([
 ])
 
 
+def which(program):
+    def is_exe(fpath):
+        return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return program
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            path = path.strip('"')
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return exe_file
+
+    return None
+
+
+YDIFF_INSTALLED = which('ydiff')
+if not YDIFF_INSTALLED:
+    print('ydiff is not installed. Install it (`pip install ydiff`) for better diffs.')
+
+
 def round_float(f):
     return str(round(float(f.group(0)), 3))
 
@@ -27,6 +52,28 @@ def diff(file_a, file_b):
         lines_a = [FLOAT_REGEXP.sub(round_float, line) for line in fh_a]
         lines_b = [FLOAT_REGEXP.sub(round_float, line) for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
+
+
+def print_diff(diff_results):
+    if YDIFF_INSTALLED:
+        read, write = os.pipe()
+        os.write(write, ''.join(diff_results).encode('utf-8'))
+        os.close(write)
+
+        subprocess.check_call('ydiff -s -w 0 --wrap', stdin=read, shell=True)
+        os.close(read)
+    else:
+        for line in diff_results:
+            print(line, end='')
+
+
+def find_dir_matches(file_path_a, files_b, matches):
+    dir_a = basename(dirname(file_path_a))
+    for ind in matches:
+        dir_b = basename(dirname(files_b[ind]))
+        if dir_a == dir_b:
+            return ind
+    return -1
 
 
 def diff_dir(actual, expected):
@@ -42,8 +89,19 @@ def diff_dir(actual, expected):
                 print('Comparing {0} to {1}'.format(
                     file_path_actual, files_expected[file_basename_actual],
                 ))
-                for result in diff_results:
-                    print(result, end='')
+                print_diff(diff_results)
+                diff_exists |= True
+        elif len(matches) > 1:
+            match_dir = find_dir_matches(file_path_a, files_b, matches)
+            if match_dir == -1:
+                print('{0} is not in {1}'.format(file_basename_a, dir_b))
+                diff_exists |= True
+            diff_results = diff(file_path_a, files_b[match_dir])
+            if diff_results:
+                print('Comparing {0} to {1}'.format(
+                    file_path_a, files_b[match_dir],
+                ))
+                print_diff(diff_results)
                 diff_exists |= True
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
