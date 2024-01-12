@@ -116,11 +116,11 @@ def add_test(args):
         print('Could not copy {0}.html to cli_integration_tests/expected_results, please manually copy!'.format(args.directory))
 
     print('\nAdding test to Makefile...')
-    add_test_to_makefile(test_command, run_name, os.path.basename(args.directory), input_files)
+    add_test_to_makefile(test_command, run_name, os.path.basename(os.path.normpath(args.directory)), input_files)
 
     print('\nAdding actual files to .gitignore...')
     with open('.gitignore', 'a') as fh:
-        fh.write('\ncli_integration_tests/{0}*\n'.format(os.path.basename(args.directory)))
+        fh.write('\ncli_integration_tests/{0}*\n'.format(os.path.basename(os.path.normpath(args.directory))))
 
     print('\nYou can now run the command with `make {0}`'.format(run_name))
     print('And test with the command `make {0}-test`'.format(run_name))
