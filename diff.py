@@ -13,6 +13,7 @@ from shutil import copyfile
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
 DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
+COMMAND_REGEXP = re.compile(r'<p>Command used: .*')
 IGNORE_FILES = frozenset([
     'CRISPResso_RUNNING_LOG.txt',
     'CRISPRessoBatch_RUNNING_LOG.txt',
@@ -61,24 +62,6 @@ def round_float(f):
     return str(round(float(f.group(0)), 3))
 
 
-def round_datetime(t):
-    """Round datetime to a random date
-
-    This is to avoid diffs in the datetime format.
-
-    Parameters
-    ----------
-    t : str
-        Datetime string
-
-    Returns
-    -------
-    str
-        Line with datetime of a random date
-    """
-    return '2024-01-11 12:34:56'
-
-
 def substitute_line(line):
     """Substitute floats and datetimes in a line
 
@@ -93,7 +76,8 @@ def substitute_line(line):
         Line with floats and datetimes substituted
     """
     line = FLOAT_REGEXP.sub(round_float, line)
-    line = DATETIME_REGEXP.sub(round_datetime, line)
+    line = DATETIME_REGEXP.sub('2024-01-11 12:34:56', line)
+    line = COMMAND_REGEXP.sub('<p>Command used: <command></p>', line)
     return line
 
 
