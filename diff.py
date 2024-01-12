@@ -8,6 +8,7 @@ from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
 from os.path import basename, join, dirname
+from shutil import copyfile
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
@@ -134,11 +135,11 @@ def update_file(actual, expected):
 
 
 def diff_dir(actual, expected, suffixes=('.txt', '.html'), prompt_to_update=False):
-    files_actual = {basename(f): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
-    files_expected = {basename(f): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
+    files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
+    files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
     for file_basename_actual, file_path_actual in files_actual.items():
-        if file_basename_actual in IGNORE_FILES:
+        if basename(file_basename_actual) in IGNORE_FILES:
             continue
         if file_basename_actual in files_expected:
             diff_results = diff(file_path_actual, files_expected[file_basename_actual])
