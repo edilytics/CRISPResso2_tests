@@ -4,6 +4,8 @@ import json
 import os
 from shutil import copyfile, copytree
 
+from diff import diff_dir
+
 
 def get_crispresso2_info_path(result_dir):
     potential_paths = glob.glob(os.path.join(result_dir, 'CRISPResso2*_info.json'))
@@ -114,14 +116,19 @@ def add_test(args):
         print('Could not copy {0}.html to cli_integration_tests/expected_results, please manually copy!'.format(args.directory))
 
     print('\nAdding test to Makefile...')
-    add_test_to_makefile(test_command, run_name, os.path.basename(args.directory), input_files)
+    add_test_to_makefile(test_command, run_name, os.path.basename(os.path.normpath(args.directory)), input_files)
 
     print('\nAdding actual files to .gitignore...')
     with open('.gitignore', 'a') as fh:
-        fh.write('\ncli_integration_tests/{0}*\n'.format(os.path.basename(args.directory)))
+        fh.write('\ncli_integration_tests/{0}*\n'.format(os.path.basename(os.path.normpath(args.directory))))
 
     print('\nYou can now run the command with `make {0}`'.format(run_name))
     print('And test with the command `make {0}-test`'.format(run_name))
+
+
+def update_test(args):
+    if not diff_dir(args.actual, args.expected, prompt_to_update=True):
+        print('No changes to update!')
 
 
 if __name__ == '__main__':
@@ -132,6 +139,11 @@ if __name__ == '__main__':
     parser_add = subparsers.add_parser('add', help='Add a new test')
     parser_add.set_defaults(func=add_test)
     parser_add.add_argument('directory', help='Path to the result directory of the test to add')
+
+    parser_update = subparsers.add_parser('update', help='Update an existing test')
+    parser_update.set_defaults(func=update_test)
+    parser_update.add_argument('actual', help='Path to the result directory of the test to update')
+    parser_update.add_argument('expected', help='Path to the expected result directory of the test to update')
 
     args = parser.parse_args()
     args.func(args)

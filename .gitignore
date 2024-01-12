@@ -139,3 +139,5 @@ dmypy.json
 .pyre/
 
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode*
+
+.DS_Store

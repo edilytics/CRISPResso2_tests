@@ -8,9 +8,12 @@ from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
 from os.path import basename, join, dirname
+from shutil import copyfile
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
+DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
+COMMAND_REGEXP = re.compile(r'<p>Command used: .*')
 IGNORE_FILES = frozenset([
     'CRISPResso_RUNNING_LOG.txt',
     'CRISPRessoBatch_RUNNING_LOG.txt',
@@ -44,13 +47,44 @@ if not YDIFF_INSTALLED:
 
 
 def round_float(f):
+    """Round float to 3 decimal places
+
+    Parameters
+    ----------
+    f : re.Match
+        Float string
+
+    Returns
+    -------
+    str
+        float rounded to 3 decimal places
+    """
     return str(round(float(f.group(0)), 3))
+
+
+def substitute_line(line):
+    """Substitute floats and datetimes in a line
+
+    Parameters
+    ----------
+    line : str
+        Line to substitute
+
+    Returns
+    -------
+    str
+        Line with floats and datetimes substituted
+    """
+    line = FLOAT_REGEXP.sub(round_float, line)
+    line = DATETIME_REGEXP.sub('2024-01-11 12:34:56', line)
+    line = COMMAND_REGEXP.sub('<p>Command used: <command></p>', line)
+    return line
 
 
 def diff(file_a, file_b):
     with open(file_a) as fh_a, open(file_b) as fh_b:
-        lines_a = [FLOAT_REGEXP.sub(round_float, line) for line in fh_a]
-        lines_b = [FLOAT_REGEXP.sub(round_float, line) for line in fh_b]
+        lines_a = [substitute_line(line) for line in fh_a]
+        lines_b = [substitute_line(line) for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
 
 
@@ -76,12 +110,20 @@ def find_dir_matches(file_path_a, files_b, matches):
     return -1
 
 
-def diff_dir(actual, expected):
-    files_actual = {basename(f): f for f in Path(actual).rglob('*.txt')}
-    files_expected = {basename(f): f for f in Path(expected).rglob('*.txt')}
+def update_file(actual, expected):
+    print(f'\nDo you want to update this file?')
+    update_input = input('[y/n]: ')
+    if update_input.lower() == 'n':
+        return
+    copyfile(actual, expected)
+
+
+def diff_dir(actual, expected, suffixes=('.txt', '.html'), prompt_to_update=False):
+    files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
+    files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
     for file_basename_actual, file_path_actual in files_actual.items():
-        if file_basename_actual in IGNORE_FILES:
+        if basename(file_basename_actual) in IGNORE_FILES:
             continue
         if file_basename_actual in files_expected:
             diff_results = diff(file_path_actual, files_expected[file_basename_actual])
@@ -91,9 +133,13 @@ def diff_dir(actual, expected):
                 ))
                 print_diff(diff_results)
                 diff_exists |= True
+                if prompt_to_update:
+                    update_file(file_path_actual, files_expected[file_basename_actual])
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
             diff_exists |= True
+            if prompt_to_update:
+                update_file(file_path_actual, join(expected, file_basename_actual))
 
     for file_basename_expected in files_expected.keys():
         if file_basename_expected not in files_actual:
