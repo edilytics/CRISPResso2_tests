@@ -2,15 +2,58 @@
 
 A repository for testing that is too large (or too private) to be kept in their respective repositories.
 
-## `CRISPResso2` Thorough Integeration Tests
+## `CRISPResso2` Thorough Integration Tests
 
 To run the integration tests for `CRISPResso2` make sure that the `CRISPRESSO2_DIR` variable in the `Makefile` is set to the correct directory where the `CRISPResso2` repository is (by default it is set to `../CRISPResso2`).
-Then to run only the integration tests you can issue `make test_cli_integration` and it will run the tests and compare the output.
+Then to run only the integration tests you can issue `make test` and it will run the tests and compare the output.
 
 Furthermore, the running times of each integration test will be checked and if there is a difference > 10% in the two times, it will be reported.
 
 For improved diff output, run `pip install ydiff` and the diffs will be colorized and side by side.
 
+### How can I run a test?
+
+As explained above, it want to run all of the tests and check all of the files for differences run:
+
+``` shell
+make test
+```
+
+You can also select a single command to run, like this:
+
+``` shell
+make basic
+```
+
+**Note:** this will only run the CRISPResso command, it will not check the output files for differences.
+
+If you want to run a single command *and* check it for differences, append `-test` to the name, like this:
+
+``` shell
+make basic-test
+```
+
+### How can I update the expected results for a test?
+
+If you run a test and there are differences, you can run the command:
+
+```shell
+python test_manager.py update <actual CRISPResso results directory> <expected CRISPResso results directory>
+
+```
+
+This will show you what is different in the files, and then you can select whether you want them copied over or not.
+
+### How can I add a test?
+
+If you want to add a test, you can run the command:
+
+``` shell
+python test_manager.py add <actualy CRISPResso results directory>
+```
+
+This will get the command that you used to run and add it to the Makefile, it will also copy over the files into the `cli_integration_tests/expected_results` directory and (try) to copy over the input files into the appropriate places.
+As with all semi-automated tools, you should most definitely check the work of the program before committing it.
 
 ### `Selenium Testing`
 
