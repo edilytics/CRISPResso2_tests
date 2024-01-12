@@ -125,7 +125,15 @@ def find_dir_matches(file_path_a, files_b, matches):
     return -1
 
 
-def diff_dir(actual, expected, suffixes=('.txt', '.html')):
+def update_file(actual, expected):
+    print(f'\nDo you want to update this file?')
+    update_input = input('[y/n]: ')
+    if update_input.lower() == 'n':
+        return
+    copyfile(actual, expected)
+
+
+def diff_dir(actual, expected, suffixes=('.txt', '.html'), prompt_to_update=False):
     files_actual = {basename(f): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
     files_expected = {basename(f): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
@@ -140,9 +148,13 @@ def diff_dir(actual, expected, suffixes=('.txt', '.html')):
                 ))
                 print_diff(diff_results)
                 diff_exists |= True
+                if prompt_to_update:
+                    update_file(file_path_actual, files_expected[file_basename_actual])
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
             diff_exists |= True
+            if prompt_to_update:
+                update_file(file_path_actual, join(expected, file_basename_actual))
 
     for file_basename_expected in files_expected.keys():
         if file_basename_expected not in files_actual:
