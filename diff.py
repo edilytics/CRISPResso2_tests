@@ -4,6 +4,7 @@ import os
 import re
 import sys
 import subprocess
+import tempfile
 from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
@@ -13,7 +14,7 @@ from shutil import copyfile
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
 DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
-COMMAND_REGEXP = re.compile(r'<p>Command used: .*')
+COMMAND_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
 IGNORE_FILES = frozenset([
     'CRISPResso_RUNNING_LOG.txt',
     'CRISPRessoBatch_RUNNING_LOG.txt',
@@ -90,12 +91,10 @@ def diff(file_a, file_b):
 
 def print_diff(diff_results):
     if YDIFF_INSTALLED:
-        read, write = os.pipe()
-        os.write(write, ''.join(diff_results).encode('utf-8'))
-        os.close(write)
-
-        subprocess.check_call('ydiff -s -w 0 --wrap', stdin=read, shell=True)
-        os.close(read)
+        with tempfile.NamedTemporaryFile(mode='w') as fh:
+            fh.writelines(''.join(diff_results))
+            fh.flush()
+            subprocess.check_call(f'cat {fh.name} | ydiff -s -w 0 --wrap', shell=True)
     else:
         for line in diff_results:
             print(line, end='')
