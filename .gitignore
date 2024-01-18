@@ -141,3 +141,5 @@ dmypy.json
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode*
 
 .DS_Store
+
+cli_integration_tests/CRISPRessoBatch_on_batch-failing*

@@ -7,6 +7,7 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPRessoBatch_on_batch-failing \
 CRISPRessoPooled_on_pooled-mixed-mode \
 CRISPRessoCompare_on_Cas9_VS_Untreated)
 
@@ -31,6 +32,7 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPRessoBatch_on_batch-failing* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
@@ -127,3 +129,13 @@ pooled-mixed-mode-test: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-m
 
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Cas9.amplicons.txt
 	cd cli_integration_tests && output=`CRISPRessoPooled -r1 inputs/Both.Cas9.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode --place_report_in_output_folder 2>&1` || echo "$$output"
+
+.PHONY: batch-failing
+batch-failing: cli_integration_tests/CRISPRessoBatch_on_batch-failing
+
+.PHONY: batch-failing-test
+batch-failing-test: cli_integration_tests/CRISPRessoBatch_on_batch-failing
+	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoBatch_on_batch-failing && echo "$@ test passed!"
+
+cli_integration_tests/CRISPRessoBatch_on_batch-failing: install cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/FANC_failing.batch
+	cd cli_integration_tests && output=`CRISPRessoBatch -bs inputs/FANC_failing.batch -n batch-failing -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --place_report_in_output_folder --base_editor --skip_failed 2>&1` || echo "$$output"
