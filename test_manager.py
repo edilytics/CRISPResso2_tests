@@ -105,22 +105,23 @@ def add_test(args):
                 print('Could not copy {0} to cli_integration_tests/inputs, please manually copy!'.format(input_file))
     print('If there are other input files, please copy them to cli_integration_tests/inputs manually!')
 
-    print('\nAdding results to cli_integration_tests/expected_results/{0}'.format(os.path.basename(args.directory)))
+    directory_name = os.path.basename(os.path.normpath(args.directory))
+    print('\nAdding results to cli_integration_tests/expected_results/{0}'.format(directory_name))
     try:
-        copytree(args.directory, os.path.join('cli_integration_tests/expected_results', os.path.basename(args.directory)), dirs_exist_ok=True)
+        copytree(args.directory, os.path.join('cli_integration_tests/expected_results', directory_name), dirs_exist_ok=True)
     except:
         print('Could not copy {0} to cli_integration_tests/expected_results, please manually copy!'.format(args.directory))
     try:
-        copyfile('{0}.html'.format(args.directory), os.path.join('cli_integration_tests/expected_results', '{0}.html'.format(os.path.basename(args.directory))))
+        copyfile('{0}.html'.format(args.directory), os.path.join('cli_integration_tests/expected_results', '{0}.html'.format(directory_name)))
     except:
         print('Could not copy {0}.html to cli_integration_tests/expected_results, please manually copy!'.format(args.directory))
 
     print('\nAdding test to Makefile...')
-    add_test_to_makefile(test_command, run_name, os.path.basename(os.path.normpath(args.directory)), input_files)
+    add_test_to_makefile(test_command, run_name, directory_name, input_files)
 
     print('\nAdding actual files to .gitignore...')
     with open('.gitignore', 'a') as fh:
-        fh.write('\ncli_integration_tests/{0}*\n'.format(os.path.basename(os.path.normpath(args.directory))))
+        fh.write('\ncli_integration_tests/{0}*\n'.format(directory_name))
 
     print('\nYou can now run the command with `make {0}`'.format(run_name))
     print('And test with the command `make {0}-test`'.format(run_name))

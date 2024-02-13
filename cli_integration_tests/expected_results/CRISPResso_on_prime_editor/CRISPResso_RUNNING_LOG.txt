@@ -1,0 +1,77 @@
+CRISPResso version 2.2.15
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso --fastq_r1 ../C2Web/CRISPRessoWEB/static/demo/prime_editor.fastq.gz --amplicon_seq ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT --prime_editing_pegRNA_spacer_seq GTCATCTTAGTCATTACCTG --prime_editing_pegRNA_extension_seq AACGAACACCTCATGTAATGACTAAGATG --prime_editing_nicking_guide_seq CTCAACCATTAAGCAAAACAT --prime_editing_pegRNA_scaffold_seq GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC --write_cleaned_report --place_report_in_output_folder
+
+[Execution log]:
+Computing quantification windows
+Aligning sequences...
+Processing pegRNA scaffold sequence...
+Searching for scaffold-templated reads with the sequence: 'GC' starting at position 53 in reads that align to the prime-edited sequence
+Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Processing reads; N_TOT_READS: 10000 N_COMPUTED_ALN: 2500 N_CACHED_ALN: 7457 N_COMPUTED_NOTALN: 43 N_CACHED_NOTALN: 0
+Processing reads; N_TOT_READS: 20000 N_COMPUTED_ALN: 4468 N_CACHED_ALN: 15460 N_COMPUTED_NOTALN: 71 N_CACHED_NOTALN: 1
+Finished reads; N_TOT_READS: 25000 N_COMPUTED_ALN: 5471 N_CACHED_ALN: 19440 N_COMPUTED_NOTALN: 86 N_CACHED_NOTALN: 3
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around PE Extension (AACGAACACCTCATGTAATGACTAAGATG) for Reference
+Plotting nucleotide distribuition around PE spacer sgRNA (GTCATCTTAGTCATTACCTG) for Reference
+Plotting nucleotide distribuition around PE nicking sgRNA (CTCAACCATTAAGCAAAACAT) for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Plotting allele distribution around cut for Reference
+Plotting allele distribution around cut for Reference
+Plotting allele distribution around cut for Reference
+Done!
+Begin processing plots for amplicon Prime-edited
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around PE Extension (AACGAACACCTCATGTAATGACTAAGATG) for Prime-edited
+Plotting nucleotide distribuition around PE spacer sgRNA (GTCATCTTAGTCATTACCTG) for Prime-edited
+Plotting nucleotide distribuition around PE nicking sgRNA (CTCAACCATTAAGCAAAACAT) for Prime-edited
+Plotting indel size distribution for Prime-edited
+Plotting frequency deletions/insertions for Prime-edited
+Plotting amplication modifications for Prime-edited
+Plotting modification frequency for Prime-edited
+Plotting quantification window locations for Prime-edited
+Plotting position dependent indel for Prime-edited
+Plotting allele distribution around cut for Prime-edited
+Plotting allele distribution around cut for Prime-edited
+Plotting allele distribution around cut for Prime-edited
+Done!
+Begin processing plots for amplicon Scaffold-incorporated
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around PE Extension (AACGAACACCTCATGTAATGACTAAGATG) for Scaffold-incorporated
+Plotting nucleotide distribuition around PE spacer sgRNA (GTCATCTTAGTCATTACCTG) for Scaffold-incorporated
+Plotting nucleotide distribuition around PE nicking sgRNA (CTCAACCATTAAGCAAAACAT) for Scaffold-incorporated
+Plotting indel size distribution for Scaffold-incorporated
+Plotting frequency deletions/insertions for Scaffold-incorporated
+Plotting amplication modifications for Scaffold-incorporated
+Plotting modification frequency for Scaffold-incorporated
+Plotting quantification window locations for Scaffold-incorporated
+Plotting position dependent indel for Scaffold-incorporated
+Plotting allele distribution around cut for Scaffold-incorporated
+Plotting allele distribution around cut for Scaffold-incorporated
+Plotting allele distribution around cut for Scaffold-incorporated
+Done!
+Processing pegRNA scaffold sequence...
+Searching for scaffold-templated reads with the sequence: 'GC' starting at position 53 in reads that align to the prime-edited sequence
+Plotting prime editing nucleotide percentage quilt
+Plotting nucleotide quilt
+Plotting nucleotide quilt
+Plotting nucleotide quilt
+Plotting scaffold insertion sizes
+Done!
+Removing Intermediate files...
+Analysis Complete!

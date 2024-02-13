@@ -1,0 +1,22 @@
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPRessoBatch -bs inputs/FANC_failing.batch -n batch-failing -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --place_report_in_output_folder --base_editor --skip_failed
+
+[Execution log]:
+Running CRISPResso with 1 processes
+Completed 1/2 runs
+Completed 2/2 runs
+Finished all batches
+Skipping folder '/Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_batch-failing/CRISPResso_on_Cas9'. Cannot find run data status file at '/Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_batch-failing/CRISPResso_on_Cas9/CRISPResso2_info.json'.
+Reporting summary for amplicon: "Reference"
+All guides are equal. Performing comparison of batches for amplicon 'Reference'
+Plotting nucleotide percentage quilt for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide conversion map for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide quilt for Reference
+Plotting nucleotide conversion map for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Analysis Complete!

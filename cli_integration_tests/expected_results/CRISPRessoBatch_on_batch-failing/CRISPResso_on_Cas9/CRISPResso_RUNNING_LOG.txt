@@ -1,0 +1,23 @@
+CRISPResso version 2.2.15
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_batch-failing --name Cas9 --prime_editing_pegRNA_scaffold_min_match_length 1 --plot_window_size 20 --place_report_in_output_folder --max_rows_alleles_around_cut_to_plot 50 --conversion_nuc_to T --verbosity 3 --needleman_wunsch_gap_extend -2 --prime_editing_gap_extend_penalty 0 --aln_seed_count 5 --max_paired_end_reads_overlap 100 --exclude_bp_from_right 15 --base_editor_output --conversion_nuc_from C --flash_command flash --min_single_bp_quality 0 --quantification_window_center -3 --min_bp_quality_or_N 0 --aln_seed_len 10 --needleman_wunsch_gap_incentive 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --aln_seed_min 2 --min_average_read_quality 0 --n_processes 1 --trimmomatic_command trimmomatic --guide_seq GGAATCCCTTCTGCAGCACC --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_open -20 --min_paired_end_reads_overlap 10 --quantification_window_size 1 --flexiguide_homology 80 --fastq_r1 inputs/bad_format.fastq --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --amplicon_name Reference --default_min_aln_score 60 --debug --min_frequency_alleles_around_cut_to_plot 0.2 --exclude_bp_from_left 15 --needleman_wunsch_aln_matrix_loc EDNAFULL
+
+[Execution log]:
+Traceback (most recent call last):
+  File "/Users/cole/code/edilytics/CRISPResso2/CRISPResso2/CRISPRessoShared.py", line 674, in assert_fastq_format
+    raise InputFileFormatException('File %s is not in fastq format! Line %d does not start with + \n%s: %s' % (file_path, line_num, line_num, line))
+CRISPResso2.CRISPRessoShared.InputFileFormatException: File inputs/bad_format.fastq is not in fastq format! Line 10 does not start with + 
+10: BBBBBBD?DBFFGGFBGGGGGGHGE?FCHFGGHGGGGGGHFHGBFEHHHHBFFGGEEDHHFHGHGGHGHGEGGGGHHHHHFHHHHHHHHHHHHHGHHFHHGHHHHGGHHGHHHGFGCGHHHEFFCGGGGHHHFHHHHHHHHBF.GGEDHHHHHHHGGEDFDG@@@DG.CAF
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/cole/code/edilytics/CRISPResso2/CRISPResso2/CRISPRessoCORE.py", line 1068, in main
+    CRISPRessoShared.assert_fastq_format(args.fastq_r1)
+  File "/Users/cole/code/edilytics/CRISPResso2/CRISPResso2/CRISPRessoShared.py", line 681, in assert_fastq_format
+    raise InputFileFormatException('File %s is not in fastq format!' % (file_path)) from e
+CRISPResso2.CRISPRessoShared.InputFileFormatException: File inputs/bad_format.fastq is not in fastq format!
+
+Unexpected error, please check your input.
+
+ERROR: File inputs/bad_format.fastq is not in fastq format!
