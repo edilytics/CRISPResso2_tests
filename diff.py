@@ -110,11 +110,19 @@ def find_dir_matches(file_path_a, files_b, matches):
 
 
 def update_file(actual, expected):
-    print(f'\nDo you want to update this file?')
+    print('\nDo you want to update this file?')
     update_input = input('[y/n]: ')
     if update_input.lower() == 'n':
         return
     copyfile(actual, expected)
+
+
+def remove_file(file_path):
+    print('Do you want to remove this file?')
+    remove_input = input('[y/n]: ')
+    if remove_input.lower() == 'n':
+        return
+    os.remove(file_path)
 
 
 def diff_dir(actual, expected, suffixes=('.txt', '.html'), prompt_to_update=False):
@@ -144,6 +152,8 @@ def diff_dir(actual, expected, suffixes=('.txt', '.html'), prompt_to_update=Fals
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
             diff_exists |= True
+            if prompt_to_update:
+                remove_file(join(expected, file_basename_expected))
 
     return diff_exists
 
