@@ -145,3 +145,5 @@ cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode*
 cli_integration_tests/CRISPRessoBatch_on_batch-failing*
 
 cli_integration_tests/CRISPResso_on_prime_editor*
+
+cli_integration_tests/CRISPResso_on_hdr-insertion*
