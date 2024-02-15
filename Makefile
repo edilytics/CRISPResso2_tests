@@ -157,7 +157,7 @@ cli_integration_tests/CRISPResso_on_prime_editor: install cli_integration_tests/
 hdr-insertion: cli_integration_tests/CRISPResso_on_hdr_insertion
 
 .PHONY: hdr-insertion-test
-hdr-insertion-test: cli_integration_tests/CRISPResso_on_hdr_insertion
+hdr-insertion-test: cli_integration_tests/CRISPResso_on_hdr-insertion
 	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPResso_on_hdr-insertion && echo "$@ test passed!"
 
 cli_integration_tests/CRISPResso_on_hdr-insertion: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
