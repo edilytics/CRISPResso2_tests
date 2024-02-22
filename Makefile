@@ -1,7 +1,7 @@
 .PHONY: all install test test_cli_integration clean clean_cli_integration \
 	basic params batch pooled wgs compare
 
-CRISPRESSO2_DIR := ../CRISPResso2
+CRISPRESSO2_DIR ?= ../CRISPResso2
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*)
 TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPResso_on_FANC.Cas9 \
 CRISPResso_on_bam CRISPResso_on_params \
