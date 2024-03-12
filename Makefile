@@ -12,7 +12,7 @@ CRISPRessoBatch_on_batch-failing \
 CRISPRessoPooled_on_pooled-mixed-mode \
 CRISPRessoCompare_on_Cas9_VS_Untreated)
 
-RUN = if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then $$cmd; else output=`$$cmd 2>&1` || echo "$$output"; fi && if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then python ../diff.py $@ --expected $(subst /,/expected_results/,$@); fi
+RUN = if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then $$cmd; else output=`$$cmd 2>&1` || echo "$$output"; fi && if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@); fi
 
 all: clean basic params prime-editor batch pooled wgs compare
 
