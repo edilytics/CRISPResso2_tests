@@ -25,8 +25,6 @@ test:
 install: $(CRISPRESSO2_SOURCES)
 	cd $(CRISPRESSO2_DIR) && output=`pip install -e .` || echo "$$output"
 
-# test-all: clean basic params prime-editor batch pooled wgs compare
-
 run: $(TEST_CLI_INTEGRATION_DIRECTORIES)
 
 clean: clean_cli_integration
