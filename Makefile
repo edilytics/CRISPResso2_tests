@@ -14,7 +14,7 @@ CRISPRessoCompare_on_Cas9_VS_Untreated)
 
 RUN = if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then $$cmd; else output=`$$cmd 2>&1` || echo "$$output"; fi && if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then python ../diff.py $@ --expected $(subst /,/expected_results/,$@); fi
 
-all: test-all
+all: clean basic params prime-editor batch pooled wgs compare
 
 print:
 	@echo " ";
@@ -25,7 +25,7 @@ test:
 install: $(CRISPRESSO2_SOURCES)
 	cd $(CRISPRESSO2_DIR) && output=`pip install -e .` || echo "$$output"
 
-test-all: clean basic-test params-test prime-editor-test batch-test pooled-test wgs-test compare-test
+# test-all: clean basic params prime-editor batch pooled wgs compare
 
 run: $(TEST_CLI_INTEGRATION_DIRECTORIES)
 
