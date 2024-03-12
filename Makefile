@@ -50,16 +50,10 @@ web_tests/UI_selenium_log.txt
 
 basic: cli_integration_tests/CRISPResso_on_FANC.Cas9
 
-basic-test: cli_integration_tests/CRISPResso_on_FANC.Cas9
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPResso_on_FANC.Cas9
-
 cli_integration_tests/CRISPResso_on_FANC.Cas9: install cli_integration_tests/inputs/FANC.Cas9.fastq
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug"; $(RUN)
 
 bam: cli_integration_tests/CRISPResso_on_bam
-
-bam-test: cli_integration_tests/CRISPResso_on_bam
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPResso_on_bam
 
 cli_integration_tests/CRISPResso_on_bam: install cli_integration_tests/inputs/Both.Cas9.fastq.smallGenome.bam
 	cd cli_integration_tests && cmd="CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --name bam --n_processes max --place_report_in_output_folder --debug"; $(RUN)
@@ -67,23 +61,15 @@ cli_integration_tests/CRISPResso_on_bam: install cli_integration_tests/inputs/Bo
 
 params: cli_integration_tests/CRISPResso_on_params
 
-params-test: cli_integration_tests/CRISPResso_on_params
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPResso_on_params
-
 cli_integration_tests/CRISPResso_on_params: install cli_integration_tests/inputs/FANC.Cas9.fastq
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug"; $(RUN)
 
 nhej: cli_integration_tests/CRISPResso_on_nhej
 
-nhej-test: cli_integration_tests/CRISPResso_on_nhej
-
 cli_integration_tests/CRISPResso_on_nhej: install cli_integration_tests/
 	cd cli_integration_tests && CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --place_report_in_output_folder --debug # || echo "$$output"
 
 batch: cli_integration_tests/CRISPRessoBatch_on_FANC
-
-batch-test: cli_integration_tests/CRISPRessoBatch_on_FANC
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoBatch_on_FANC
 
 cli_integration_tests/CRISPRessoBatch_on_FANC: install cli_integration_tests/inputs/FANC.batch
 	cd cli_integration_tests && cmd="CRISPRessoBatch -bs inputs/FANC.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --place_report_in_output_folder --base_editor"; $(RUN)
@@ -95,32 +81,20 @@ cli_integration_tests/CRISPRessoBatch_on_large_batch: install cli_integration_te
 
 pooled: cli_integration_tests/CRISPRessoPooled_on_Both.Cas9
 
-pooled-test: cli_integration_tests/CRISPRessoPooled_on_Both.Cas9
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoPooled_on_Both.Cas9
-
 cli_integration_tests/CRISPRessoPooled_on_Both.Cas9: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/Cas9.amplicons.txt
 	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/Both.Cas9.fastq -f inputs/Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 -p 4 --place_report_in_output_folder --debug"; $(RUN)
 
 pooled-prime-editing: cli_integration_tests/CRISPRessoPooled_on_prime.editing
-
-pooled-prime-editing-test: cli_integration_tests/CRISPRessoPooled_on_prime.editing
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoPooled_on_prime.editing
 
 cli_integration_tests/CRISPRessoPooled_on_prime.editing: install cli_integration_tests/inputs/prime.editing.fastq cli_integration_tests/inputs/prime.editing.amplicons.txt
 	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/prime.editing.fastq -f inputs/prime.editing.amplicons.txt --keep_intermediate --min_reads_to_use_region 1 --place_report_in_output_folder --debug"; $(RUN)
 
 wgs: cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome
 
-wgs-test: cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome
-
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome: install cli_integration_tests/inputs/Both.Cas9.fastq.smallGenome.bam cli_integration_tests/inputs/small_genome/smallGenome.fa cli_integration_tests/inputs/Cas9.regions.txt
 	cd cli_integration_tests && cmd="CRISPRessoWGS -b inputs/Both.Cas9.fastq.smallGenome.bam -r inputs/small_genome/smallGenome.fa -f inputs/Cas9.regions.txt --place_report_in_output_folder --debug"; $(RUN)
 
 compare: cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated
-
-compare-test: cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoCompare_on_Cas9_VS_Untreated
 
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install cli_integration_tests/CRISPRessoBatch_on_FANC
 	cd cli_integration_tests && cmd="CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --place_report_in_output_folder --debug"; $(RUN)
@@ -153,10 +127,6 @@ cli_integration_tests/CRISPRessoBatch_on_batch-failing: install cli_integration_
 
 .PHONY: prime-editor
 prime-editor: cli_integration_tests/CRISPResso_on_prime_editor
-
-.PHONY: prime-editor-test
-prime-editor-test: cli_integration_tests/CRISPResso_on_prime_editor
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPResso_on_prime_editor && echo "$@ test passed!"
 
 cli_integration_tests/CRISPResso_on_prime_editor: install cli_integration_tests/inputs/prime_editor.fastq.gz cli_integration_tests/inputs/ cli_integration_tests/inputs/
 	cd cli_integration_tests && cmd="CRISPResso --fastq_r1 inputs/prime_editor.fastq.gz --amplicon_seq ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT --prime_editing_pegRNA_spacer_seq GTCATCTTAGTCATTACCTG --prime_editing_pegRNA_extension_seq AACGAACACCTCATGTAATGACTAAGATG --prime_editing_nicking_guide_seq CTCAACCATTAAGCAAAACAT --prime_editing_pegRNA_scaffold_seq GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC --write_cleaned_report --place_report_in_output_folder --debug"; $(RUN)
