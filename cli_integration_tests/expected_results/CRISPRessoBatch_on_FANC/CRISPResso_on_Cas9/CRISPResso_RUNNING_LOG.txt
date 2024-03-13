@@ -1,8 +1,9 @@
-CRISPResso version 2.2.7
+CRISPResso version 2.2.15
 [Command used]:
-/Users/cole/miniconda3/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edylitics/CRISPResso/tests/CRISPRessoBatch_on_FANC --name Cas9 --min_paired_end_reads_overlap 10 --min_average_read_quality 0 --quantification_window_size 1 --min_frequency_alleles_around_cut_to_plot 0.2 --debug --exclude_bp_from_right 15 --max_rows_alleles_around_cut_to_plot 50 --conversion_nuc_to T --needleman_wunsch_gap_open -20 --amplicon_name Reference --flash_command flash --aln_seed_count 5 --prime_editing_pegRNA_scaffold_min_match_length 1 --flexiguide_homology 80 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --trimmomatic_command trimmomatic --conversion_nuc_from C --min_bp_quality_or_N 0 --fastq_r1 FANC.Cas9.fastq --needleman_wunsch_aln_matrix_loc EDNAFULL --needleman_wunsch_gap_extend -2 --prime_editing_pegRNA_extension_quantification_window_size 5 --n_processes 1 --plot_window_size 20 --min_single_bp_quality 0 --default_min_aln_score 60 --max_paired_end_reads_overlap 100 --exclude_bp_from_left 15 --base_editor_output --needleman_wunsch_gap_incentive 1 --quantification_window_center -3 --aln_seed_min 2 --aln_seed_len 10 --guide_seq GGAATCCCTTCTGCAGCACC
+/home/snichol2/micromamba/envs/c2/bin/CRISPResso -o /mnt/c/Users/Snic9/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --n_processes 1 --flexiguide_homology 80 --needleman_wunsch_gap_open -20 --min_frequency_alleles_around_cut_to_plot 0.2 --conversion_nuc_to T --prime_editing_pegRNA_scaffold_min_match_length 1 --debug --min_bp_quality_or_N 0 --prime_editing_gap_open_penalty -50 --exclude_bp_from_left 15 --aln_seed_min 2 --fastq_r1 inputs/FANC.Cas9.fastq --min_paired_end_reads_overlap 10 --exclude_bp_from_right 15 --default_min_aln_score 60 --prime_editing_pegRNA_extension_quantification_window_size 5 --quantification_window_center -3 --min_average_read_quality 0 --min_single_bp_quality 0 --aln_seed_count 5 --amplicon_name Reference --verbosity 3 --aln_seed_len 10 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_aln_matrix_loc EDNAFULL --needleman_wunsch_gap_incentive 1 --needleman_wunsch_gap_extend -2 --conversion_nuc_from C --place_report_in_output_folder --guide_seq GGAATCCCTTCTGCAGCACC --trimmomatic_command trimmomatic --max_paired_end_reads_overlap 100 --prime_editing_gap_extend_penalty 0 --base_editor_output --plot_window_size 20 --flash_command flash --quantification_window_size 1
 
 [Execution log]:
+Computing quantification windows
 Aligning sequences...
 Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
 Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 198 N_CACHED_ALN: 37 N_COMPUTED_NOTALN: 15 N_CACHED_NOTALN: 0
@@ -13,6 +14,26 @@ Calculating allele frequencies...
 Done!
 Saving processed data...
 Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Plotting substitutions across reference for Reference
+Plotting substitution frequency barplot for Reference
+Plotting substitution frequency barplot in quantification window for Reference
+Plotting allele distribution around cut for Reference
+Plotting log2 nucleotide frequency for Reference
+Plotting conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting scaled non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Done!
 Done!
 Removing Intermediate files...
 Analysis Complete!
