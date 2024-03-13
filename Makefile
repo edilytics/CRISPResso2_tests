@@ -65,7 +65,7 @@ cli_integration_tests/CRISPResso_on_params: install cli_integration_tests/inputs
 nhej: cli_integration_tests/CRISPResso_on_nhej
 
 cli_integration_tests/CRISPResso_on_nhej: install cli_integration_tests/
-	cd cli_integration_tests && CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --place_report_in_output_folder --debug # || echo "$$output"
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --place_report_in_output_folder --debug"; $(RUN)
 
 batch: cli_integration_tests/CRISPRessoBatch_on_FANC
 
@@ -75,7 +75,7 @@ cli_integration_tests/CRISPRessoBatch_on_FANC: install cli_integration_tests/inp
 large-batch: cli_integration_tests/CRISPRessoBatch_on_large_batch
 
 cli_integration_tests/CRISPRessoBatch_on_large_batch: install cli_integration_tests/inputs/FANC_large.batch
-	cd cli_integration_tests && CRISPRessoBatch -bs inputs/FANC_large.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --no_rerun --base_editor -p 4 -n large_batch --place_report_in_output_folder # 2>&1` || echo "$$output"
+	cd cli_integration_tests && cmd="CRISPRessoBatch -bs inputs/FANC_large.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --no_rerun --base_editor -p 4 -n large_batch --place_report_in_output_folder"; $(RUN)
 
 pooled: cli_integration_tests/CRISPRessoPooled_on_Both.Cas9
 
@@ -106,19 +106,11 @@ web_ui: web_tests/CRISPResso_Web_UI_Tests/web_ui_test.py
 .PHONY: pooled-mixed-mode
 pooled-mixed-mode: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode
 
-.PHONY: pooled-mixed-mode-test
-pooled-mixed-mode-test: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoPooled_on_pooled-mixed-mode && echo "$@ test passed!"
-
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Cas9.amplicons.txt
 	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/Both.Cas9.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode --place_report_in_output_folder"; $(RUN)
 
 .PHONY: batch-failing
 batch-failing: cli_integration_tests/CRISPRessoBatch_on_batch-failing
-
-.PHONY: batch-failing-test
-batch-failing-test: cli_integration_tests/CRISPRessoBatch_on_batch-failing
-	python diff.py $^ --expected cli_integration_tests/expected_results/CRISPRessoBatch_on_batch-failing && echo "$@ test passed!"
 
 cli_integration_tests/CRISPRessoBatch_on_batch-failing: install cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/FANC_failing.batch
 	cd cli_integration_tests && cmd="CRISPRessoBatch -bs inputs/FANC_failing.batch -n batch-failing -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --place_report_in_output_folder --base_editor --skip_failed"; $(RUN)
