@@ -13,7 +13,7 @@ For improved diff output, run `pip install ydiff` and the diffs will be colorize
 
 ### How can I run a test?
 
-As explained above, to run all of the tests and check all of the files for differences run:
+As explained above, to run all of the tests use:
 
 ``` shell
 make all
