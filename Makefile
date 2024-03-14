@@ -154,7 +154,7 @@ cli_integration_tests/CRISPResso_on_prime_editor: install cli_integration_tests/
 	cd cli_integration_tests && output=`CRISPResso --fastq_r1 inputs/prime_editor.fastq.gz --amplicon_seq ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT --prime_editing_pegRNA_spacer_seq GTCATCTTAGTCATTACCTG --prime_editing_pegRNA_extension_seq AACGAACACCTCATGTAATGACTAAGATG --prime_editing_nicking_guide_seq CTCAACCATTAAGCAAAACAT --prime_editing_pegRNA_scaffold_seq GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC --write_cleaned_report --place_report_in_output_folder --debug 2>&1` || echo "$$output"
 
 .PHONY: hdr-insertion
-hdr-insertion: cli_integration_tests/CRISPResso_on_hdr_insertion
+hdr-insertion: cli_integration_tests/CRISPResso_on_hdr-insertion
 
 .PHONY: hdr-insertion-test
 hdr-insertion-test: cli_integration_tests/CRISPResso_on_hdr-insertion
