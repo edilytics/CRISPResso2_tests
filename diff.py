@@ -15,7 +15,7 @@ from shutil import copyfile
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
 DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 COMMAND_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
-OUTPUT_REGEXP = re.compile(r'.*/CRISPResso2_tests/cli_integration_tests/CRISPResso')
+OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPResso[\S]*')
 IGNORE_FILES = frozenset([
     'CRISPResso_RUNNING_LOG.txt',
     'CRISPRessoBatch_RUNNING_LOG.txt',

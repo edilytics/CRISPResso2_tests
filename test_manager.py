@@ -29,8 +29,8 @@ def add_test_to_makefile(command, name, directory, input_files):
 
     with open('Makefile', 'w') as fh:
         for line in makefile_lines:
-            if line.startswith('test:'):
-                fh.write('{0} {1}-test\n'.format(line.strip(), name))
+            if line.startswith('all:'):
+                fh.write('{0} {1}\n'.format(line.strip(), name))
             elif line.startswith('cli_integration_tests/CRISPRessoBatch_on_large_batch* \\'):
                 fh.write(line)
                 fh.write('cli_integration_tests/{0}* \\\n'.format(directory))
@@ -40,13 +40,11 @@ def add_test_to_makefile(command, name, directory, input_files):
             else:
                 fh.write(line)
         fh.write('\n.PHONY: {name}\n{name}: cli_integration_tests/{directory}\n'.format(name=name, directory=directory))
-        fh.write('\n.PHONY: {name}-test\n{name}-test: cli_integration_tests/{directory}\n'.format(name=name, directory=directory))
-        fh.write('\tpython diff.py $^ --expected cli_integration_tests/expected_results/{directory} && echo "$@ test passed!"\n'.format(directory=directory))
         fh.write('\ncli_integration_tests/{directory}: install {input_files}\n'.format(
             directory=directory,
             input_files=' '.join('cli_integration_tests/inputs/{0}'.format(os.path.basename(i)) for i in input_files)
         ))
-        fh.write('\tcd cli_integration_tests && output=`{command} 2>&1` || echo "$$output"'.format(command=command))
+        fh.write('\tcd cli_integration_tests && cmd="{command}"; $(RUN)'.format(command=command))
 
 
 def add_test(args):
