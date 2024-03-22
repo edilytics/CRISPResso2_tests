@@ -1,9 +1,10 @@
-CRISPResso version 2.2.7
+CRISPResso version 2.3.0
 [Command used]:
-/Users/cole/miniconda3/envs/crispresso/bin/CRISPRessoPooled -r1 Both.Cas9.fastq -f Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 -p 4 --debug
+/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPRessoPooled -r1 inputs/Both.Cas9.fastq -f inputs/Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 -p 4 --place_report_in_output_folder --debug
 
 [Execution log]:
 Processing input
+Header variable names in order: ['amplicon_name', 'amplicon_seq', 'guide_seq']
 Creating a custom index file with all the amplicons...
 Settings:
   Output files: "CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.*.bt2"
@@ -59,16 +60,142 @@ Multikey QSorting 12 samples
 Calculating bucket sizes
 Splitting and merging
   Splitting and merging time: 00:00:00
-Avg bucket size: 455 (target: 84)
+Split 1, merged 7; iterating...
+Splitting and merging
+  Splitting and merging time: 00:00:00
+Split 1, merged 1; iterating...
+Splitting and merging
+  Splitting and merging time: 00:00:00
+Avg bucket size: 64.1429 (target: 84)
 Converting suffix-array elements to index image
 Allocating ftab, absorbFtab
 Entering Ebwt loop
-Getting block 1 of 1
-  No samples; assembling all-inclusive block
-  Sorting block of length 455 for bucket 1
+Getting block 1 of 7
+  Reserving size (85) for bucket 1
+  Calculating Z arrays for bucket 1
+  Entering block accumulator loop for bucket 1:
+  bucket 1: 10%
+  bucket 1: 20%
+  bucket 1: 30%
+  bucket 1: 40%
+  bucket 1: 50%
+  bucket 1: 60%
+  bucket 1: 70%
+  bucket 1: 80%
+  bucket 1: 90%
+  bucket 1: 100%
+  Sorting block of length 59 for bucket 1
   (Using difference cover)
   Sorting block time: 00:00:00
-Returning block of 456 for bucket 1
+Returning block of 60 for bucket 1
+Getting block 2 of 7
+  Reserving size (85) for bucket 2
+  Calculating Z arrays for bucket 2
+  Entering block accumulator loop for bucket 2:
+  bucket 2: 10%
+  bucket 2: 20%
+  bucket 2: 30%
+  bucket 2: 40%
+  bucket 2: 50%
+  bucket 2: 60%
+  bucket 2: 70%
+  bucket 2: 80%
+  bucket 2: 90%
+  bucket 2: 100%
+  Sorting block of length 51 for bucket 2
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 52 for bucket 2
+Getting block 3 of 7
+  Reserving size (85) for bucket 3
+  Calculating Z arrays for bucket 3
+  Entering block accumulator loop for bucket 3:
+  bucket 3: 10%
+  bucket 3: 20%
+  bucket 3: 30%
+  bucket 3: 40%
+  bucket 3: 50%
+  bucket 3: 60%
+  bucket 3: 70%
+  bucket 3: 80%
+  bucket 3: 90%
+  bucket 3: 100%
+  Sorting block of length 78 for bucket 3
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 79 for bucket 3
+Getting block 4 of 7
+  Reserving size (85) for bucket 4
+  Calculating Z arrays for bucket 4
+  Entering block accumulator loop for bucket 4:
+  bucket 4: 10%
+  bucket 4: 20%
+  bucket 4: 30%
+  bucket 4: 40%
+  bucket 4: 50%
+  bucket 4: 60%
+  bucket 4: 70%
+  bucket 4: 80%
+  bucket 4: 90%
+  bucket 4: 100%
+  Sorting block of length 36 for bucket 4
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 37 for bucket 4
+Getting block 5 of 7
+  Reserving size (85) for bucket 5
+  Calculating Z arrays for bucket 5
+  Entering block accumulator loop for bucket 5:
+  bucket 5: 10%
+  bucket 5: 20%
+  bucket 5: 30%
+  bucket 5: 40%
+  bucket 5: 50%
+  bucket 5: 60%
+  bucket 5: 70%
+  bucket 5: 80%
+  bucket 5: 90%
+  bucket 5: 100%
+  Sorting block of length 75 for bucket 5
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 76 for bucket 5
+Getting block 6 of 7
+  Reserving size (85) for bucket 6
+  Calculating Z arrays for bucket 6
+  Entering block accumulator loop for bucket 6:
+  bucket 6: 10%
+  bucket 6: 20%
+  bucket 6: 30%
+  bucket 6: 40%
+  bucket 6: 50%
+  bucket 6: 60%
+  bucket 6: 70%
+  bucket 6: 80%
+  bucket 6: 90%
+  bucket 6: 100%
+  Sorting block of length 75 for bucket 6
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 76 for bucket 6
+Getting block 7 of 7
+  Reserving size (85) for bucket 7
+  Calculating Z arrays for bucket 7
+  Entering block accumulator loop for bucket 7:
+  bucket 7: 10%
+  bucket 7: 20%
+  bucket 7: 30%
+  bucket 7: 40%
+  bucket 7: 50%
+  bucket 7: 60%
+  bucket 7: 70%
+  bucket 7: 80%
+  bucket 7: 90%
+  bucket 7: 100%
+  Sorting block of length 75 for bucket 7
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 76 for bucket 7
 Exited Ebwt loop
 fchr[A]: 0
 fchr[C]: 86
@@ -77,8 +204,8 @@ fchr[T]: 351
 fchr[$]: 455
 Exiting Ebwt::buildToDisk()
 Returning from initFromVector
-Wrote 4194693 bytes to primary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.1.bt2
-Wrote 120 bytes to secondary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.2.bt2
+Wrote 4194693 bytes to primary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.1.bt2.tmp
+Wrote 120 bytes to secondary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.2.bt2.tmp
 Re-opening _in1 and _in2 as input streams
 Returning from Ebwt constructor
 Headers:
@@ -142,16 +269,136 @@ Multikey QSorting 12 samples
 Calculating bucket sizes
 Splitting and merging
   Splitting and merging time: 00:00:00
-Avg bucket size: 455 (target: 84)
+Avg bucket size: 64.1429 (target: 84)
 Converting suffix-array elements to index image
 Allocating ftab, absorbFtab
 Entering Ebwt loop
-Getting block 1 of 1
-  No samples; assembling all-inclusive block
-  Sorting block of length 455 for bucket 1
+Getting block 1 of 7
+  Reserving size (85) for bucket 1
+  Calculating Z arrays for bucket 1
+  Entering block accumulator loop for bucket 1:
+  bucket 1: 10%
+  bucket 1: 20%
+  bucket 1: 30%
+  bucket 1: 40%
+  bucket 1: 50%
+  bucket 1: 60%
+  bucket 1: 70%
+  bucket 1: 80%
+  bucket 1: 90%
+  bucket 1: 100%
+  Sorting block of length 80 for bucket 1
   (Using difference cover)
   Sorting block time: 00:00:00
-Returning block of 456 for bucket 1
+Returning block of 81 for bucket 1
+Getting block 2 of 7
+  Reserving size (85) for bucket 2
+  Calculating Z arrays for bucket 2
+  Entering block accumulator loop for bucket 2:
+  bucket 2: 10%
+  bucket 2: 20%
+  bucket 2: 30%
+  bucket 2: 40%
+  bucket 2: 50%
+  bucket 2: 60%
+  bucket 2: 70%
+  bucket 2: 80%
+  bucket 2: 90%
+  bucket 2: 100%
+  Sorting block of length 38 for bucket 2
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 39 for bucket 2
+Getting block 3 of 7
+  Reserving size (85) for bucket 3
+  Calculating Z arrays for bucket 3
+  Entering block accumulator loop for bucket 3:
+  bucket 3: 10%
+  bucket 3: 20%
+  bucket 3: 30%
+  bucket 3: 40%
+  bucket 3: 50%
+  bucket 3: 60%
+  bucket 3: 70%
+  bucket 3: 80%
+  bucket 3: 90%
+  bucket 3: 100%
+  Sorting block of length 71 for bucket 3
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 72 for bucket 3
+Getting block 4 of 7
+  Reserving size (85) for bucket 4
+  Calculating Z arrays for bucket 4
+  Entering block accumulator loop for bucket 4:
+  bucket 4: 10%
+  bucket 4: 20%
+  bucket 4: 30%
+  bucket 4: 40%
+  bucket 4: 50%
+  bucket 4: 60%
+  bucket 4: 70%
+  bucket 4: 80%
+  bucket 4: 90%
+  bucket 4: 100%
+  Sorting block of length 48 for bucket 4
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 49 for bucket 4
+Getting block 5 of 7
+  Reserving size (85) for bucket 5
+  Calculating Z arrays for bucket 5
+  Entering block accumulator loop for bucket 5:
+  bucket 5: 10%
+  bucket 5: 20%
+  bucket 5: 30%
+  bucket 5: 40%
+  bucket 5: 50%
+  bucket 5: 60%
+  bucket 5: 70%
+  bucket 5: 80%
+  bucket 5: 90%
+  bucket 5: 100%
+  Sorting block of length 81 for bucket 5
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 82 for bucket 5
+Getting block 6 of 7
+  Reserving size (85) for bucket 6
+  Calculating Z arrays for bucket 6
+  Entering block accumulator loop for bucket 6:
+  bucket 6: 10%
+  bucket 6: 20%
+  bucket 6: 30%
+  bucket 6: 40%
+  bucket 6: 50%
+  bucket 6: 60%
+  bucket 6: 70%
+  bucket 6: 80%
+  bucket 6: 90%
+  bucket 6: 100%
+  Sorting block of length 67 for bucket 6
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 68 for bucket 6
+Getting block 7 of 7
+  Reserving size (85) for bucket 7
+  Calculating Z arrays for bucket 7
+  Entering block accumulator loop for bucket 7:
+  bucket 7: 10%
+  bucket 7: 20%
+  bucket 7: 30%
+  bucket 7: 40%
+  bucket 7: 50%
+  bucket 7: 60%
+  bucket 7: 70%
+  bucket 7: 80%
+  bucket 7: 90%
+  bucket 7: 100%
+  Sorting block of length 64 for bucket 7
+  (Using difference cover)
+  Sorting block time: 00:00:00
+Returning block of 65 for bucket 7
 Exited Ebwt loop
 fchr[A]: 0
 fchr[C]: 86
@@ -160,8 +407,8 @@ fchr[T]: 351
 fchr[$]: 455
 Exiting Ebwt::buildToDisk()
 Returning from initFromVector
-Wrote 4194693 bytes to primary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.1.bt2
-Wrote 120 bytes to secondary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.2.bt2
+Wrote 4194693 bytes to primary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.1.bt2.tmp
+Wrote 120 bytes to secondary EBWT file: CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.2.bt2.tmp
 Re-opening _in1 and _in2 as input streams
 Returning from Ebwt constructor
 Headers:
@@ -190,6 +437,12 @@ Headers:
     color: 0
     reverse: 1
 Total time for backward call to driver() for mirror index: 00:00:00
+Renaming CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.3.bt2.tmp to CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.3.bt2
+Renaming CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.4.bt2.tmp to CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.4.bt2
+Renaming CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.1.bt2.tmp to CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.1.bt2
+Renaming CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.2.bt2.tmp to CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.2.bt2
+Renaming CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.1.bt2.tmp to CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.1.bt2
+Renaming CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.2.bt2.tmp to CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX.rev.2.bt2
 Align reads to the amplicons...
 Alignment command: bowtie2 -x CRISPRessoPooled_on_Both.Cas9/CUSTOM_BOWTIE2_INDEX -p 4  --end-to-end -N 0 --np 0 --mp 3,2 --score-min L,-5,-1.2000000000000002  -U CRISPRessoPooled_on_Both.Cas9/Both.Cas9.fastq 2>>CRISPRessoPooled_on_Both.Cas9/CRISPRessoPooled_RUNNING_LOG.txt | samtools view -bS - > CRISPRessoPooled_on_Both.Cas9/CRISPResso_AMPLICONS_ALIGNED.bam
 500 reads; of these:
@@ -203,4 +456,10 @@ Demultiplex reads and run CRISPResso on each amplicon...
  Processing:FANC with 242 reads
 
  Processing:HEK3 with 250 reads
+Running CRISPResso with 4 processes
+Completed 1/2 runs
+Completed 2/2 runs
+Finished all amplicons
+Plotting reads summary
+Plotting modification summary
 All Done!

@@ -1,5 +1,7 @@
 [Command used]:
-CRISPRessoCompare /Users/cole/miniconda3/envs/crispresso/bin/CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --debug
+CRISPRessoCompare /Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --place_report_in_output_folder --debug
 
 [Execution log]:
+Loading data for amplicon Reference
+Calculating significant base counts...
 Analysis Complete!

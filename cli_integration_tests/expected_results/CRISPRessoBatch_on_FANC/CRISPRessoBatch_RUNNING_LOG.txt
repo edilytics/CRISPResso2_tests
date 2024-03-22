@@ -1,7 +1,21 @@
 [Command used]:
-/Users/cole/miniconda3/envs/crispresso/bin/CRISPRessoBatch -bs FANC.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --base_editor
+/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPRessoBatch -bs inputs/FANC.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --place_report_in_output_folder --base_editor
 
 [Execution log]:
+Running CRISPResso with 1 processes
+Completed 1/2 runs
+Completed 2/2 runs
+Finished all batches
 Reporting summary for amplicon: "Reference"
 All guides are equal. Performing comparison of batches for amplicon 'Reference'
+Plotting nucleotide percentage quilt for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide conversion map for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide quilt for Reference
+Plotting nucleotide conversion map for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
 Analysis Complete!

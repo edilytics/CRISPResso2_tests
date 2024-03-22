@@ -205,13 +205,13 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.2.15</p>
-  <p><strong>Run completed:</strong> 2024-02-13 09:33:29</p>
+  <p><strong>CRISPResso version:</strong> 2.3.0</p>
+  <p><strong>Run completed:</strong> 2024-03-22 16:08:41</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --min_single_bp_quality 0 --min_frequency_alleles_around_cut_to_plot 0.2 --max_paired_end_reads_overlap 100 --amplicon_name Reference --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_incentive 1 --n_processes 1 --quantification_window_center -3 --needleman_wunsch_gap_open -20 --flexiguide_homology 80 --guide_seq GGAATCCCTTCTGCAGCACC --fastq_r1 inputs/FANC.Untreated.fastq --plot_window_size 20 --aln_seed_min 2 --needleman_wunsch_gap_extend -2 --conversion_nuc_from C --default_min_aln_score 60 --aln_seed_len 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_gap_open_penalty -50 --trimmomatic_command trimmomatic --exclude_bp_from_left 15 --prime_editing_gap_extend_penalty 0 --base_editor_output --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_size 1 --exclude_bp_from_right 15 --flash_command flash --aln_seed_count 5 --debug --max_rows_alleles_around_cut_to_plot 50 --min_bp_quality_or_N 0 --prime_editing_pegRNA_extension_quantification_window_size 5 --verbosity 3 --place_report_in_output_folder --min_average_read_quality 0 --conversion_nuc_to T</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPResso -o /Users/trevormartin/Documents/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --aln_seed_count 5 --base_editor_output --prime_editing_pegRNA_scaffold_min_match_length 1 --debug --verbosity 3 --aln_seed_len 10 --guide_seq GGAATCCCTTCTGCAGCACC --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_gap_open -20 --conversion_nuc_to T --n_processes 1 --amplicon_name Reference --exclude_bp_from_left 15 --prime_editing_gap_extend_penalty 0 --default_min_aln_score 60 --min_bp_quality_or_N 0 --fastp_command fastp --quantification_window_size 1 --plot_window_size 20 --place_report_in_output_folder --fastq_r1 inputs/FANC.Untreated.fastq --needleman_wunsch_gap_extend -2 --exclude_bp_from_right 15 --needleman_wunsch_aln_matrix_loc EDNAFULL --max_paired_end_reads_overlap 100 --quantification_window_center -3 --max_rows_alleles_around_cut_to_plot 50 --min_average_read_quality 0 --min_frequency_alleles_around_cut_to_plot 0.2 --conversion_nuc_from C --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_incentive 1 --aln_seed_min 2 --flexiguide_homology 80 --min_paired_end_reads_overlap 10 --min_single_bp_quality 0</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -243,11 +243,13 @@ exclude_bp_from_right: 15
 expand_allele_plots_by_quantification: False
 expand_ambiguous_alignments: False
 expected_hdr_amplicon_seq: 
+fastp_command: fastp
+fastp_options_string: 
 fastq_output: False
 fastq_r1: inputs/FANC.Untreated.fastq
 fastq_r2: 
 file_prefix: 
-flash_command: flash
+flash_command: None
 flexiguide_homology: 80
 flexiguide_name: 
 flexiguide_seq: None
@@ -272,7 +274,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /Users/trevormartin/Documents/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -296,7 +298,7 @@ suppress_amplicon_name_truncation: False
 suppress_plots: False
 suppress_report: False
 trim_sequences: False
-trimmomatic_command: trimmomatic
+trimmomatic_command: None
 trimmomatic_options_string: 
 use_legacy_insertion_quantification: False
 verbosity: 3

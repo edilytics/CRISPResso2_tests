@@ -1,6 +1,6 @@
-CRISPResso version 2.2.7
+CRISPResso version 2.3.0
 [Command used]:
-/Users/cole/miniconda3/envs/crispresso/bin/CRISPRessoWGS -b Both.Cas9.fastq.smallGenome.bam -r smallGenome/smallGenome.fa -f Cas9.regions.txt --debug
+/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPRessoWGS -b inputs/Both.Cas9.fastq.smallGenome.bam -r inputs/small_genome/smallGenome.fa -f inputs/Cas9.regions.txt --place_report_in_output_folder --debug
 
 [Execution log]:
 Index file for input .bam file exists, skipping generation.
@@ -13,5 +13,9 @@ Running CRISPResso on each region...
 The region [HEK3] has too few reads mapped to it (2)! Not running CRISPResso!
 
 The region [FANCF] has enough reads (23) mapped to it!
+Running CRISPResso with 1 processes
+Completed 1/1 runs
+Finished all regions
+Skipping folder 'CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/CRISPResso_on_HEK3'. Cannot find run data status file at 'CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/CRISPResso_on_HEK3/CRISPResso2_info.json'.
 Skipping the folder CRISPResso_on_HEK3: not enough reads, incomplete, or empty folder.
 Analysis Complete!

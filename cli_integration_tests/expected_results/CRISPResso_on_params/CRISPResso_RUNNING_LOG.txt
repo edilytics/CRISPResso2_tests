@@ -1,8 +1,9 @@
-CRISPResso version 2.2.7
+CRISPResso version 2.3.0
 [Command used]:
-/Users/cole/miniconda3/envs/crispresso/bin/CRISPResso -r1 FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear --debug
+/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
 
 [Execution log]:
+Computing quantification windows
 Added 2 guides with flexible matching
 	Original flexiguides: ['AGCCTTGCAGTGGGCGCGCTA', 'CCCACTGAAGGCCC']
 	Found guides: ['GGCCTTGCAGTGGGCGCGCTA', 'CCCACTGCAAGGCCC']
@@ -27,6 +28,155 @@ Saving processed data...
 Writing file for alleles with dsODN
 Dumping all the processed data...
 Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Plotting dsODN pie chart
+Begin processing plots for amplicon FANC
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting nucleotide distribuition around dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting nucleotide distribuition around sgRNA CCCACTGAAGGCCC for FANC
+Plotting indel size distribution for FANC
+Plotting frequency deletions/insertions for FANC
+Plotting amplication modifications for FANC
+Plotting modification frequency for FANC
+Plotting quantification window locations for FANC
+Plotting position dependent indel for FANC
+Plotting global modifications with respect to reference
+Plotting HDR nucleotide quilt
+Plotting frameshift frequency for FANC
+Plotting non-coding mutation positions for FANC
+Plotting potential splice sites
+Plotting substitutions across reference for FANC
+Plotting substitution frequency barplot for FANC
+Plotting substitution frequency barplot in quantification window for FANC
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting scaled non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting scaled non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Plotting non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Plotting scaled non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Done!
+Begin processing plots for amplicon HDR
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting nucleotide distribuition around dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting nucleotide distribuition around sgRNA CCCACTGAAGGCCC for HDR
+Plotting indel size distribution for HDR
+Plotting frequency deletions/insertions for HDR
+Plotting amplication modifications for HDR
+Plotting modification frequency for HDR
+Plotting quantification window locations for HDR
+Plotting position dependent indel for HDR
+Plotting global modifications with respect to reference
+Plotting frameshift analysis for HDR
+Plotting frameshift frequency for HDR
+Plotting non-coding mutation positions for HDR
+Plotting potential splice sites
+Plotting substitutions across reference for HDR
+Plotting substitution frequency barplot for HDR
+Plotting substitution frequency barplot in quantification window for HDR
+Plotting allele distribution around cut for HDR
+Plotting log2 nucleotide frequency for HDR
+Plotting conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting scaled non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting allele distribution around cut for HDR
+Plotting log2 nucleotide frequency for HDR
+Plotting conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting scaled non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting allele distribution around cut for HDR
+Plotting log2 nucleotide frequency for HDR
+Plotting conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
+Plotting non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
+Plotting scaled non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
+Done!
+Plotting global frameshift in-frame mutations pie chart
+Plotting global frameshift in-frame mutation profiles
+Plotting global potential splice sites pie chart
+Plot pool results:
+future: <Future at 0x147d7b5b0 state=finished returned NoneType>
+future: <Future at 0x147d79690 state=finished returned NoneType>
+future: <Future at 0x147cd7580 state=finished returned NoneType>
+future: <Future at 0x14821b610 state=finished returned NoneType>
+future: <Future at 0x148218400 state=finished returned NoneType>
+future: <Future at 0x147d7b6d0 state=finished returned NoneType>
+future: <Future at 0x147cd6e30 state=finished returned NoneType>
+future: <Future at 0x147cd6f80 state=finished returned NoneType>
+future: <Future at 0x14821b460 state=finished returned NoneType>
+future: <Future at 0x14821b0d0 state=finished returned NoneType>
+future: <Future at 0x148218fd0 state=finished returned NoneType>
+future: <Future at 0x148219ae0 state=finished returned NoneType>
+future: <Future at 0x14821af80 state=finished returned NoneType>
+future: <Future at 0x148219fc0 state=finished returned NoneType>
+future: <Future at 0x1481c6e60 state=finished returned NoneType>
+future: <Future at 0x147d7ba00 state=finished returned NoneType>
+future: <Future at 0x1481c4ee0 state=finished returned NoneType>
+future: <Future at 0x148301480 state=finished returned NoneType>
+future: <Future at 0x1483002e0 state=finished returned NoneType>
+future: <Future at 0x1483026e0 state=finished returned NoneType>
+future: <Future at 0x1483038e0 state=finished returned NoneType>
+future: <Future at 0x14821a680 state=finished returned NoneType>
+future: <Future at 0x148362650 state=finished returned NoneType>
+future: <Future at 0x148362140 state=finished returned NoneType>
+future: <Future at 0x1483629b0 state=finished returned NoneType>
+future: <Future at 0x148361d20 state=finished returned NoneType>
+future: <Future at 0x148301e70 state=finished returned NoneType>
+future: <Future at 0x1483631c0 state=finished returned NoneType>
+future: <Future at 0x148360970 state=finished returned NoneType>
+future: <Future at 0x1483624d0 state=finished returned NoneType>
+future: <Future at 0x1483631f0 state=finished returned NoneType>
+future: <Future at 0x148300310 state=finished returned NoneType>
+future: <Future at 0x1483633d0 state=finished returned NoneType>
+future: <Future at 0x148360040 state=finished returned NoneType>
+future: <Future at 0x148362a70 state=finished returned NoneType>
+future: <Future at 0x148361630 state=finished returned NoneType>
+future: <Future at 0x148363280 state=finished returned NoneType>
+future: <Future at 0x147d78a60 state=finished returned NoneType>
+future: <Future at 0x148361ae0 state=finished returned NoneType>
+future: <Future at 0x148361180 state=finished returned NoneType>
+future: <Future at 0x148360850 state=finished returned NoneType>
+future: <Future at 0x1483610f0 state=finished returned NoneType>
+future: <Future at 0x1483614e0 state=finished returned NoneType>
+future: <Future at 0x148362d40 state=finished returned NoneType>
+future: <Future at 0x148360640 state=finished returned NoneType>
+future: <Future at 0x148360bb0 state=finished returned NoneType>
+future: <Future at 0x148361720 state=finished returned NoneType>
+future: <Future at 0x148361840 state=finished returned NoneType>
+future: <Future at 0x1483629e0 state=finished returned NoneType>
+future: <Future at 0x148363670 state=finished returned NoneType>
+future: <Future at 0x1481c4c10 state=finished returned NoneType>
+future: <Future at 0x147cd7430 state=finished returned NoneType>
+future: <Future at 0x1481c6c50 state=finished returned NoneType>
+future: <Future at 0x1481c74f0 state=finished returned NoneType>
+future: <Future at 0x148360070 state=finished returned NoneType>
+future: <Future at 0x1483617b0 state=finished returned NoneType>
+future: <Future at 0x148361540 state=finished returned NoneType>
+future: <Future at 0x1481c4eb0 state=finished returned NoneType>
+future: <Future at 0x1481c6230 state=finished returned NoneType>
+future: <Future at 0x148363e20 state=finished returned NoneType>
+future: <Future at 0x1483020e0 state=finished returned NoneType>
+future: <Future at 0x1481c6590 state=finished returned NoneType>
+future: <Future at 0x1481c6260 state=finished returned NoneType>
+future: <Future at 0x1481c6170 state=finished returned NoneType>
+future: <Future at 0x1483612a0 state=finished returned NoneType>
+future: <Future at 0x148361b70 state=finished returned NoneType>
+future: <Future at 0x1481c60b0 state=finished returned NoneType>
+future: <Future at 0x1481c4d60 state=finished returned NoneType>
+future: <Future at 0x1481c6830 state=finished returned NoneType>
+future: <Future at 0x1483638b0 state=finished returned NoneType>
+future: <Future at 0x1481c5360 state=finished returned NoneType>
+future: <Future at 0x1481c61a0 state=finished returned NoneType>
 Done!
 Removing Intermediate files...
 Analysis Complete!

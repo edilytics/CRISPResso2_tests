@@ -1,8 +1,9 @@
-CRISPResso version 2.2.7
+CRISPResso version 2.3.0
 [Command used]:
-/Users/cole/miniconda3/envs/crispresso/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --n_processes 1 --aln_seed_min 2 --conversion_nuc_to T --plot_window_size 20 --max_paired_end_reads_overlap 100 --conversion_nuc_from C --needleman_wunsch_gap_open -20 --min_frequency_alleles_around_cut_to_plot 0.2 --min_bp_quality_or_N 0 --needleman_wunsch_gap_extend -2 --trimmomatic_command trimmomatic --prime_editing_pegRNA_extension_quantification_window_size 5 --debug --aln_seed_count 5 --default_min_aln_score 60 --flash_command flash --exclude_bp_from_left 15 --min_paired_end_reads_overlap 10 --min_average_read_quality 0 --max_rows_alleles_around_cut_to_plot 50 --quantification_window_size 1 --flexiguide_homology 80 --needleman_wunsch_gap_incentive 1 --exclude_bp_from_right 15 --quantification_window_center -3 --needleman_wunsch_aln_matrix_loc EDNAFULL --min_single_bp_quality 0 --aln_seed_len 10 --prime_editing_pegRNA_scaffold_min_match_length 1
+/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --conversion_nuc_to T --plot_window_size 20 --min_bp_quality_or_N 0 --exclude_bp_from_right 15 --place_report_in_output_folder --fastp_command fastp --quantification_window_size 1 --exclude_bp_from_left 15 --needleman_wunsch_gap_open -20 --prime_editing_gap_extend_penalty 0 --prime_editing_gap_open_penalty -50 --min_frequency_alleles_around_cut_to_plot 0.2 --max_paired_end_reads_overlap 100 --min_single_bp_quality 0 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_aln_matrix_loc EDNAFULL --n_processes 1 --aln_seed_count 5 --verbosity 3 --flexiguide_homology 80 --needleman_wunsch_gap_incentive 1 --conversion_nuc_from C --min_average_read_quality 0 --aln_seed_len 10 --needleman_wunsch_gap_extend -2 --quantification_window_center -3 --min_paired_end_reads_overlap 10 --prime_editing_pegRNA_extension_quantification_window_size 5 --aln_seed_min 2 --debug --default_min_aln_score 60 --prime_editing_pegRNA_scaffold_min_match_length 1
 
 [Execution log]:
+Computing quantification windows
 Aligning sequences...
 Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
 Finished reads; N_TOT_READS: 23 N_COMPUTED_ALN: 12 N_CACHED_ALN: 11 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
@@ -13,6 +14,17 @@ Calculating allele frequencies...
 Done!
 Saving processed data...
 Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Done!
 Done!
 Removing Intermediate files...
 Analysis Complete!
