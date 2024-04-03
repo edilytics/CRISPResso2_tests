@@ -185,6 +185,17 @@
 					
 					<h5>FANCF</h5>
 					
+					
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 23.</div>
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 23, Irregular reads: 23.</div>
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 51, Substitutions outside window: 50.</div>
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 93.0, Substitutions: 51.</div>
+	
+
 					<h5>CRISPResso2 run information</h5>
 					<ul class="nav nav-tabs justify-content-center card-header-tabs" id="log-tab" role="tablist">
 						<li class="nav-item">
@@ -206,10 +217,10 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.2.15</p>
-  <p><strong>Run completed:</strong> 2024-02-13 09:51:17</p>
+  <p><strong>Run completed:</strong> 2024-04-03 16:16:49</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --exclude_bp_from_right 15 --conversion_nuc_to T --trimmomatic_command trimmomatic --debug --prime_editing_gap_open_penalty -50 --max_paired_end_reads_overlap 100 --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --min_frequency_alleles_around_cut_to_plot 0.2 --conversion_nuc_from C --default_min_aln_score 60 --n_processes 1 --prime_editing_gap_extend_penalty 0 --aln_seed_len 10 --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_extend -2 --min_single_bp_quality 0 --needleman_wunsch_gap_open -20 --min_average_read_quality 0 --flash_command flash --aln_seed_count 5 --verbosity 3 --flexiguide_homology 80 --quantification_window_center -3 --aln_seed_min 2 --quantification_window_size 1 --needleman_wunsch_gap_incentive 1 --plot_window_size 20 --place_report_in_output_folder --exclude_bp_from_left 15 --max_rows_alleles_around_cut_to_plot 50 --min_bp_quality_or_N 0</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/micromamba/envs/c2/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --max_rows_alleles_around_cut_to_plot 50 --aln_seed_len 10 --min_single_bp_quality 0 --exclude_bp_from_right 15 --min_paired_end_reads_overlap 10 --aln_seed_min 2 --prime_editing_pegRNA_extension_quantification_window_size 5 --exclude_bp_from_left 15 --needleman_wunsch_gap_incentive 1 --needleman_wunsch_gap_open -20 --conversion_nuc_to T --trimmomatic_command trimmomatic --flash_command flash --needleman_wunsch_gap_extend -2 --aln_seed_count 5 --max_paired_end_reads_overlap 100 --prime_editing_gap_extend_penalty 0 --debug --flexiguide_homology 80 --plot_window_size 20 --needleman_wunsch_aln_matrix_loc EDNAFULL --default_min_aln_score 60 --quantification_window_size 1 --min_frequency_alleles_around_cut_to_plot 0.2 --n_processes 1 --conversion_nuc_from C --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_gap_open_penalty -50 --place_report_in_output_folder --quantification_window_center -3 --min_bp_quality_or_N 0 --verbosity 3 --min_average_read_quality 0</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -232,6 +243,7 @@ conversion_nuc_to: T
 crispresso1_mode: False
 debug: True
 default_min_aln_score: 60
+disable_guardrails: False
 discard_guide_positions_overhanging_amplicon_edge: False
 discard_indel_reads: False
 dsODN: 
