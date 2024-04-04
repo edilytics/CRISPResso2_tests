@@ -9,7 +9,6 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat|Ranga:700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-
     <style>
       body {
         font-family: 'Montserrat', sans-serif !important;
@@ -319,6 +318,7 @@ trim_sequences: False
 trimmomatic_command: None
 trimmomatic_options_string: 
 use_legacy_insertion_quantification: False
+use_matplotlib: False
 verbosity: 3
 write_cleaned_report: False
 write_detailed_allele_table: False
@@ -430,13 +430,15 @@ zip_output: False</pre></p>
 					
 				</div>
 				<div class='card-body'>
-					<div id="fig_plot_4g" class="d-flex flex-column">
+					
+						<div id="fig_plot_4g" class="d-flex flex-column">
     <a href="4g.HDR_nucleotide_percentage_quilt.pdf"><img src="4g.HDR_nucleotide_percentage_quilt.png" width='100%'></a>
         <label class="labelpadding">Figure 4g: Nucleotide distribution across all amplicons. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
             <p class="m-0"><small>Data: <a href="FANC.Reads_from_all_amplicons_nucleotide_percent_table.txt">Nucleotide percentage table for all reads aligned to FANC</a></small></p>
             <p class="m-0"><small>Data: <a href="FANC.Reads_from_all_amplicons_modification_percent_table.txt">Modification percentage table for all reads aligned to FANC</a></small></p>
             <p class="m-0"><small>Data: <a href="FANC.Nucleotide_frequency_table.txt">Nucleotide frequency table for FANC</a></small></p>
 </div>
+					
 				</div>
 			</div>
 			
@@ -493,27 +495,28 @@ zip_output: False</pre></p>
 								
       							</div>
       							<div class='card-body'>
+
 								
-								<div class='div_zoom_outer d-none d-md-block' style="height:100px;border:1px solid #DDDDDD;position:relative">
-									<div id="zoomview_nucs_FANC" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.FANC.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
-  										<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
-	  										<img src="2a.FANC.Nucleotide_percentage_quilt.png" style='height:100%'>
-  										</div>
-								</div>
+									<div class='div_zoom_outer d-none d-md-block' style="height:100px;border:1px solid #DDDDDD;position:relative">
+										<div id="zoomview_nucs_FANC" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.FANC.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
+											<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
+												<img src="2a.FANC.Nucleotide_percentage_quilt.png" style='height:100%'>
+											</div>
+									</div>
 									<div style='position:relative;display:inline-block;width:95%'>
 										<a href="2a.FANC.Nucleotide_percentage_quilt.pdf">
     									<div id='zoomlens_nucs_FANC' class="d-none d-lg-block" style='float: left;position: absolute;left: 0px;top: 0px;z-index: 1000;border: 1px solid #DDDDDD;height:100%;width:10%'></div>
     										<img id='tozoom_nucs_FANC' src="2a.FANC.Nucleotide_percentage_quilt.png" width='100%' style='position:relative'></a>
-										</div>
-										<label class="labelpadding">
-  										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
-  											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
-										</label>
-							  			
-							  			<p class="m-0"><small>Data: <a href="FANC.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
-                						
+									</div>
+									<label class="labelpadding">
+										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
+											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
+									</label>
 								
-
+								
+									<p class="m-0"><small>Data: <a href="FANC.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
+								
+								
 								
   									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
@@ -953,27 +956,28 @@ zip_output: False</pre></p>
 								
       							</div>
       							<div class='card-body'>
+
 								
-								<div class='div_zoom_outer d-none d-md-block' style="height:100px;border:1px solid #DDDDDD;position:relative">
-									<div id="zoomview_nucs_HDR" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.HDR.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
-  										<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
-	  										<img src="2a.HDR.Nucleotide_percentage_quilt.png" style='height:100%'>
-  										</div>
-								</div>
+									<div class='div_zoom_outer d-none d-md-block' style="height:100px;border:1px solid #DDDDDD;position:relative">
+										<div id="zoomview_nucs_HDR" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.HDR.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
+											<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
+												<img src="2a.HDR.Nucleotide_percentage_quilt.png" style='height:100%'>
+											</div>
+									</div>
 									<div style='position:relative;display:inline-block;width:95%'>
 										<a href="2a.HDR.Nucleotide_percentage_quilt.pdf">
     									<div id='zoomlens_nucs_HDR' class="d-none d-lg-block" style='float: left;position: absolute;left: 0px;top: 0px;z-index: 1000;border: 1px solid #DDDDDD;height:100%;width:10%'></div>
     										<img id='tozoom_nucs_HDR' src="2a.HDR.Nucleotide_percentage_quilt.png" width='100%' style='position:relative'></a>
-										</div>
-										<label class="labelpadding">
-  										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
-  											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
-										</label>
-							  			
-							  			<p class="m-0"><small>Data: <a href="HDR.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
-                						
+									</div>
+									<label class="labelpadding">
+										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
+											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
+									</label>
 								
-
+								
+									<p class="m-0"><small>Data: <a href="HDR.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
+								
+								
 								
   									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
@@ -1557,6 +1561,10 @@ try {
 		
 	
 	</script>
+
+
+
+
 
   </body>
 
