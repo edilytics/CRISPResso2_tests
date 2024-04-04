@@ -185,6 +185,15 @@
 					
 					<h5>HEK3</h5>
 					
+					
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 250.</div>
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 244, Irregular reads: 244.</div>
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 160, Substitutions outside window: 154.</div>
+	
+
 					<h5>CRISPResso2 run information</h5>
 					<ul class="nav nav-tabs justify-content-center card-header-tabs" id="log-tab" role="tablist">
 						<li class="nav-item">
@@ -234,6 +243,7 @@ conversion_nuc_to: T
 crispresso1_mode: False
 debug: True
 default_min_aln_score: 60
+disable_guardrails: False
 discard_guide_positions_overhanging_amplicon_edge: False
 discard_indel_reads: False
 dsODN: 
