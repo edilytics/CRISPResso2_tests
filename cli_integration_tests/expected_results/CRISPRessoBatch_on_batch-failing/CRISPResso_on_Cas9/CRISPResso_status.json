@@ -1,0 +1,6 @@
+{
+  "message": "Unexpected error, please check your input.
+
+ERROR: File inputs/bad_format.fastq is not in fastq format!",
+  "percent_complete": 
+}
