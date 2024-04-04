@@ -214,13 +214,13 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.2.15</p>
-  <p><strong>Run completed:</strong> 2024-04-03 16:16:37</p>
+  <p><strong>CRISPResso version:</strong> 2.3.0</p>
+  <p><strong>Run completed:</strong> 2024-04-04 12:03:47</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGCCCAGACTGAGCACGTGA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/micromamba/envs/c2/bin/CRISPResso -r1 CRISPRessoPooled_on_Both.Cas9/AMPL_HEK3.fastq.gz -a GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG -o CRISPRessoPooled_on_Both.Cas9 --name HEK3 --quantification_window_size 1 --min_single_bp_quality 0 --default_min_aln_score 60 --exclude_bp_from_right 15 --min_bp_quality_or_N 0 --n_processes 1 --conversion_nuc_from C --aln_seed_len 10 --needleman_wunsch_gap_incentive 1 --place_report_in_output_folder --prime_editing_pegRNA_extension_quantification_window_size 5 --trimmomatic_command trimmomatic --aln_seed_min 2 --aln_seed_count 5 --prime_editing_pegRNA_scaffold_min_match_length 1 --needleman_wunsch_gap_extend -2 --flexiguide_homology 80 --max_paired_end_reads_overlap 100 --prime_editing_gap_open_penalty -50 --quantification_window_center -3 --conversion_nuc_to T --min_frequency_alleles_around_cut_to_plot 0.2 --exclude_bp_from_left 15 --plot_window_size 20 --min_paired_end_reads_overlap 10 --debug --keep_intermediate --min_average_read_quality 0 --needleman_wunsch_gap_open -20 --flash_command flash --verbosity 3 --needleman_wunsch_aln_matrix_loc EDNAFULL --max_rows_alleles_around_cut_to_plot 50 --prime_editing_gap_extend_penalty 0 --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPResso -r1 CRISPRessoPooled_on_Both.Cas9/AMPL_HEK3.fastq.gz -a GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG -o CRISPRessoPooled_on_Both.Cas9 --name HEK3 --conversion_nuc_to T --flexiguide_homology 80 --min_single_bp_quality 0 --aln_seed_min 2 --quantification_window_center -3 --needleman_wunsch_gap_incentive 1 --prime_editing_gap_extend_penalty 0 --min_average_read_quality 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --needleman_wunsch_gap_open -20 --min_bp_quality_or_N 0 --max_paired_end_reads_overlap 100 --debug --needleman_wunsch_gap_extend -2 --prime_editing_pegRNA_extension_quantification_window_size 5 --verbosity 3 --max_rows_alleles_around_cut_to_plot 50 --keep_intermediate --quantification_window_size 1 --plot_window_size 20 --min_frequency_alleles_around_cut_to_plot 0.2 --default_min_aln_score 60 --conversion_nuc_from C --aln_seed_len 10 --place_report_in_output_folder --prime_editing_gap_open_penalty -50 --exclude_bp_from_right 15 --prime_editing_pegRNA_scaffold_min_match_length 1 --min_paired_end_reads_overlap 10 --fastp_command fastp --n_processes 1 --aln_seed_count 5 --exclude_bp_from_left 15 --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -253,11 +253,13 @@ exclude_bp_from_right: 15
 expand_allele_plots_by_quantification: False
 expand_ambiguous_alignments: False
 expected_hdr_amplicon_seq: 
+fastp_command: fastp
+fastp_options_string: 
 fastq_output: False
 fastq_r1: CRISPRessoPooled_on_Both.Cas9/AMPL_HEK3.fastq.gz
 fastq_r2: 
 file_prefix: 
-flash_command: flash
+flash_command: None
 flexiguide_homology: 80
 flexiguide_name: 
 flexiguide_seq: None
@@ -306,7 +308,7 @@ suppress_amplicon_name_truncation: False
 suppress_plots: False
 suppress_report: False
 trim_sequences: False
-trimmomatic_command: trimmomatic
+trimmomatic_command: None
 trimmomatic_options_string: 
 use_legacy_insertion_quantification: False
 verbosity: 3

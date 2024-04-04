@@ -216,8 +216,8 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.2.15</p>
-  <p><strong>Run completed:</strong> 2024-04-03 16:19:54</p>
+  <p><strong>CRISPResso version:</strong> 2.3.0</p>
+  <p><strong>Run completed:</strong> 2024-04-04 12:02:06</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT</pre></p>
   
   <p><strong>Command used:</strong> <pre class='pre-scrollable'>CRISPResso --fastq_r1 prime_editor.fastq.gz --amplicon_seq ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT --prime_editing_pegRNA_spacer_seq GTCATCTTAGTCATTACCTG --prime_editing_pegRNA_extension_seq AACGAACACCTCATGTAATGACTAAGATG --prime_editing_nicking_guide_seq CTCAACCATTAAGCAAAACAT --prime_editing_pegRNA_scaffold_seq GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC --write_cleaned_report --place_report_in_output_folder --debug</pre></p>
@@ -253,11 +253,13 @@ exclude_bp_from_right: 15
 expand_allele_plots_by_quantification: False
 expand_ambiguous_alignments: False
 expected_hdr_amplicon_seq: 
+fastp_command: fastp
+fastp_options_string: 
 fastq_output: False
 fastq_r1: prime_editor.fastq.gz
 fastq_r2: 
 file_prefix: 
-flash_command: flash
+flash_command: None
 flexiguide_homology: 80
 flexiguide_name: 
 flexiguide_seq: None
@@ -306,7 +308,7 @@ suppress_amplicon_name_truncation: False
 suppress_plots: False
 suppress_report: False
 trim_sequences: False
-trimmomatic_command: trimmomatic
+trimmomatic_command: None
 trimmomatic_options_string: 
 use_legacy_insertion_quantification: False
 verbosity: 3
