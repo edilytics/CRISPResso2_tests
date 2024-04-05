@@ -216,10 +216,10 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.0</p>
-  <p><strong>Run completed:</strong> 2024-04-04 12:04:09</p>
+  <p><strong>Run completed:</strong> 2024-04-04 16:21:33</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --min_paired_end_reads_overlap 10 --debug --plot_window_size 20 --prime_editing_gap_open_penalty -50 --flexiguide_homology 80 --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_count 5 --aln_seed_min 2 --min_bp_quality_or_N 0 --needleman_wunsch_gap_extend -2 --n_processes 1 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_open -20 --needleman_wunsch_aln_matrix_loc EDNAFULL --place_report_in_output_folder --quantification_window_size 1 --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_incentive 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --max_paired_end_reads_overlap 100 --verbosity 3 --min_single_bp_quality 0 --exclude_bp_from_left 15 --aln_seed_len 10 --default_min_aln_score 60 --min_average_read_quality 0 --conversion_nuc_from C --quantification_window_center -3 --prime_editing_pegRNA_scaffold_min_match_length 1 --conversion_nuc_to T --exclude_bp_from_right 15 --fastp_command fastp</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --prime_editing_pegRNA_extension_quantification_window_size 5 --debug --aln_seed_count 5 --config_file None --default_min_aln_score 60 --min_average_read_quality 0 --flexiguide_homology 80 --prime_editing_gap_open_penalty -50 --aln_seed_min 2 --conversion_nuc_from C --min_bp_quality_or_N 0 --needleman_wunsch_gap_incentive 1 --needleman_wunsch_gap_open -20 --exclude_bp_from_left 15 --plot_window_size 20 --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --place_report_in_output_folder --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_center -3 --verbosity 3 --flash_command None --conversion_nuc_to T --trimmomatic_command None --quantification_window_size 1 --max_rows_alleles_around_cut_to_plot 50 --min_frequency_alleles_around_cut_to_plot 0.2 --needleman_wunsch_gap_extend -2 --exclude_bp_from_right 15 --n_processes 1 --aln_seed_len 10 --flexiguide_seq None</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -269,7 +269,7 @@ ignore_deletions: False
 ignore_insertions: False
 ignore_substitutions: False
 keep_intermediate: False
-max_paired_end_reads_overlap: 100
+max_paired_end_reads_overlap: None
 max_rows_alleles_around_cut_to_plot: 50
 min_average_read_quality: 0
 min_bp_quality_or_N: 0
