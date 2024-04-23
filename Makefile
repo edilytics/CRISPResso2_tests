@@ -7,6 +7,7 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPRessoPooled_on_pooled-paired-sim \
 CRISPResso_on_prime_editor \
 CRISPRessoBatch_on_batch-failing \
 CRISPRessoPooled_on_pooled-mixed-mode \
@@ -14,7 +15,7 @@ CRISPRessoCompare_on_Cas9_VS_Untreated)
 
 RUN = if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then $$cmd; else output=`$$cmd 2>&1` || echo "$$output"; fi && if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@); fi
 
-all: clean basic params prime-editor batch pooled wgs compare
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim
 
 print:
 	@echo " ";
@@ -39,6 +40,7 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim* \
 cli_integration_tests/CRISPResso_on_prime_editor* \
 cli_integration_tests/CRISPRessoBatch_on_batch-failing* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
@@ -120,3 +122,9 @@ prime-editor: cli_integration_tests/CRISPResso_on_prime_editor
 
 cli_integration_tests/CRISPResso_on_prime_editor: install cli_integration_tests/inputs/prime_editor.fastq.gz cli_integration_tests/inputs/ cli_integration_tests/inputs/
 	cd cli_integration_tests && cmd="CRISPResso --fastq_r1 inputs/prime_editor.fastq.gz --amplicon_seq ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT --prime_editing_pegRNA_spacer_seq GTCATCTTAGTCATTACCTG --prime_editing_pegRNA_extension_seq AACGAACACCTCATGTAATGACTAAGATG --prime_editing_nicking_guide_seq CTCAACCATTAAGCAAAACAT --prime_editing_pegRNA_scaffold_seq GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC --write_cleaned_report --place_report_in_output_folder --debug"; $(RUN)
+
+.PHONY: pooled-paired-sim
+pooled-paired-sim: cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim
+
+cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim: install cli_integration_tests/inputs/simulated.trim_reqd.r1.fq cli_integration_tests/inputs/simulated.trim_reqd.r2.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/simulated.amplicons.txt
+	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/simulated.trim_reqd.r1.fq -r2 inputs/simulated.trim_reqd.r2.fq -f inputs/simulated.amplicons.txt --place_report_in_output_folder --debug --min_reads_to_use_region 10 --trim_sequences --keep_intermediate -n pooled-paired-sim"; $(RUN)
