@@ -1,0 +1,197 @@
+{
+  "running_info": {
+    "version": "2.3.0",
+    "args": {
+      "_type": "argparse.Namespace",
+      "value": {
+        "fastq_r1": "inputs/simulated.trim_reqd.r1.fq",
+        "fastq_r2": "inputs/simulated.trim_reqd.r2.fq",
+        "amplicon_seq": null,
+        "amplicon_name": "Reference",
+        "amplicon_min_alignment_score": "",
+        "default_min_aln_score": 60,
+        "expand_ambiguous_alignments": false,
+        "assign_ambiguous_alignments_to_first_reference": false,
+        "guide_seq": "",
+        "guide_name": "",
+        "flexiguide_seq": "None",
+        "flexiguide_homology": 80,
+        "flexiguide_name": "",
+        "discard_guide_positions_overhanging_amplicon_edge": false,
+        "expected_hdr_amplicon_seq": "",
+        "coding_seq": "",
+        "config_file": "None",
+        "min_average_read_quality": 0,
+        "min_single_bp_quality": 0,
+        "min_bp_quality_or_N": 0,
+        "file_prefix": "",
+        "name": "pooled-paired-sim",
+        "suppress_amplicon_name_truncation": false,
+        "output_folder": "",
+        "verbosity": 3,
+        "split_interleaved_input": false,
+        "trim_sequences": true,
+        "trimmomatic_command": "None",
+        "trimmomatic_options_string": "",
+        "flash_command": "None",
+        "fastp_command": "fastp",
+        "fastp_options_string": "",
+        "min_paired_end_reads_overlap": 10,
+        "max_paired_end_reads_overlap": "None",
+        "stringent_flash_merging": false,
+        "force_merge_pairs": false,
+        "quantification_window_size": "1",
+        "quantification_window_center": "-3",
+        "exclude_bp_from_left": 15,
+        "exclude_bp_from_right": 15,
+        "use_legacy_insertion_quantification": false,
+        "ignore_substitutions": false,
+        "ignore_insertions": false,
+        "ignore_deletions": false,
+        "discard_indel_reads": false,
+        "needleman_wunsch_gap_open": -20,
+        "needleman_wunsch_gap_extend": -2,
+        "needleman_wunsch_gap_incentive": 1,
+        "needleman_wunsch_aln_matrix_loc": "EDNAFULL",
+        "aln_seed_count": 5,
+        "aln_seed_len": 10,
+        "aln_seed_min": 2,
+        "plot_histogram_outliers": false,
+        "plot_window_size": 20,
+        "min_frequency_alleles_around_cut_to_plot": 0.2,
+        "expand_allele_plots_by_quantification": false,
+        "allele_plot_pcts_only_for_assigned_reference": false,
+        "quantification_window_coordinates": null,
+        "annotate_wildtype_allele": "",
+        "keep_intermediate": true,
+        "dump": false,
+        "write_detailed_allele_table": false,
+        "fastq_output": false,
+        "bam_output": false,
+        "bowtie2_index": "",
+        "zip_output": false,
+        "max_rows_alleles_around_cut_to_plot": 50,
+        "suppress_report": false,
+        "place_report_in_output_folder": true,
+        "suppress_plots": false,
+        "write_cleaned_report": false,
+        "base_editor_output": false,
+        "conversion_nuc_from": "C",
+        "conversion_nuc_to": "T",
+        "prime_editing_pegRNA_spacer_seq": "",
+        "prime_editing_pegRNA_extension_seq": "",
+        "prime_editing_pegRNA_extension_quantification_window_size": 5,
+        "prime_editing_pegRNA_scaffold_seq": "",
+        "prime_editing_pegRNA_scaffold_min_match_length": 1,
+        "prime_editing_nicking_guide_seq": "",
+        "prime_editing_override_prime_edited_ref_seq": "",
+        "prime_editing_override_sequence_checks": false,
+        "prime_editing_gap_open_penalty": -50,
+        "prime_editing_gap_extend_penalty": 0,
+        "crispresso1_mode": false,
+        "dsODN": "",
+        "auto": false,
+        "debug": true,
+        "no_rerun": false,
+        "n_processes": 1,
+        "bam_input": "",
+        "bam_chr_loc": "",
+        "save_also_png": false,
+        "skip_failed": false,
+        "crispresso_command": "CRISPResso",
+        "amplicons_file": "inputs/simulated.amplicons.txt",
+        "gene_annotations": "",
+        "bowtie2_options_string": "",
+        "use_legacy_bowtie2_options_string": false,
+        "min_reads_to_use_region": 10.0,
+        "skip_reporting_problematic_regions": false,
+        "compile_postrun_references": false,
+        "compile_postrun_reference_allele_cutoff": 30.0,
+        "alternate_alleles": "",
+        "limit_open_files_for_demux": false,
+        "aligned_pooled_bam": null,
+        "demultiplex_only_at_amplicons": false,
+        "disable_guardrails": false,
+        "use_matplotlib": false
+      }
+    },
+    "log_filename": "CRISPRessoPooled_RUNNING_LOG.txt",
+    "finished_steps": {
+      "count_input_reads": [
+        100,
+        100
+      ]
+    },
+    "command_used": "/Users/cole/mambaforge/envs/crispresso/bin/CRISPRessoPooled -r1 inputs/simulated.trim_reqd.r1.fq -r2 inputs/simulated.trim_reqd.r2.fq -f inputs/simulated.amplicons.txt --place_report_in_output_folder --debug --min_reads_to_use_region 10 --trim_sequences --keep_intermediate -n pooled-paired-sim",
+    "fastp_command": "fastp -i inputs/simulated.trim_reqd.r1.fq -I inputs/simulated.trim_reqd.r2.fq --merge --merged_out CRISPRessoPooled_on_pooled-paired-sim/out.extendedFrags.fastq.gz --unpaired1 CRISPRessoPooled_on_pooled-paired-sim/out.notCombined_1.fastq.gz --unpaired2 CRISPRessoPooled_on_pooled-paired-sim/out.notCombined_2.fastq.gz --overlap_len_require 10 --thread 1 --json CRISPRessoPooled_on_pooled-paired-sim/fastp_report.json --html CRISPRessoPooled_on_pooled-paired-sim/fastp_report.html  --detect_adapter_for_pe >> CRISPRessoPooled_on_pooled-paired-sim/CRISPRessoPooled_RUNNING_LOG.txt 2>&1",
+    "running_mode": "ONLY_AMPLICONS",
+    "report_location": "CRISPRessoPooled_on_pooled-paired-sim/CRISPResso2Pooled_report.html",
+    "report_filename": "CRISPResso2Pooled_report.html",
+    "end_time": {
+      "_type": "datetime.datetime",
+      "value": "2024-04-23 13:25:10.203873"
+    },
+    "end_time_string": "2024-04-23 13:25:10",
+    "running_time": {
+      "_type": "datetime.timedelta",
+      "value": {
+        "days": 0,
+        "seconds": 9,
+        "microseconds": 239325
+      }
+    },
+    "running_time_string": "0:00:09.239325"
+  },
+  "results": {
+    "alignment_stats": {
+      "samples_quantification_summary_filename": "SAMPLES_QUANTIFICATION_SUMMARY.txt"
+    },
+    "general_plots": {
+      "summary_plot_names": [
+        "CRISPRessoPooled_reads_summary",
+        "CRISPRessoPooled_modification_summary"
+      ],
+      "summary_plot_titles": {
+        "CRISPRessoPooled_reads_summary": "CRISPRessoPooled Read Allocation Summary",
+        "CRISPRessoPooled_modification_summary": "CRISPRessoPooled Modification Summary"
+      },
+      "summary_plot_labels": {
+        "CRISPRessoPooled_reads_summary": "Each bar shows the total number of reads allocated to each amplicon. The vertical line shows the cutoff for analysis, set using the --min_reads_to_use_region parameter.",
+        "CRISPRessoPooled_modification_summary": "Each bar shows the total number of reads aligned to each amplicon, divided into the reads that are modified and unmodified. The vertical line shows the cutoff for analysis, set using the --min_reads_to_use_region parameter."
+      },
+      "summary_plot_datas": {
+        "CRISPRessoPooled_reads_summary": [
+          [
+            "CRISPRessoPooled summary",
+            "SAMPLES_QUANTIFICATION_SUMMARY.txt"
+          ]
+        ],
+        "CRISPRessoPooled_modification_summary": [
+          [
+            "CRISPRessoPooled summary",
+            "SAMPLES_QUANTIFICATION_SUMMARY.txt"
+          ]
+        ]
+      },
+      "summary_plot_root": "CRISPRessoPooled_modification_summary"
+    },
+    "failed_batch_arr": [],
+    "failed_batch_arr_desc": [],
+    "final_data": {
+      "_type": "pd.DataFrame",
+      "value": "{\"columns\":[\"amplicon_seq\",\"Demultiplexed_fastq.gz_filename\",\"n_reads\",\"n_reads_aligned_%\"],\"index\":[\"Trimmed\"],\"data\":[[\"TCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTT\",\"CRISPRessoPooled_on_pooled-paired-sim\\/AMPL_Trimmed.fastq.gz\",100,100.0]]}"
+    },
+    "all_region_names": [
+      "Trimmed"
+    ],
+    "all_region_read_counts": {
+      "Trimmed": 100
+    },
+    "good_region_names": [
+      "Trimmed"
+    ],
+    "good_region_folders": {
+      "Trimmed": "CRISPResso_on_Trimmed"
+    }
+  }
+}
