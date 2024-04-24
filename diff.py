@@ -14,7 +14,8 @@ from shutil import copyfile
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
 DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
-COMMAND_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
+COMMAND_HTML_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
+COMMAND_LOG_REGEXP = re.compile(r'[\S]*/CRISPResso .*')
 OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPResso[\S]*')
 FASTP_TIMESTAMP_REGEXP = re.compile(r'fastp (report|\d+\.\d+\.\d,) at \d{4}-\d{2}-\d{2} +\d{2}:\d{2}:\d{2}')
 IGNORE_FILES = frozenset([
@@ -80,7 +81,8 @@ def substitute_line(line):
     """
     line = FLOAT_REGEXP.sub(round_float, line)
     line = DATETIME_REGEXP.sub('2024-01-11 12:34:56', line)
-    line = COMMAND_REGEXP.sub('<p>Command used: <command></p>', line)
+    line = COMMAND_HTML_REGEXP.sub('<p>Command used: <command></p>', line)
+    line = COMMAND_LOG_REGEXP.sub('CRISPResso <parameters>', line)
     line = OUTPUT_REGEXP.sub('CRISPResso2_tests/cli_integration_tests/CRISPResso', line)
     line = FASTP_TIMESTAMP_REGEXP.sub('fastp report at 2024-01-11 12:34:56', line)
     return line
