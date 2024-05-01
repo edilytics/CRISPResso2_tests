@@ -1,5 +1,5 @@
 .PHONY: all install test test_cli_integration clean clean_cli_integration \
-	basic params batch pooled wgs compare print
+	basic params batch pooled wgs compare print update
 
 CRISPRESSO2_DIR ?= ../CRISPResso2
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*)
@@ -13,7 +13,19 @@ CRISPRessoBatch_on_batch-failing \
 CRISPRessoPooled_on_pooled-mixed-mode \
 CRISPRessoCompare_on_Cas9_VS_Untreated)
 
-RUN = if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then $$cmd; else output=`$$cmd 2>&1` || echo "$$output"; fi && if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@); fi
+define RUN
+if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then \
+ $$cmd; \
+else \
+  output=`$$cmd 2>&1` || echo "$$output"; \
+fi && \
+if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then \
+ python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@); \
+fi && \
+if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
+ python ../test_manager.py update $(subst cli_integration_tests/,./,$@) $(subst cli_integration_tests/,./expected_results/,$@); \
+fi
+endef
 
 all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim
 
