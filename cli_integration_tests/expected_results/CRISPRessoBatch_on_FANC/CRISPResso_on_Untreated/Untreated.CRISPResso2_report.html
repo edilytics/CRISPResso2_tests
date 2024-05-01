@@ -211,19 +211,19 @@
 					<div class='tab-content'>
 						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
 							<div id="fig_plot_1a" class="d-flex flex-column">
-    <a href="1a.Read_barplot.pdf"><img src="1a.Read_barplot.png" width='40%'></a>
+    <a href="Untreated.1a.Read_barplot.pdf"><img src="Untreated.1a.Read_barplot.png" width='40%'></a>
         <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.3.0</p>
-  <p><strong>Run completed:</strong> 2024-04-04 16:35:41</p>
+  <p><strong>CRISPResso version:</strong> 2.3.1</p>
+  <p><strong>Run completed:</strong> 2024-05-01 13:29:22</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/trevormartin/micromamba/envs/crispresso2environment/bin/CRISPResso -o /Users/trevormartin/Documents/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --flexiguide_homology 80 --n_processes 1 --prime_editing_gap_open_penalty -50 --min_average_read_quality 0 --min_bp_quality_or_N 0 --quantification_window_center -3 --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_size 1 --needleman_wunsch_gap_extend -2 --trimmomatic_command None --config_file None --guide_seq GGAATCCCTTCTGCAGCACC --conversion_nuc_to T --min_single_bp_quality 0 --needleman_wunsch_gap_incentive 1 --base_editor_output --conversion_nuc_from C --verbosity 3 --exclude_bp_from_right 15 --needleman_wunsch_gap_open -20 --amplicon_name Reference --min_frequency_alleles_around_cut_to_plot 0.2 --debug --prime_editing_pegRNA_extension_quantification_window_size 5 --exclude_bp_from_left 15 --needleman_wunsch_aln_matrix_loc EDNAFULL --plot_window_size 20 --max_rows_alleles_around_cut_to_plot 50 --default_min_aln_score 60 --flexiguide_seq None --place_report_in_output_folder --aln_seed_count 5 --aln_seed_min 2 --fastq_r1 inputs/FANC.Untreated.fastq --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_len 10 --prime_editing_gap_extend_penalty 0 --flash_command None</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --amplicon_name Reference --flexiguide_homology 80 --exclude_bp_from_right 15 --prime_editing_gap_open_penalty -50 --min_bp_quality_or_N 0 --verbosity 3 --plot_window_size 20 --debug --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_count 5 --n_processes 1 --needleman_wunsch_aln_matrix_loc EDNAFULL --needleman_wunsch_gap_incentive 1 --default_min_aln_score 60 --min_single_bp_quality 0 --min_paired_end_reads_overlap 10 --max_paired_end_reads_overlap None --needleman_wunsch_gap_open -20 --fastq_r1 inputs/FANC.Untreated.fastq --file_prefix Untreated --aln_seed_min 2 --guide_seq GGAATCCCTTCTGCAGCACC --exclude_bp_from_left 15 --min_frequency_alleles_around_cut_to_plot 0.2 --flexiguide_seq None --conversion_nuc_from C --needleman_wunsch_gap_extend -2 --flash_command None --fastp_command fastp --config_file None --min_average_read_quality 0 --quantification_window_center -3 --conversion_nuc_to T --prime_editing_pegRNA_scaffold_min_match_length 1 --base_editor_output --prime_editing_pegRNA_extension_quantification_window_size 5 --aln_seed_len 10 --trimmomatic_command None --quantification_window_size 1 --prime_editing_gap_extend_penalty 0 --max_rows_alleles_around_cut_to_plot 50 --place_report_in_output_folder</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -261,7 +261,7 @@ fastp_options_string:
 fastq_output: False
 fastq_r1: inputs/FANC.Untreated.fastq
 fastq_r2: 
-file_prefix: 
+file_prefix: Untreated
 flash_command: None
 flexiguide_homology: 80
 flexiguide_name: 
@@ -287,7 +287,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /Users/trevormartin/Documents/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -320,7 +320,7 @@ write_cleaned_report: False
 write_detailed_allele_table: False
 zip_output: False</pre></p>
   
-  <p class='text-center m-0'><small><a href="CRISPResso_RUNNING_LOG.txt">Running log</a></small></p>
+  <p class='text-center m-0'><small><a href="Untreated.CRISPResso_RUNNING_LOG.txt">Running log</a></small></p>
 </div>
 					</div>
 				</div>
@@ -343,16 +343,16 @@ zip_output: False</pre></p>
 					<div class="tab-content" id="tabContent">
 						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
 							<div id="fig_plot_1b" class="d-flex flex-column">
-    <a href="1b.Alignment_pie_chart.pdf"><img src="1b.Alignment_pie_chart.png" width='40%'></a>
+    <a href="Untreated.1b.Alignment_pie_chart.pdf"><img src="Untreated.1b.Alignment_pie_chart.png" width='40%'></a>
         <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
 						</div>
 						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
 							<div id="fig_plot_1c" class="d-flex flex-column">
-    <a href="1c.Alignment_barplot.pdf"><img src="1c.Alignment_barplot.png" width='40%'></a>
+    <a href="Untreated.1c.Alignment_barplot.pdf"><img src="Untreated.1c.Alignment_barplot.png" width='40%'></a>
         <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
 						</div>
     						
@@ -405,15 +405,15 @@ zip_output: False</pre></p>
 
 								
 									<div class='div_zoom_outer d-none d-md-block' style="height:100px;border:1px solid #DDDDDD;position:relative">
-										<div id="zoomview_nucs_Reference" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
+										<div id="zoomview_nucs_Reference" style="position:absolute;left:0;height:100%;width:100%;background-image: url(Untreated.2a.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
 											<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
-												<img src="2a.Nucleotide_percentage_quilt.png" style='height:100%'>
+												<img src="Untreated.2a.Nucleotide_percentage_quilt.png" style='height:100%'>
 											</div>
 									</div>
 									<div style='position:relative;display:inline-block;width:95%'>
-										<a href="2a.Nucleotide_percentage_quilt.pdf">
+										<a href="Untreated.2a.Nucleotide_percentage_quilt.pdf">
     									<div id='zoomlens_nucs_Reference' class="d-none d-lg-block" style='float: left;position: absolute;left: 0px;top: 0px;z-index: 1000;border: 1px solid #DDDDDD;height:100%;width:10%'></div>
-    										<img id='tozoom_nucs_Reference' src="2a.Nucleotide_percentage_quilt.png" width='100%' style='position:relative'></a>
+    										<img id='tozoom_nucs_Reference' src="Untreated.2a.Nucleotide_percentage_quilt.png" width='100%' style='position:relative'></a>
 									</div>
 									<label class="labelpadding">
 										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
@@ -421,15 +421,15 @@ zip_output: False</pre></p>
 									</label>
 								
 								
-									<p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
+									<p class="m-0"><small>Data: <a href="Untreated.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
 								
 								
 								
   									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
-    <a href="2b.Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="2b.Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
+    <a href="Untreated.2b.Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Untreated.2b.Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
         <label class="labelpadding">Figure 2b: Nucleotide distribution around the sgRNA GGAATCCCTTCTGCAGCACC.</label>
-            <p class="m-0"><small>Data: <a href="Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
 </div>
   									
 								
@@ -459,9 +459,9 @@ zip_output: False</pre></p>
 									
   						  			<div class="tab-pane fade show active" id="Reference_3a" role="tabpanel">
 							  			<div id="fig_plot_3a" class="d-flex flex-column">
-    <a href="3a.Indel_size_distribution.pdf"><img src="3a.Indel_size_distribution.png" width='40%'></a>
+    <a href="Untreated.3a.Indel_size_distribution.pdf"><img src="Untreated.3a.Indel_size_distribution.png" width='40%'></a>
         <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
-            <p class="m-0"><small>Data: <a href="Indel_histogram.txt">Indel histogram</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Indel_histogram.txt">Indel histogram</a></small></p>
 </div>
 						  			</div>
 									
@@ -469,11 +469,11 @@ zip_output: False</pre></p>
 									
   						  			<div class="tab-pane fade" id="Reference_3b" role="tabpanel">
 							  			<div id="fig_plot_3b" class="d-flex flex-column">
-    <a href="3b.Insertion_deletion_substitutions_size_hist.pdf"><img src="3b.Insertion_deletion_substitutions_size_hist.png" width='100%'></a>
+    <a href="Untreated.3b.Insertion_deletion_substitutions_size_hist.pdf"><img src="Untreated.3b.Insertion_deletion_substitutions_size_hist.png" width='100%'></a>
         <label class="labelpadding">Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown).</label>
-            <p class="m-0"><small>Data: <a href="Insertion_histogram.txt">Insertions frequency</a></small></p>
-            <p class="m-0"><small>Data: <a href="Deletion_histogram.txt">Deletions Frequency</a></small></p>
-            <p class="m-0"><small>Data: <a href="Substitution_histogram.txt">Substitutions Frequency</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Insertion_histogram.txt">Insertions frequency</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Deletion_histogram.txt">Deletions Frequency</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Substitution_histogram.txt">Substitutions Frequency</a></small></p>
 </div>
 						  			</div>
 									
@@ -516,7 +516,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="Reference_4a" role="tabpanel">
 										<div id="fig_plot_4a" class="d-flex flex-column">
-    <a href="4a.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
+    <a href="Untreated.4a.Combined_insertion_deletion_substitution_locations.pdf"><img src="Untreated.4a.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
 </div>
 									</div>
@@ -524,18 +524,18 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade show active" id="Reference_4b" role="tabpanel">
 										<div id="fig_plot_4b" class="d-flex flex-column">
-    <a href="4b.Insertion_deletion_substitution_locations.pdf"><img src="4b.Insertion_deletion_substitution_locations.png" width='40%'></a>
+    <a href="Untreated.4b.Insertion_deletion_substitution_locations.pdf"><img src="Untreated.4b.Insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</label>
-            <p class="m-0"><small>Data: <a href="Modification_count_vectors.txt">Modification frequency</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Modification_count_vectors.txt">Modification frequency</a></small></p>
 </div>
 									</div>
 									
 									
 									<div class="tab-pane fade" id="Reference_4c" role="tabpanel">
 										<div id="fig_plot_4c" class="d-flex flex-column">
-    <a href="4c.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
+    <a href="Untreated.4c.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="Untreated.4c.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</label>
-            <p class="m-0"><small>Data: <a href="Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
 </div>
 									</div>
 									
@@ -543,7 +543,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="Reference_4d" role="tabpanel">
 										<div id="fig_plot_4d" class="d-flex flex-column">
-    <a href="4d.Position_dependent_average_indel_size.pdf"><img src="4d.Position_dependent_average_indel_size.png" width='100%'></a>
+    <a href="Untreated.4d.Position_dependent_average_indel_size.pdf"><img src="Untreated.4d.Position_dependent_average_indel_size.png" width='100%'></a>
         <label class="labelpadding">Figure 4d: Position dependent insertion size(left) and deletion size (right), including only modifications that overlap with the quantification window.</label>
 </div>
 									</div>
@@ -576,9 +576,9 @@ zip_output: False</pre></p>
 								
                   				<div class='mb-4'>
 					  				<div id="fig_plot_9_0" class="d-flex flex-column">
-    <a href="9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
+    <a href="Untreated.9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Untreated.9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
         <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA GGAATCCCTTCTGCAGCACC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
-            <p class="m-0"><small>Data: <a href="Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele frequency table</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele frequency table</a></small></p>
 </div>
                 				</div>
 								
@@ -620,24 +620,24 @@ zip_output: False</pre></p>
 					  				<div class="tab-pane fade show active" id="Reference_10a" role="tabpanel">
                 						<div class='mb-3'>
 											<div id="fig_plot_10a" class="d-flex flex-column">
-    <a href="10a.Substitution_frequencies_at_each_bp.pdf"><img src="10a.Substitution_frequencies_at_each_bp.png" width='70%'></a>
+    <a href="Untreated.10a.Substitution_frequencies_at_each_bp.pdf"><img src="Untreated.10a.Substitution_frequencies_at_each_bp.png" width='70%'></a>
         <label class="labelpadding">Figure 10a: Substitution frequencies across the amplicon.</label>
-            <p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequencies</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Nucleotide_frequency_table.txt">Nucleotide frequencies</a></small></p>
 </div>
                 						</div>
 										<div class="mb-3">
 											<div id="fig_plot_10b" class="d-flex flex-column">
-    <a href="10b.Substitution_frequency_barplot.pdf"><img src="10b.Substitution_frequency_barplot.png" width='35%'></a>
+    <a href="Untreated.10b.Substitution_frequency_barplot.pdf"><img src="Untreated.10b.Substitution_frequency_barplot.png" width='35%'></a>
         <label class="labelpadding">Figure 10b: Substitution frequencies across the amplicon.</label>
-            <p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequencies</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Nucleotide_frequency_table.txt">Nucleotide frequencies</a></small></p>
 </div>
                                         </div>
                                         
                                         <div class="mb-3">
 											<div id="fig_plot_10c" class="d-flex flex-column">
-    <a href="10c.Substitution_frequency_barplot_in_quantification_window.pdf"><img src="10c.Substitution_frequency_barplot_in_quantification_window.png" width='35%'></a>
+    <a href="Untreated.10c.Substitution_frequency_barplot_in_quantification_window.pdf"><img src="Untreated.10c.Substitution_frequency_barplot_in_quantification_window.png" width='35%'></a>
         <label class="labelpadding">Figure 10c: Substitution frequencies in the quantification window</label>
-            <p class="m-0"><small>Data: <a href="Quantification_window_substitution_frequency_table.txt">Nucleotide frequencies in quantification window</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Quantification_window_substitution_frequency_table.txt">Nucleotide frequencies in quantification window</a></small></p>
 </div>
 										</div>
                                         
@@ -648,7 +648,7 @@ zip_output: False</pre></p>
 										
 										<div class='mb-4'>
 											<div id="fig_plot_10d_0" class="d-flex flex-column">
-    <a href="10d.Log2_nucleotide_frequency_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="10d.Log2_nucleotide_frequency_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
+    <a href="Untreated.10d.Log2_nucleotide_frequency_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Untreated.10d.Log2_nucleotide_frequency_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
         <label class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the sgRNA GGAATCCCTTCTGCAGCACC. The quantification window is outlined by the dotted box.</label>
 </div>
 										</div>
@@ -660,9 +660,9 @@ zip_output: False</pre></p>
 						  				
 										<div class='mb-4'>
 			  								<div id="fig_plot_10e_0" class="d-flex flex-column">
-    <a href="10e.Selected_conversion_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="10e.Selected_conversion_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
+    <a href="Untreated.10e.Selected_conversion_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Untreated.10e.Selected_conversion_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
         <label class="labelpadding">Figure 10e: Proportion of each base at each nucleotide targeted by base editors in the plotting window around the sgRNA GGAATCCCTTCTGCAGCACC. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="Selected_nucleotide_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide frequencies at Cs</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Selected_nucleotide_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide frequencies at Cs</a></small></p>
 </div>
   										</div>
 										
@@ -673,18 +673,18 @@ zip_output: False</pre></p>
 										
                   						<div class='mb-4'>
 			  								<div id="fig_plot_10f_0" class="d-flex flex-column">
-    <a href="10f.Selected_conversion_no_ref_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="10f.Selected_conversion_no_ref_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
+    <a href="Untreated.10f.Selected_conversion_no_ref_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Untreated.10f.Selected_conversion_no_ref_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
         <label class="labelpadding">Figure 10f: Non-reference base proportions. For target nucleotides in the plotting window, this plot shows the proportion of non-reference (non-C) bases as a percentage of all non-reference sequences. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="Selected_nucleotide_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide frequencies at Cs</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Selected_nucleotide_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide frequencies at Cs</a></small></p>
 </div>
                   						</div>
 										
 										
                   						<div class='mb-4'>
 			  								<div id="fig_plot_10g_0" class="d-flex flex-column">
-    <a href="10g.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="10g.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
+    <a href="Untreated.10g.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Untreated.10g.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
         <label class="labelpadding">Figure 10g: Non-reference base counts. For target nucleotides in the plotting window, this plot shows the number of non-reference (non-C) bases. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="Selected_nucleotide_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide frequencies at Cs</a></small></p>
+            <p class="m-0"><small>Data: <a href="Untreated.Selected_nucleotide_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide frequencies at Cs</a></small></p>
 </div>
                     					</div>
 										
