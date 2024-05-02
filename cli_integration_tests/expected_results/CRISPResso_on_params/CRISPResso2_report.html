@@ -216,18 +216,19 @@
 						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
 							<div id="fig_plot_1a" class="d-flex flex-column">
     <a href="1a.Read_barplot.pdf"><img src="1a.Read_barplot.png" width='40%'></a>
-        <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
+        
+            <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.1</p>
-  <p><strong>Run completed:</strong> 2024-05-01 10:29:26</p>
+  <p><strong>Run completed:</strong> 2024-05-02 10:46:49</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -352,22 +353,25 @@ zip_output: False</pre></p>
 						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
 							<div id="fig_plot_1b" class="d-flex flex-column">
     <a href="1b.Alignment_pie_chart.pdf"><img src="1b.Alignment_pie_chart.png" width='40%'></a>
-        <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles. NHEJ reads align more closely to the unmodified reference sequence, but have mutations present in the specified quantification window. HDR reads align to the HDR reference sequence and have no mutations in the specified quantification window. Imperfect HDR reads have mutations in the specified window. AMBIGUOUS reads align equally well to the unmodified and HDR reference sequences.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+        
+            <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles. NHEJ reads align more closely to the unmodified reference sequence, but have mutations present in the specified quantification window. HDR reads align to the HDR reference sequence and have no mutations in the specified quantification window. Imperfect HDR reads have mutations in the specified window. AMBIGUOUS reads align equally well to the unmodified and HDR reference sequences.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
 						</div>
 						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
 							<div id="fig_plot_1c" class="d-flex flex-column">
     <a href="1c.Alignment_barplot.pdf"><img src="1c.Alignment_barplot.png" width='40%'></a>
-        <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+        
+            <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
 						</div>
     						
 						<div class="tab-pane fade" id="aln_dsODN" role="tabpanel" aria-labelledby="aln_dsODN-tab">
 							<div id="fig_plot_1d" class="d-flex flex-column">
     <a href="1d.Detection_of_dsODN.pdf"><img src="1d.Detection_of_dsODN.png" width='40%'></a>
-        <label class="labelpadding">Figure 1d: Frequency of detection of dsODN GCTAGATTTCCCAAGAAGA</label>
+        
+            <label class="labelpadding">Figure 1d: Frequency of detection of dsODN GCTAGATTTCCCAAGAAGA</label>
 </div>
 						</div>
               			
@@ -384,7 +388,8 @@ zip_output: False</pre></p>
 				<div class='card-body'>
 					<div id="fig_plot_5a" class="d-flex flex-column">
     <a href="5a.Global_frameshift_in-frame_mutations_pie_chart.pdf"><img src="5a.Global_frameshift_in-frame_mutations_pie_chart.png" width='40%'></a>
-        <label class="labelpadding">Figure 5a: Frameshift analysis of coding sequence reads affected by modifications for all reads. Unmodified reference reads are excluded from this plot, and all HDR reads are included in this plot.</label>
+        
+            <label class="labelpadding">Figure 5a: Frameshift analysis of coding sequence reads affected by modifications for all reads. Unmodified reference reads are excluded from this plot, and all HDR reads are included in this plot.</label>
 </div>
 				</div>
 			</div>
@@ -398,9 +403,10 @@ zip_output: False</pre></p>
 				<div class='card-body'>
 					<div id="fig_plot_6a" class="d-flex flex-column">
     <a href="6a.Global_frameshift_in-frame_mutation_profiles.pdf"><img src="6a.Global_frameshift_in-frame_mutation_profiles.png" width='100%'></a>
-        <label class="labelpadding">Figure 6a: Frameshift and in-frame mutagenesis profiles for all reads indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 0 reads with no length modifications are not shown.</label>
-            <p class="m-0"><small>Data: <a href="FANC.Indel_histogram.txt">Indel histogram for FANC</a></small></p>
-            <p class="m-0"><small>Data: <a href="HDR.Indel_histogram.txt">Indel histogram for HDR</a></small></p>
+        
+            <label class="labelpadding">Figure 6a: Frameshift and in-frame mutagenesis profiles for all reads indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 0 reads with no length modifications are not shown.</label>
+                <p class="m-0"><small>Data: <a href="FANC.Indel_histogram.txt">Indel histogram for FANC</a></small></p>
+                <p class="m-0"><small>Data: <a href="HDR.Indel_histogram.txt">Indel histogram for HDR</a></small></p>
 </div>
 				</div>
 			</div>
@@ -414,7 +420,8 @@ zip_output: False</pre></p>
 				<div class='card-body'>
 					<div id="fig_plot_8a" class="d-flex flex-column">
     <a href="8a.Global_potential_splice_sites_pie_chart.pdf"><img src="8a.Global_potential_splice_sites_pie_chart.png" width='40%'></a>
-        <label class="labelpadding">Figure 8a: Predicted impact on splice sites for all reads. Potential splice sites modified refers to reads in which the either of the two intronic positions adjacent to exon junctions are disrupted.</label>
+        
+            <label class="labelpadding">Figure 8a: Predicted impact on splice sites for all reads. Potential splice sites modified refers to reads in which the either of the two intronic positions adjacent to exon junctions are disrupted.</label>
 </div>
 				</div>
 			</div>
