@@ -206,16 +206,17 @@
 						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
 							<div id="fig_plot_1a" class="d-flex flex-column">
     <a href="1a.Read_barplot.pdf"><img src="1a.Read_barplot.png" width='40%'></a>
-        <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
+        
+            <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.1</p>
-  <p><strong>Run completed:</strong> 2024-05-01 10:31:50</p>
+  <p><strong>Run completed:</strong> 2024-05-02 10:53:20</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>TCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTT</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-paired-sim/AMPL_Trimmed.fastq.gz -a TCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTT -o CRISPRessoPooled_on_pooled-paired-sim --name Trimmed --debug --needleman_wunsch_gap_extend -2 --n_processes 1 --trimmomatic_command None --prime_editing_gap_extend_penalty 0 --fastp_options_string  --detect_adapter_for_pe --quantification_window_size 1 --fastp_command fastp --verbosity 3 --max_rows_alleles_around_cut_to_plot 50 --min_paired_end_reads_overlap 10 --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_incentive 1 --default_min_aln_score 60 --place_report_in_output_folder --flexiguide_seq None --needleman_wunsch_gap_open -20 --prime_editing_pegRNA_extension_quantification_window_size 5 --aln_seed_count 5 --min_frequency_alleles_around_cut_to_plot 0.2 --max_paired_end_reads_overlap None --min_bp_quality_or_N 0 --exclude_bp_from_right 15 --aln_seed_len 10 --plot_window_size 20 --flash_command None --min_single_bp_quality 0 --config_file None --flexiguide_homology 80 --conversion_nuc_from C --prime_editing_pegRNA_scaffold_min_match_length 1 --min_average_read_quality 0 --quantification_window_center -3 --conversion_nuc_to T --aln_seed_min 2 --keep_intermediate --needleman_wunsch_aln_matrix_loc EDNAFULL --trim_sequences --exclude_bp_from_left 15 --amplicon_seq TCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTT</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/micromamba/envs/c2/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-paired-sim/AMPL_Trimmed.fastq.gz -a TCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTT -o CRISPRessoPooled_on_pooled-paired-sim --name Trimmed --needleman_wunsch_aln_matrix_loc EDNAFULL --n_processes 1 --fastp_options_string  --detect_adapter_for_pe --debug --flexiguide_homology 80 --min_single_bp_quality 0 --quantification_window_size 1 --trimmomatic_command None --plot_window_size 20 --prime_editing_gap_extend_penalty 0 --place_report_in_output_folder --aln_seed_min 2 --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_gap_incentive 1 --flash_command None --aln_seed_len 10 --config_file None --max_paired_end_reads_overlap None --aln_seed_count 5 --fastp_command fastp --keep_intermediate --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_open -20 --min_average_read_quality 0 --min_paired_end_reads_overlap 10 --max_rows_alleles_around_cut_to_plot 50 --exclude_bp_from_left 15 --conversion_nuc_to T --needleman_wunsch_gap_extend -2 --flexiguide_seq None --quantification_window_center -3 --min_frequency_alleles_around_cut_to_plot 0.2 --default_min_aln_score 60 --min_bp_quality_or_N 0 --prime_editing_pegRNA_scaffold_min_match_length 1 --conversion_nuc_from C --trim_sequences --verbosity 3 --exclude_bp_from_right 15 --amplicon_seq TCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTT</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -336,15 +337,17 @@ zip_output: False</pre></p>
 						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
 							<div id="fig_plot_1b" class="d-flex flex-column">
     <a href="1b.Alignment_pie_chart.pdf"><img src="1b.Alignment_pie_chart.png" width='40%'></a>
-        <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+        
+            <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
 						</div>
 						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
 							<div id="fig_plot_1c" class="d-flex flex-column">
     <a href="1c.Alignment_barplot.pdf"><img src="1c.Alignment_barplot.png" width='40%'></a>
-        <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
-            <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+        
+            <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
 						</div>
     						
