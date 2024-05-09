@@ -89,7 +89,7 @@ cli_integration_tests/CRISPRessoBatch_on_FANC: install cli_integration_tests/inp
 large-batch: cli_integration_tests/CRISPRessoBatch_on_large_batch
 
 cli_integration_tests/CRISPRessoBatch_on_large_batch: install cli_integration_tests/inputs/FANC_large.batch
-	cd cli_integration_tests && cmd="CRISPRessoBatch -bs inputs/FANC_large.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --no_rerun --base_editor -p 4 -n large_batch --place_report_in_output_folder"; $(RUN)
+	cd cli_integration_tests && cmd="CRISPRessoBatch -bs inputs/FANC_large.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --debug --no_rerun --base_editor -p max -n large_batch --place_report_in_output_folder"; $(RUN)
 
 pooled: cli_integration_tests/CRISPRessoPooled_on_Both.Cas9
 
