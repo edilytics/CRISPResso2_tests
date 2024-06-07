@@ -92,8 +92,8 @@ def substitute_line(line):
 
 def diff(file_a, file_b):
     with open(file_a) as fh_a, open(file_b) as fh_b:
-        lines_a = [substitute_line(line) for line in fh_a]
-        lines_b = [substitute_line(line) for line in fh_b]
+        lines_a = [substitute_line(line).strip() for line in fh_a]
+        lines_b = [substitute_line(line).strip() for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
 
 
