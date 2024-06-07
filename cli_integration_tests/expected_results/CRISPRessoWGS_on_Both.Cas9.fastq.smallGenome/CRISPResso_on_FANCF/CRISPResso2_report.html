@@ -217,10 +217,10 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.1</p>
-  <p><strong>Run completed:</strong> 2024-05-07 16:45:10</p>
+  <p><strong>Run completed:</strong> 2024-06-06 15:40:25</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --prime_editing_gap_open_penalty -50 --flexiguide_seq None --prime_editing_pegRNA_scaffold_min_match_length 1 --plot_window_size 20 --aln_seed_min 2 --flexiguide_homology 80 --config_file None --min_frequency_alleles_around_cut_to_plot 0.2 --exclude_bp_from_left 15 --min_bp_quality_or_N 0 --min_paired_end_reads_overlap 10 --prime_editing_pegRNA_extension_quantification_window_size 5 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_open -20 --default_min_aln_score 60 --needleman_wunsch_aln_matrix_loc EDNAFULL --fastp_command fastp --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_extend -2 --trimmomatic_command None --max_paired_end_reads_overlap None --verbosity 3 --quantification_window_center -3 --flash_command None --min_single_bp_quality 0 --aln_seed_count 5 --min_average_read_quality 0 --debug --exclude_bp_from_right 15 --needleman_wunsch_gap_incentive 1 --n_processes 1 --aln_seed_len 10 --place_report_in_output_folder --conversion_nuc_to T --conversion_nuc_from C --quantification_window_size 1</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --trimmomatic_command None --flash_command None --min_frequency_alleles_around_cut_to_plot 0.2 --exclude_bp_from_left 15 --config_file None --min_bp_quality_or_N 0 --max_paired_end_reads_overlap None --quantification_window_size 1 --conversion_nuc_from C --verbosity 3 --flexiguide_homology 80 --exclude_bp_from_right 15 --needleman_wunsch_aln_matrix_loc EDNAFULL --fastp_command fastp --needleman_wunsch_gap_open -20 --min_paired_end_reads_overlap 10 --aln_seed_len 10 --flexiguide_seq None --prime_editing_gap_open_penalty -50 --min_single_bp_quality 0 --n_processes 1 --conversion_nuc_to T --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_incentive 1 --aln_seed_count 5 --default_min_aln_score 60 --min_average_read_quality 0 --prime_editing_pegRNA_scaffold_min_match_length 1 --aln_seed_min 2 --place_report_in_output_folder --plot_window_size 20 --quantification_window_center -3 --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_gap_extend -2 --debug --max_rows_alleles_around_cut_to_plot 50</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -422,7 +422,7 @@ zip_output: False</pre></p>
 								
 									<p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
 								
-								
+
 								
             		</div>
 					</div> 
@@ -608,9 +608,11 @@ zip_output: False</pre></p>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
       
 <script>
+
 function updateZoom(e) {
   /*prevent any other actions that may occur when moving over the image:*/
 //  e.preventDefault();
+
   var img = e.target.imgObj
   var view = e.target.viewObj
   var lens = e.target.lensObj
@@ -703,8 +705,8 @@ try {
 
 		
 	
-	</script>
 
+</script>
 
 
 
