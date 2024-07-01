@@ -1,0 +1,39 @@
+CRISPResso version 2.3.1
+[Command used]:
+/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name HEK3 --exclude_bp_from_left 15 --aln_seed_len 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --bowtie2_index inputs/small_genome/smallGenome --keep_intermediate --default_min_aln_score 60 --fastp_command fastp --quantification_window_size 1 --conversion_nuc_from C --needleman_wunsch_gap_incentive 1 --n_processes 1 --prime_editing_gap_open_penalty -50 --flash_command None --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_extend -2 --plot_window_size 20 --exclude_bp_from_right 15 --aln_seed_count 5 --verbosity 3 --quantification_window_center -3 --config_file None --prime_editing_pegRNA_scaffold_min_match_length 1 --min_frequency_alleles_around_cut_to_plot 0.2 --trimmomatic_command None --prime_editing_pegRNA_extension_quantification_window_size 5 --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_open -20 --min_average_read_quality 0 --aln_seed_min 2 --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --conversion_nuc_to T --max_paired_end_reads_overlap None --place_report_in_output_folder --flexiguide_homology 80 --debug --flexiguide_seq None --min_bp_quality_or_N 0 --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA
+
+[Execution log]:
+Computing quantification windows
+CRISPRessoPro not installed
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Aligning sequences...
+Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 222 N_CACHED_ALN: 22 N_COMPUTED_NOTALN: 6 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GGCCCAGACTGAGCACGTGA for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Plotting allele distribution around cut for Reference
+Done!
+Done!
+ Low number of total reads: <10000. Total reads: 250.
+ >=1.0% of reads have modifications at the start or end. Total reads: 244, Irregular reads: 244.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 160, Substitutions outside window: 154.
+Analysis Complete!

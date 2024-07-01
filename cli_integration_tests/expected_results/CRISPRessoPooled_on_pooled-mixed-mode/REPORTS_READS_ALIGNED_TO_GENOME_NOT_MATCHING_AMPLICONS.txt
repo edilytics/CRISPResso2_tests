@@ -1,0 +1,1 @@
+chr_id	bpstart	bpend	fastq_file	n_reads	Reference_sequence	n_reads_aligned_%
