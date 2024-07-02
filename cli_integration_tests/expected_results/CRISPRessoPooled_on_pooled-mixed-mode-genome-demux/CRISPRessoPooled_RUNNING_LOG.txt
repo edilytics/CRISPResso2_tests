@@ -1,0 +1,43 @@
+CRISPResso version 2.3.1
+[Command used]:
+/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode-genome-demux --place_report_in_output_folder --demultiplex_at_amplicons_and_genome
+
+[Execution log]:
+Processing input
+Header variable names in order: ['amplicon_name', 'amplicon_seq', 'guide_seq']
+Mapping amplicons to the reference genome...
+The amplicon [FANC] was mapped to: chr11:1047-1270 
+The amplicon [HEK3] was mapped to: chr9:966-1198 
+The amplicon [GENOME] was mapped to: chr9:1251-1477 
+The uncompressed reference fasta file for inputs/small_genome/smallGenome is already present! Skipping generation.
+Aligning reads to the provided genome index...
+Aligning with command: bowtie2 -x inputs/small_genome/smallGenome -p 1  --end-to-end -N 0 --np 0 --mp 3,2 --score-min L,-5,-1.2000000000000002  -U CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/Both.Cas9.genome.fastq 2>>CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/CRISPRessoPooled_RUNNING_LOG.txt| samtools view -bS - | samtools sort -@ 1 - -o CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/pooled-mixed-mode-genome-demux_GENOME_ALIGNED.bam
+3916 reads; of these:
+  3916 (100.00%) were unpaired; of these:
+    2 (0.05%) aligned 0 times
+    3896 (99.49%) aligned exactly 1 time
+    18 (0.46%) aligned >1 times
+99.95% overall alignment rate
+Preparing to demultiplex reads aligned to the genome...
+Wrote demultiplexing commands to CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/DEMUX_COMMANDS.txt
+Demultiplexing reads by location (2 genomic regions)...
+Processing amplicon: FANC
+The amplicon FANC doesn't have any reads mapped to it!
+ Please check your amplicon sequence.
+Processing amplicon: HEK3
+The amplicon HEK3 doesn't have any reads mapped to it!
+ Please check your amplicon sequence.
+Processing amplicon: GENOME
+
+The amplicon [GENOME] has enough reads (3416) mapped to it! Running CRISPResso!
+
+Running CRISPResso:CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode-genome-demux --name GENOME --exclude_bp_from_right 15 --flexiguide_homology 80 --n_processes 1 --flexiguide_seq None --conversion_nuc_from C --min_single_bp_quality 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --max_rows_alleles_around_cut_to_plot 50 --aln_seed_count 5 --plot_window_size 20 --needleman_wunsch_gap_incentive 1 --quantification_window_size 1 --fastp_command fastp --prime_editing_pegRNA_scaffold_min_match_length 1 --place_report_in_output_folder --quantification_window_center -3 --verbosity 3 --prime_editing_gap_extend_penalty 0 --min_frequency_alleles_around_cut_to_plot 0.2 --min_bp_quality_or_N 0 --default_min_aln_score 60 --aln_seed_min 2 --needleman_wunsch_gap_extend -2 --exclude_bp_from_left 15 --aln_seed_len 10 --flash_command None --trimmomatic_command None --bowtie2_index inputs/small_genome/smallGenome --prime_editing_pegRNA_extension_quantification_window_size 5 --min_average_read_quality 0 --conversion_nuc_to T --config_file None --needleman_wunsch_gap_open -20 --debug --max_paired_end_reads_overlap None --keep_intermediate --min_paired_end_reads_overlap 10 --prime_editing_gap_open_penalty -50 --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA
+Running CRISPResso with 1 processes
+Completed 1/1 runs
+Finished all amplicons
+Reporting problematic regions...
+Skipping the folder CRISPResso_on_FANC: not enough reads, incomplete, or empty folder.
+Skipping the folder CRISPResso_on_HEK3: not enough reads, incomplete, or empty folder.
+Plotting reads summary
+Plotting modification summary
+All Done!

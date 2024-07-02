@@ -146,18 +146,18 @@
     "report_filename": "CRISPResso2Pooled_report.html",
     "end_time": {
       "_type": "datetime.datetime",
-      "value": "2024-07-02 14:19:15.596987"
+      "value": "2024-07-02 15:20:18.324095"
     },
-    "end_time_string": "2024-07-02 14:19:15",
+    "end_time_string": "2024-07-02 15:20:18",
     "running_time": {
       "_type": "datetime.timedelta",
       "value": {
         "days": 0,
-        "seconds": 29,
-        "microseconds": 191586
+        "seconds": 26,
+        "microseconds": 681406
       }
     },
-    "running_time_string": "0:00:29.191586"
+    "running_time_string": "0:00:26.681406"
   },
   "results": {
     "alignment_stats": {
