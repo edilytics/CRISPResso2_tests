@@ -11,6 +11,7 @@ CRISPRessoPooled_on_pooled-paired-sim \
 CRISPResso_on_prime_editor \
 CRISPRessoBatch_on_batch-failing \
 CRISPRessoPooled_on_pooled-mixed-mode \
+CRISPRessoPooled_on_pooled-mixed-mode-align-to-genome \
 CRISPRessoCompare_on_Cas9_VS_Untreated)
 
 define RUN
@@ -27,7 +28,7 @@ if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
 fi
 endef
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-align-to-genome
 
 print:
 	@echo " ";
