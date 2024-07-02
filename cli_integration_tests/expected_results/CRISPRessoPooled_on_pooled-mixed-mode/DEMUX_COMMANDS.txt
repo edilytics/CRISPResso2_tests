@@ -22,3 +22,16 @@ samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_
                       record_log_str = "chr9\t966\t1198\t"num_records"\t"fastq_filename".gz\n"; \
                       print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/chrchr9_966_1198.info"; \
                     } ' 
+
+
+samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr9:1251-1477 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq";} \
+                        { \
+                            print "@"$1"\n"$10"\n+\n"$11 > fastq_filename; \
+                            num_records++; \
+                        } \
+                    END{ \
+                      close(fastq_filename); \
+                      system("gzip -f "fastq_filename);  \
+                      record_log_str = "chr9\t1251\t1477\t"num_records"\t"fastq_filename".gz\n"; \
+                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/chrchr9_1251_1477.info"; \
+                    } ' 

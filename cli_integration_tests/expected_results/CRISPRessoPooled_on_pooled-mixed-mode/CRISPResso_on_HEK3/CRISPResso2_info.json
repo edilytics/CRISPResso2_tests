@@ -103,13 +103,13 @@
     },
     "log_filename": "CRISPResso_RUNNING_LOG.txt",
     "name": "HEK3",
-    "command_used": "/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name HEK3 --exclude_bp_from_left 15 --aln_seed_len 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --bowtie2_index inputs/small_genome/smallGenome --keep_intermediate --default_min_aln_score 60 --fastp_command fastp --quantification_window_size 1 --conversion_nuc_from C --needleman_wunsch_gap_incentive 1 --n_processes 1 --prime_editing_gap_open_penalty -50 --flash_command None --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_extend -2 --plot_window_size 20 --exclude_bp_from_right 15 --aln_seed_count 5 --verbosity 3 --quantification_window_center -3 --config_file None --prime_editing_pegRNA_scaffold_min_match_length 1 --min_frequency_alleles_around_cut_to_plot 0.2 --trimmomatic_command None --prime_editing_pegRNA_extension_quantification_window_size 5 --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_open -20 --min_average_read_quality 0 --aln_seed_min 2 --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --conversion_nuc_to T --max_paired_end_reads_overlap None --place_report_in_output_folder --flexiguide_homology 80 --debug --flexiguide_seq None --min_bp_quality_or_N 0 --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA",
+    "command_used": "/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name HEK3 --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_gap_extend_penalty 0 --flash_command None --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_open -20 --aln_seed_len 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --keep_intermediate --fastp_command fastp --min_frequency_alleles_around_cut_to_plot 0.2 --needleman_wunsch_gap_incentive 1 --min_single_bp_quality 0 --needleman_wunsch_gap_extend -2 --place_report_in_output_folder --prime_editing_gap_open_penalty -50 --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_size 1 --aln_seed_min 2 --quantification_window_center -3 --flexiguide_seq None --plot_window_size 20 --trimmomatic_command None --exclude_bp_from_left 15 --default_min_aln_score 60 --min_average_read_quality 0 --conversion_nuc_from C --config_file None --min_bp_quality_or_N 0 --bowtie2_index inputs/small_genome/smallGenome --aln_seed_count 5 --conversion_nuc_to T --exclude_bp_from_right 15 --min_paired_end_reads_overlap 10 --n_processes 1 --debug --flexiguide_homology 80 --max_paired_end_reads_overlap None --verbosity 3 --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA",
     "args_string": "allele_plot_pcts_only_for_assigned_reference: False\naln_seed_count: 5\naln_seed_len: 10\naln_seed_min: 2\namplicon_min_alignment_score: \namplicon_name: Reference\namplicon_seq: GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG\nannotate_wildtype_allele: \nassign_ambiguous_alignments_to_first_reference: False\nauto: False\nbam_chr_loc: \nbam_input: \nbam_output: False\nbase_editor_output: False\nbowtie2_index: inputs/small_genome/smallGenome\ncoding_seq: \nconfig_file: None\nconversion_nuc_from: C\nconversion_nuc_to: T\ncrispresso1_mode: False\ndebug: True\ndefault_min_aln_score: 60\ndisable_guardrails: False\ndiscard_guide_positions_overhanging_amplicon_edge: False\ndiscard_indel_reads: False\ndsODN: \ndump: False\nexclude_bp_from_left: 15\nexclude_bp_from_right: 15\nexpand_allele_plots_by_quantification: False\nexpand_ambiguous_alignments: False\nexpected_hdr_amplicon_seq: \nfastp_command: fastp\nfastp_options_string: \nfastq_output: False\nfastq_r1: CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq.gz\nfastq_r2: \nfile_prefix: \nflash_command: None\nflexiguide_homology: 80\nflexiguide_name: \nflexiguide_seq: None\nforce_merge_pairs: False\nguide_name: \nguide_seq: GGCCCAGACTGAGCACGTGA\nignore_deletions: False\nignore_insertions: False\nignore_substitutions: False\nkeep_intermediate: True\nmax_paired_end_reads_overlap: None\nmax_rows_alleles_around_cut_to_plot: 50\nmin_average_read_quality: 0\nmin_bp_quality_or_N: 0\nmin_frequency_alleles_around_cut_to_plot: 0.2\nmin_paired_end_reads_overlap: 10\nmin_single_bp_quality: 0\nn_processes: 1\nname: HEK3\nneedleman_wunsch_aln_matrix_loc: EDNAFULL\nneedleman_wunsch_gap_extend: -2\nneedleman_wunsch_gap_incentive: 1\nneedleman_wunsch_gap_open: -20\nno_rerun: False\noutput_folder: CRISPRessoPooled_on_pooled-mixed-mode\nplace_report_in_output_folder: True\nplot_histogram_outliers: False\nplot_window_size: 20\nprime_editing_gap_extend_penalty: 0\nprime_editing_gap_open_penalty: -50\nprime_editing_nicking_guide_seq: \nprime_editing_override_prime_edited_ref_seq: \nprime_editing_override_sequence_checks: False\nprime_editing_pegRNA_extension_quantification_window_size: 5\nprime_editing_pegRNA_extension_seq: \nprime_editing_pegRNA_scaffold_min_match_length: 1\nprime_editing_pegRNA_scaffold_seq: \nprime_editing_pegRNA_spacer_seq: \nquantification_window_center: -3\nquantification_window_coordinates: None\nquantification_window_size: 1\nsave_also_png: False\nsplit_interleaved_input: False\nstringent_flash_merging: False\nsuppress_amplicon_name_truncation: False\nsuppress_plots: False\nsuppress_report: False\ntrim_sequences: False\ntrimmomatic_command: None\ntrimmomatic_options_string: \nuse_legacy_insertion_quantification: False\nuse_matplotlib: False\nverbosity: 3\nwrite_cleaned_report: False\nwrite_detailed_allele_table: False\nzip_output: False",
     "start_time": {
       "_type": "datetime.datetime",
-      "value": "2024-07-01 16:23:43.616968"
+      "value": "2024-07-02 14:18:59.339363"
     },
-    "start_time_string": "2024-07-01 16:23:43",
+    "start_time_string": "2024-07-02 14:18:59",
     "allele_frequency_table_filename": "Alleles_frequency_table.txt",
     "allele_frequency_table_zip_filename": "Alleles_frequency_table.zip",
     "quant_of_editing_freq_filename": "CRISPResso_quantification_of_editing_frequency.txt",
@@ -129,18 +129,18 @@
     "mapping_stats_filename": "CRISPResso_mapping_statistics.txt",
     "end_time": {
       "_type": "datetime.datetime",
-      "value": "2024-07-01 16:23:50.719490"
+      "value": "2024-07-02 14:19:07.211133"
     },
-    "end_time_string": "2024-07-01 16:23:50",
+    "end_time_string": "2024-07-02 14:19:07",
     "running_time": {
       "_type": "datetime.timedelta",
       "value": {
         "days": 0,
         "seconds": 7,
-        "microseconds": 102522
+        "microseconds": 871770
       }
     },
-    "running_time_string": "0:00:07.102522",
+    "running_time_string": "0:00:07.871770",
     "report_location": "/Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode/CRISPResso_on_HEK3/CRISPResso2_report.html",
     "report_filename": "CRISPResso2_report.html"
   },
