@@ -123,12 +123,12 @@ web_ui: web_tests/CRISPResso_Web_UI_Tests/web_ui_test.py
 pooled-mixed-mode: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode
 
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Cas9.amplicons.txt
-	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/Both.Cas9.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode --place_report_in_output_folder"; $(RUN)
+	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode --place_report_in_output_folder"; $(RUN)
 
 .PHONY: pooled-mixed-mode-align-to-genome
 pooled-mixed-mode-align-to-genome: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode-align-to-genome
 
-cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode-align-to-genome: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Cas9.amplicons.txt
+cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode-genome-demux: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Cas9.amplicons.txt
 	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode-align-to-genome --place_report_in_output_folder --demultiplex_at_amplicons_and_genome"; $(RUN)
 
 .PHONY: batch-failing
