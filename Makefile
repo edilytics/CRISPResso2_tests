@@ -57,7 +57,6 @@ cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim* \
 cli_integration_tests/CRISPResso_on_prime_editor* \
 cli_integration_tests/CRISPRessoBatch_on_batch-failing* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
-cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode-align-to-genome* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
