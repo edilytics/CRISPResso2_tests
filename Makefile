@@ -128,7 +128,7 @@ cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode: install cli_integra
 pooled-mixed-mode-genome-demux: cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode-genome-demux
 
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode-genome-demux: install cli_integration_tests/inputs/Both.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Cas9.amplicons.txt
-	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode-genome-demux --place_report_in_output_folder --demultiplex_at_amplicons_and_genome"; $(RUN)
+	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode-genome-demux --place_report_in_output_folder --demultiplex_genome_wide"; $(RUN)
 
 .PHONY: batch-failing
 batch-failing: cli_integration_tests/CRISPRessoBatch_on_batch-failing
