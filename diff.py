@@ -102,7 +102,7 @@ def print_diff(diff_results):
         with tempfile.NamedTemporaryFile(mode='w') as fh:
             fh.writelines(''.join(diff_results))
             fh.flush()
-            subprocess.check_call(f'cat {fh.name} | ydiff -s -w 0 --wrap', shell=True)
+            subprocess.check_call(f'cat {fh.name} | ydiff ', shell=True)
     else:
         for line in diff_results:
             print(line, end='')
