@@ -1,0 +1,47 @@
+CRISPResso version 2.3.1
+[Command used]:
+/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --debug -n pooled-mixed-mode --place_report_in_output_folder
+
+[Execution log]:
+Processing input
+Header variable names in order: ['amplicon_name', 'amplicon_seq', 'guide_seq']
+Mapping amplicons to the reference genome...
+The amplicon [FANC] was mapped to: chr11:1047-1270 
+The amplicon [HEK3] was mapped to: chr9:966-1198 
+The amplicon [GENOME] was mapped to: chr9:1251-1477 
+The uncompressed reference fasta file for inputs/small_genome/smallGenome is already present! Skipping generation.
+Aligning reads to the provided genome index...
+Aligning with command: bowtie2 -x inputs/small_genome/smallGenome -p 1  --end-to-end -N 0 --np 0 --mp 3,2 --score-min L,-5,-1.2000000000000002  -U CRISPRessoPooled_on_pooled-mixed-mode/Both.Cas9.genome.fastq 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt| samtools view -bS - | samtools sort -@ 1 - -o CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam
+3916 reads; of these:
+  3916 (100.00%) were unpaired; of these:
+    2 (0.05%) aligned 0 times
+    3896 (99.49%) aligned exactly 1 time
+    18 (0.46%) aligned >1 times
+99.95% overall alignment rate
+Preparing to demultiplex reads aligned to positions overlapping amplicons in the genome...
+Wrote demultiplexing commands to CRISPRessoPooled_on_pooled-mixed-mode/DEMUX_COMMANDS.txt
+Demultiplexing reads by location (3 genomic regions)...
+Processing amplicon: FANC
+
+The amplicon [FANC] has enough reads (248) mapped to it! Running CRISPResso!
+
+Running CRISPResso:CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name FANC --flexiguide_homology 80 --exclude_bp_from_left 15 --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_gap_open_penalty -50 --keep_intermediate --max_paired_end_reads_overlap None --plot_window_size 20 --needleman_wunsch_gap_open -20 --needleman_wunsch_gap_extend -2 --aln_seed_min 2 --n_processes 1 --place_report_in_output_folder --conversion_nuc_to T --flexiguide_seq None --aln_seed_count 5 --default_min_aln_score 60 --min_bp_quality_or_N 0 --verbosity 3 --exclude_bp_from_right 15 --debug --max_rows_alleles_around_cut_to_plot 50 --quantification_window_size 1 --min_paired_end_reads_overlap 10 --trimmomatic_command None --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --fastp_command fastp --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_len 10 --config_file None --needleman_wunsch_aln_matrix_loc EDNAFULL --min_average_read_quality 0 --needleman_wunsch_gap_incentive 1 --flash_command None --bowtie2_index inputs/small_genome/smallGenome --quantification_window_center -3 --conversion_nuc_from C --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --guide_seq GGAATCCCTTCTGCAGCACC
+Processing amplicon: HEK3
+
+The amplicon [HEK3] has enough reads (250) mapped to it! Running CRISPResso!
+
+Running CRISPResso:CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name HEK3 --flexiguide_homology 80 --exclude_bp_from_left 15 --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_gap_open_penalty -50 --keep_intermediate --max_paired_end_reads_overlap None --plot_window_size 20 --needleman_wunsch_gap_open -20 --needleman_wunsch_gap_extend -2 --aln_seed_min 2 --n_processes 1 --place_report_in_output_folder --conversion_nuc_to T --flexiguide_seq None --aln_seed_count 5 --default_min_aln_score 60 --min_bp_quality_or_N 0 --verbosity 3 --exclude_bp_from_right 15 --debug --max_rows_alleles_around_cut_to_plot 50 --quantification_window_size 1 --min_paired_end_reads_overlap 10 --trimmomatic_command None --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --fastp_command fastp --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_len 10 --config_file None --needleman_wunsch_aln_matrix_loc EDNAFULL --min_average_read_quality 0 --needleman_wunsch_gap_incentive 1 --flash_command None --bowtie2_index inputs/small_genome/smallGenome --quantification_window_center -3 --conversion_nuc_from C --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA
+Processing amplicon: GENOME
+
+The amplicon [GENOME] has enough reads (3417) mapped to it! Running CRISPResso!
+
+Running CRISPResso:CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name GENOME --flexiguide_homology 80 --exclude_bp_from_left 15 --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_gap_open_penalty -50 --keep_intermediate --max_paired_end_reads_overlap None --plot_window_size 20 --needleman_wunsch_gap_open -20 --needleman_wunsch_gap_extend -2 --aln_seed_min 2 --n_processes 1 --place_report_in_output_folder --conversion_nuc_to T --flexiguide_seq None --aln_seed_count 5 --default_min_aln_score 60 --min_bp_quality_or_N 0 --verbosity 3 --exclude_bp_from_right 15 --debug --max_rows_alleles_around_cut_to_plot 50 --quantification_window_size 1 --min_paired_end_reads_overlap 10 --trimmomatic_command None --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --fastp_command fastp --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_len 10 --config_file None --needleman_wunsch_aln_matrix_loc EDNAFULL --min_average_read_quality 0 --needleman_wunsch_gap_incentive 1 --flash_command None --bowtie2_index inputs/small_genome/smallGenome --quantification_window_center -3 --conversion_nuc_from C --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA
+Running CRISPResso with 1 processes
+Completed 1/3 runs
+Completed 2/3 runs
+Completed 3/3 runs
+Finished all amplicons
+Reporting problematic regions...
+Plotting reads summary
+Plotting modification summary
+All Done!
