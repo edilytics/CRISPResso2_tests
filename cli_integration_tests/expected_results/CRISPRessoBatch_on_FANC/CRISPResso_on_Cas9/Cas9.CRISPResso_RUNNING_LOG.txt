@@ -10,6 +10,8 @@ Added 0 guides with flexible matching
 	Found guides: []
 	Mismatch locations: []
 Aligning sequences...
+Finished reading fastq file; 213 unique reads found of 250 total reads found 
+Processing Reads; 0 Completed out of 213 Unique Reads
 Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 198 N_CACHED_ALN: 37 N_COMPUTED_NOTALN: 15 N_CACHED_NOTALN: 0
 Done!
 Quantifying indels/substitutions...
