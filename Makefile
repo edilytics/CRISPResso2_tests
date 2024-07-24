@@ -111,7 +111,7 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome: install cli_
 
 compare: cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated
 
-cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install cli_integration_tests/CRISPRessoBatch_on_FANC
+cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install
 	cd cli_integration_tests && cmd="CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --place_report_in_output_folder --debug"; $(RUN)
 
 stress: web_tests/web_stress_test.py
