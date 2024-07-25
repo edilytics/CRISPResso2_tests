@@ -15,7 +15,7 @@ from shutil import copyfile
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
 DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 COMMAND_HTML_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
-COMMAND_LOG_REGEXP = re.compile(r'[\S]*/CRISPResso .*')
+COMMAND_LOG_REGEXP = re.compile(r'[\S]*/CRISPResso.*')
 OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPResso[\S]*')
 FASTP_TIMESTAMP_REGEXP = re.compile(r'fastp (report|\d+\.\d+\.\d,) at \d{4}-\d{2}-\d{2} +\d{2}:\d{2}:\d{2}')
 FASTP_PLOTLY_IMPORT = re.compile(r'https?://opengene.org/plotly-1.2.0.min.js')
