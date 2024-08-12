@@ -7,6 +7,8 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPResso_on_bam-out-genome \
+CRISPResso_on_bam-out \
 CRISPRessoAggregate_on_aggregate \
 CRISPRessoPooled_on_pooled-paired-sim \
 CRISPResso_on_prime_editor \
@@ -29,7 +31,7 @@ if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
 fi
 endef
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome
 
 print:
 	@echo " ";
@@ -54,6 +56,8 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPResso_on_bam-out-genome* \
+cli_integration_tests/CRISPResso_on_bam-out-2* \
 cli_integration_tests/CRISPRessoAggregate_on_aggregate* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim* \
 cli_integration_tests/CRISPResso_on_prime_editor* \
@@ -155,3 +159,15 @@ aggregate: cli_integration_tests/CRISPRessoAggregate_on_aggregate
 
 cli_integration_tests/CRISPRessoAggregate_on_aggregate: install
 	cd cli_integration_tests && cmd="CRISPRessoAggregate -p CRISPRessoBatch_on_FANC/CRISPResso_on_ -n aggregate --debug --place_report_in_output_folder"; $(RUN)
+
+.PHONY: bam-out
+bam-out: cli_integration_tests/CRISPResso_on_bam-out
+
+cli_integration_tests/CRISPResso_on_bam-out: install cli_integration_tests/inputs/bam_test.fq
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out --place_report_in_output_folder"; $(RUN)
+
+.PHONY: bam-out-genome
+bam-out-genome: cli_integration_tests/CRISPResso_on_bam-out-genome
+
+cli_integration_tests/CRISPResso_on_bam-out-genome: install cli_integration_tests/inputs/bam_test.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-genome -x inputs/small_genome/smallGenome --place_report_in_output_folder"; $(RUN)

@@ -149,3 +149,7 @@ cli_integration_tests/CRISPResso_on_prime_editor*
 cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim*
 
 cli_integration_tests/CRISPRessoAggregate_on_aggregate*
+
+cli_integration_tests/CRISPResso_on_bam-out*
+
+cli_integration_tests/CRISPResso_on_bam-out-genome*
