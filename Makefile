@@ -163,11 +163,11 @@ cli_integration_tests/CRISPRessoAggregate_on_aggregate: install
 .PHONY: bam-out
 bam-out: cli_integration_tests/CRISPResso_on_bam-out
 
-cli_integration_tests/CRISPResso_on_bam-out: install cli_integration_tests/inputs/bam_test_2.fq
-	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test_2.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out --place_report_in_output_folder"; $(RUN)
+cli_integration_tests/CRISPResso_on_bam-out: install cli_integration_tests/inputs/bam_test.fq
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out --place_report_in_output_folder"; $(RUN)
 
 .PHONY: bam-out-genome
 bam-out-genome: cli_integration_tests/CRISPResso_on_bam-out-genome
 
-cli_integration_tests/CRISPResso_on_bam-out-genome: install cli_integration_tests/inputs/bam_test_2.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/
-	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test_2.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-genome -x inputs/small_genome/smallGenome --place_report_in_output_folder"; $(RUN)
+cli_integration_tests/CRISPResso_on_bam-out-genome: install cli_integration_tests/inputs/bam_test.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-genome -x inputs/small_genome/smallGenome --place_report_in_output_folder"; $(RUN)
