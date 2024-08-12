@@ -133,7 +133,7 @@ def remove_file(file_path):
     os.remove(file_path)
 
 
-def diff_dir(actual, expected, suffixes=('.txt', '.html'), prompt_to_update=False):
+def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam'), prompt_to_update=False):
     files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
