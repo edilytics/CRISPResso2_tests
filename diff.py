@@ -88,7 +88,7 @@ def substitute_line(line):
     line = OUTPUT_REGEXP.sub('CRISPResso2_tests/cli_integration_tests/CRISPResso', line)
     line = FASTP_TIMESTAMP_REGEXP.sub('fastp report at 2024-01-11 12:34:56', line)
     line = FASTP_PLOTLY_IMPORT.sub('http://opengene.org/plotly-1.2.0.min.js', line)
-    line = SAM_HEADER_BOWTIE2_VERSION_REGEXP.sub(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:2.5.4\tCL:bowtie2-align-s <parameters>', line)
+    line = SAM_HEADER_BOWTIE_VERSION_REGEXP.sub(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:2.5.4\tCL:bowtie2-align-s <parameters>', line)
     return line
 
 
