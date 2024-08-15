@@ -1,0 +1,133 @@
+{
+  "running_info": {
+    "version": "2.3.1",
+    "args": {
+      "_type": "argparse.Namespace",
+      "value": {
+        "prefix": [
+          "CRISPRessoBatch_on_FANC/CRISPResso_on_"
+        ],
+        "suffix": "",
+        "name": "aggregate",
+        "min_reads_for_inclusion": 0,
+        "place_report_in_output_folder": true,
+        "suppress_report": false,
+        "suppress_plots": false,
+        "max_samples_per_summary_plot": 150,
+        "n_processes": "1",
+        "debug": true,
+        "verbosity": 3,
+        "use_matplotlib": false
+      }
+    },
+    "command_used": "/Users/cole/mambaforge/envs/crispresso/bin/CRISPRessoAggregate -p CRISPRessoBatch_on_FANC/CRISPResso_on_ -n aggregate --debug --place_report_in_output_folder",
+    "log_filename": "CRISPRessoAggregate_RUNNING_LOG.txt",
+    "report_location": "/Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoAggregate_on_aggregate/CRISPResso2Aggregate_report.html",
+    "report_filename": "CRISPResso2Aggregate_report.html",
+    "start_time": {
+      "_type": "datetime.datetime",
+      "value": "2024-07-24 14:31:54.837739"
+    },
+    "start_time_string": "2024-07-24 14:31:54",
+    "end_time": {
+      "_type": "datetime.datetime",
+      "value": "2024-07-24 14:31:58.135531"
+    },
+    "end_time_string": "2024-07-24 14:31:58",
+    "running_time": {
+      "_type": "datetime.timedelta",
+      "value": {
+        "days": 0,
+        "seconds": 3,
+        "microseconds": 297792
+      }
+    },
+    "running_time_string": "0:00:03.297792"
+  },
+  "results": {
+    "alignment_stats": {
+      "samples_quantification_summary_filename": "CRISPRessoAggregate_quantification_of_editing_frequency.txt",
+      "samples_quantification_summary_by_amplicon_filename": "CRISPRessoAggregate_quantification_of_editing_frequency_by_amplicon.txt"
+    },
+    "general_plots": {
+      "summary_plot_names": [
+        "CRISPRessoAggregate_reads_summary",
+        "CRISPRessoAggregate_quantification_of_editing_frequency"
+      ],
+      "summary_plot_titles": {
+        "Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC": "",
+        "Nucleotide_percentage_quilt": "",
+        "CRISPRessoAggregate_reads_summary": "CRISPRessoAggregate Mapping Statistics Summary",
+        "CRISPRessoAggregate_quantification_of_editing_frequency": "CRISPRessoAggregate Modification Summary"
+      },
+      "summary_plot_labels": {
+        "Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC": "Composition of each base around the guide GGAATCCCTTCTGCAGCACC for the amplicon Reference",
+        "Nucleotide_percentage_quilt": "Composition of each base for the amplicon Reference",
+        "CRISPRessoAggregate_reads_summary": "Each bar shows the total number of reads in each sample. The vertical line shows the cutoff for analysis, set using the --min_reads_for_inclusion parameter.",
+        "CRISPRessoAggregate_quantification_of_editing_frequency": "Each bar shows the total number of reads aligned to each amplicon, divided into the reads that are modified and unmodified. The vertical line shows the cutoff for analysis, set using the --min_reads_for_inclusion parameter."
+      },
+      "summary_plot_datas": {
+        "Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC": [
+          [
+            "Reference nucleotide frequencies",
+            "Nucleotide_frequency_summary.txt"
+          ],
+          [
+            "Reference modification frequencies",
+            "MODIFICATION_FREQUENCY_SUMMARY.txt"
+          ]
+        ],
+        "Nucleotide_percentage_quilt": [
+          [
+            "Reference nucleotide frequencies",
+            "Nucleotide_frequency_summary.txt"
+          ],
+          [
+            "Reference modification frequencies",
+            "MODIFICATION_FREQUENCY_SUMMARY.txt"
+          ]
+        ],
+        "CRISPRessoAggregate_reads_summary": [
+          [
+            "CRISPRessoAggregate summary",
+            "CRISPRessoAggregate_quantification_of_editing_frequency.txt"
+          ],
+          [
+            "CRISPRessoAggregate summary by amplicon",
+            "CRISPRessoAggregate_quantification_of_editing_frequency_by_amplicon.txt"
+          ]
+        ],
+        "CRISPRessoAggregate_quantification_of_editing_frequency": [
+          [
+            "CRISPRessoAggregate summary",
+            "CRISPRessoAggregate_quantification_of_editing_frequency.txt"
+          ],
+          [
+            "CRISPRessoAggregate summary by amplicon",
+            "CRISPRessoAggregate_quantification_of_editing_frequency_by_amplicon.txt"
+          ]
+        ]
+      },
+      "window_nuc_pct_quilt_plot_names": [
+        "Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC"
+      ],
+      "nuc_pct_quilt_plot_names": [
+        "Nucleotide_percentage_quilt"
+      ],
+      "window_nuc_conv_plot_names": [],
+      "nuc_conv_plot_names": [],
+      "summary_plot_root": "CRISPRessoAggregate_quantification_of_editing_frequency"
+    },
+    "ref_names": [
+      "Reference"
+    ],
+    "refs": {
+      "Reference": {
+        "nucleotide_frequency_summary_filename": "Nucleotide_frequency_summary.txt",
+        "nucleotide_percentage_summary_filename": "Nucleotide_percentage_summary.txt",
+        "modification_frequency_summary_filename": "MODIFICATION_FREQUENCY_SUMMARY.txt",
+        "modification_percentage_summary_filename": "MODIFICATION_PERCENTAGE_SUMMARY.txt"
+      }
+    }
+  }
+}
