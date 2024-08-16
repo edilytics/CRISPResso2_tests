@@ -228,12 +228,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-08-09 13:10:59</p>
+  <p><strong>Run completed:</strong> 2024-08-15 15:18:14</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --default_min_aln_score 60 --min_paired_end_reads_overlap 10 --aln_seed_min 2 --quantification_window_size 1 --flexiguide_homology 80 --base_editor_output --place_report_in_output_folder --min_average_read_quality 0 --quantification_window_center -3 --fastp_command fastp --amplicon_name Reference --n_processes 1 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --max_paired_end_reads_overlap None --aln_seed_len 10 --flash_command None --verbosity 3 --flexiguide_seq None --min_frequency_alleles_around_cut_to_plot 0.2 --min_single_bp_quality 0 --guide_seq GGAATCCCTTCTGCAGCACC --needleman_wunsch_aln_matrix_loc EDNAFULL --exclude_bp_from_left 15 --conversion_nuc_from C --prime_editing_gap_extend_penalty 0 --fastq_r1 inputs/FANC.Untreated.fastq --aln_seed_count 5 --max_rows_alleles_around_cut_to_plot 50 --min_bp_quality_or_N 0 --debug --trimmomatic_command None --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_extend -2 --prime_editing_pegRNA_extension_quantification_window_size 5 --exclude_bp_from_right 15 --conversion_nuc_to T --config_file None --file_prefix Untreated --needleman_wunsch_gap_incentive 1 --needleman_wunsch_gap_open -20 --plot_window_size 20 --prime_editing_pegRNA_scaffold_min_match_length 1</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --plot_window_size 20 --needleman_wunsch_gap_open -20 --max_rows_alleles_around_cut_to_plot 50 --flexiguide_homology 80 --quantification_window_size 1 --fastp_command fastp --aln_seed_min 2 --prime_editing_gap_open_penalty -50 --aln_seed_count 5 --verbosity 3 --guide_seq GGAATCCCTTCTGCAGCACC --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_extend -2 --conversion_nuc_from C --base_editor_output --needleman_wunsch_aln_matrix_loc EDNAFULL --flash_command None --exclude_bp_from_left 15 --prime_editing_pegRNA_extension_quantification_window_size 5 --place_report_in_output_folder --max_paired_end_reads_overlap None --min_frequency_alleles_around_cut_to_plot 0.2 --debug --amplicon_name Reference --trimmomatic_command None --fastq_r1 inputs/FANC.Untreated.fastq --min_single_bp_quality 0 --min_bp_quality_or_N 0 --quantification_window_center -3 --conversion_nuc_to T --file_prefix Untreated --aln_seed_len 10 --prime_editing_gap_extend_penalty 0 --default_min_aln_score 60 --config_file None --prime_editing_pegRNA_scaffold_min_match_length 1 --min_average_read_quality 0 --flexiguide_seq None --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --exclude_bp_from_right 15 --needleman_wunsch_gap_incentive 1 --n_processes 1</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -751,6 +751,7 @@ zip_output: False</pre></p>
 function updateZoom(e) {
   /*prevent any other actions that may occur when moving over the image:*/
 //  e.preventDefault();
+
   var img = e.target.imgObj
   var view = e.target.viewObj
   var lens = e.target.lensObj
@@ -845,7 +846,6 @@ try {
 	
 
 </script>
-
 
 
 
