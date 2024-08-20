@@ -15,7 +15,7 @@ from shutil import copyfile
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
 DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 COMMAND_HTML_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
-COMMAND_LOG_REGEXP = re.compile(r'[\S]*/CRISPResso .*')
+COMMAND_LOG_REGEXP = re.compile(r'[\S]*/CRISPResso.*')
 OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPResso[\S]*')
 FASTP_TIMESTAMP_REGEXP = re.compile(r'fastp (report|\d+\.\d+\.\d,) at \d{4}-\d{2}-\d{2} +\d{2}:\d{2}:\d{2}')
 FASTP_PLOTLY_IMPORT = re.compile(r'https?://opengene.org/plotly-1.2.0.min.js')
@@ -92,8 +92,8 @@ def substitute_line(line):
 
 def diff(file_a, file_b):
     with open(file_a) as fh_a, open(file_b) as fh_b:
-        lines_a = [substitute_line(line) for line in fh_a]
-        lines_b = [substitute_line(line) for line in fh_b]
+        lines_a = [substitute_line(line).strip() + '\n' for line in fh_a]
+        lines_b = [substitute_line(line).strip() + '\n' for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
 
 
@@ -133,7 +133,7 @@ def remove_file(file_path):
     os.remove(file_path)
 
 
-def diff_dir(actual, expected, suffixes=('.txt', '.html'), prompt_to_update=False):
+def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam'), prompt_to_update=False):
     files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False

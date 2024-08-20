@@ -7,6 +7,9 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPResso_on_bam-out-genome \
+CRISPResso_on_bam-out \
+CRISPRessoAggregate_on_aggregate \
 CRISPRessoPooled_on_pooled-paired-sim \
 CRISPResso_on_prime_editor \
 CRISPRessoBatch_on_batch-failing \
@@ -28,7 +31,7 @@ if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
 fi
 endef
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome
 
 print:
 	@echo " ";
@@ -53,6 +56,9 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPResso_on_bam-out-genome* \
+cli_integration_tests/CRISPResso_on_bam-out-2* \
+cli_integration_tests/CRISPRessoAggregate_on_aggregate* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim* \
 cli_integration_tests/CRISPResso_on_prime_editor* \
 cli_integration_tests/CRISPRessoBatch_on_batch-failing* \
@@ -137,7 +143,7 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome: install cli_
 
 compare: cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated
 
-cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install cli_integration_tests/CRISPRessoBatch_on_FANC
+cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated: install
 	cd cli_integration_tests && cmd="CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ --place_report_in_output_folder --debug"; $(RUN)
 
 stress: web_tests/web_stress_test.py
@@ -175,3 +181,21 @@ pooled-paired-sim: cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim
 
 cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim: install cli_integration_tests/inputs/simulated.trim_reqd.r1.fq cli_integration_tests/inputs/simulated.trim_reqd.r2.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/simulated.amplicons.txt
 	cd cli_integration_tests && cmd="CRISPRessoPooled -r1 inputs/simulated.trim_reqd.r1.fq -r2 inputs/simulated.trim_reqd.r2.fq -f inputs/simulated.amplicons.txt --place_report_in_output_folder --debug --min_reads_to_use_region 10 --trim_sequences --keep_intermediate -n pooled-paired-sim"; $(RUN)
+
+.PHONY: aggregate
+aggregate: cli_integration_tests/CRISPRessoAggregate_on_aggregate
+
+cli_integration_tests/CRISPRessoAggregate_on_aggregate: install
+	cd cli_integration_tests && cmd="CRISPRessoAggregate -p CRISPRessoBatch_on_FANC/CRISPResso_on_ -n aggregate --debug --place_report_in_output_folder"; $(RUN)
+
+.PHONY: bam-out
+bam-out: cli_integration_tests/CRISPResso_on_bam-out
+
+cli_integration_tests/CRISPResso_on_bam-out: install cli_integration_tests/inputs/bam_test.fq
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out --place_report_in_output_folder"; $(RUN)
+
+.PHONY: bam-out-genome
+bam-out-genome: cli_integration_tests/CRISPResso_on_bam-out-genome
+
+cli_integration_tests/CRISPResso_on_bam-out-genome: install cli_integration_tests/inputs/bam_test.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-genome -x inputs/small_genome/smallGenome --place_report_in_output_folder"; $(RUN)

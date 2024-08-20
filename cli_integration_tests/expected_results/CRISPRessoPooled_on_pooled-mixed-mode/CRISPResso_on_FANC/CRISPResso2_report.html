@@ -216,13 +216,13 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.3.1</p>
-  <p><strong>Run completed:</strong> 2024-07-02 15:20:02</p>
+  <p><strong>CRISPResso version:</strong> 2.3.2</p>
+  <p><strong>Run completed:</strong> 2024-08-09 13:14:04</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name FANC --flexiguide_homology 80 --exclude_bp_from_left 15 --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_gap_open_penalty -50 --keep_intermediate --max_paired_end_reads_overlap None --plot_window_size 20 --needleman_wunsch_gap_open -20 --needleman_wunsch_gap_extend -2 --aln_seed_min 2 --n_processes 1 --place_report_in_output_folder --conversion_nuc_to T --flexiguide_seq None --aln_seed_count 5 --default_min_aln_score 60 --min_bp_quality_or_N 0 --verbosity 3 --exclude_bp_from_right 15 --debug --max_rows_alleles_around_cut_to_plot 50 --quantification_window_size 1 --min_paired_end_reads_overlap 10 --trimmomatic_command None --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --fastp_command fastp --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_len 10 --config_file None --needleman_wunsch_aln_matrix_loc EDNAFULL --min_average_read_quality 0 --needleman_wunsch_gap_incentive 1 --flash_command None --bowtie2_index inputs/small_genome/smallGenome --quantification_window_center -3 --conversion_nuc_from C --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --guide_seq GGAATCCCTTCTGCAGCACC</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name FANC --trimmomatic_command None --conversion_nuc_from C --exclude_bp_from_left 15 --prime_editing_gap_open_penalty -50 --min_average_read_quality 0 --min_bp_quality_or_N 0 --default_min_aln_score 60 --min_single_bp_quality 0 --bowtie2_index inputs/small_genome/smallGenome --n_processes 1 --quantification_window_center -3 --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_size 1 --conversion_nuc_to T --verbosity 3 --needleman_wunsch_gap_extend -2 --keep_intermediate --flexiguide_homology 80 --debug --aln_seed_len 10 --needleman_wunsch_gap_open -20 --plot_window_size 20 --fastp_command fastp --flash_command None --exclude_bp_from_right 15 --max_paired_end_reads_overlap None --aln_seed_min 2 --min_paired_end_reads_overlap 10 --flexiguide_seq None --needleman_wunsch_gap_incentive 1 --prime_editing_gap_extend_penalty 0 --config_file None --aln_seed_count 5 --min_frequency_alleles_around_cut_to_plot 0.2 --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_pegRNA_extension_quantification_window_size 5 --max_rows_alleles_around_cut_to_plot 50 --place_report_in_output_folder --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --guide_seq GGAATCCCTTCTGCAGCACC</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -424,7 +424,7 @@ zip_output: False</pre></p>
 								
 									<p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
 								
-								
+
 								
   									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
@@ -637,9 +637,11 @@ zip_output: False</pre></p>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
       
 <script>
+
 function updateZoom(e) {
   /*prevent any other actions that may occur when moving over the image:*/
 //  e.preventDefault();
+
   var img = e.target.imgObj
   var view = e.target.viewObj
   var lens = e.target.lensObj
@@ -732,8 +734,8 @@ try {
 
 		
 	
-	</script>
 
+</script>
 
 
 
