@@ -67,7 +67,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
-
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   
 <style>
@@ -159,7 +158,7 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
         
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="http://crispresso.pinellolab.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
         
           </div>
         <div class="col-sm-7" >
@@ -224,12 +223,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-08-16 14:40:35</p>
+  <p><strong>Run completed:</strong> 2024-08-22 14:37:03</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGCCCAGACTGAGCACGTGA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name HEK3 --aln_seed_count 5 --trimmomatic_command None --flash_command None --needleman_wunsch_gap_incentive 1 --conversion_nuc_from C --needleman_wunsch_gap_extend -2 --max_rows_alleles_around_cut_to_plot 50 --prime_editing_pegRNA_scaffold_min_match_length 1 --needleman_wunsch_gap_open -20 --aln_seed_len 10 --min_single_bp_quality 0 --prime_editing_gap_open_penalty -50 --prime_editing_gap_extend_penalty 0 --quantification_window_size 1 --config_file None --n_processes 1 --exclude_bp_from_right 15 --min_average_read_quality 0 --debug --keep_intermediate --min_bp_quality_or_N 0 --min_paired_end_reads_overlap 10 --prime_editing_pegRNA_extension_quantification_window_size 5 --fastp_command fastp --max_paired_end_reads_overlap None --flexiguide_seq None --needleman_wunsch_aln_matrix_loc EDNAFULL --exclude_bp_from_left 15 --place_report_in_output_folder --quantification_window_center -3 --plot_window_size 20 --aln_seed_min 2 --min_frequency_alleles_around_cut_to_plot 0.2 --default_min_aln_score 60 --flexiguide_homology 80 --bowtie2_index inputs/small_genome/smallGenome --conversion_nuc_to T --verbosity 3 --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode --name HEK3 --max_paired_end_reads_overlap None --trimmomatic_command None --n_processes 1 --verbosity 3 --exclude_bp_from_right 15 --min_paired_end_reads_overlap 10 --min_frequency_alleles_around_cut_to_plot 0.2 --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_gap_open_penalty -50 --min_average_read_quality 0 --plot_window_size 20 --prime_editing_pegRNA_scaffold_min_match_length 1 --flexiguide_seq None --aln_seed_len 10 --bowtie2_index inputs/small_genome/smallGenome --place_report_in_output_folder --aln_seed_count 5 --flash_command None --quantification_window_center -3 --config_file None --prime_editing_pegRNA_extension_quantification_window_size 5 --max_rows_alleles_around_cut_to_plot 50 --aln_seed_min 2 --min_single_bp_quality 0 --conversion_nuc_from C --fastp_command fastp --needleman_wunsch_gap_open -20 --needleman_wunsch_gap_extend -2 --default_min_aln_score 60 --prime_editing_gap_extend_penalty 0 --debug --needleman_wunsch_gap_incentive 1 --min_bp_quality_or_N 0 --conversion_nuc_to T --exclude_bp_from_left 15 --flexiguide_homology 80 --keep_intermediate --quantification_window_size 1 --amplicon_seq GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG --guide_seq GGCCCAGACTGAGCACGTGA</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
