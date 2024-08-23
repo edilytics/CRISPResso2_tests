@@ -158,7 +158,7 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
         
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="http://crispresso.pinellolab.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
         
           </div>
         <div class="col-sm-7" >
@@ -225,12 +225,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-08-22 14:26:53</p>
+  <p><strong>Run completed:</strong> 2024-08-23 15:53:09</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --needleman_wunsch_gap_incentive 1 --needleman_wunsch_gap_open -20 --verbosity 3 --exclude_bp_from_right 15 --plot_window_size 20 --n_processes 1 --exclude_bp_from_left 15 --min_average_read_quality 0 --quantification_window_center -3 --aln_seed_min 2 --max_rows_alleles_around_cut_to_plot 50 --trimmomatic_command None --fastq_r1 inputs/FANC.Cas9.fastq --aln_seed_count 5 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --flash_command None --conversion_nuc_from C --quantification_window_size 1 --prime_editing_gap_extend_penalty 0 --config_file None --base_editor_output --flexiguide_homology 80 --needleman_wunsch_gap_extend -2 --min_single_bp_quality 0 --prime_editing_pegRNA_scaffold_min_match_length 1 --max_paired_end_reads_overlap None --place_report_in_output_folder --min_bp_quality_or_N 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --default_min_aln_score 60 --prime_editing_pegRNA_extension_quantification_window_size 5 --fastp_command fastp --min_paired_end_reads_overlap 10 --file_prefix Cas9 --min_frequency_alleles_around_cut_to_plot 0.2 --guide_seq GGAATCCCTTCTGCAGCACC --aln_seed_len 10 --prime_editing_gap_open_penalty -50 --debug --amplicon_name Reference --conversion_nuc_to T --flexiguide_seq None</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --exclude_bp_from_right 15 --aln_seed_len 10 --amplicon_name Reference --quantification_window_size 1 --min_bp_quality_or_N 0 --fastq_r1 inputs/FANC.Cas9.fastq --trimmomatic_command None --n_processes 1 --place_report_in_output_folder --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_extend -2 --aln_seed_count 5 --default_min_aln_score 60 --prime_editing_gap_extend_penalty 0 --min_paired_end_reads_overlap 10 --min_average_read_quality 0 --conversion_nuc_from C --max_rows_alleles_around_cut_to_plot 50 --conversion_nuc_to T --verbosity 3 --fastp_command fastp --debug --flexiguide_homology 80 --min_frequency_alleles_around_cut_to_plot 0.2 --base_editor_output --file_prefix Cas9 --flexiguide_seq None --max_paired_end_reads_overlap None --needleman_wunsch_aln_matrix_loc EDNAFULL --config_file None --plot_window_size 20 --min_single_bp_quality 0 --quantification_window_center -3 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_min 2 --needleman_wunsch_gap_open -20 --exclude_bp_from_left 15 --guide_seq GGAATCCCTTCTGCAGCACC --needleman_wunsch_gap_incentive 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --flash_command None --prime_editing_pegRNA_scaffold_min_match_length 1</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -276,6 +276,7 @@ flexiguide_seq: None
 force_merge_pairs: False
 guide_name: 
 guide_seq: GGAATCCCTTCTGCAGCACC
+halt_on_plot_fail: False
 ignore_deletions: False
 ignore_insertions: False
 ignore_substitutions: False
