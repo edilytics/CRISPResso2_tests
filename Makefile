@@ -44,6 +44,9 @@ print:
 test:
 	@echo " ";
 
+update:
+	@echo " ";
+
 install: $(CRISPRESSO2_SOURCES)
 	cd $(CRISPRESSO2_DIR) && output=`pip install -e .` || echo "$$output"
 
