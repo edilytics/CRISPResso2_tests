@@ -1,0 +1,57 @@
+CRISPResso version 2.3.2
+[Command used]:
+/home/trevormartinj7/micromamba/envs/crispresso2environment/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug -p 2 -n basic-parallel
+
+[Execution log]:
+Computing quantification windows
+CRISPRessoPro not installed
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Aligning sequences...
+Finished reading fastq file; 213 unique reads found of 250 total reads found 
+Spinning up 2 parallel processes to analyze unique reads...
+Process 1 has finished processing 105 unique reads
+Process 2 has finished processing 106 unique reads
+Finished processing unique reads, now generating statistics...
+Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 198 N_CACHED_ALN: 37 N_COMPUTED_NOTALN: 15 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Plotting allele distribution around cut for Reference
+Done!
+Plot pool results:
+future: <Future at 0x7f142b0c42b0 state=finished returned NoneType>
+future: <Future at 0x7f142b0c4a00 state=finished returned NoneType>
+future: <Future at 0x7f142af1d900 state=finished returned NoneType>
+future: <Future at 0x7f142af1c3d0 state=finished returned NoneType>
+future: <Future at 0x7f142af1dfc0 state=finished returned NoneType>
+future: <Future at 0x7f142af1c340 state=finished returned NoneType>
+future: <Future at 0x7f142af1c670 state=finished returned NoneType>
+future: <Future at 0x7f142af1c2b0 state=finished returned NoneType>
+future: <Future at 0x7f142af1ff10 state=finished returned NoneType>
+future: <Future at 0x7f142af1cb50 state=finished returned NoneType>
+future: <Future at 0x7f142af1fa30 state=finished returned NoneType>
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 250.
+ >=1.0% of reads have modifications at the start or end. Total reads: 235, Irregular reads: 235.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 280, Substitutions outside window: 270.
+ >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 923.0, Substitutions: 280.
+Analysis Complete!
