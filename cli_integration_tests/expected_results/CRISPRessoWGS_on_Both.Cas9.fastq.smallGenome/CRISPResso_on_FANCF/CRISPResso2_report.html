@@ -225,10 +225,10 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-08-23 15:53:38</p>
+  <p><strong>Run completed:</strong> 2024-08-26 17:00:48</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --flexiguide_homology 80 --min_average_read_quality 0 --quantification_window_size 1 --plot_window_size 20 --quantification_window_center -3 --aln_seed_min 2 --conversion_nuc_to T --max_paired_end_reads_overlap None --min_paired_end_reads_overlap 10 --debug --fastp_command fastp --min_single_bp_quality 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --flash_command None --prime_editing_pegRNA_scaffold_min_match_length 1 --trimmomatic_command None --needleman_wunsch_gap_open -20 --prime_editing_gap_extend_penalty 0 --aln_seed_count 5 --prime_editing_gap_open_penalty -50 --min_frequency_alleles_around_cut_to_plot 0.2 --prime_editing_pegRNA_extension_quantification_window_size 5 --min_bp_quality_or_N 0 --needleman_wunsch_gap_incentive 1 --config_file None --needleman_wunsch_gap_extend -2 --verbosity 3 --conversion_nuc_from C --exclude_bp_from_right 15 --default_min_aln_score 60 --n_processes 1 --aln_seed_len 10 --place_report_in_output_folder --exclude_bp_from_left 15 --max_rows_alleles_around_cut_to_plot 50 --flexiguide_seq None</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --conversion_nuc_from C --max_rows_alleles_around_cut_to_plot 50 --exclude_bp_from_left 15 --needleman_wunsch_gap_incentive 1 --fastp_command fastp --plot_window_size 20 --flexiguide_seq None --min_paired_end_reads_overlap 10 --max_paired_end_reads_overlap None --quantification_window_center -3 --flexiguide_homology 80 --min_average_read_quality 0 --quantification_window_size 1 --default_min_aln_score 60 --aln_seed_len 10 --aln_seed_min 2 --aln_seed_count 5 --n_processes 1 --min_bp_quality_or_N 0 --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_extend -2 --trimmomatic_command None --min_single_bp_quality 0 --needleman_wunsch_gap_open -20 --config_file None --halt_on_plot_fail --flash_command None --prime_editing_pegRNA_scaffold_min_match_length 1 --verbosity 3 --place_report_in_output_folder --needleman_wunsch_aln_matrix_loc EDNAFULL --conversion_nuc_to T --prime_editing_gap_extend_penalty 0 --min_frequency_alleles_around_cut_to_plot 0.2 --debug --exclude_bp_from_right 15 --prime_editing_pegRNA_extension_quantification_window_size 5</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -274,7 +274,7 @@ flexiguide_seq: None
 force_merge_pairs: False
 guide_name: 
 guide_seq: 
-halt_on_plot_fail: False
+halt_on_plot_fail: True
 ignore_deletions: False
 ignore_insertions: False
 ignore_substitutions: False

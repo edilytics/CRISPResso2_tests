@@ -227,12 +227,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-08-23 15:52:57</p>
+  <p><strong>Run completed:</strong> 2024-08-26 16:59:58</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --exclude_bp_from_right 15 --aln_seed_len 10 --amplicon_name Reference --quantification_window_size 1 --min_bp_quality_or_N 0 --fastq_r1 inputs/FANC.Untreated.fastq --trimmomatic_command None --n_processes 1 --place_report_in_output_folder --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_extend -2 --aln_seed_count 5 --default_min_aln_score 60 --prime_editing_gap_extend_penalty 0 --min_paired_end_reads_overlap 10 --min_average_read_quality 0 --conversion_nuc_from C --max_rows_alleles_around_cut_to_plot 50 --conversion_nuc_to T --verbosity 3 --fastp_command fastp --debug --flexiguide_homology 80 --min_frequency_alleles_around_cut_to_plot 0.2 --base_editor_output --file_prefix Untreated --flexiguide_seq None --max_paired_end_reads_overlap None --needleman_wunsch_aln_matrix_loc EDNAFULL --config_file None --plot_window_size 20 --min_single_bp_quality 0 --quantification_window_center -3 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_min 2 --needleman_wunsch_gap_open -20 --exclude_bp_from_left 15 --guide_seq GGAATCCCTTCTGCAGCACC --needleman_wunsch_gap_incentive 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --flash_command None --prime_editing_pegRNA_scaffold_min_match_length 1</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --place_report_in_output_folder --guide_seq GGAATCCCTTCTGCAGCACC --halt_on_plot_fail --config_file None --verbosity 3 --max_paired_end_reads_overlap None --needleman_wunsch_aln_matrix_loc EDNAFULL --default_min_aln_score 60 --min_single_bp_quality 0 --min_paired_end_reads_overlap 10 --amplicon_name Reference --aln_seed_len 10 --aln_seed_count 5 --fastp_command fastp --aln_seed_min 2 --fastq_r1 inputs/FANC.Untreated.fastq --quantification_window_size 1 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_incentive 1 --conversion_nuc_from C --conversion_nuc_to T --min_average_read_quality 0 --flexiguide_seq None --debug --min_bp_quality_or_N 0 --flash_command None --needleman_wunsch_gap_extend -2 --quantification_window_center -3 --n_processes 1 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --base_editor_output --exclude_bp_from_left 15 --prime_editing_gap_extend_penalty 0 --min_frequency_alleles_around_cut_to_plot 0.2 --prime_editing_pegRNA_scaffold_min_match_length 1 --trimmomatic_command None --file_prefix Untreated --exclude_bp_from_right 15 --plot_window_size 20 --flexiguide_homology 80 --needleman_wunsch_gap_open -20 --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_gap_open_penalty -50</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -278,7 +278,7 @@ flexiguide_seq: None
 force_merge_pairs: False
 guide_name: 
 guide_seq: GGAATCCCTTCTGCAGCACC
-halt_on_plot_fail: False
+halt_on_plot_fail: True
 ignore_deletions: False
 ignore_insertions: False
 ignore_substitutions: False
