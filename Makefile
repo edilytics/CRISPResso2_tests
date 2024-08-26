@@ -64,7 +64,7 @@ cli_integration_tests/CRISPRessoBatch_on_large_batch* \
 cli_integration_tests/CRISPResso_on_basic_write_bam_out_parallel* \
 cli_integration_tests/CRISPResso_on_basic_write_bam_out* \
 cli_integration_tests/CRISPResso_on_bam-out-parallel* \
-cli_integration_tests/CRISPResso_on_bam_single* \
+cli_integration_tests/CRISPResso_on_bam-single* \
 cli_integration_tests/CRISPResso_on_basic-parallel* \
 cli_integration_tests/CRISPResso_on_bam-out-genome* \
 cli_integration_tests/CRISPResso_on_bam-out-2* \
@@ -186,13 +186,14 @@ basic-parallel: cli_integration_tests/CRISPResso_on_basic-parallel
 
 cli_integration_tests/CRISPResso_on_basic-parallel: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug -p 2 -n basic-parallel"; $(RUN)
-.PHONY: bam_single
-bam_single: cli_integration_tests/CRISPResso_on_bam_single
 
-cli_integration_tests/CRISPResso_on_bam_single: install cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Both.Cas9.fastq.smallGenome.bam
-	cd cli_integration_tests && cmd="CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --name bam --n_processes 1 --place_report_in_output_folder --debug -n bam_single"; $(RUN)
+.PHONY: bam-single
+bam-single: cli_integration_tests/CRISPResso_on_bam-single
+
+cli_integration_tests/CRISPResso_on_bam-single: install cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Both.Cas9.fastq.smallGenome.bam
+	cd cli_integration_tests && cmd="CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --n_processes 1 --place_report_in_output_folder --debug -n bam-single"; $(RUN)
+
 .PHONY: bam-out-parallel
-
 bam-out-parallel: cli_integration_tests/CRISPResso_on_bam-out-parallel
 
 cli_integration_tests/CRISPResso_on_bam-out-parallel: install cli_integration_tests/inputs/bam_test.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/
