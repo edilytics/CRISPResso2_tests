@@ -1,0 +1,48 @@
+CRISPResso version 2.3.2
+[Command used]:
+/home/trevormartinj7/micromamba/envs/crispresso2environment/bin/CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --name bam --n_processes 1 --place_report_in_output_folder --debug -n bam_single
+
+[Execution log]:
+Index file for input .bam file exists, skipping generation.
+Writing bam output file: CRISPResso_on_bam_single/CRISPResso_output.bam
+Inferring reference amplicon sequence..
+Auto-detected 1 reference amplicon
+Detected amplicon 0:TTCTGGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAAAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG
+Auto-detected 1 guide
+Detected guide 0:GGCCCAGACTGAGCACGTGA
+Computing quantification windows
+CRISPRessoPro not installed
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Aligning sequences...
+Finished reading bam file; 215 unique reads found of 237 total reads found 
+Finished reads; N_TOT_READS: 237 N_COMPUTED_ALN: 214 N_CACHED_ALN: 22 N_COMPUTED_NOTALN: 1 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Inferred
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around Guessed sgRNA (GGCCCAGACTGAGCACGTGA) for Inferred
+Plotting indel size distribution for Inferred
+Plotting frequency deletions/insertions for Inferred
+Plotting amplication modifications for Inferred
+Plotting modification frequency for Inferred
+Plotting quantification window locations for Inferred
+Plotting position dependent indel for Inferred
+Plotting allele distribution around cut for Inferred
+Done!
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 237.
+ >=1.0% of reads have modifications at the start or end. Total reads: 236, Irregular reads: 178.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 870, Substitutions outside window: 865.
+ >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 1460.0, Substitutions: 870.
+Analysis Complete!

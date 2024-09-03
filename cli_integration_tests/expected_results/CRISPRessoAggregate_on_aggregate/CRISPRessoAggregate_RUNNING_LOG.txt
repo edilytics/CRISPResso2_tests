@@ -1,0 +1,11 @@
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPRessoAggregate -p CRISPRessoBatch_on_FANC/CRISPResso_on_ -n aggregate --debug --place_report_in_output_folder
+
+[Execution log]:
+Read 2 folders (0 not imported)
+Reporting summary for amplicon: "Reference"
+All guides are equal. Performing comparison of runs for amplicon 'Reference'
+Summarizing amplicon modifications...
+Plotting reads summary...
+Summarizing alignment...
+Analysis Complete!

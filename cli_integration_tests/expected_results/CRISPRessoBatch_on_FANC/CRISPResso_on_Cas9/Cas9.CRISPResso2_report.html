@@ -60,6 +60,12 @@
     <link rel="shortcut icon" href="http://crispresso.pinellolab.org/static/favicon.ico" />
     
 
+    <!-- Optional JavaScript -->  
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
   
@@ -139,6 +145,8 @@
 
 
 
+
+
   </head>
 
   <body class="m-2">
@@ -150,7 +158,7 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
         
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="http://crispresso.pinellolab.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
         
           </div>
         <div class="col-sm-7" >
@@ -216,13 +224,13 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.3.1</p>
-  <p><strong>Run completed:</strong> 2024-05-07 16:44:21</p>
+  <p><strong>CRISPResso version:</strong> 2.3.2</p>
+  <p><strong>Run completed:</strong> 2024-08-22 14:26:53</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --exclude_bp_from_right 15 --flexiguide_homology 80 --max_paired_end_reads_overlap None --amplicon_name Reference --n_processes 1 --flash_command None --base_editor_output --guide_seq GGAATCCCTTCTGCAGCACC --quantification_window_center -3 --min_single_bp_quality 0 --needleman_wunsch_gap_open -20 --prime_editing_pegRNA_extension_quantification_window_size 5 --trimmomatic_command None --conversion_nuc_from C --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_extend -2 --prime_editing_gap_open_penalty -50 --min_bp_quality_or_N 0 --plot_window_size 20 --needleman_wunsch_aln_matrix_loc EDNAFULL --quantification_window_size 1 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --verbosity 3 --config_file None --fastq_r1 inputs/FANC.Cas9.fastq --default_min_aln_score 60 --aln_seed_len 10 --conversion_nuc_to T --min_average_read_quality 0 --min_frequency_alleles_around_cut_to_plot 0.2 --exclude_bp_from_left 15 --aln_seed_count 5 --file_prefix Cas9 --aln_seed_min 2 --needleman_wunsch_gap_incentive 1 --debug --flexiguide_seq None --prime_editing_gap_extend_penalty 0 --place_report_in_output_folder --prime_editing_pegRNA_scaffold_min_match_length 1 --fastp_command fastp --min_paired_end_reads_overlap 10</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --needleman_wunsch_gap_incentive 1 --needleman_wunsch_gap_open -20 --verbosity 3 --exclude_bp_from_right 15 --plot_window_size 20 --n_processes 1 --exclude_bp_from_left 15 --min_average_read_quality 0 --quantification_window_center -3 --aln_seed_min 2 --max_rows_alleles_around_cut_to_plot 50 --trimmomatic_command None --fastq_r1 inputs/FANC.Cas9.fastq --aln_seed_count 5 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --flash_command None --conversion_nuc_from C --quantification_window_size 1 --prime_editing_gap_extend_penalty 0 --config_file None --base_editor_output --flexiguide_homology 80 --needleman_wunsch_gap_extend -2 --min_single_bp_quality 0 --prime_editing_pegRNA_scaffold_min_match_length 1 --max_paired_end_reads_overlap None --place_report_in_output_folder --min_bp_quality_or_N 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --default_min_aln_score 60 --prime_editing_pegRNA_extension_quantification_window_size 5 --fastp_command fastp --min_paired_end_reads_overlap 10 --file_prefix Cas9 --min_frequency_alleles_around_cut_to_plot 0.2 --guide_seq GGAATCCCTTCTGCAGCACC --aln_seed_len 10 --prime_editing_gap_open_penalty -50 --debug --amplicon_name Reference --conversion_nuc_to T --flexiguide_seq None</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -286,7 +294,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /mnt/c/Users/Snic9/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -421,10 +429,9 @@ zip_output: False</pre></p>
 											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
 									</label>
 								
-								
 									<p class="m-0"><small>Data: <a href="Cas9.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
 								
-								
+																
 								
   									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
@@ -735,15 +742,9 @@ zip_output: False</pre></p>
     </div>
     
     </div>
-
-
-      <!-- Optional JavaScript -->
-      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-      
+    
 <script>
+
 function updateZoom(e) {
   /*prevent any other actions that may occur when moving over the image:*/
 //  e.preventDefault();
@@ -839,7 +840,8 @@ try {
 
 		
 	
-	</script>
+
+</script>
 
 
 
