@@ -225,12 +225,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-09-26 13:58:46</p>
+  <p><strong>Run completed:</strong> 2024-09-27 13:30:20</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --n_processes 1 --needleman_wunsch_aln_matrix_loc EDNAFULL --flexiguide_gap_extend_penalty -50 --prime_editing_pegRNA_scaffold_min_match_length 1 --aln_seed_count 5 --quantification_window_center -3 --exclude_bp_from_right 15 --conversion_nuc_to T --prime_editing_gap_extend_penalty 0 --min_frequency_alleles_around_cut_to_plot 0.2 --plot_window_size 20 --config_file None --guide_seq GGAATCCCTTCTGCAGCACC --file_prefix Cas9 --min_average_read_quality 0 --quantification_window_size 1 --needleman_wunsch_gap_extend -2 --debug --flash_command None --min_paired_end_reads_overlap 10 --prime_editing_pegRNA_extension_quantification_window_size 5 --flexiguide_seq None --trimmomatic_command None --flexiguide_homology 80 --place_report_in_output_folder --min_bp_quality_or_N 0 --amplicon_name Reference --verbosity 3 --fastq_r1 inputs/FANC.Cas9.fastq --flexiguide_gap_open_penalty -50 --exclude_bp_from_left 15 --max_rows_alleles_around_cut_to_plot 50 --aln_seed_len 10 --prime_editing_gap_open_penalty -50 --max_paired_end_reads_overlap None --min_single_bp_quality 0 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --needleman_wunsch_gap_incentive 1 --needleman_wunsch_gap_open -20 --fastp_command fastp --default_min_aln_score 60 --conversion_nuc_from C --aln_seed_min 2 --base_editor_output</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --min_average_read_quality 0 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_incentive 1 --exclude_bp_from_right 15 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --conversion_nuc_to T --prime_editing_pegRNA_scaffold_min_match_length 1 --base_editor_output --flexiguide_gap_open_penalty -20 --prime_editing_gap_extend_penalty 0 --aln_seed_count 5 --place_report_in_output_folder --min_paired_end_reads_overlap 10 --guide_seq GGAATCCCTTCTGCAGCACC --max_paired_end_reads_overlap None --aln_seed_len 10 --needleman_wunsch_gap_open -20 --prime_editing_pegRNA_extension_quantification_window_size 5 --min_bp_quality_or_N 0 --default_min_aln_score 60 --n_processes 1 --aln_seed_min 2 --fastq_r1 inputs/FANC.Cas9.fastq --quantification_window_size 1 --needleman_wunsch_gap_extend -2 --quantification_window_center -3 --fastp_command fastp --config_file None --min_single_bp_quality 0 --debug --conversion_nuc_from C --file_prefix Cas9 --min_frequency_alleles_around_cut_to_plot 0.2 --prime_editing_gap_open_penalty -50 --flash_command None --exclude_bp_from_left 15 --flexiguide_homology 80 --plot_window_size 20 --amplicon_name Reference --trimmomatic_command None --needleman_wunsch_aln_matrix_loc EDNAFULL --flexiguide_seq None --verbosity 3 --flexiguide_gap_extend_penalty -2</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -270,8 +270,8 @@ fastq_r1: inputs/FANC.Cas9.fastq
 fastq_r2: 
 file_prefix: Cas9
 flash_command: None
-flexiguide_gap_extend_penalty: -50
-flexiguide_gap_open_penalty: -50
+flexiguide_gap_extend_penalty: -2
+flexiguide_gap_open_penalty: -20
 flexiguide_homology: 80
 flexiguide_name: 
 flexiguide_seq: None
