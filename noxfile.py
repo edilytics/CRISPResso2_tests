@@ -49,9 +49,10 @@ def create_cli_integration_test(test_name, test_output, cmd):
         with session.chdir(CRISPRESSO2_DIR):
             session.install('.')
         # run the command
+        cmd_silent = 'print' not in session.posargs
         with session.chdir('cli_integration_tests'):
-            cmd_out = session.run(*cmd, silent=True)
-        # check if `-- test` was passed
+            cmd_out = session.run(*cmd, silent=cmd_silent)
+        # check for positional arguments
         if 'test' in session.posargs:
             try:
                 session.run('python', 'diff.py', f'cli_integration_tests/{test_output}', '--expected', f'cli_integration_tests/expected_results/{test_output}', silent=True)
