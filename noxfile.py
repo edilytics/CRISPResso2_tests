@@ -1,3 +1,5 @@
+import os
+
 import nox
 import yaml
 
@@ -8,13 +10,11 @@ SESSION_ARGS = {
 NUMPY_VERSIONS = ['1.26.4', '2.0.0', '2.1.1']
 COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debug']
 CRISPRESSO2_DIR = '../CRISPResso2'
-CONDA_ENVIRONMENTS = {}
 
 
 @nox.session(venv_backend='conda', reuse_venv=True)
 @nox.parametrize('numpy', NUMPY_VERSIONS)
 def conda_env(session, numpy):
-    CONDA_ENVIRONMENTS[('numpy', numpy)] = session._runner.venv
     conda_list = session.run('conda', 'list', silent=True)
     if 'samtools' in conda_list:
         session.warn('samtools is installed, skipping installation of all dependencies.')
@@ -35,18 +35,29 @@ def conda_env(session, numpy):
     )
 
 
-def create_cli_integration_test(test_name, cmd):
+def create_cli_integration_test(test_name, test_output, cmd):
     @nox.session(**SESSION_ARGS, name=test_name)
     @nox.parametrize('numpy', NUMPY_VERSIONS)
     def cli_integration_test(session, numpy):
         # set the correct conda environment
-        session._runner.venv = CONDA_ENVIRONMENTS[('numpy', numpy)]
+        session._runner.venv = nox.virtualenv.CondaEnv(
+            location=os.path.join(os.getcwd(), f'.nox/conda_env-numpy-{numpy.replace(".", "-")}'),
+            reuse_existing=True,
+            conda_cmd='conda',
+        )
         # install CRISPResso2
         with session.chdir(CRISPRESSO2_DIR):
             session.install('.')
-        # run the test
+        # run the command
         with session.chdir('cli_integration_tests'):
-            session.run(*cmd)
+            cmd_out = session.run(*cmd, silent=True)
+        # check if `-- test` was passed
+        if 'test' in session.posargs:
+            try:
+                session.run('python', 'diff.py', f'cli_integration_tests/{test_output}', '--expected', f'cli_integration_tests/expected_results/{test_output}', silent=True)
+            except nox.command.CommandFailed as e:
+               print(cmd_out)
+               raise e
 
     return cli_integration_test
 
@@ -61,5 +72,7 @@ with open('test_config.yml', 'r') as fh:
     TEST_CONFIG = yaml.safe_load(fh)
     for test_name, test_config in TEST_CONFIG['cli_integration_tests'].items():
         globals()[test_name] = create_cli_integration_test(
-            test_name, build_cmd(test_name, test_config['cmd']),
+            test_name,
+            test_config['output'],
+            build_cmd(test_name, test_config['cmd']),
         )
