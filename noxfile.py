@@ -7,16 +7,25 @@ import yaml
 SESSION_ARGS = {
     'venv_backend': 'none',
 }
-NUMPY_VERSIONS = ['1.26.4', '2.0.0', '2.1.1']
+PARAMETERS = [
+    'python, numpy',
+    [
+        (python, numpy)
+        for python in ('3.11', '3.12', '3.13')
+        for numpy in ('1.26.4', '2.0.0', '2.1.1')
+        if not ((python == '3.13' and numpy == '1.26.4') or
+           (python == '3.13' and numpy == '2.0.0'))
+    ],
+]
 COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debug']
 CRISPRESSO2_DIR = '../CRISPResso2'
 
 
 @nox.session(venv_backend='conda', reuse_venv=True)
-@nox.parametrize('numpy', NUMPY_VERSIONS)
-def conda_env(session, numpy):
+@nox.parametrize(*PARAMETERS)
+def conda_env(session, python, numpy):
     conda_list = session.run('conda', 'list', silent=True)
-    if 'samtools' in conda_list:
+    if 'samtools' in conda_list and 'force' not in session.posargs:
         session.warn('samtools is installed, skipping installation of all dependencies.')
         return
     session.conda_install(
@@ -29,6 +38,7 @@ def conda_env(session, numpy):
         'jinja2',
         'tbb=2020.2',
         'pyparsing=2.3.1',
+        f'python={python}',
         'scipy',
         'matplotlib',
         channel=['conda-forge', 'bioconda'],
@@ -37,11 +47,11 @@ def conda_env(session, numpy):
 
 def create_cli_integration_test(test_name, test_output, cmd):
     @nox.session(**SESSION_ARGS, name=test_name)
-    @nox.parametrize('numpy', NUMPY_VERSIONS)
-    def cli_integration_test(session, numpy):
+    @nox.parametrize(*PARAMETERS)
+    def cli_integration_test(session, python, numpy):
         # set the correct conda environment
         session._runner.venv = nox.virtualenv.CondaEnv(
-            location=os.path.join(os.getcwd(), f'.nox/conda_env-numpy-{numpy.replace(".", "-")}'),
+            location=os.path.join(os.getcwd(), f'.nox/conda_env-python-{python.replace(".", "-")}-numpy-{numpy.replace(".", "-")}'),
             reuse_existing=True,
             conda_cmd='conda',
         )
