@@ -1,12 +1,12 @@
 import nox
 import yaml
 
+
 SESSION_ARGS = {
     'venv_backend': 'none',
 }
-
+COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debug']
 CRISPRESSO2_DIR = '../CRISPResso2'
-
 CONDA_ENVIRONMENTS = {}
 
 
@@ -15,7 +15,6 @@ CONDA_ENVIRONMENTS = {}
 def conda_env(session, numpy):
     CONDA_ENVIRONMENTS[('numpy', numpy)] = session._runner.venv
     conda_list = session.run('conda', 'list', silent=True)
-    print(conda_list)
     if 'samtools' in conda_list:
         session.warn('samtools is installed, skipping installation of all dependencies.')
         return
@@ -46,11 +45,20 @@ def create_cli_integration_test(test_name, cmd):
             session.install('.')
         # run the test
         with session.chdir('cli_integration_tests'):
-            session.run(*cmd.split(' '))
+            session.run(*cmd)
+
     return cli_integration_test
+
+
+def build_cmd(name, cmd):
+    cmd = cmd.strip().split(' ')
+    cmd.extend(['-n', name, *COMMON_ARGS])
+    return cmd
 
 
 with open('test_config.yml', 'r') as fh:
     TEST_CONFIG = yaml.safe_load(fh)
     for test_name, test_config in TEST_CONFIG['cli_integration_tests'].items():
-        globals()[test_name] = create_cli_integration_test(test_name, test_config['cmd'])
+        globals()[test_name] = create_cli_integration_test(
+            test_name, build_cmd(test_name, test_config['cmd']),
+        )
