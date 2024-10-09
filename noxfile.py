@@ -5,13 +5,14 @@ import yaml
 SESSION_ARGS = {
     'venv_backend': 'none',
 }
+NUMPY_VERSIONS = ['1.26.4', '2.0.0', '2.1.1']
 COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debug']
 CRISPRESSO2_DIR = '../CRISPResso2'
 CONDA_ENVIRONMENTS = {}
 
 
 @nox.session(venv_backend='conda', reuse_venv=True)
-@nox.parametrize('numpy', ['1.26.4', '2.0.0', '2.1.1'])
+@nox.parametrize('numpy', NUMPY_VERSIONS)
 def conda_env(session, numpy):
     CONDA_ENVIRONMENTS[('numpy', numpy)] = session._runner.venv
     conda_list = session.run('conda', 'list', silent=True)
@@ -36,7 +37,7 @@ def conda_env(session, numpy):
 
 def create_cli_integration_test(test_name, cmd):
     @nox.session(**SESSION_ARGS, name=test_name)
-    @nox.parametrize('numpy', ['1.26.4', '2.0.0', '2.1.1'])
+    @nox.parametrize('numpy', NUMPY_VERSIONS)
     def cli_integration_test(session, numpy):
         # set the correct conda environment
         session._runner.venv = CONDA_ENVIRONMENTS[('numpy', numpy)]
