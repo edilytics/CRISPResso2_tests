@@ -27,6 +27,14 @@ cli_integration_tests:
     output: CRISPRessoPooled_on_pooled-paired-sim
     cmd: |
       CRISPRessoPooled -r1 inputs/simulated.trim_reqd.r1.fq -r2 inputs/simulated.trim_reqd.r2.fq -f inputs/simulated.amplicons.txt --min_reads_to_use_region 10 --trim_sequences --keep_intermediate
+  pooled-mixed-mode:
+    output: CRISPRessoPooled_on_pooled-mixed-mode
+    cmd: |
+      CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100
+  pooled-mixed-mode-genome-demux:
+    output: CRISPRessoPooled_on_pooled-mixed-mode-genome-demux
+    cmd: |
+      CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --demultiplex_genome_wide
   wgs:
     output: CRISPRessoWGS_Both.Cas9.fastq.smallGenome
     cmd: |
