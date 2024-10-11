@@ -67,8 +67,8 @@ def create_cli_integration_test(test_name, test_output, cmd):
             try:
                 session.run('python', 'diff.py', f'cli_integration_tests/{test_output}', '--expected', f'cli_integration_tests/expected_results/{test_output}', silent=True)
             except nox.command.CommandFailed as e:
-               print(cmd_out)
-               raise e
+                print(cmd_out)
+                raise e
         if 'update' in session.posargs:
             session.run('python', 'test_manager.py', 'update', f'cli_integration_tests/{test_output}', f'cli_integration_tests/expected_results/{test_output}')
 
