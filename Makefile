@@ -7,6 +7,11 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPResso_on_basic-write-bam-out-parallel \
+CRISPResso_on_basic-write-bam-out \
+CRISPResso_on_bam-out-parallel \
+CRISPResso_on_bam_single \
+CRISPResso_on_basic-parallel \
 CRISPResso_on_bam-out-genome \
 CRISPResso_on_bam-out \
 CRISPRessoAggregate_on_aggregate \
@@ -31,12 +36,15 @@ if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
 fi
 endef
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel
 
 print:
 	@echo " ";
 
 test:
+	@echo " ";
+
+update:
 	@echo " ";
 
 install: $(CRISPRESSO2_SOURCES)
@@ -56,6 +64,11 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPResso_on_basic-write-bam-out-parallel* \
+cli_integration_tests/CRISPResso_on_basic-write-bam-out* \
+cli_integration_tests/CRISPResso_on_bam-out-parallel* \
+cli_integration_tests/CRISPResso_on_bam-single* \
+cli_integration_tests/CRISPResso_on_basic-parallel* \
 cli_integration_tests/CRISPResso_on_bam-out-genome* \
 cli_integration_tests/CRISPResso_on_bam-out-2* \
 cli_integration_tests/CRISPRessoAggregate_on_aggregate* \
@@ -75,6 +88,7 @@ cli_integration_tests/CRISPResso_on_FANC.Cas9: install cli_integration_tests/inp
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug"; $(RUN)
 
 bam: cli_integration_tests/CRISPResso_on_bam
+	cd cli_integration_tests && cmd="CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --name bam --n_processes 2 --place_report_in_output_folder --debug"; $(RUN)
 
 cli_integration_tests/CRISPResso_on_bam: install cli_integration_tests/inputs/Both.Cas9.fastq.smallGenome.bam
 	cd cli_integration_tests && cmd="CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --name bam --n_processes max --place_report_in_output_folder --debug"; $(RUN)
@@ -105,8 +119,6 @@ params-multiple-codes: cli_integration_tests/CRISPResso_on_params_multiple_codes
 
 cli_integration_tests/CRISPResso_on_params_multiple_codes: install cli_integration_tests/inputs/FANC.Cas9.fastq
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGC,TGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAA --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_multiple_codes --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug"; $(RUN)
-
-
 
 params: cli_integration_tests/CRISPResso_on_params
 
@@ -201,3 +213,33 @@ bam-out-genome: cli_integration_tests/CRISPResso_on_bam-out-genome
 
 cli_integration_tests/CRISPResso_on_bam-out-genome: install cli_integration_tests/inputs/bam_test.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-genome -x inputs/small_genome/smallGenome --place_report_in_output_folder"; $(RUN)
+
+.PHONY: basic-parallel
+basic-parallel: cli_integration_tests/CRISPResso_on_basic-parallel
+
+cli_integration_tests/CRISPResso_on_basic-parallel: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug -p 2 -n basic-parallel"; $(RUN)
+
+.PHONY: bam-single
+bam-single: cli_integration_tests/CRISPResso_on_bam-single
+
+cli_integration_tests/CRISPResso_on_bam-single: install cli_integration_tests/inputs/ cli_integration_tests/inputs/ cli_integration_tests/inputs/Both.Cas9.fastq.smallGenome.bam
+	cd cli_integration_tests && cmd="CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --n_processes 1 --place_report_in_output_folder --debug -n bam-single"; $(RUN)
+
+.PHONY: bam-out-parallel
+bam-out-parallel: cli_integration_tests/CRISPResso_on_bam-out-parallel
+
+cli_integration_tests/CRISPResso_on_bam-out-parallel: install cli_integration_tests/inputs/bam_test.fq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-parallel --n_processes max --place_report_in_output_folder"; $(RUN)
+
+.PHONY: basic-write-bam-out
+basic-write-bam-out: cli_integration_tests/CRISPResso_on_basic-write-bam-out
+
+cli_integration_tests/CRISPResso_on_basic-write-bam-out: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug --bam_output -n basic-write-bam-out"; $(RUN)
+
+.PHONY: basic-write-bam-out-parallel
+basic-write-bam-out-parallel: cli_integration_tests/CRISPResso_on_basic-write-bam-out-parallel
+
+cli_integration_tests/CRISPResso_on_basic-write-bam-out-parallel: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug --bam_output --n_processes 2 -n basic-write-bam-out-parallel"; $(RUN)
