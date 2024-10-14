@@ -158,7 +158,7 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
         
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="http://crispresso.pinellolab.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
         
           </div>
         <div class="col-sm-7" >
@@ -223,12 +223,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-08-22 14:38:10</p>
+  <p><strong>Run completed:</strong> 2024-09-27 15:08:55</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>ATCAGAGATCAACCAGATTA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode-genome-demux --name GENOME --plot_window_size 20 --needleman_wunsch_aln_matrix_loc EDNAFULL --min_single_bp_quality 0 --n_processes 1 --bowtie2_index inputs/small_genome/smallGenome --min_frequency_alleles_around_cut_to_plot 0.2 --prime_editing_pegRNA_scaffold_min_match_length 1 --min_bp_quality_or_N 0 --exclude_bp_from_right 15 --quantification_window_center -3 --needleman_wunsch_gap_open -20 --aln_seed_count 5 --conversion_nuc_from C --min_paired_end_reads_overlap 10 --min_average_read_quality 0 --verbosity 3 --default_min_aln_score 60 --trimmomatic_command None --exclude_bp_from_left 15 --config_file None --flexiguide_seq None --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_gap_extend -2 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_incentive 1 --prime_editing_gap_open_penalty -50 --aln_seed_len 10 --fastp_command fastp --prime_editing_gap_extend_penalty 0 --place_report_in_output_folder --flash_command None --keep_intermediate --flexiguide_homology 80 --aln_seed_min 2 --quantification_window_size 1 --debug --max_paired_end_reads_overlap None --conversion_nuc_to T --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode-genome-demux --name GENOME --keep_intermediate --needleman_wunsch_gap_open -20 --quantification_window_size 1 --min_single_bp_quality 0 --min_frequency_alleles_around_cut_to_plot 0.2 --flexiguide_homology 80 --default_min_aln_score 60 --aln_seed_min 2 --min_average_read_quality 0 --prime_editing_pegRNA_scaffold_min_match_length 1 --flexiguide_gap_extend_penalty -2 --needleman_wunsch_aln_matrix_loc EDNAFULL --exclude_bp_from_left 15 --min_bp_quality_or_N 0 --verbosity 3 --fastp_command fastp --needleman_wunsch_gap_extend -2 --flexiguide_gap_open_penalty -20 --prime_editing_gap_extend_penalty 0 --flexiguide_seq None --quantification_window_center -3 --needleman_wunsch_gap_incentive 1 --config_file None --bowtie2_index inputs/small_genome/smallGenome --min_paired_end_reads_overlap 10 --prime_editing_gap_open_penalty -50 --trimmomatic_command None --plot_window_size 20 --aln_seed_count 5 --debug --place_report_in_output_folder --aln_seed_len 10 --max_paired_end_reads_overlap None --conversion_nuc_to T --n_processes 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --max_rows_alleles_around_cut_to_plot 50 --flash_command None --exclude_bp_from_right 15 --conversion_nuc_from C --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -268,12 +268,15 @@ fastq_r1: CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGI
 fastq_r2: 
 file_prefix: 
 flash_command: None
+flexiguide_gap_extend_penalty: -2
+flexiguide_gap_open_penalty: -20
 flexiguide_homology: 80
 flexiguide_name: 
 flexiguide_seq: None
 force_merge_pairs: False
 guide_name: 
 guide_seq: ATCAGAGATCAACCAGATTA
+halt_on_plot_fail: True
 ignore_deletions: False
 ignore_insertions: False
 ignore_substitutions: False
