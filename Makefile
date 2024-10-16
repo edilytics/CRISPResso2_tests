@@ -80,7 +80,7 @@ web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
 
-code-tests: clean params params-big-code params-multi-code params-medium params-multiple-codes params-small
+code-tests: params params-big-code params-multi-code params-medium params-multiple-codes params-small
 
 basic: cli_integration_tests/CRISPResso_on_FANC.Cas9
 
