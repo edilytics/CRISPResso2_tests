@@ -7,12 +7,16 @@ import yaml
 SESSION_ARGS = {
     'venv_backend': 'none',
 }
+
+with open('test_config.yml', 'r') as fh:
+    TEST_CONFIG = yaml.safe_load(fh)
+
 PARAMETERS = [
     'python, numpy',
     [
         (python, numpy)
-        for python in ('3.11', '3.12', '3.13')
-        for numpy in ('1.26.4', '2.0.0', '2.1.1')
+        for python in TEST_CONFIG['package_versions']['python']
+        for numpy in TEST_CONFIG['package_versions']['numpy']
         if not ((python == '3.13' and numpy == '1.26.4') or
            (python == '3.13' and numpy == '2.0.0'))
     ],
@@ -81,11 +85,9 @@ def build_cmd(name, cmd):
     return cmd
 
 
-with open('test_config.yml', 'r') as fh:
-    TEST_CONFIG = yaml.safe_load(fh)
-    for test_name, test_config in TEST_CONFIG['cli_integration_tests'].items():
-        globals()[test_name] = create_cli_integration_test(
-            test_name,
-            test_config['output'],
-            build_cmd(test_name, test_config['cmd']),
-        )
+for test_name, test_config in TEST_CONFIG['cli_integration_tests'].items():
+    globals()[test_name] = create_cli_integration_test(
+        test_name,
+        test_config['output'],
+        build_cmd(test_name, test_config['cmd']),
+    )

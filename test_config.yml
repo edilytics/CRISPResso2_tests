@@ -1,3 +1,13 @@
+package_versions:
+  python:
+    - '3.11'
+    - '3.12'
+    - '3.13'
+  numpy:
+    - 1.26.4
+    - 2.0.0
+    - 2.1.1
+
 cli_integration_tests:
   basic:
     output: CRISPResso_on_basic
