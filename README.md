@@ -1,11 +1,11 @@
 # CRISPResso2_tests
 
-A repository for testing that is too large (or too private) to be kept in their respective repositories.
+A repository for testing that is too large to be kept in their respective repositories.
 
 ## `CRISPResso2` Thorough Integration Tests
 
-To run the integration tests for `CRISPResso2` make sure that the `CRISPRESSO2_DIR` variable in the `Makefile` is set to the correct directory where the `CRISPResso2` repository is (by default it is set to `../CRISPResso2`).
-Then to run only the integration tests you can issue `make all test` and it will run the tests and compare the output.
+To run the integration tests for `CRISPResso2` make sure that the `CRISPRESSO2_DIR` variable in the `noxfile.py` is set to the correct directory (or you have a `CRISPRESSO2_DIR` environment variable set) where the `CRISPResso2` repository is (by default it is set to `../CRISPResso2`).
+Then to run only the integration tests you can issue `nox -- test` and it will run the tests and compare the output.
 
 Furthermore, the running times of each integration test will be checked and if there is a difference > 10% in the two times, it will be reported.
 
@@ -16,19 +16,19 @@ For improved diff output, run `pip install ydiff` and the diffs will be colorize
 As explained above, to run all of the tests use:
 
 ``` shell
-make all
+nox
 ```
 
 To run all the tests and check all files for differences use the `test` option:
 
 ```shell
-make all test
+nox -- test
 ```
 
 You can also select a single command to run, like this:
 
 ``` shell
-make basic
+nox -s basic
 ```
 
 **Note:** this will only run the CRISPResso command, it will not check the output files for differences.
@@ -36,18 +36,30 @@ make basic
 If you want to run a single command *and* check it for differences, use the `test` option, like this:
 
 ``` shell
-make basic test
+nox -s basic -- test
 ```
 
 By default, tests will only print command output in the case of an error. To force print output for any test use the `print` option, like this:
 
 ``` shell
-make basic print
+nox -s basic -- print
+```
+
+Note that `test` and `print` can be combined, like this:
+
+``` shell
+nox -s basic -- print test
 ```
 
 ### How can I update the expected results for a test?
 
-If you run a test and there are differences, you can run the command:
+If you run a test and there are differences that you want to update the expected results files, you can run the command:
+
+``` shell
+nox -s basic -- update
+```
+
+Which will run the command:
 
 ```shell
 python test_manager.py update <actual CRISPResso results directory> <expected CRISPResso results directory>
