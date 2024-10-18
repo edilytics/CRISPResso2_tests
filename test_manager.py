@@ -5,6 +5,7 @@ import os
 from shutil import copyfile, copytree
 
 from diff import diff_dir
+from noxfile import COMMON_ARGS
 
 
 def get_crispresso2_info_path(result_dir):
@@ -23,28 +24,12 @@ def get_crispresso2_info(result_directory):
     return crispresso2_info
 
 
-def add_test_to_makefile(command, name, directory, input_files):
-    with open('Makefile', 'r') as fh:
-        makefile_lines = fh.readlines()
-
-    with open('Makefile', 'w') as fh:
-        for line in makefile_lines:
-            if line.startswith('all:'):
-                fh.write('{0} {1}\n'.format(line.strip(), name))
-            elif line.startswith('cli_integration_tests/CRISPRessoBatch_on_large_batch* \\'):
-                fh.write(line)
-                fh.write('cli_integration_tests/{0}* \\\n'.format(directory))
-            elif line.startswith('CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \\'):
-                fh.write(line)
-                fh.write('{0} \\\n'.format(directory))
-            else:
-                fh.write(line)
-        fh.write('\n.PHONY: {name}\n{name}: cli_integration_tests/{directory}\n'.format(name=name, directory=directory))
-        fh.write('\ncli_integration_tests/{directory}: install {input_files}\n'.format(
-            directory=directory,
-            input_files=' '.join('cli_integration_tests/inputs/{0}'.format(os.path.basename(i)) for i in input_files)
-        ))
-        fh.write('\tcd cli_integration_tests && cmd="{command}"; $(RUN)'.format(command=command))
+def add_test_to_yaml(command, name, directory):
+    with open('test_config.yml', 'a') as fh:
+        fh.write(f'\n  {name}:\n')
+        fh.write(f'  output: {directory}\n')
+        fh.write('  cmd: |\n')
+        fh.write(f'      {command}\n')
 
 
 def add_test(args):
@@ -62,6 +47,25 @@ def add_test(args):
     command_input = input('Is this correct? [y/n]: ')
     if command_input.lower() == 'n':
         test_command = input('Enter the correct test command: ')
+
+    print('\nRemoving parameters that are automatically added...')
+    for common_arg in COMMON_ARGS:
+        try:
+            command_parts.remove(common_arg)
+            print(f'Removed {common_arg}')
+        except ValueError:
+            pass
+    for name_parameter in ['-n', '--name']:
+        try:
+            name_index = command_parts.index('-n')
+            run_name = command_parts[name_index + 1]
+            command_parts.pop(name_index + 1)
+            command_parts.pop(name_index)
+            print(f'Removed {name_parameter} {run_name}')
+        except ValueError:
+            pass
+    test_command = ' '.join(command_parts)
+    print(f'Updated test command: {test_command}')
 
     if run_name:
         print('\nRun name: {0}'.format(run_name))
@@ -114,15 +118,15 @@ def add_test(args):
     except:
         print('Could not copy {0}.html to cli_integration_tests/expected_results, please manually copy!'.format(args.directory))
 
-    print('\nAdding test to Makefile...')
-    add_test_to_makefile(test_command, run_name, directory_name, input_files)
+    print('\nAdding test to test_config.yaml...')
+    add_test_to_yaml(test_command, run_name, directory_name, input_files)
 
     print('\nAdding actual files to .gitignore...')
     with open('.gitignore', 'a') as fh:
         fh.write('\ncli_integration_tests/{0}*\n'.format(directory_name))
 
-    print('\nYou can now run the command with `make {0}`'.format(run_name))
-    print('And test with the command `make {0}-test`'.format(run_name))
+    print('\nYou can now run the command with `nox {0}`'.format(run_name))
+    print('And test with the command `nox {0} -- test`'.format(run_name))
 
 
 def update_test(args):
