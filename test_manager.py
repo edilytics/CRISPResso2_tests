@@ -26,9 +26,9 @@ def get_crispresso2_info(result_directory):
 
 def add_test_to_yaml(command, name, directory):
     with open('test_config.yml', 'a') as fh:
-        fh.write(f'\n  {name}:\n')
-        fh.write(f'  output: {directory}\n')
-        fh.write('  cmd: |\n')
+        fh.write(f'  {name}:\n')
+        fh.write(f'    output: {directory}\n')
+        fh.write('    cmd: |\n')
         fh.write(f'      {command}\n')
 
 
@@ -119,14 +119,14 @@ def add_test(args):
         print('Could not copy {0}.html to cli_integration_tests/expected_results, please manually copy!'.format(args.directory))
 
     print('\nAdding test to test_config.yaml...')
-    add_test_to_yaml(test_command, run_name, directory_name, input_files)
+    add_test_to_yaml(test_command, run_name, directory_name)
 
     print('\nAdding actual files to .gitignore...')
     with open('.gitignore', 'a') as fh:
         fh.write('\ncli_integration_tests/{0}*\n'.format(directory_name))
 
-    print('\nYou can now run the command with `nox {0}`'.format(run_name))
-    print('And test with the command `nox {0} -- test`'.format(run_name))
+    print('\nYou can now run the command with `nox -s {0}`'.format(run_name))
+    print('And test with the command `nox -s {0} -- test`'.format(run_name))
 
 
 def update_test(args):
