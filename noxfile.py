@@ -22,7 +22,7 @@ PARAMETERS = [
     ],
 ]
 COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debug']
-CRISPRESSO2_DIR = '../CRISPResso2'
+CRISPRESSO2_DIR = os.getenv('CRISPRESSO2_DIR', '../CRISPResso2')
 
 
 @nox.session(venv_backend='conda', reuse_venv=True)
@@ -91,3 +91,19 @@ for test_name, test_config in TEST_CONFIG['cli_integration_tests'].items():
         test_config['output'],
         build_cmd(test_name, test_config['cmd']),
     )
+
+
+@nox.session(default=False)
+def clean(session):
+    for integration_test in TEST_CONFIG['cli_integration_tests'].values():
+        session.run('rm', '-rf', os.path.join('cli_integration_tests', integration_test['output']), external=True)
+
+
+@nox.session
+def web_ui(session):
+    session.run('python', 'web_tests/CRISPResso_Web_UI_Tests/web_ui_tests.py', '--log_file_path', 'web_tests/UI_test_summary_log.txt')
+
+
+@nox.session
+def stress(session):
+    session.run('python', 'web_tests/web_stress_test.py')
