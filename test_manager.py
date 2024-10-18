@@ -5,7 +5,9 @@ import os
 from shutil import copyfile, copytree
 
 from diff import diff_dir
-from noxfile import COMMON_ARGS
+
+
+COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debug']
 
 
 def get_crispresso2_info_path(result_dir):
