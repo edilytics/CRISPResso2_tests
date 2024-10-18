@@ -1,0 +1,15 @@
+[Command used]:
+/Users/cole/code/edilytics/CRISPResso2_tests/.nox/conda_env-python-3-13-numpy-2-1-1/bin/CRISPRessoBatch -bs inputs/FANC.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --base_editor -n batch --place_report_in_output_folder --halt_on_plot_fail --debug
+
+[Execution log]:
+Running CRISPResso with 1 processes
+Completed 1/2 runs
+Completed 2/2 runs
+Finished all batches
+Reporting summary for amplicon: "Reference"
+All guides are equal. Performing comparison of batches for amplicon 'Reference'
+Plotting nucleotide percentage quilt for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide conversion map for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide quilt for Reference
+Plotting nucleotide conversion map for Reference
+Analysis Complete!
