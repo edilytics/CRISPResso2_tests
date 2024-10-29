@@ -56,7 +56,7 @@ cli_integration_tests:
   aggregate:
     output: CRISPRessoAggregate_on_aggregate
     cmd: |
-      CRISPRessoAggregate -p CRISPRessoBatch_on_FANC/CRISPResso_on_
+      CRISPRessoAggregate -p CRISPRessoBatch_on_batch/CRISPResso_on_
   bam-out:
     output: CRISPResso_on_bam-out
     cmd: |
