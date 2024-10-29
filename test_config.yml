@@ -46,9 +46,9 @@ cli_integration_tests:
     cmd: |
       CRISPRessoPooled -r1 inputs/Both.Cas9.genome.fastq -x inputs/small_genome/smallGenome -f inputs/Cas9.amplicons.genome.txt --keep_intermediate --min_reads_to_use_region 100 --demultiplex_genome_wide
   wgs:
-    output: CRISPRessoWGS_Both.Cas9.fastq.smallGenome
+    output: CRISPRessoWGS_on_wgs
     cmd: |
-      CRISPRessoWGS -b inputs/Both.Cas9.fastq.smallGenome.bam -r inputs/small_genome/smallGenome.fa -f inputs/Cas9.regions.txt -n Both.Cas9.fastq.smallGenome
+      CRISPRessoWGS -b inputs/Both.Cas9.fastq.smallGenome.bam -r inputs/small_genome/smallGenome.fa -f inputs/Cas9.regions.txt
   compare:
     output: CRISPRessoCompare_on_Cas9_VS_Untreated
     cmd: |
