@@ -5,7 +5,7 @@ cli_integration_tests/CRISPResso_on_params*
 cli_integration_tests/CRISPRessoBatch_on_FANC*
 cli_integration_tests/CRISPRessoPooled_on_Both.Cas9*
 cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome*
-cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated*
+cli_integration_tests/CRISPRessoCompare_on_compare*
 cli_integration_tests/CRISPRessoPooled_on_prime.editing*
 cli_integration_tests/CRISPResso_on_basic-write-bam-out*
 cli_integration_tests/CRISPResso_on_basic-write-bam-out-parallel*

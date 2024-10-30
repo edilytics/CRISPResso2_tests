@@ -50,9 +50,9 @@ cli_integration_tests:
     cmd: |
       CRISPRessoWGS -b inputs/Both.Cas9.fastq.smallGenome.bam -r inputs/small_genome/smallGenome.fa -f inputs/Cas9.regions.txt
   compare:
-    output: CRISPRessoCompare_on_Cas9_VS_Untreated
+    output: CRISPRessoCompare_on_compare
     cmd: |
-      CRISPRessoCompare CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/ CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/ -n Cas9_VS_Untreated
+      CRISPRessoCompare CRISPRessoBatch_on_batch/CRISPResso_on_Cas9/ CRISPRessoBatch_on_batch/CRISPResso_on_Untreated/
   aggregate:
     output: CRISPRessoAggregate_on_aggregate
     cmd: |
