@@ -51,6 +51,20 @@ Note that `test` and `print` can be combined, like this:
 nox -s basic -- print test
 ```
 
+### Nox conda environments and package version management
+
+Nox will automatically create a number of conda environments based on the parameters of the packages that are specified in the `test_config.yaml` file. This happens if you run `nox`. To make tests run faster, the conda environments are cached (it checks if `samtools` is accessible, and if so it skips installing all of the packages) and there may be times if you need to manually trigger the creation of the conda environments.
+
+To initially create the conda environments you can run:
+
+``` shell
+nox -s conda_env
+```
+
+This will create conda environments with the specified versions in the `.nox` directory. If there are already conda environments and you would like to update them, then you should add the `force` argument like this: `nox -c conda_env -- force`.
+
+If you are running on Apple Silicon, you most likely want to run the above command like `CONDA_SUBDIR="osx-64" nox -s conda_env -- force` so that the x86 versions of the packages are installed.
+
 ### How can I update the expected results for a test?
 
 If you run a test and there are differences that you want to update the expected results files, you can run the command:
