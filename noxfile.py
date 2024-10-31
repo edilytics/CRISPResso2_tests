@@ -12,11 +12,12 @@ with open('test_config.yml', 'r') as fh:
     TEST_CONFIG = yaml.safe_load(fh)
 
 PARAMETERS = [
-    'python, numpy',
+    'python, numpy, pandas',
     [
-        (python, numpy)
+        (python, numpy, pandas)
         for python in TEST_CONFIG['package_versions']['python']
         for numpy in TEST_CONFIG['package_versions']['numpy']
+        for pandas in TEST_CONFIG['package_versions']['pandas']
         if not ((python == '3.13' and numpy == '1.26.4') or
            (python == '3.13' and numpy == '2.0.0'))
     ],
@@ -25,9 +26,9 @@ COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debu
 CRISPRESSO2_DIR = os.getenv('CRISPRESSO2_DIR', '../CRISPResso2')
 
 
-def get_conda_env(python, numpy):
+def get_conda_env(python, numpy, pandas):
     return nox.virtualenv.CondaEnv(
-            location=os.path.join(os.getcwd(), f'.nox/conda_env-python-{python.replace(".", "-")}-numpy-{numpy.replace(".", "-")}'),
+            location=os.path.join(os.getcwd(), f'.nox/conda_env-python-{python.replace(".", "-")}-numpy-{numpy.replace(".", "-")}-pandas-{pandas.replace(".", "-")}'),
             reuse_existing=True,
             conda_cmd='conda',
         )
@@ -35,7 +36,7 @@ def get_conda_env(python, numpy):
 
 @nox.session(venv_backend='conda', reuse_venv=True)
 @nox.parametrize(*PARAMETERS)
-def conda_env(session, python, numpy):
+def conda_env(session, python, numpy, pandas):
     conda_list = session.run('conda', 'list', silent=True)
     if 'samtools' in conda_list and 'force' not in session.posargs:
         session.warn('samtools is installed, skipping installation of all dependencies.')
@@ -45,7 +46,7 @@ def conda_env(session, python, numpy):
         'samtools',
         'fastp',
         f'numpy={numpy}',
-        'pandas',
+        f'pandas={pandas}',
         'cython',
         'jinja2',
         'tbb=2020.2',
@@ -62,8 +63,8 @@ def conda_env(session, python, numpy):
 def create_cli_integration_test(test_name, test_output, cmd):
     @nox.session(**SESSION_ARGS, name=test_name)
     @nox.parametrize(*PARAMETERS)
-    def cli_integration_test(session, python, numpy):
-        session._runner.venv = get_conda_env(python, numpy)
+    def cli_integration_test(session, python, numpy, pandas):
+        session._runner.venv = get_conda_env(python, numpy, pandas)
 
         with session.chdir(CRISPRESSO2_DIR):
             session.install('.')
@@ -86,8 +87,8 @@ def create_cli_integration_test(test_name, test_output, cmd):
 
 @nox.session(**SESSION_ARGS)
 @nox.parametrize(*PARAMETERS)
-def unit_tests(session, python, numpy):
-    session._runner.venv = get_conda_env(python, numpy)
+def unit_tests(session, python, numpy, pandas):
+    session._runner.venv = get_conda_env(python, numpy, pandas)
     with session.chdir(CRISPRESSO2_DIR):
         session.install('.')
         session.run('pytest', 'tests', '--cov=CRISPResso2')
