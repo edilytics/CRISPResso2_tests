@@ -1,4 +1,7 @@
+import hashlib
 import os
+from pathlib import Path
+
 
 import nox
 import yaml
@@ -26,9 +29,63 @@ COMMON_ARGS = ['--place_report_in_output_folder', '--halt_on_plot_fail', '--debu
 CRISPRESSO2_DIR = os.getenv('CRISPRESSO2_DIR', '../CRISPResso2')
 
 
+def update_hash_from_dir(directory, current_hash):
+    for path in sorted(Path(directory).iterdir(), key=lambda p: str(p).lower()):
+        current_hash.update(path.name.encode())
+        if path.is_file():
+            with open(path, 'rb') as fh:
+                current_hash.update(fh.read())
+        elif path.is_dir():
+            current_hash = update_hash_from_dir(path, current_hash)
+    return current_hash
+
+
+def hash_from_dir(directory):
+    return update_hash_from_dir(directory, hashlib.md5()).hexdigest()
+
+
+class Cache:
+    """Simple cache to avoid re-installing CRISPResso2 in the same conda environment."""
+    def __init__(self, path='.nox/crispresso2_install_cache.tsv'):
+        self.path = path
+        self.cache = {}
+        self._load_cache()
+
+    def add(self, conda_env_name, dir_hash):
+        self.cache[conda_env_name] = dir_hash
+        self.save()
+
+    def is_hit(self, conda_env_name, dir_hash):
+        return self.cache.get(conda_env_name) == dir_hash
+
+    def _load_cache(self):
+        if os.path.exists(self.path):
+            with open(self.path, 'r') as fh:
+                for line in fh:
+                    conda_env_name, dir_hash = line.strip().split('\t')
+                    self.cache[conda_env_name] = dir_hash
+
+    def save(self):
+        with open(self.path, 'w') as fh:
+            for conda_env_name, dir_hash in self.cache.items():
+                fh.write(f'{conda_env_name}\t{dir_hash}\n')
+
+
+CRISPRESSO2_INSTALL_CACHE = Cache()
+
+
+def get_conda_env_name(python, numpy, pandas):
+    return '-'.join([
+        '.nox/conda_env',
+        f'python-{python.replace(".", "-")}',
+        f'numpy-{numpy.replace(".", "-")}',
+        f'pandas-{pandas.replace(".", "-")}'
+    ])
+
+
 def get_conda_env(python, numpy, pandas):
     return nox.virtualenv.CondaEnv(
-            location=os.path.join(os.getcwd(), f'.nox/conda_env-python-{python.replace(".", "-")}-numpy-{numpy.replace(".", "-")}-pandas-{pandas.replace(".", "-")}'),
+            location=os.path.join(os.getcwd(), get_conda_env_name(python, numpy, pandas)),
             reuse_existing=True,
             conda_cmd='conda',
         )
@@ -66,8 +123,12 @@ def create_cli_integration_test(test_name, test_output, cmd):
     def cli_integration_test(session, python, numpy, pandas):
         session._runner.venv = get_conda_env(python, numpy, pandas)
 
-        with session.chdir(CRISPRESSO2_DIR):
-            session.install('.')
+        crispresso2_hash = hash_from_dir(CRISPRESSO2_DIR)
+        conda_env_name = get_conda_env_name(python, numpy, pandas)
+        if not CRISPRESSO2_INSTALL_CACHE.is_hit(conda_env_name, crispresso2_hash):
+            with session.chdir(CRISPRESSO2_DIR):
+                session.install('.')
+            CRISPRESSO2_INSTALL_CACHE.add(conda_env_name, hash_from_dir(CRISPRESSO2_DIR))
 
         cmd_silent = 'print' not in session.posargs
         with session.chdir('cli_integration_tests'):
