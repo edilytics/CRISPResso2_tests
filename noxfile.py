@@ -41,21 +41,29 @@ def update_hash_from_dir(directory, current_hash):
 
 
 def hash_from_dir(directory):
+    """Return the hash of a directory."""
     return update_hash_from_dir(directory, hashlib.md5()).hexdigest()
 
 
 class Cache:
-    """Simple cache to avoid re-installing CRISPResso2 in the same conda environment."""
+    """Simple cache to avoid re-installing CRISPResso2 in the same conda environment.
+
+    The cache is stored in memory as `self.cache` with the conda environment name
+    as the key and the hash of the CRISPResso2 directory as the value. The cache
+    is also saved to disk as a tab-separated file with the same format.
+    """
     def __init__(self, path='.nox/crispresso2_install_cache.tsv'):
         self.path = path
         self.cache = {}
         self._load_cache()
 
     def add(self, conda_env_name, dir_hash):
+        """Add a new conda environment name and directory hash to the cache."""
         self.cache[conda_env_name] = dir_hash
         self.save()
 
     def is_hit(self, conda_env_name, dir_hash):
+        """If the hash of the CRISPResso2 directory matches the cache, return True."""
         return self.cache.get(conda_env_name) == dir_hash
 
     def _load_cache(self):
@@ -66,6 +74,7 @@ class Cache:
                     self.cache[conda_env_name] = dir_hash
 
     def save(self):
+        """Save the cache to disk."""
         with open(self.path, 'w') as fh:
             for conda_env_name, dir_hash in self.cache.items():
                 fh.write(f'{conda_env_name}\t{dir_hash}\n')
