@@ -11,6 +11,14 @@ Furthermore, the running times of each integration test will be checked and if t
 
 For improved diff output, run `pip install ydiff` and the diffs will be colorized and side by side.
 
+## Dependencies
+
+Install the following dependencies to run the tests:
+
+- `nox`
+- `pyyaml`
+- `ydiff` (optional)
+
 ### How can I run a test?
 
 As explained above, to run all of the tests use:
