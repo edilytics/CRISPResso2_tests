@@ -38,6 +38,8 @@ endef
 
 all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel
 
+all-single-process: clean basic prime-editor batch wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam-out bam-out-genome bam-single basic-write-bam-out
+
 print:
 	@echo " ";
 
@@ -98,7 +100,7 @@ cli_integration_tests/CRISPResso_on_params: install cli_integration_tests/inputs
 nhej: cli_integration_tests/CRISPResso_on_nhej
 
 cli_integration_tests/CRISPResso_on_nhej: install cli_integration_tests/
-	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
 
 batch: cli_integration_tests/CRISPRessoBatch_on_FANC
 
