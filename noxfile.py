@@ -92,18 +92,18 @@ def get_conda_env_name(python, numpy, pandas):
     ])
 
 
-def get_conda_env(python, numpy, pandas):
+def get_conda_env(python, numpy, pandas, cmd):
     return nox.virtualenv.CondaEnv(
             location=os.path.join(os.getcwd(), get_conda_env_name(python, numpy, pandas)),
             reuse_existing=True,
-            conda_cmd='conda',
+            conda_cmd=cmd,
         )
 
 
-@nox.session(venv_backend='conda', reuse_venv=True)
+@nox.session(venv_backend='conda|micromamba', reuse_venv=True)
 @nox.parametrize(*PARAMETERS)
 def conda_env(session, python, numpy, pandas):
-    conda_list = session.run('conda', 'list', silent=True)
+    conda_list = session.run(session.venv_backend, 'list', silent=True)
     if 'samtools' in conda_list and 'force' not in session.posargs:
         session.warn('samtools is installed, skipping installation of all dependencies.')
         return
@@ -121,6 +121,7 @@ def conda_env(session, python, numpy, pandas):
         'pyparsing=2.3.1',
         f'python={python}',
         'scipy',
+        'setuptools',
         'matplotlib',
         channel=['conda-forge', 'bioconda'],
     )
@@ -130,13 +131,12 @@ def create_cli_integration_test(test_name, test_output, cmd):
     @nox.session(**SESSION_ARGS, name=test_name)
     @nox.parametrize(*PARAMETERS)
     def cli_integration_test(session, python, numpy, pandas):
-        session._runner.venv = get_conda_env(python, numpy, pandas)
-
+        session._runner.venv = get_conda_env(python, numpy, pandas, session.venv_backend)
         crispresso2_hash = hash_from_dir(CRISPRESSO2_DIR)
         conda_env_name = get_conda_env_name(python, numpy, pandas)
         if not CRISPRESSO2_INSTALL_CACHE.is_hit(conda_env_name, crispresso2_hash):
             with session.chdir(CRISPRESSO2_DIR):
-                session.install('.')
+                session.install('.', '--no-build-isolation')
             CRISPRESSO2_INSTALL_CACHE.add(conda_env_name, hash_from_dir(CRISPRESSO2_DIR))
 
         cmd_silent = 'print' not in session.posargs
@@ -158,9 +158,9 @@ def create_cli_integration_test(test_name, test_output, cmd):
 @nox.session(**SESSION_ARGS)
 @nox.parametrize(*PARAMETERS)
 def unit_tests(session, python, numpy, pandas):
-    session._runner.venv = get_conda_env(python, numpy, pandas)
+    session._runner.venv = get_conda_env(python, numpy, pandas, session.venv_backend)
     with session.chdir(CRISPRESSO2_DIR):
-        session.install('.')
+        session.install('.', '--no-build-isolation')
         session.run('pytest', 'tests', '--cov=CRISPResso2')
 
 
