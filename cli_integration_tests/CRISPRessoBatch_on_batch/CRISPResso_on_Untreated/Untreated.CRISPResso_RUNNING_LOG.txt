@@ -1,0 +1,50 @@
+CRISPResso version 2.3.2
+[Command used]:
+/Users/cole/code/edilytics/CRISPResso2_tests/.nox/conda_env-python-3-13-numpy-2-1-1/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_batch --name Untreated --place_report_in_output_folder --default_min_aln_score 60 --file_prefix Untreated --prime_editing_gap_open_penalty -50 --min_average_read_quality 0 --quantification_window_size 1 --fastp_command fastp --needleman_wunsch_gap_incentive 1 --aln_seed_len 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --config_file None --flexiguide_seq None --prime_editing_pegRNA_scaffold_min_match_length 1 --min_paired_end_reads_overlap 10 --exclude_bp_from_left 15 --flexiguide_gap_open_penalty -20 --halt_on_plot_fail --conversion_nuc_from C --prime_editing_gap_extend_penalty 0 --guide_seq GGAATCCCTTCTGCAGCACC --max_paired_end_reads_overlap None --debug --flexiguide_gap_extend_penalty -2 --max_rows_alleles_around_cut_to_plot 50 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_count 5 --quantification_window_center -3 --aln_seed_min 2 --min_frequency_alleles_around_cut_to_plot 0.2 --plot_window_size 20 --amplicon_name Reference --conversion_nuc_to T --prime_editing_pegRNA_extension_quantification_window_size 5 --min_bp_quality_or_N 0 --needleman_wunsch_gap_open -20 --verbosity 3 --needleman_wunsch_gap_extend -2 --base_editor_output --min_single_bp_quality 0 --exclude_bp_from_right 15 --flash_command None --n_processes 1 --flexiguide_homology 80 --trimmomatic_command None --fastq_r1 inputs/FANC.Untreated.fastq
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Aligning sequences...
+Finished reading fastq file; 179 unique reads found of 250 total reads found 
+Processing Reads; 0 Completed out of 179 Unique Reads
+Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 176 N_CACHED_ALN: 71 N_COMPUTED_NOTALN: 3 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Plotting substitutions across reference for Reference
+Plotting substitution frequency barplot for Reference
+Plotting substitution frequency barplot in quantification window for Reference
+Plotting allele distribution around cut for Reference
+Plotting log2 nucleotide frequency for Reference
+Plotting conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting scaled non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Done!
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 250.
+ <=1.0% of modifications were inside of the quantification window. Total modifications: 55.0, Modifications in window: 0, Modifications outside window: 55.0.
+ >=1.0% of reads have modifications at the start or end. Total reads: 247, Irregular reads: 247.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 49, Substitutions outside window: 49.
+ >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 55.0, Substitutions: 49.
+Analysis Complete!
