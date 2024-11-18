@@ -116,6 +116,7 @@ def conda_env(session, python, numpy, pandas):
         'cython',
         'jinja2',
         'tbb=2020.2',
+        'pip',
         'pytest',
         'pytest-cov',
         'pyparsing=2.3.1',
