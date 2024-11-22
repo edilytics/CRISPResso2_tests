@@ -1,4 +1,4 @@
-samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr11:1047-1270 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq";} \
+samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr11:1047-1270 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq";} \
                         { \
                             print "@"$1"\n"$10"\n+\n"$11 > fastq_filename; \
                             num_records++; \
@@ -11,7 +11,7 @@ samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_
                     } ' 
 
 
-samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr9:966-1198 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq";} \
+samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr9:966-1198 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq";} \
                         { \
                             print "@"$1"\n"$10"\n+\n"$11 > fastq_filename; \
                             num_records++; \
@@ -24,7 +24,7 @@ samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_
                     } ' 
 
 
-samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr9:1251-1477 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq";} \
+samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr9:1251-1477 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq";} \
                         { \
                             print "@"$1"\n"$10"\n+\n"$11 > fastq_filename; \
                             num_records++; \

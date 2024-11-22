@@ -1,4 +1,4 @@
-samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/pooled-mixed-mode-genome-demux_GENOME_ALIGNED.bam chr9 2>>CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN {OFS="\t"} {bpstart=$4;  bpend=bpstart; split ($6,a,"[MIDNSHP]"); n=0;\
+samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/pooled-mixed-mode-genome-demux_GENOME_ALIGNED.bam chr9 2>>CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN {OFS="\t"} {bpstart=$4;  bpend=bpstart; split ($6,a,"[MIDNSHP]"); n=0;\
                     for (i=1; i in a; i++){\
                         n+=1+length(a[i]);\
                         if (substr($6,n,1)=="S"){\
@@ -40,7 +40,7 @@ samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/poole
                     }' 
 
 
-samtools view -F 0x0004 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/pooled-mixed-mode-genome-demux_GENOME_ALIGNED.bam chr11 2>>CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN {OFS="\t"} {bpstart=$4;  bpend=bpstart; split ($6,a,"[MIDNSHP]"); n=0;\
+samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/pooled-mixed-mode-genome-demux_GENOME_ALIGNED.bam chr11 2>>CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN {OFS="\t"} {bpstart=$4;  bpend=bpstart; split ($6,a,"[MIDNSHP]"); n=0;\
                     for (i=1; i in a; i++){\
                         n+=1+length(a[i]);\
                         if (substr($6,n,1)=="S"){\
