@@ -34,7 +34,7 @@ samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/pooled-mix
                     END{ \
                         if (fastq_filename!="NA") {if (num_records < 100.0){\
                             record_log_str = record_log_str chr_id"\t"bpstart"\t"bpend"\t"num_records"\tNA\n"} \
-                    else{printf("%s",fastq_records)>fastq_filename;close(fastq_filename); system("gzip -f "fastq_filename); record_log_str = record_log_str chr_id"\t"bpstart"\t"bpend"\t"num_records"\t"fastq_filename".gz\n"} \
+                    else{print(fastq_records)>fastq_filename;close(fastq_filename); system("gzip -f "fastq_filename); record_log_str = record_log_str chr_id"\t"bpstart"\t"bpend"\t"num_records"\t"fastq_filename".gz\n"} \
                         }\
                         print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/chr9.info" \
                     }' 
@@ -76,7 +76,7 @@ samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/pooled-mix
                     END{ \
                         if (fastq_filename!="NA") {if (num_records < 100.0){\
                             record_log_str = record_log_str chr_id"\t"bpstart"\t"bpend"\t"num_records"\tNA\n"} \
-                    else{printf("%s",fastq_records)>fastq_filename;close(fastq_filename); system("gzip -f "fastq_filename); record_log_str = record_log_str chr_id"\t"bpstart"\t"bpend"\t"num_records"\t"fastq_filename".gz\n"} \
+                    else{print(fastq_records)>fastq_filename;close(fastq_filename); system("gzip -f "fastq_filename); record_log_str = record_log_str chr_id"\t"bpstart"\t"bpend"\t"num_records"\t"fastq_filename".gz\n"} \
                         }\
                         print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/chr11.info" \
                     }' 
