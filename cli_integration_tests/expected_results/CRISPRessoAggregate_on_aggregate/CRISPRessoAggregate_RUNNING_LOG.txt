@@ -1,5 +1,5 @@
 [Command used]:
-/Users/cole/mambaforge/envs/crispresso/bin/CRISPRessoAggregate -p CRISPRessoBatch_on_FANC/CRISPResso_on_ -n aggregate --debug --place_report_in_output_folder
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPRessoAggregate -p CRISPRessoBatch_on_FANC/CRISPResso_on_ -n aggregate --debug --place_report_in_output_folder --halt_on_plot_fail
 
 [Execution log]:
 Read 2 folders (0 not imported)
@@ -9,3 +9,12 @@ Summarizing amplicon modifications...
 Plotting reads summary...
 Summarizing alignment...
 Analysis Complete!
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
