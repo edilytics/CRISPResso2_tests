@@ -1,6 +1,6 @@
 CRISPResso version 2.3.2
 [Command used]:
-/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --min_single_bp_quality 0 --fastq_r1 inputs/FANC.Untreated.fastq --flash_command None --config_file None --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --prime_editing_gap_extend_penalty 0 --quantification_window_center -3 --flexiguide_gap_open_penalty -20 --quantification_window_size 1 --max_rows_alleles_around_cut_to_plot 50 --prime_editing_gap_open_penalty -50 --exclude_bp_from_left 15 --fastp_command fastp --prime_editing_pegRNA_scaffold_min_match_length 1 --conversion_nuc_from C --conversion_nuc_to T --trimmomatic_command None --guide_seq GGAATCCCTTCTGCAGCACC --needleman_wunsch_gap_extend -2 --needleman_wunsch_gap_incentive 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --flexiguide_seq None --verbosity 3 --aln_seed_min 2 --min_average_read_quality 0 --halt_on_plot_fail --max_paired_end_reads_overlap None --needleman_wunsch_gap_open -20 --exclude_bp_from_right 15 --flexiguide_gap_extend_penalty -2 --amplicon_name Reference --debug --base_editor_output --aln_seed_len 10 --plot_window_size 20 --needleman_wunsch_aln_matrix_loc EDNAFULL --default_min_aln_score 60 --place_report_in_output_folder --aln_seed_count 5 --min_frequency_alleles_around_cut_to_plot 0.2 --min_paired_end_reads_overlap 10 --min_bp_quality_or_N 0 --n_processes 1 --file_prefix Untreated --flexiguide_homology 80
+/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --flexiguide_homology 80 --debug --min_paired_end_reads_overlap 10 --min_bp_quality_or_N 0 --plot_window_size 20 --flexiguide_gap_extend_penalty -2 --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_gap_open -20 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_len 10 --verbosity 3 --min_single_bp_quality 0 --aln_seed_count 5 --quantification_window_size 1 --flash_command None --quantification_window_center -3 --max_rows_alleles_around_cut_to_plot 50 --prime_editing_gap_extend_penalty 0 --flexiguide_gap_open_penalty -20 --conversion_nuc_to T --base_editor_output --needleman_wunsch_gap_incentive 1 --config_file None --fastq_r1 inputs/FANC.Untreated.fastq --max_paired_end_reads_overlap None --n_processes 1 --prime_editing_gap_open_penalty -50 --prime_editing_pegRNA_scaffold_min_match_length 1 --trimmomatic_command None --fastp_command fastp --amplicon_name Reference --default_min_aln_score 60 --exclude_bp_from_right 15 --flexiguide_seq None --exclude_bp_from_left 15 --needleman_wunsch_aln_matrix_loc EDNAFULL --min_frequency_alleles_around_cut_to_plot 0.2 --halt_on_plot_fail --place_report_in_output_folder --conversion_nuc_from C --file_prefix Untreated --needleman_wunsch_gap_extend -2 --min_average_read_quality 0 --guide_seq GGAATCCCTTCTGCAGCACC --aln_seed_min 2
 
 [Execution log]:
 CRISPRessoPro not installed
@@ -34,11 +34,13 @@ Plotting position dependent indel for Reference
 Plotting substitutions across reference for Reference
 Plotting substitution frequency barplot for Reference
 Plotting substitution frequency barplot in quantification window for Reference
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
 Plotting allele distribution around cut for Reference
 Plotting log2 nucleotide frequency for Reference
 Plotting conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting scaled non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting allele distribution around cut for Reference
 Done!
 Done!
 Removing Intermediate files...

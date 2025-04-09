@@ -225,12 +225,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-11-21 17:13:44</p>
+  <p><strong>Run completed:</strong> 2025-03-27 16:24:52</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --halt_on_plot_fail --needleman_wunsch_gap_incentive 1 --prime_editing_gap_open_penalty -50 --prime_editing_pegRNA_extension_quantification_window_size 5 --exclude_bp_from_left 15 --max_rows_alleles_around_cut_to_plot 50 --fastp_command fastp --needleman_wunsch_gap_open -20 --exclude_bp_from_right 15 --flexiguide_seq None --min_single_bp_quality 0 --place_report_in_output_folder --default_min_aln_score 60 --min_average_read_quality 0 --n_processes 1 --conversion_nuc_from C --aln_seed_len 10 --base_editor_output --prime_editing_gap_extend_penalty 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --amplicon_name Reference --conversion_nuc_to T --prime_editing_pegRNA_scaffold_min_match_length 1 --verbosity 3 --aln_seed_count 5 --flash_command None --flexiguide_gap_extend_penalty -2 --min_bp_quality_or_N 0 --guide_seq GGAATCCCTTCTGCAGCACC --file_prefix Cas9 --flexiguide_homology 80 --quantification_window_size 1 --fastq_r1 inputs/FANC.Cas9.fastq --aln_seed_min 2 --debug --config_file None --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --flexiguide_gap_open_penalty -20 --trimmomatic_command None --min_paired_end_reads_overlap 10 --max_paired_end_reads_overlap None --min_frequency_alleles_around_cut_to_plot 0.2 --plot_window_size 20 --needleman_wunsch_gap_extend -2 --quantification_window_center -3</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --prime_editing_pegRNA_extension_quantification_window_size 5 --trimmomatic_command None --needleman_wunsch_aln_matrix_loc EDNAFULL --halt_on_plot_fail --flexiguide_homology 80 --default_min_aln_score 60 --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --flash_command None --max_paired_end_reads_overlap None --fastp_command fastp --min_average_read_quality 0 --needleman_wunsch_gap_open -20 --quantification_window_size 1 --max_rows_alleles_around_cut_to_plot 50 --conversion_nuc_to T --n_processes 1 --prime_editing_pegRNA_scaffold_min_match_length 1 --aln_seed_min 2 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --place_report_in_output_folder --debug --min_paired_end_reads_overlap 10 --exclude_bp_from_right 15 --flexiguide_gap_open_penalty -20 --aln_seed_len 10 --plot_window_size 20 --amplicon_name Reference --flexiguide_seq None --guide_seq GGAATCCCTTCTGCAGCACC --config_file None --quantification_window_center -3 --needleman_wunsch_gap_extend -2 --conversion_nuc_from C --needleman_wunsch_gap_incentive 1 --exclude_bp_from_left 15 --aln_seed_count 5 --base_editor_output --flexiguide_gap_extend_penalty -2 --min_frequency_alleles_around_cut_to_plot 0.2 --fastq_r1 inputs/FANC.Cas9.fastq --prime_editing_gap_open_penalty -50 --file_prefix Cas9 --verbosity 3 --min_bp_quality_or_N 0</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -248,6 +248,8 @@ base_editor_output: True
 bowtie2_index: 
 coding_seq: 
 config_file: None
+consider_changes_outside_of_guide: False
+consider_indels_outside_of_guide: False
 conversion_nuc_from: C
 conversion_nuc_to: T
 crispresso1_mode: False
@@ -297,7 +299,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -321,6 +323,7 @@ stringent_flash_merging: False
 suppress_amplicon_name_truncation: False
 suppress_plots: False
 suppress_report: False
+target_ref_skip_allele_count: 0
 trim_sequences: False
 trimmomatic_command: None
 trimmomatic_options_string: 
@@ -625,6 +628,11 @@ zip_output: False</pre></p>
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_10f" role="tab" aria-controls="Reference_10f" aria-selected="false">Non-reference Bases</button>
   						  			</li>
             						
+									
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_10i" role="tab" aria-controls="Reference_10i" aria-selected="false">Substitution Co-occurences</button>
+  						  			</li>
+            						
   								</ul>
 							</div>
 							<div class='card-body'>
@@ -652,8 +660,19 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="Cas9.Quantification_window_substitution_frequency_table.txt">Nucleotide frequencies in quantification window</a></small></p>
 </div>
 										</div>
-                                        
+										
 									</div>
+
+									
+									<div class="tab-pane fade" id="Reference_10i" role="tabpanel">
+                						<div class='mb-3'>
+											<div id="fig_plot_10i" class="d-flex flex-column">
+    <a href="Cas9.10i.Base_editing_Reference_upset_plot.by_amplicon_combination.no_indels.pdf"><img src="Cas9.10i.Base_editing_Reference_upset_plot.by_amplicon_combination.no_indels.png" width='50%'></a>
+        <label class="labelpadding">Figure 10i: Upset plot of base editing changes for amplicon: Reference</label>
+</div>
+                						</div>
+									</div>
+									
 
 									
 									<div class="tab-pane fade" id="Reference_10d" role="tabpanel">

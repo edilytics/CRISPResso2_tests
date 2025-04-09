@@ -223,12 +223,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-11-21 17:17:25</p>
+  <p><strong>Run completed:</strong> 2025-03-27 16:29:31</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>ATCAGAGATCAACCAGATTA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode-genome-demux --name GENOME --config_file None --prime_editing_gap_extend_penalty 0 --exclude_bp_from_right 15 --max_paired_end_reads_overlap None --conversion_nuc_to T --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_open -20 --max_rows_alleles_around_cut_to_plot 50 --min_bp_quality_or_N 0 --quantification_window_size 1 --trimmomatic_command None --keep_intermediate --place_report_in_output_folder --prime_editing_gap_open_penalty -50 --debug --plot_window_size 20 --flexiguide_seq None --n_processes 1 --min_average_read_quality 0 --conversion_nuc_from C --exclude_bp_from_left 15 --fastp_command fastp --prime_editing_pegRNA_extension_quantification_window_size 5 --flash_command None --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_count 5 --aln_seed_min 2 --halt_on_plot_fail --samtools_exclude_flags 4 --min_single_bp_quality 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --aln_seed_len 10 --flexiguide_gap_open_penalty -20 --bowtie2_index inputs/small_genome/smallGenome --verbosity 3 --needleman_wunsch_gap_incentive 1 --flexiguide_homology 80 --default_min_aln_score 60 --flexiguide_gap_extend_penalty -2 --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_center -3 --needleman_wunsch_gap_extend -2 --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode-genome-demux --name GENOME --prime_editing_pegRNA_scaffold_min_match_length 1 --flexiguide_gap_open_penalty -20 --prime_editing_gap_extend_penalty 0 --flexiguide_seq None --min_average_read_quality 0 --flash_command None --exclude_bp_from_right 15 --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_extend -2 --min_frequency_alleles_around_cut_to_plot 0.2 --max_paired_end_reads_overlap None --aln_seed_count 5 --samtools_exclude_flags 4 --prime_editing_pegRNA_extension_quantification_window_size 5 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_open -20 --flexiguide_homology 80 --needleman_wunsch_gap_incentive 1 --conversion_nuc_to T --min_single_bp_quality 0 --halt_on_plot_fail --flexiguide_gap_extend_penalty -2 --quantification_window_center -3 --verbosity 3 --trimmomatic_command None --fastp_command fastp --quantification_window_size 1 --min_bp_quality_or_N 0 --debug --exclude_bp_from_left 15 --n_processes 1 --min_paired_end_reads_overlap 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --default_min_aln_score 60 --conversion_nuc_from C --aln_seed_len 10 --config_file None --place_report_in_output_folder --plot_window_size 20 --bowtie2_index inputs/small_genome/smallGenome --keep_intermediate --aln_seed_min 2 --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -246,6 +246,8 @@ base_editor_output: False
 bowtie2_index: inputs/small_genome/smallGenome
 coding_seq: 
 config_file: None
+consider_changes_outside_of_guide: False
+consider_indels_outside_of_guide: False
 conversion_nuc_from: C
 conversion_nuc_to: T
 crispresso1_mode: False
@@ -319,6 +321,7 @@ stringent_flash_merging: False
 suppress_amplicon_name_truncation: False
 suppress_plots: False
 suppress_report: False
+target_ref_skip_allele_count: 0
 trim_sequences: False
 trimmomatic_command: None
 trimmomatic_options_string: 

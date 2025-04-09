@@ -1,0 +1,2 @@
+Reference	Reference_indels	Target	Target_indels	other	other_indels
+174	15	0	3	4	39
