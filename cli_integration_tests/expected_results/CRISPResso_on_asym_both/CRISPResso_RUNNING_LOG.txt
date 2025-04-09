@@ -1,0 +1,53 @@
+CRISPResso version 2.3.2
+[Command used]:
+/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 inputs/asym.fastq -a GACATACATACA -g GACATACATACA --exclude_bp_from_left 0 --exclude_bp_from_right 0 -n asym_both --place_report_in_output_folder --halt_on_plot_fail --debug
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Aligning sequences...
+Finished reading fastq file; 2 unique reads found of 2 total reads found 
+Processing Reads; 0 Completed out of 2 Unique Reads
+Finished reads; N_TOT_READS: 2 N_COMPUTED_ALN: 2 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GACATACATACA for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+sgRNA 0 is too close to the start of the amplicon to plot the full window. Truncating the window.
+sgRNA 0 is too close to the end of the amplicon to plot the full window. Truncating the window.
+Plotting allele distribution around cut for Reference
+Done!
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 2.
+ >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 1.0, Substitutions: 1.
+ Amplicon length <50: Reference, Length: 12.
+ Guide length <19: GACATACATACA, Length: 12.
+Analysis Complete!
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+

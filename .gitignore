@@ -165,3 +165,9 @@ cli_integration_tests/CRISPResso_on_bam-out-parallel*
 cli_integration_tests/CRISPResso_on_basic_write_bam_out*
 
 cli_integration_tests/CRISPResso_on_basic_write_bam_out_parallel*
+
+cli_integration_tests/CRISPResso_on_asym_both*
+
+cli_integration_tests/CRISPResso_on_asym_left*
+
+cli_integration_tests/CRISPResso_on_asym_right*
