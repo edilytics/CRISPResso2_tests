@@ -39,7 +39,7 @@ if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
 fi
 endef
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right
+all: clean basic params prime-editor batch nhej_native_merge pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right
 
 print:
 	@echo " ";
@@ -105,6 +105,12 @@ nhej: cli_integration_tests/CRISPResso_on_nhej
 
 cli_integration_tests/CRISPResso_on_nhej: install cli_integration_tests/
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
+
+.PHONY: nhej_native_merge
+nhej_native_merge: cli_integration_tests/CRISPResso_on_nhej_native_merge
+
+cli_integration_tests/CRISPResso_on_nhej_native_merge: install cli_integration_tests/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej_native_merge --crispresso_merge --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
 
 batch: cli_integration_tests/CRISPRessoBatch_on_FANC
 
