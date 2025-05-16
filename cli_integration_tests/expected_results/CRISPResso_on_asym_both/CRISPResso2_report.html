@@ -196,7 +196,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 2.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 1.0, Substitutions: 1.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 1, Substitutions: 1.</div>
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Amplicon length <50: Reference, Length: 12.</div>
 	
@@ -225,12 +225,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2025-03-18 12:32:23</p>
+  <p><strong>Run completed:</strong> 2025-05-16 14:59:50</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>GACATACATACA</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GACATACATACA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/crispresso2-env/bin/CRISPResso -r1 inputs/asym.fastq -a GACATACATACA -g GACATACATACA --exclude_bp_from_left 0 --exclude_bp_from_right 0 -n asym_both --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/asym.fastq -a GACATACATACA -g GACATACATACA --exclude_bp_from_left 0 --exclude_bp_from_right 0 -n asym_both --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -256,6 +256,7 @@ default_min_aln_score: 60
 disable_guardrails: False
 discard_guide_positions_overhanging_amplicon_edge: False
 discard_indel_reads: False
+display_name: 
 dsODN: 
 dump: False
 exclude_bp_from_left: 0
