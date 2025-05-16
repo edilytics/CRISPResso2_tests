@@ -198,7 +198,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 9474, Substitutions outside window: 3674.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 9474.0, Substitutions: 9474.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 9474, Substitutions: 9474.</div>
 	
 
 					<h5>CRISPResso2 run information</h5>
@@ -223,12 +223,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-11-21 17:17:25</p>
+  <p><strong>Run completed:</strong> 2025-05-15 23:02:09</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>ATCAGAGATCAACCAGATTA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz -o CRISPRessoPooled_on_pooled-mixed-mode-genome-demux --name GENOME --config_file None --prime_editing_gap_extend_penalty 0 --exclude_bp_from_right 15 --max_paired_end_reads_overlap None --conversion_nuc_to T --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_open -20 --max_rows_alleles_around_cut_to_plot 50 --min_bp_quality_or_N 0 --quantification_window_size 1 --trimmomatic_command None --keep_intermediate --place_report_in_output_folder --prime_editing_gap_open_penalty -50 --debug --plot_window_size 20 --flexiguide_seq None --n_processes 1 --min_average_read_quality 0 --conversion_nuc_from C --exclude_bp_from_left 15 --fastp_command fastp --prime_editing_pegRNA_extension_quantification_window_size 5 --flash_command None --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_count 5 --aln_seed_min 2 --halt_on_plot_fail --samtools_exclude_flags 4 --min_single_bp_quality 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --aln_seed_len 10 --flexiguide_gap_open_penalty -20 --bowtie2_index inputs/small_genome/smallGenome --verbosity 3 --needleman_wunsch_gap_incentive 1 --flexiguide_homology 80 --default_min_aln_score 60 --flexiguide_gap_extend_penalty -2 --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_center -3 --needleman_wunsch_gap_extend -2 --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso --fastq_r1 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq.gz --amplicon_seq CACCAGGAGAGGAGGGACCTGGCCCTTCAGGGTCGAGCTCAACAGAGGAAAAGATCTCAGGGCACCCAGAGCCCAGTGGCTTTCAGCACCTGCATGAAAATCAGAGATCAACCAGATTACCCCATATTGCCCAAGAGAAAACTGAGGCCAGAAAGTGATGGAGCTTGCCCAGGACCCCAGAGGGTGTTAGAGGCAGGCCAGAACCAGAGGACAGCTCTGTCCCAGC --guide_seq ATCAGAGATCAACCAGATTA --name GENOME --display_name GENOME --output_folder CRISPRessoPooled_on_pooled-mixed-mode-genome-demux --keep_intermediate --place_report_in_output_folder --debug --halt_on_plot_fail</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -243,7 +243,7 @@ bam_chr_loc:
 bam_input: 
 bam_output: False
 base_editor_output: False
-bowtie2_index: inputs/small_genome/smallGenome
+bowtie2_index: 
 coding_seq: 
 config_file: None
 conversion_nuc_from: C
@@ -254,6 +254,7 @@ default_min_aln_score: 60
 disable_guardrails: False
 discard_guide_positions_overhanging_amplicon_edge: False
 discard_indel_reads: False
+display_name: GENOME
 dsODN: 
 dump: False
 exclude_bp_from_left: 15
@@ -312,7 +313,7 @@ prime_editing_pegRNA_spacer_seq:
 quantification_window_center: -3
 quantification_window_coordinates: None
 quantification_window_size: 1
-samtools_exclude_flags: 4
+samtools_exclude_flags: 0
 save_also_png: False
 split_interleaved_input: False
 stringent_flash_merging: False
