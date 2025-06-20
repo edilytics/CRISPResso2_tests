@@ -5,9 +5,13 @@ samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOM
                         } \
                     END{ \
                       close(fastq_filename); \
-                      system("gzip -f "fastq_filename);  \
-                      record_log_str = "chr11\t1047\t1270\t"num_records"\t"fastq_filename".gz\n"; \
-                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/chrchr11_1047_1270.info"; \
+                        if (num_records < 100.0) { \
+                            record_log_str = "chr11\t1047\t1270\t"num_records"\tNA\n"; \
+                        } else { \
+                            system("gzip -f "fastq_filename);  \
+                            record_log_str = "chr11\t1047\t1270\t"num_records"\t"fastq_filename".gz\n"; \
+                        } \
+                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.info"; \
                     } ' 
 
 
@@ -18,9 +22,13 @@ samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOM
                         } \
                     END{ \
                       close(fastq_filename); \
-                      system("gzip -f "fastq_filename);  \
-                      record_log_str = "chr9\t966\t1198\t"num_records"\t"fastq_filename".gz\n"; \
-                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/chrchr9_966_1198.info"; \
+                        if (num_records < 100.0) { \
+                            record_log_str = "chr9\t966\t1198\t"num_records"\tNA\n"; \
+                        } else { \
+                            system("gzip -f "fastq_filename);  \
+                            record_log_str = "chr9\t966\t1198\t"num_records"\t"fastq_filename".gz\n"; \
+                        } \
+                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.info"; \
                     } ' 
 
 
@@ -31,7 +39,11 @@ samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOM
                         } \
                     END{ \
                       close(fastq_filename); \
-                      system("gzip -f "fastq_filename);  \
-                      record_log_str = "chr9\t1251\t1477\t"num_records"\t"fastq_filename".gz\n"; \
-                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/chrchr9_1251_1477.info"; \
+                        if (num_records < 100.0) { \
+                            record_log_str = "chr9\t1251\t1477\t"num_records"\tNA\n"; \
+                        } else { \
+                            system("gzip -f "fastq_filename);  \
+                            record_log_str = "chr9\t1251\t1477\t"num_records"\t"fastq_filename".gz\n"; \
+                        } \
+                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.info"; \
                     } ' 
