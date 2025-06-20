@@ -1,0 +1,63 @@
+CRISPResso version 2.3.2
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso --fastq_r1 CRISPRessoPooled_on_Both.Cas9/AMPL_FAN_+-C_asdf_-.fastq.gz --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --guide_seq GGAATCCCTTCTGCAGCACC --name FAN_+-C_asdf_- --display_name FAN /+-C%_:@#%a😀sdf - --output_folder CRISPRessoPooled_on_Both.Cas9 --keep_intermediate --place_report_in_output_folder --debug --n_processes 2 --halt_on_plot_fail
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Aligning sequences...
+Finished reading fastq file; 205 unique reads found of 242 total reads found 
+Spinning up 2 parallel processes to analyze unique reads...
+Finished processing unique reads, now generating statistics...
+Finished reads; N_TOT_READS: 242 N_COMPUTED_ALN: 198 N_CACHED_ALN: 37 N_COMPUTED_NOTALN: 7 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Plotting allele distribution around cut for Reference
+Done!
+Plot pool results:
+future: <Future at 0x16f24bd90 state=finished returned NoneType>
+future: <Future at 0x16fa40520 state=finished returned NoneType>
+future: <Future at 0x16faa3b20 state=finished returned NoneType>
+future: <Future at 0x16faa0130 state=finished returned NoneType>
+future: <Future at 0x16fa40670 state=finished returned NoneType>
+future: <Future at 0x16faa15d0 state=finished returned NoneType>
+future: <Future at 0x16faa2bf0 state=finished returned NoneType>
+future: <Future at 0x16faa2ce0 state=finished returned NoneType>
+future: <Future at 0x16faa2a10 state=finished returned NoneType>
+future: <Future at 0x16faa3f10 state=finished returned NoneType>
+future: <Future at 0x16faa3d00 state=finished returned NoneType>
+Done!
+ Low number of total reads: <10000. Total reads: 242.
+ >=1.0% of reads have modifications at the start or end. Total reads: 235, Irregular reads: 235.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 280, Substitutions outside window: 270.
+ >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 923, Substitutions: 280.
+Analysis Complete!
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
