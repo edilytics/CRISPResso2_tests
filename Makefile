@@ -7,6 +7,9 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPResso_on_asym_right \
+CRISPResso_on_asym_left \
+CRISPResso_on_asym_both \
 CRISPResso_on_basic-write-bam-out-parallel \
 CRISPResso_on_basic-write-bam-out \
 CRISPResso_on_bam-out-parallel \
@@ -36,7 +39,7 @@ if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
 fi
 endef
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right
 
 print:
 	@echo " ";
@@ -64,6 +67,9 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPResso_on_asym_right* \
+cli_integration_tests/CRISPResso_on_asym_left* \
+cli_integration_tests/CRISPResso_on_asym_both* \
 cli_integration_tests/CRISPResso_on_basic-write-bam-out-parallel* \
 cli_integration_tests/CRISPResso_on_basic-write-bam-out* \
 cli_integration_tests/CRISPResso_on_bam-out-parallel* \
@@ -129,6 +135,12 @@ nhej: cli_integration_tests/CRISPResso_on_nhej
 
 cli_integration_tests/CRISPResso_on_nhej: install cli_integration_tests/
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
+
+.PHONY: nhej_native_merge
+nhej_native_merge: cli_integration_tests/CRISPResso_on_nhej_native_merge
+
+cli_integration_tests/CRISPResso_on_nhej_native_merge: install cli_integration_tests/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej_native_merge --crispresso_merge --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
 
 batch: cli_integration_tests/CRISPRessoBatch_on_FANC
 
@@ -243,3 +255,19 @@ basic-write-bam-out-parallel: cli_integration_tests/CRISPResso_on_basic-write-ba
 
 cli_integration_tests/CRISPResso_on_basic-write-bam-out-parallel: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --debug --bam_output --n_processes 2 -n basic-write-bam-out-parallel --halt_on_plot_fail"; $(RUN)
+
+.PHONY: asym-both
+asym-both: cli_integration_tests/CRISPResso_on_asym_both
+
+cli_integration_tests/CRISPResso_on_asym_both: install cli_integration_tests/inputs/asym.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/asym.fastq -a GACATACATACA -g GACATACATACA --exclude_bp_from_left 0 --exclude_bp_from_right 0 -n asym_both --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
+.PHONY: asym-left
+asym-left: cli_integration_tests/CRISPResso_on_asym_left
+
+cli_integration_tests/CRISPResso_on_asym_left: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g CGGATGTTCCAATCAGTACG --exclude_bp_from_left 0 -n asym_left --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
+.PHONY: asym-right
+asym-right: cli_integration_tests/CRISPResso_on_asym_right
+
+cli_integration_tests/CRISPResso_on_asym_right: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g TCCATCGGCGCTTTGGTCGG --exclude_bp_from_right 0 -n asym_right --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
