@@ -12,7 +12,7 @@
     <style>
       body {
         font-family: 'Montserrat', sans-serif !important;
-
+      
       }
       @media (max-width:1015px)
       {
@@ -56,11 +56,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-
+    
     <link rel="shortcut icon" href="http://crispresso.pinellolab.org/static/favicon.ico" />
+    
 
-
-    <!-- Optional JavaScript -->
+    <!-- Optional JavaScript -->  
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
@@ -68,7 +68,7 @@
 
 
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
+  
 <style>
 .nav-tabs.amp-header {
   border-bottom:none !important;
@@ -150,16 +150,16 @@
   </head>
 
   <body class="m-2">
+    
 
-
-
-
+  
+  
   <div class="container">
       <div class="row pb-2">
         <div class="col-sm-1"></div>
-
+        
           <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
-
+        
           </div>
         <div class="col-sm-7" >
           <a href="https://crispresso2.pinellolab.org" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
@@ -170,36 +170,36 @@
       </div>
 
 
-
+    
 
       <div id='top_help_div'>
         <div class="row">
           <div class="col-sm-1"></div>
           <div class='col-sm-10 pb-2 crispresso_body_div'>
-
+           
           </div>
           <div class="col-sm-1"></div>
         </div>
       </div>
 
-
+      
 <div class="col-sm-1"></div>
 <center><div class="col-sm-10">
 	<div class="jumbotron" style="background:rgba(0,0,0,0.0); padding:0px" >
 		<div id='jumbotron_content' >
 			<div class='card text-center mb-2'>
 				<div class='card-header'>
-
-
-
+					
+					
+	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 250.</div>
-
+	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 235, Irregular reads: 235.</div>
-
+	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 280, Substitutions outside window: 270.</div>
-
+	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 923, Substitutions: 280.</div>
-
+	
 
 					<h5>CRISPResso2 run information</h5>
 					<ul class="nav nav-tabs justify-content-center card-header-tabs" id="log-tab" role="tablist">
@@ -216,36 +216,38 @@
 						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
 							<div id="fig_plot_1a" class="d-flex flex-column">
     <a href="1a.Read_barplot.pdf"><img src="1a.Read_barplot.png" width='40%'></a>
-
+        
             <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
                 <p class="m-0"><small>Data: <a href="CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2025-05-15 21:37:58</p>
+  <p><strong>Run completed:</strong> 2025-07-08 15:45:46</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
-
+  
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
-
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
 aln_seed_min: 2
-amplicon_min_alignment_score:
+amplicon_min_alignment_score: 
 amplicon_name: Reference
 amplicon_seq: CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG
-annotate_wildtype_allele:
+annotate_wildtype_allele: 
 assign_ambiguous_alignments_to_first_reference: False
 auto: False
-bam_chr_loc:
-bam_input:
+bam_chr_loc: 
+bam_input: 
 bam_output: False
 base_editor_output: False
-bowtie2_index:
-coding_seq:
+bowtie2_index: 
+coding_seq: 
 config_file: None
+consider_changes_outside_of_guide: False
+consider_indels_outside_of_guide: False
 conversion_nuc_from: C
 conversion_nuc_to: T
 crispresso1_mode: False
@@ -255,28 +257,28 @@ default_min_aln_score: 60
 disable_guardrails: False
 discard_guide_positions_overhanging_amplicon_edge: False
 discard_indel_reads: False
-display_name:
-dsODN:
+display_name: 
+dsODN: 
 dump: False
 exclude_bp_from_left: 15
 exclude_bp_from_right: 15
 expand_allele_plots_by_quantification: False
 expand_ambiguous_alignments: False
-expected_hdr_amplicon_seq:
+expected_hdr_amplicon_seq: 
 fastp_command: fastp
-fastp_options_string:
+fastp_options_string: 
 fastq_output: False
 fastq_r1: inputs/FANC.Cas9.fastq
-fastq_r2:
-file_prefix:
+fastq_r2: 
+file_prefix: 
 flash_command: None
 flexiguide_gap_extend_penalty: -2
 flexiguide_gap_open_penalty: -20
 flexiguide_homology: 80
-flexiguide_name:
+flexiguide_name: 
 flexiguide_seq: None
 force_merge_pairs: False
-guide_name:
+guide_name: 
 guide_seq: GGAATCCCTTCTGCAGCACC
 halt_on_plot_fail: True
 ignore_deletions: False
@@ -291,26 +293,26 @@ min_frequency_alleles_around_cut_to_plot: 0.2
 min_paired_end_reads_overlap: 10
 min_single_bp_quality: 0
 n_processes: 1
-name:
+name: 
 needleman_wunsch_aln_matrix_loc: EDNAFULL
 needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder:
+output_folder: 
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
 prime_editing_gap_extend_penalty: 0
 prime_editing_gap_open_penalty: -50
-prime_editing_nicking_guide_seq:
-prime_editing_override_prime_edited_ref_seq:
+prime_editing_nicking_guide_seq: 
+prime_editing_override_prime_edited_ref_seq: 
 prime_editing_override_sequence_checks: False
 prime_editing_pegRNA_extension_quantification_window_size: 5
-prime_editing_pegRNA_extension_seq:
+prime_editing_pegRNA_extension_seq: 
 prime_editing_pegRNA_scaffold_min_match_length: 1
-prime_editing_pegRNA_scaffold_seq:
-prime_editing_pegRNA_spacer_seq:
+prime_editing_pegRNA_scaffold_seq: 
+prime_editing_pegRNA_spacer_seq: 
 quantification_window_center: -3
 quantification_window_coordinates: None
 quantification_window_size: 1
@@ -321,16 +323,17 @@ stringent_flash_merging: False
 suppress_amplicon_name_truncation: False
 suppress_plots: False
 suppress_report: False
+target_ref_skip_allele_count: 0
 trim_sequences: False
 trimmomatic_command: None
-trimmomatic_options_string:
+trimmomatic_options_string: 
 use_legacy_insertion_quantification: False
 use_matplotlib: False
 verbosity: 3
 write_cleaned_report: False
 write_detailed_allele_table: False
 zip_output: False</pre></p>
-
+  
   <p class='text-center m-0'><small><a href="CRISPResso_RUNNING_LOG.txt">Running log</a></small></p>
 </div>
 					</div>
@@ -347,7 +350,7 @@ zip_output: False</pre></p>
 						<li class="nav-item">
 							<button class="nav-link" id="aln_bar-tab" data-bs-toggle="tab" data-bs-target="#aln_bar" role="tab" aria-controls="aln_bar" aria-selected="false">Barplot</button>
 						</li>
-
+    						
 					</ul>
 				</div>
 				<div class='card-body'>
@@ -355,7 +358,7 @@ zip_output: False</pre></p>
 						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
 							<div id="fig_plot_1b" class="d-flex flex-column">
     <a href="1b.Alignment_pie_chart.pdf"><img src="1b.Alignment_pie_chart.png" width='40%'></a>
-
+        
             <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
                 <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
@@ -363,60 +366,60 @@ zip_output: False</pre></p>
 						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
 							<div id="fig_plot_1c" class="d-flex flex-column">
     <a href="1c.Alignment_barplot.pdf"><img src="1c.Alignment_barplot.png" width='40%'></a>
-
+        
             <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
                 <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
 </div>
 						</div>
-
+    						
 					</div>
 				</div>
-			</div>
+			</div> 
+
+        		
+			
+
+			
+
+			
+			
+
+			
+			
+            		
+
+			
+			
+
+			
+			
+
+			
+			
+
+			
+          	<div> 
+          	 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          	<div>
-
-
-
-
+				 
 				<div>
+				
 
-
-
-
+				
+					 
 					<div>
-
+					
 
 		      				<div class='card text-center mb-2'>
       							<div class='card-header'>
-
+								 
       								<h5>Nucleotide composition</h5>
-
+								
       							</div>
       							<div class='card-body'>
 
-
+								
 									<div class='div_zoom_outer d-none d-md-block' style="height:100px;border:1px solid #DDDDDD;position:relative">
 										<div id="zoomview_nucs_Reference" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
 											<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
@@ -432,43 +435,43 @@ zip_output: False</pre></p>
 										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
 											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
 									</label>
-
+								
 									<p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
-
-
-
-
+								
+								
+								
+  									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
     <a href="2b.Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="2b.Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
         <label class="labelpadding">Figure 2b: Nucleotide distribution around the sgRNA GGAATCCCTTCTGCAGCACC.</label>
             <p class="m-0"><small>Data: <a href="Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
 </div>
-
-
+  									
+								
             		</div>
-					</div>
+					</div> 
 
   						<div class='card text-center mb-2 breakinpage'>
   							<div class='card-header'>
-
+								 
       							<h5>Modification lengths</h5>
-
+								
   								<ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
-
+									
   						  			<li class="nav-item">
 						  				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#Reference_3a" role="tab" aria-controls="Reference_3a" aria-selected="true">Summary</button>
   						  			</li>
-
-
+            								
+									
   						  			<li class="nav-item">
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_3b" role="tab" aria-controls="Reference_3b" aria-selected="false">Indels</button>
   						  			</li>
-
+            						
   								</ul>
   							</div>
   							<div class='card-body'>
 								<div class="tab-content" id="pills-tabContent">
-
+									
   						  			<div class="tab-pane fade show active" id="Reference_3a" role="tabpanel">
 							  			<div id="fig_plot_3a" class="d-flex flex-column">
     <a href="3a.Indel_size_distribution.pdf"><img src="3a.Indel_size_distribution.png" width='40%'></a>
@@ -476,9 +479,9 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="Indel_histogram.txt">Indel histogram</a></small></p>
 </div>
 						  			</div>
+									
 
-
-
+									
   						  			<div class="tab-pane fade" id="Reference_3b" role="tabpanel">
 							  			<div id="fig_plot_3b" class="d-flex flex-column">
     <a href="3b.Insertion_deletion_substitutions_size_hist.pdf"><img src="3b.Insertion_deletion_substitutions_size_hist.png" width='100%'></a>
@@ -488,52 +491,52 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="Substitution_histogram.txt">Substitutions Frequency</a></small></p>
 </div>
 						  			</div>
-
+									
   								</div>
-  							</div>
-  						</div>
+  							</div> 
+  						</div> 
 
 						<div class='card text-center mb-2 breakinpage'>
   							<div class='card-header'>
-
+								 
   								<h5>Indel characterization</h5>
-
+								
   								<ul class="nav nav-tabs justify-content-center card-header-tabs" id="indel-characterization-tabs" role="tablist">
-
+									
   						  			<li class="nav-item">
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_4a" role="tab" aria-controls="Reference_4a" aria-selected="true">All Modifications Combined</button>
   						  			</li>
-
-
+            								
+									
   						  			<li class="nav-item">
 						  				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#Reference_4b" role="tab" aria-controls="Reference_4b" aria-selected="false">All Modifications by Type</button>
   						  			</li>
-
-
+            								
+									
   						  			<li class="nav-item">
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_4c" role="tab" aria-controls="Reference_4c" aria-selected="false">Modifications in Quantification Window</button>
   						  			</li>
-
-
+            								
+									
   						  			<li class="nav-item">
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_4d" role="tab" aria-controls="Reference_4d" aria-selected="false">Indel Lengths</button>
   						  			</li>
-
-
-
+            								
+									
+									
   								</ul>
-  							</div>
+  							</div> 
   							<div class='card-body'>
   								<div class="tab-content" id="pills-tabContent">
-
+									
 									<div class="tab-pane fade" id="Reference_4a" role="tabpanel">
 										<div id="fig_plot_4a" class="d-flex flex-column">
     <a href="4a.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
 </div>
 									</div>
-
-
+									
+									
 									<div class="tab-pane fade show active" id="Reference_4b" role="tabpanel">
 										<div id="fig_plot_4b" class="d-flex flex-column">
     <a href="4b.Insertion_deletion_substitution_locations.pdf"><img src="4b.Insertion_deletion_substitution_locations.png" width='40%'></a>
@@ -541,8 +544,8 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="Modification_count_vectors.txt">Modification frequency</a></small></p>
 </div>
 									</div>
-
-
+									
+									
 									<div class="tab-pane fade" id="Reference_4c" role="tabpanel">
 										<div id="fig_plot_4c" class="d-flex flex-column">
     <a href="4c.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
@@ -550,42 +553,42 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
 </div>
 									</div>
+									
 
-
-
+									
 									<div class="tab-pane fade" id="Reference_4d" role="tabpanel">
 										<div id="fig_plot_4d" class="d-flex flex-column">
     <a href="4d.Position_dependent_average_indel_size.pdf"><img src="4d.Position_dependent_average_indel_size.png" width='100%'></a>
         <label class="labelpadding">Figure 4d: Position dependent insertion size(left) and deletion size (right), including only modifications that overlap with the quantification window.</label>
 </div>
 									</div>
+									
 
+									
 
-
-
-
+									
   								</div>
-  							</div>
-  						</div>
+  							</div> 
+  						</div> 
 
 
+						
 
+						
 
+						
 
+						
 
-
-
-
-
-
+						
 						<div class='card text-center mb-2 breakinpage'>
 							<div class='card-header'>
-
+								 
 								<h5>Allele plots</h5>
-
+								
 							</div>
 							<div class='card-body'>
-
+								
                   				<div class='mb-4'>
 					  				<div id="fig_plot_9_0" class="d-flex flex-column">
     <a href="9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
@@ -593,19 +596,19 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele frequency table</a></small></p>
 </div>
                 				</div>
-
+								
 							</div>
 						</div>
+						
 
-
-
+						 
 					</div>  <!--end amp tab -->
-
+				
 				</div>  <!-- end tab content -->
 			</div> <!-- end card -->
 
             <div align="center" class='p-3'>
-
+  
   <button class='btn btn-primary hidden-print' onclick='window.print();'><i class="fas fa-print"></i> Print</button>
 </div>
 		</div>  <!-- end jumbotron_content -->
@@ -616,7 +619,7 @@ zip_output: False</pre></p>
 <div class="col-sm-1"></div>
 
 
-
+      
       <div class="row">
       <div class="col-sm-1"></div>
       <footer class="col-sm-10 crispresso_body_div screen-only py-5">
@@ -637,9 +640,9 @@ zip_output: False</pre></p>
       </footer>
       <div class="col-sm-1"></div>
     </div>
-
+    
     </div>
-
+    
 <script>
 
 function updateZoom(e) {
@@ -715,8 +718,8 @@ try {
   passiveSupported = false;
 }
 
-
-
+	
+		
 		view = document.getElementById('zoomview_nucs_Reference');
 		img = document.getElementById('tozoom_nucs_Reference');
 		lens = document.getElementById('zoomlens_nucs_Reference')
@@ -735,8 +738,8 @@ try {
 		lens.addEventListener("touchmove", updateZoom, passiveSupported? { passive: true } : false);
 		img.addEventListener("touchmove", updateZoom, passiveSupported? { passive: true } : false);
 
-
-
+		
+	
 
 </script>
 

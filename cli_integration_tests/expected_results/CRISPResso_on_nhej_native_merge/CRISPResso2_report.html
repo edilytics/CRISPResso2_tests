@@ -221,10 +221,10 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2025-06-20 09:45:39</p>
+  <p><strong>Run completed:</strong> 2025-07-08 16:20:17</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej_native_merge --crispresso_merge --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej_native_merge --crispresso_merge --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -242,6 +242,8 @@ base_editor_output: False
 bowtie2_index: 
 coding_seq: 
 config_file: None
+consider_changes_outside_of_guide: False
+consider_indels_outside_of_guide: False
 conversion_nuc_from: C
 conversion_nuc_to: T
 crispresso1_mode: False
@@ -317,6 +319,7 @@ stringent_flash_merging: False
 suppress_amplicon_name_truncation: False
 suppress_plots: False
 suppress_report: False
+target_ref_skip_allele_count: 0
 trim_sequences: False
 trimmomatic_command: None
 trimmomatic_options_string: 
