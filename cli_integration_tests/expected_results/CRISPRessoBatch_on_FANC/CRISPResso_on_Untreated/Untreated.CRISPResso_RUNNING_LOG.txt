@@ -1,6 +1,6 @@
-CRISPResso version 2.3.2
+CRISPResso version 2.3.3
 [Command used]:
-/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --flexiguide_gap_open_penalty -20 --prime_editing_pegRNA_extension_quantification_window_size 5 --flexiguide_seq None --default_min_aln_score 60 --needleman_wunsch_aln_matrix_loc EDNAFULL --debug --quantification_window_center -3 --needleman_wunsch_gap_open -20 --config_file None --plot_window_size 20 --aln_seed_min 2 --flexiguide_homology 80 --max_paired_end_reads_overlap None --exclude_bp_from_right 15 --needleman_wunsch_gap_incentive 1 --file_prefix Untreated --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --prime_editing_pegRNA_scaffold_min_match_length 1 --guide_seq GGAATCCCTTCTGCAGCACC --aln_seed_len 10 --flexiguide_gap_extend_penalty -2 --trimmomatic_command None --flash_command None --amplicon_name Reference --exclude_bp_from_left 15 --min_average_read_quality 0 --fastq_r1 inputs/FANC.Untreated.fastq --conversion_nuc_from C --base_editor_output --conversion_nuc_to T --min_single_bp_quality 0 --fastp_command fastp --place_report_in_output_folder --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_extend -2 --min_frequency_alleles_around_cut_to_plot 0.2 --max_rows_alleles_around_cut_to_plot 50 --aln_seed_count 5 --min_bp_quality_or_N 0 --n_processes 1 --prime_editing_gap_open_penalty -50 --verbosity 3 --halt_on_plot_fail --quantification_window_size 1 --min_paired_end_reads_overlap 10
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --debug --n_processes 1 --aln_seed_min 2 --flexiguide_homology 80 --needleman_wunsch_gap_extend -2 --file_prefix Untreated --conversion_nuc_from C --amplicon_name Reference --min_single_bp_quality 0 --fastq_r1 inputs/FANC.Untreated.fastq --default_min_aln_score 60 --base_editor_output --exclude_bp_from_right 15 --flash_command None --flexiguide_gap_extend_penalty -2 --quantification_window_size 1 --aln_seed_len 10 --halt_on_plot_fail --exclude_bp_from_left 15 --min_bp_quality_or_N 0 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --needleman_wunsch_gap_incentive 1 --min_frequency_alleles_around_cut_to_plot 0.2 --fastp_command fastp --prime_editing_gap_extend_penalty 0 --config_file None --flexiguide_gap_open_penalty -20 --place_report_in_output_folder --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_aln_matrix_loc EDNAFULL --min_paired_end_reads_overlap 10 --flexiguide_seq None --max_rows_alleles_around_cut_to_plot 50 --prime_editing_gap_open_penalty -50 --guide_seq GGAATCCCTTCTGCAGCACC --min_average_read_quality 0 --plot_window_size 20 --needleman_wunsch_gap_open -20 --quantification_window_center -3 --verbosity 3 --prime_editing_pegRNA_scaffold_min_match_length 1 --conversion_nuc_to T --max_paired_end_reads_overlap None --trimmomatic_command None --aln_seed_count 5
 
 [Execution log]:
 CRISPRessoPro not installed
@@ -12,7 +12,7 @@ Added 0 guides with flexible matching
 Counting reads in input
 Counting reads after preprocessing...
 Aligning sequences...
-Finished reading fastq file; 179 unique reads found of 250 total reads found 
+Finished reading fastq file; 179 unique reads found of 250 total reads found
 Processing Reads; 0 Completed out of 179 Unique Reads
 Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 176 N_CACHED_ALN: 71 N_COMPUTED_NOTALN: 3 N_CACHED_NOTALN: 0
 Done!
@@ -51,13 +51,13 @@ Removing Intermediate files...
  >=1.0% of reads have modifications at the start or end. Total reads: 247, Irregular reads: 247.
  >=0.2% of substitutions were outside of the quantification window. Total substitutions: 49, Substitutions outside window: 49.
  >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 55, Substitutions: 49.
-                                                                               
-                                        _                                      
-                                       '  )                                    
-                                       .-'                                     
-                                      (____                                    
-                                   C)|     \                                   
-                                     \     /                                   
-                                      \___/                                    
+
+                                        _
+                                       '  )
+                                       .-'
+                                      (____
+                                   C)|     \
+                                     \     /
+                                      \___/
 
 Analysis Complete!
