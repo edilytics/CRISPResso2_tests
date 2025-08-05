@@ -1,0 +1,89 @@
+CRISPResso version 2.3.3
+[Command used]:
+/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej_native_merge --crispresso_merge --place_report_in_output_folder --halt_on_plot_fail --debug
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Counting reads in input
+Processing sequences with fastp...
+Read1 before filtering:
+total reads: 25000
+total bases: 3203270
+Q20 bases: 3107259(97.0027%)
+Q30 bases: 3093007(96.5578%)
+
+Read2 before filtering:
+total reads: 25000
+total bases: 3198956
+Q20 bases: 3063300(95.7594%)
+Q30 bases: 3045686(95.2087%)
+
+Read1 after filtering:
+total reads: 25000
+total bases: 3203270
+Q20 bases: 3107259(97.0027%)
+Q30 bases: 3093007(96.5578%)
+
+Read2 after filtering:
+total reads: 25000
+total bases: 3198956
+Q20 bases: 3063300(95.7594%)
+Q30 bases: 3045686(95.2087%)
+
+Filtering result:
+reads passed filter: 50000
+reads failed due to low quality: 0
+reads failed due to too many N: 0
+
+Duplication rate: 79.36%
+
+Insert size peak (evaluated by paired-end reads): 133
+
+JSON report: CRISPResso_on_nhej_native_merge/fastp_report.json
+HTML report: CRISPResso_on_nhej_native_merge/fastp_report.html
+
+fastp -i inputs/nhej.r1.fastq.gz -I inputs/nhej.r2.fastq.gz --out1 CRISPResso_on_nhej_native_merge/out.notCombined_1.fastq.gz --out2 CRISPResso_on_nhej_native_merge/out.notCombined_2.fastq.gz --thread 1 --json CRISPResso_on_nhej_native_merge/fastp_report.json --html CRISPResso_on_nhej_native_merge/fastp_report.html --disable_adapter_trimming --disable_trim_poly_g --disable_quality_filtering --disable_length_filtering 
+fastp v0.24.1, time used: 0 seconds
+Counting reads after preprocessing...
+Aligning sequences...
+Processing reads; N_TOT_READS: 0 N_COMPUTED_ALN: 0 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Processing reads; N_TOT_READS: 10000 N_COMPUTED_ALN: 2468 N_CACHED_ALN: 7440 N_COMPUTED_NOTALN: 69 N_CACHED_NOTALN: 23
+Processing reads; N_TOT_READS: 20000 N_COMPUTED_ALN: 4370 N_CACHED_ALN: 15446 N_COMPUTED_NOTALN: 124 N_CACHED_NOTALN: 60
+Finished reads; N_TOT_READS: 25000 N_COMPUTED_ALN: 5174 N_CACHED_ALN: 19589 N_COMPUTED_NOTALN: 153 N_CACHED_NOTALN: 84
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Done!
+Done!
+Removing Intermediate files...
+ >=1.0% of reads have modifications at the start or end. Total reads: 24763, Irregular reads: 277.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 9851, Substitutions outside window: 1205.
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
+Analysis Complete!
