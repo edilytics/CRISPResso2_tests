@@ -173,3 +173,5 @@ cli_integration_tests/CRISPResso_on_asym_left*
 cli_integration_tests/CRISPResso_on_asym_right*
 
 cli_integration_tests/CRISPResso_on_base_editor*
+
+cli_integration_tests/CRISPResso_on_nhej_native_merge*
