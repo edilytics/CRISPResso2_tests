@@ -225,7 +225,7 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-08-05 13:08:47</p>
+  <p><strong>Run completed:</strong> 2025-08-06 15:52:47</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT</pre></p>
   
   <p><strong>Command used:</strong> <pre class='pre-scrollable'>CRISPResso --fastq_r1 prime_editor.fastq.gz --amplicon_seq ACGTCTCATATGCCCCTTGGCAGTCATCTTAGTCATTACCTGAGGTGTTCGTTGTAACTCATATAAACTGAGTTCCCATGTTTTGCTTAATGGTTGAGTTCCGTTTGTCTGCACAGCCTGAGACATTGCTGGAAATAAAGAAGAGAGAAAAACAATTTTAGTATTTGGAAGGGAAGTGCTATGGTCTGAATGTATGTGTCCCACCAAAATTCCTACGT --prime_editing_pegRNA_spacer_seq GTCATCTTAGTCATTACCTG --prime_editing_pegRNA_extension_seq AACGAACACCTCATGTAATGACTAAGATG --prime_editing_nicking_guide_seq CTCAACCATTAAGCAAAACAT --prime_editing_pegRNA_scaffold_seq GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC --write_cleaned_report --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
@@ -242,8 +242,7 @@ auto: False
 bam_chr_loc: 
 bam_input: 
 bam_output: False
-base_editor_consider_changes_outside_of_guide: False
-base_editor_consider_indels_outside_of_guide: False
+base_editor_consider_changes_outside_qw: False
 base_editor_output: False
 base_editor_target_ref_skip_allele_count: 0
 bowtie2_index: 

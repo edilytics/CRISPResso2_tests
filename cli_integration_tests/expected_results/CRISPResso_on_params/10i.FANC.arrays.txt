@@ -1,7 +1,7 @@
-Class	
-total_counts	
-reference_counts	
-target_counts	
-deletion_counts	
-insertion_counts	
-other_counts	
+Class	(0, 'C', 'AATAC')	(92, 'A', '-')	(93, 'C', '-')	(94, 'C', '-')	(95, 'T', '-')	(96, 'G', '-')	(97, 'G', '-')	(98, 'A', '-')	(99, 'T', '-')	(179, 'A', 'C')	(222, 'G', 'GCATGGCCCCATTCGCACGGCTCTGGAGCGGC')
+total_counts	208	208	208	208	208	208	208	208	208	208	208
+reference_counts	0	178	183	188	188	190	190	191	191	192	0
+target_counts	0	13	5	4	4	2	1	1	1	0	0
+deletion_counts	0	0	0	0	0	0	0	0	0	0	0
+insertion_counts	192	0	0	0	0	0	0	0	0	0	192
+other_counts	0	1	4	0	0	0	1	0	0	0	0

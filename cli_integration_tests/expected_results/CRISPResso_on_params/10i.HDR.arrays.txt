@@ -1,7 +1,7 @@
-Class	(53, 'T', 'G')
-total_counts	208
-reference_counts	1
-target_counts	15
-deletion_counts	0
-insertion_counts	0
-other_counts	0
+Class	(0, 'C', 'A')	(1, 'G', 'A')	(2, 'G', 'T')	(3, 'C', 'A')	(53, 'T', 'G')	(95, 'C', 'CCGC')	(172, 'A', 'C')	(215, 'G', 'GCATGGCCCCATTCGCACGGCTCTGGAGCGGC')
+total_counts	208	208	208	208	208	208	208	208
+reference_counts	5	8	6	4	1	10	15	0
+target_counts	2	4	4	4	15	1	1	2
+deletion_counts	0	0	0	0	0	1	0	0
+insertion_counts	1	0	0	0	0	4	0	14
+other_counts	8	4	6	8	0	0	0	0

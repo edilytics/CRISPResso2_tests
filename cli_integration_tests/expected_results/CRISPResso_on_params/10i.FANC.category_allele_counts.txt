@@ -1,2 +1,12 @@
-	has_indel	count
-	False	192
+(0, 'C', 'AATAC')	(92, 'A', '-')	(93, 'C', '-')	(94, 'C', '-')	(95, 'T', '-')	(96, 'G', '-')	(97, 'G', '-')	(98, 'A', '-')	(99, 'T', '-')	(179, 'A', 'C')	(222, 'G', 'GCATGGCCCCATTCGCACGGCTCTGGAGCGGC')	has_indel	count
+I	R	R	R	R	R	R	R	R	R	I	False	173
+I	T	R	R	R	R	R	R	R	R	I	False	8
+I	T	T	R	R	R	R	R	R	R	I	False	3
+I	T	T	T	R	R	R	R	R	R	I	False	1
+I	R	N	R	R	R	R	R	R	R	I	False	1
+I	R	R	T	R	R	R	R	R	R	I	False	1
+I	N	N	R	R	T	T	T	T	R	I	False	1
+I	R	R	R	T	R	N	R	R	R	I	False	1
+I	R	N	R	T	R	R	R	R	R	I	False	1
+I	R	N	T	T	R	R	R	R	R	I	False	1
+I	T	T	T	T	T	R	R	R	R	I	False	1
