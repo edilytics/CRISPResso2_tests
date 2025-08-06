@@ -1,0 +1,2 @@
+FANC	FANC_indels	Target	Target_indels	other	other_indels
+192	0	0	0	0	0
