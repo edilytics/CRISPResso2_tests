@@ -1,0 +1,10 @@
+(0, 'C', 'AATAC')	(92, 'A', '-')	(93, 'C', '-')	(94, 'C', '-')	(95, 'T', '-')	(96, 'G', '-')	(97, 'G', '-')	(98, 'A', '-')	(99, 'T', '-')	(179, 'A', 'C')	(222, 'G', 'GCATGGCCCCATTCGCACGGCTCTGGAGCGGC')	has_indel	count
+X	X	X	X	X	X	X	X	X	X	X	False	174
+X	T	X	X	X	X	X	X	X	X	X	False	8
+X	T	T	X	X	X	X	X	X	X	X	False	3
+X	X	X	X	T	X	X	X	X	X	X	False	2
+X	T	T	T	X	X	X	X	X	X	X	False	1
+X	X	X	T	X	X	X	X	X	X	X	False	1
+X	X	X	X	X	T	T	T	T	X	X	False	1
+X	X	X	T	T	X	X	X	X	X	X	False	1
+X	T	T	T	T	T	X	X	X	X	X	False	1

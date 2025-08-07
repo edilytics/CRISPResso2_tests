@@ -12,7 +12,7 @@ Added 0 guides with flexible matching
 Counting reads in input
 Counting reads after preprocessing...
 Aligning sequences...
-Finished reading fastq file; 213 unique reads found of 250 total reads found 
+Finished reading fastq file; 213 unique reads found of 250 total reads found
 Processing Reads; 0 Completed out of 213 Unique Reads
 Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 198 N_CACHED_ALN: 37 N_COMPUTED_NOTALN: 15 N_CACHED_NOTALN: 0
 Done!
@@ -36,11 +36,17 @@ Plotting position dependent indel for Reference
 Plotting substitutions across reference for Reference
 Plotting substitution frequency barplot for Reference
 Plotting substitution frequency barplot in quantification window for Reference
+Aligned target:    AAAGCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGCCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACTGCTC
+Aligned reference: ----CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGC-ACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG----------------------
+Found 1 base changes: [(91, 'C', 'CC')]
+Read 198 alleles with 235 reads
+Got 198 alleles on reference "Reference" with 235 reads
 Plotting allele distribution around cut for Reference
 Plotting log2 nucleotide frequency for Reference
 Plotting conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting scaled non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting allele distribution around cut for Reference
 Done!
 Done!
 Removing Intermediate files...
@@ -48,13 +54,13 @@ Removing Intermediate files...
  >=1.0% of reads have modifications at the start or end. Total reads: 235, Irregular reads: 235.
  >=0.2% of substitutions were outside of the quantification window. Total substitutions: 280, Substitutions outside window: 270.
  >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 923, Substitutions: 280.
-                                                                               
-                                        _                                      
-                                       '  )                                    
-                                       .-'                                     
-                                      (____                                    
-                                   C)|     \                                   
-                                     \     /                                   
-                                      \___/                                    
+
+                                        _
+                                       '  )
+                                       .-'
+                                      (____
+                                   C)|     \
+                                     \     /
+                                      \___/
 
 Analysis Complete!

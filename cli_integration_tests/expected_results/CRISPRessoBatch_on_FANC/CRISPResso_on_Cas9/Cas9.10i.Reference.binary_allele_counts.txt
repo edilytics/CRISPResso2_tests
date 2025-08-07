@@ -1,0 +1,4 @@
+(91, 'C', 'CC')	has_indel	count
+X	False	178
+X	True	54
+T	True	3

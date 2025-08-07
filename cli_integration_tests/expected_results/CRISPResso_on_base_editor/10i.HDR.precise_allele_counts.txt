@@ -1,0 +1,3 @@
+(53, 'T', 'G')	has_indel	count
+G	False	15
+T	False	1

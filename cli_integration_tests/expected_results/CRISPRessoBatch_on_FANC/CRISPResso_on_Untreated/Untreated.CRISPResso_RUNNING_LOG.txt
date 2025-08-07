@@ -12,7 +12,7 @@ Added 0 guides with flexible matching
 Counting reads in input
 Counting reads after preprocessing...
 Aligning sequences...
-Finished reading fastq file; 179 unique reads found of 250 total reads found 
+Finished reading fastq file; 179 unique reads found of 250 total reads found
 Processing Reads; 0 Completed out of 179 Unique Reads
 Finished reads; N_TOT_READS: 250 N_COMPUTED_ALN: 176 N_CACHED_ALN: 71 N_COMPUTED_NOTALN: 3 N_CACHED_NOTALN: 0
 Done!
@@ -36,11 +36,13 @@ Plotting position dependent indel for Reference
 Plotting substitutions across reference for Reference
 Plotting substitution frequency barplot for Reference
 Plotting substitution frequency barplot in quantification window for Reference
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
 Plotting allele distribution around cut for Reference
 Plotting log2 nucleotide frequency for Reference
 Plotting conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting scaled non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting allele distribution around cut for Reference
 Done!
 Done!
 Removing Intermediate files...
@@ -49,13 +51,13 @@ Removing Intermediate files...
  >=1.0% of reads have modifications at the start or end. Total reads: 247, Irregular reads: 247.
  >=0.2% of substitutions were outside of the quantification window. Total substitutions: 49, Substitutions outside window: 49.
  >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 55, Substitutions: 49.
-                                                                               
-                                        _                                      
-                                       '  )                                    
-                                       .-'                                     
-                                      (____                                    
-                                   C)|     \                                   
-                                     \     /                                   
-                                      \___/                                    
+
+                                        _
+                                       '  )
+                                       .-'
+                                      (____
+                                   C)|     \
+                                     \     /
+                                      \___/
 
 Analysis Complete!
