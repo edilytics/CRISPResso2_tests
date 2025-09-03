@@ -1,2 +1,0 @@
-HDR	HDR_indels	Target	Target_indels	other	other_indels
-0	0	1	0	15	0

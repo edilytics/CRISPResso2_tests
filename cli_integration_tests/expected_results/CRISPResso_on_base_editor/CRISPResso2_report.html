@@ -232,12 +232,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-08-07 10:40:55</p>
+  <p><strong>Run completed:</strong> 2025-09-03 16:42:47</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -858,6 +858,11 @@ zip_output: False</pre></p>
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#FANC_10f" role="tab" aria-controls="FANC_10f" aria-selected="false">Non-reference Bases</button>
   						  			</li>
             						
+                  
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#FANC_10h" role="tab" aria-controls="FANC_10h" aria-selected="false">Base Edit Quilts</button>
+  						  			</li>
+            						
 									
   								</ul>
 							</div>
@@ -888,8 +893,6 @@ zip_output: False</pre></p>
 										</div>
 										
 									</div>
-
-									
 
 									
 									<div class="tab-pane fade" id="FANC_10d" role="tabpanel">
@@ -999,6 +1002,41 @@ zip_output: False</pre></p>
                     					</div>
 										
 									</div>
+                  
+									<div class="tab-pane fade" id="FANC_10h" role="tabpanel">
+                    
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h_0" class="d-flex flex-column">
+    <a href="10h.FANC.base_edit_Cs_quilt_hi.pdf"><img src="10h.FANC.base_edit_Cs_quilt_hi.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of Base Edits for C around cut site for hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="FANC.base_edit_Cs_quilt_hi.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+										
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h_1" class="d-flex flex-column">
+    <a href="10h.FANC.base_edit_Cs_quilt_dear.pdf"><img src="10h.FANC.base_edit_Cs_quilt_dear.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of Base Edits for C around cut site for dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="FANC.base_edit_Cs_quilt_dear.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+										
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h_2" class="d-flex flex-column">
+    <a href="10h.FANC.base_edit_Cs_quilt_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10h.FANC.base_edit_Cs_quilt_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of Base Edits for C around cut site for sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="FANC.base_edit_Cs_quilt_sgRNA_CCCACTGAAGGCCC.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+										
+									</div>
+									
+
+									
+									<div class="tab-pane fade" id="FANC_10i" role="tabpanel">
+                    
+									</div>
+									
 								</div>
 							
 							</div>
@@ -1344,11 +1382,12 @@ zip_output: False</pre></p>
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10f" role="tab" aria-controls="HDR_10f" aria-selected="false">Non-reference Bases</button>
   						  			</li>
             						
-									
+                  
   						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10i" role="tab" aria-controls="HDR_10i" aria-selected="false">Substitution Co-occurences</button>
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10h" role="tab" aria-controls="HDR_10h" aria-selected="false">Base Edit Quilts</button>
   						  			</li>
             						
+									
   								</ul>
 							</div>
 							<div class='card-body'>
@@ -1378,18 +1417,6 @@ zip_output: False</pre></p>
 										</div>
 										
 									</div>
-
-									
-									<div class="tab-pane fade" id="HDR_10i" role="tabpanel">
-                						<div class='mb-3'>
-											<div id="fig_plot_10i" class="d-flex flex-column">
-    <a href="10i.Base_editing_HDR_upset_plot.by_amplicon_combination.no_indels.pdf"><img src="10i.Base_editing_HDR_upset_plot.by_amplicon_combination.no_indels.png" width='50%'></a>
-        <label class="labelpadding">Figure 10i: Upset plot of base editing changes for amplicon: HDR</label>
-            <p class="m-0"><small>Data: <a href="10i.HDR.binary_allele_counts.txt">Binary Allele Counts</a></small></p>
-</div>
-                						</div>
-									</div>
-									
 
 									
 									<div class="tab-pane fade" id="HDR_10d" role="tabpanel">
@@ -1499,6 +1526,41 @@ zip_output: False</pre></p>
                     					</div>
 										
 									</div>
+                  
+									<div class="tab-pane fade" id="HDR_10h" role="tabpanel">
+                    
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h_0" class="d-flex flex-column">
+    <a href="10h.HDR.base_edit_Cs_quilt_hi.pdf"><img src="10h.HDR.base_edit_Cs_quilt_hi.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of Base Edits for C around cut site for hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="HDR.base_edit_Cs_quilt_hi.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+										
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h_1" class="d-flex flex-column">
+    <a href="10h.HDR.base_edit_Cs_quilt_dear.pdf"><img src="10h.HDR.base_edit_Cs_quilt_dear.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of Base Edits for C around cut site for dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="HDR.base_edit_Cs_quilt_dear.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+										
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h_2" class="d-flex flex-column">
+    <a href="10h.HDR.base_edit_Cs_quilt_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10h.HDR.base_edit_Cs_quilt_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of Base Edits for C around cut site for sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="HDR.base_edit_Cs_quilt_sgRNA_CCCACTGAAGGCCC.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+										
+									</div>
+									
+
+									
+									<div class="tab-pane fade" id="HDR_10i" role="tabpanel">
+                    
+									</div>
+									
 								</div>
 							
 							</div>

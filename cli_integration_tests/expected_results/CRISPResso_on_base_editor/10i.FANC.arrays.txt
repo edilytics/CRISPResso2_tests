@@ -1,7 +1,0 @@
-Class	
-total_counts	
-reference_counts	
-target_counts	
-deletion_counts	
-insertion_counts	
-other_counts	
