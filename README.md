@@ -56,6 +56,22 @@ python test_manager.py update <actual CRISPResso results directory> <expected CR
 
 This will show you what is different in the files, and then you can select whether you want them copied over or not.
 
+You can also run it through `make`:
+
+``` shell
+make <test case> update
+```
+
+The above will prompt you to confirm if you want each change.
+
+If you are very confident in each change, you can use `update-all`:
+
+``` shell
+make <test case> update-all
+```
+
+This will automatically update the files for you, then you can review the changes in git. **Use this wisely!**
+
 ### How can I add a test?
 
 If you want to add a test, you can run the command:
