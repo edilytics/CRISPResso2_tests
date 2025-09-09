@@ -57,10 +57,10 @@
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
     
-    <link rel="shortcut icon" href="http://crispresso.pinellolab.org/static/favicon.ico" />
+    <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
     
 
-    <!-- Optional JavaScript -->  
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
@@ -158,11 +158,11 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
         
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
         
           </div>
         <div class="col-sm-7" >
-          <a href="https://crispresso2.pinellolab.org" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
+          <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
           <h3 style="margin-top: -0.5em;padding-right: 2em;">Analysis of genome editing outcomes from deep sequencing data</h3>
         </div>
         <div class="col-sm-1">
@@ -226,12 +226,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-08-07 10:30:55</p>
+  <p><strong>Run completed:</strong> 2025-09-09 13:46:15</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --base_editor_output --flexiguide_seq None --exclude_bp_from_left 15 --max_rows_alleles_around_cut_to_plot 50 --plot_window_size 20 --fastq_r1 inputs/FANC.Cas9.fastq --conversion_nuc_from C --needleman_wunsch_gap_extend -2 --halt_on_plot_fail --guide_seq GGAATCCCTTCTGCAGCACC --aln_seed_len 10 --default_min_aln_score 60 --trimmomatic_command None --prime_editing_gap_open_penalty -50 --aln_seed_count 5 --needleman_wunsch_gap_open -20 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --flexiguide_gap_open_penalty -20 --prime_editing_gap_extend_penalty 0 --flexiguide_homology 80 --max_paired_end_reads_overlap None --prime_editing_pegRNA_scaffold_min_match_length 1 --min_average_read_quality 0 --n_processes 1 --min_paired_end_reads_overlap 10 --fastp_command fastp --quantification_window_center -3 --needleman_wunsch_aln_matrix_loc EDNAFULL --place_report_in_output_folder --flexiguide_gap_extend_penalty -2 --quantification_window_size 1 --debug --amplicon_name Reference --min_single_bp_quality 0 --verbosity 3 --base_editor_target_ref_skip_allele_count 0 --needleman_wunsch_gap_incentive 1 --prime_editing_pegRNA_extension_quantification_window_size 5 --flash_command None --aln_seed_min 2 --config_file None --conversion_nuc_to T --min_frequency_alleles_around_cut_to_plot 0.2 --min_bp_quality_or_N 0 --exclude_bp_from_right 15 --file_prefix Cas9</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --min_average_read_quality 0 --min_single_bp_quality 0 --max_rows_alleles_around_cut_to_plot 50 --guide_seq GGAATCCCTTCTGCAGCACC --aln_seed_len 10 --needleman_wunsch_gap_extend -2 --max_paired_end_reads_overlap None --debug --plot_window_size 20 --flexiguide_seq None --needleman_wunsch_gap_incentive 1 --aln_seed_count 5 --flexiguide_gap_extend_penalty -2 --conversion_nuc_from C --quantification_window_size 1 --file_prefix Cas9 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --flexiguide_gap_open_penalty -20 --flash_command None --base_editor_output --config_file None --conversion_nuc_to T --trimmomatic_command None --fastp_command fastp --min_bp_quality_or_N 0 --needleman_wunsch_gap_open -20 --place_report_in_output_folder --halt_on_plot_fail --aln_seed_min 2 --min_frequency_alleles_around_cut_to_plot 0.2 --default_min_aln_score 60 --prime_editing_pegRNA_extension_quantification_window_size 5 --quantification_window_center -3 --prime_editing_gap_extend_penalty 0 --fastq_r1 inputs/FANC.Cas9.fastq --n_processes 1 --needleman_wunsch_aln_matrix_loc EDNAFULL --min_paired_end_reads_overlap 10 --exclude_bp_from_left 15 --flexiguide_homology 80 --verbosity 3 --prime_editing_pegRNA_scaffold_min_match_length 1 --amplicon_name Reference --exclude_bp_from_right 15 --prime_editing_gap_open_penalty -50</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
