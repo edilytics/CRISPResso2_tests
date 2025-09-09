@@ -202,7 +202,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 208, Irregular reads: 208.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 113, Substitutions outside window: 97.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 113, Substitutions outside window: 109.</div>
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 223, Substitutions: 113.</div>
 	
@@ -232,12 +232,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-09-03 16:42:47</p>
+  <p><strong>Run completed:</strong> 2025-09-09 15:22:47</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -323,7 +323,7 @@ prime_editing_pegRNA_scaffold_min_match_length: 1
 prime_editing_pegRNA_scaffold_seq: 
 prime_editing_pegRNA_spacer_seq: 
 quantification_window_center: -3
-quantification_window_coordinates: 20-30_45-50
+quantification_window_coordinates: None
 quantification_window_size: 1
 samtools_exclude_flags: 0
 save_also_png: False
@@ -425,7 +425,7 @@ zip_output: False</pre></p>
 					<div id="fig_plot_6a" class="d-flex flex-column">
     <a href="6a.Global_frameshift_in-frame_mutation_profiles.pdf"><img src="6a.Global_frameshift_in-frame_mutation_profiles.png" width='100%'></a>
         
-            <label class="labelpadding">Figure 6a: Frameshift and in-frame mutagenesis profiles for all reads indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 0 reads with no length modifications are not shown.</label>
+            <label class="labelpadding">Figure 6a: Frameshift and in-frame mutagenesis profiles for all reads indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 3 reads with no length modifications are not shown.</label>
                 <p class="m-0"><small>Data: <a href="FANC.Indel_histogram.txt">Indel histogram for FANC</a></small></p>
                 <p class="m-0"><small>Data: <a href="HDR.Indel_histogram.txt">Indel histogram for HDR</a></small></p>
 </div>
@@ -592,7 +592,7 @@ zip_output: False</pre></p>
 							  			<div id="fig_plot_3a" class="d-flex flex-column">
     
     <a href="3a.FANC.Indel_size_distribution.pdf"><img src="3a.FANC.Indel_size_distribution.png" width='40%'></a>
-        <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
+        <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red). Note that histograms are clipped to show 99% of the data. To show all data, run using the parameter '--plot_histogram_outliers'.  (Maximum 22 not shown)</label>
             <p class="m-0"><small>Data: <a href="FANC.Indel_histogram.txt">Indel histogram</a></small></p>
 </div>
 						  			</div>
@@ -717,6 +717,20 @@ zip_output: False</pre></p>
 
 
 						
+						<div class='card text-center mb-2 breakinpage'>
+							<div class='card-header'>
+								
+  								<h5>Frameshift analysis for FANC</h5>
+								
+							</div>
+  							<div class='card-body'>
+								<div id="fig_plot_5" class="d-flex flex-column">
+    <a href="5.FANC.Frameshift_in-frame_mutations_pie_chart.pdf"><img src="5.FANC.Frameshift_in-frame_mutations_pie_chart.png" width='100%'></a>
+        <label class="labelpadding">Figure 5: Frameshift analysis of coding sequence reads affected by modifications (unmodified reads are excluded from this analysis).</label>
+</div>
+							</div>
+						</div>
+						
 
 						
 						<div class='card text-center mb-2 breakinpage'>
@@ -728,7 +742,7 @@ zip_output: False</pre></p>
   							<div class='card-body'>
 								<div id="fig_plot_6" class="d-flex flex-column">
     <a href="6.FANC.Frameshift_in-frame_mutation_profiles.pdf"><img src="6.FANC.Frameshift_in-frame_mutation_profiles.png" width='100%'></a>
-        <label class="labelpadding">Figure 6: Frameshift and in-frame mutagenesis profiles indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 0 reads with no length modifications are not shown.</label>
+        <label class="labelpadding">Figure 6: Frameshift and in-frame mutagenesis profiles indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 3 reads with no length modifications are not shown.</label>
             <p class="m-0"><small>Data: <a href="FANC.Indel_histogram.txt">Indel histogram for FANC</a></small></p>
 </div>
 							</div>
@@ -864,6 +878,10 @@ zip_output: False</pre></p>
   						  			</li>
             						
 									
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#FANC_10i" role="tab" aria-controls="FANC_10i" aria-selected="false">Substitution Co-occurences</button>
+  						  			</li>
+            						
   								</ul>
 							</div>
 							<div class='card-body'>
@@ -1035,6 +1053,14 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="FANC_10i" role="tabpanel">
                     
+                      <div class='mb-4'>
+                      <div id="fig_plot_10i_0" class="d-flex flex-column">
+    <a href="10i.Base_editing_FANC_upset_plot.by_amplicon_combination.no_indels_hi.pdf"><img src="10i.Base_editing_FANC_upset_plot.by_amplicon_combination.no_indels_hi.png" width='50%'></a>
+        <label class="labelpadding">Figure 10i: Upset plot of Base Edits for C around cut site for hi (GGAATCCCTTCTGCAGCACC). Each dot matrix at the bottom represents a specific combination of base edits (colored by target position), and the bar plot at the top shows the number of reads with each combination.</label>
+            <p class="m-0"><small>Data: <a href="10i.FANC.hi.binary_allele_counts.txt">Binary Allele Counts</a></small></p>
+</div>
+                      </div>
+										
 									</div>
 									
 								</div>
@@ -1388,6 +1414,10 @@ zip_output: False</pre></p>
   						  			</li>
             						
 									
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10i" role="tab" aria-controls="HDR_10i" aria-selected="false">Substitution Co-occurences</button>
+  						  			</li>
+            						
   								</ul>
 							</div>
 							<div class='card-body'>
@@ -1559,6 +1589,14 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="HDR_10i" role="tabpanel">
                     
+                      <div class='mb-4'>
+                      <div id="fig_plot_10i_0" class="d-flex flex-column">
+    <a href="10i.Base_editing_HDR_upset_plot.by_amplicon_combination.no_indels_hi.pdf"><img src="10i.Base_editing_HDR_upset_plot.by_amplicon_combination.no_indels_hi.png" width='50%'></a>
+        <label class="labelpadding">Figure 10i: Upset plot of Base Edits for C around cut site for hi (GGAATCCCTTCTGCAGCACC). Each dot matrix at the bottom represents a specific combination of base edits (colored by target position), and the bar plot at the top shows the number of reads with each combination.</label>
+            <p class="m-0"><small>Data: <a href="10i.HDR.hi.binary_allele_counts.txt">Binary Allele Counts</a></small></p>
+</div>
+                      </div>
+										
 									</div>
 									
 								</div>
