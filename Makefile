@@ -37,6 +37,9 @@ if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then \
 fi && \
 if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
  python ../test_manager.py update $(subst cli_integration_tests/,./,$@) $(subst cli_integration_tests/,./expected_results/,$@); \
+fi && \
+if [ "$(filter update-all, $(MAKECMDGOALS))" != "" ]; then \
+ yes | python ../test_manager.py update $(subst cli_integration_tests/,./,$@) $(subst cli_integration_tests/,./expected_results/,$@); \
 fi
 endef
 
@@ -49,6 +52,9 @@ test:
 	@echo " ";
 
 update:
+	@echo " ";
+
+update-all:
 	@echo " ";
 
 install: $(CRISPRESSO2_SOURCES)
