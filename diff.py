@@ -28,6 +28,7 @@ IGNORE_FILES = frozenset([
     'CRISPRessoWGS_RUNNING_LOG.txt',
     'CRISPRessoCompare_RUNNING_LOG.txt',
 ])
+WARNING_FILE_REGEXP = re.compile(r'CRISPResso2_report.html')
 
 
 def which(program):
@@ -106,7 +107,7 @@ def print_diff(diff_results):
         with tempfile.NamedTemporaryFile(mode='w') as fh:
             fh.writelines(''.join(diff_results))
             fh.flush()
-            subprocess.check_call(f'cat {fh.name} | ydiff -s -w 0 --wrap', shell=True)
+            subprocess.check_call(f'cat {fh.name} | ydiff -s -w 0 --wrap -p cat', shell=True)
     else:
         for line in diff_results:
             print(line, end='')
@@ -151,19 +152,22 @@ def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam'), prompt_to_upd
                     file_path_actual, files_expected[file_basename_actual],
                 ))
                 print_diff(diff_results)
-                diff_exists |= True
+                if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                    diff_exists |= True
                 if prompt_to_update:
                     update_file(file_path_actual, files_expected[file_basename_actual])
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
-            diff_exists |= True
+            if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                diff_exists |= True
             if prompt_to_update:
                 update_file(file_path_actual, join(expected, file_basename_actual))
 
     for file_basename_expected in files_expected.keys():
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
-            diff_exists |= True
+            if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                diff_exists |= True
             if prompt_to_update:
                 remove_file(join(expected, file_basename_expected))
 
