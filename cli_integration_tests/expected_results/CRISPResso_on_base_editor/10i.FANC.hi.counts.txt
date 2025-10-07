@@ -1,0 +1,2 @@
+FANC.hi	FANC.hi_indels	Target	Target_indels	other	other_indels
+166	4	0	4	3	15

@@ -1,0 +1,10 @@
+(88, 'C', '-')	(89, 'A', '-')	(90, 'G', '-')	(91, 'C', '-')	has_indel	count
+R	R	R	R	False	166
+R	R	T	T	True	9
+R	R	R	I	True	5
+T	T	T	T	True	4
+R	R	R	R	True	4
+T	T	T	R	False	1
+N	R	N	N	False	1
+R	R	R	N	False	1
+R	T	T	T	True	1

@@ -1,0 +1,2 @@
+FANC.dear	FANC.dear_indels	Target	Target_indels	other	other_indels
+169	23	0	0	0	0

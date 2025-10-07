@@ -1,0 +1,3 @@
+(92, 'C', 'A')	(93, 'A', 'CCTGGATC')	has_indel	count
+X	X	False	15
+X	X	True	1

@@ -1,3 +1,0 @@
-(53, 'T', 'G')	has_indel	count
-T	False	15
-R	False	1
