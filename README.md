@@ -25,6 +25,12 @@ To run all the tests and check all files for differences use the `test` option:
 make all test
 ```
 
+If you want to skip differences in html files you can run:
+
+```shell
+make all test skip_html
+```
+
 You can also select a single command to run, like this:
 
 ``` shell
