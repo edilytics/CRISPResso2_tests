@@ -218,8 +218,8 @@ def diff_running_times(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('actual', help='Directory of text files to compare (labelled "Actual").')
-    parser.add_argument('--expected', help='Other directory of text files to compare (labelled "Expected").')
+    parser.add_argument('actual', help='Directory of text files to compare (labeled "Actual").')
+    parser.add_argument('--expected', help='Other directory of text files to compare (labeled "Expected").')
     parser.add_argument(
         '--expected_prefix',
         default='expected_results',
@@ -242,6 +242,12 @@ if __name__ == '__main__':
         ' It is assumed that the file is in the root of `actual` and `expected`.'
         'The default is `CRISPResso2_info.json`.',
     )
+    parser.add_argument(
+        '--skip_html',
+        default=False,
+        action="store_true",
+        help='Whether to skip comparisons of html files.'
+    )
 
     args = parser.parse_args()
 
@@ -253,6 +259,10 @@ if __name__ == '__main__':
     diff_running_times(
         args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    if diff_dir(args.actual, expected):
+    diff_suffixes=('.txt', '.html', '.sam')
+    if args.skip_html:
+        diff_suffixes = ('.txt', '.sam')
+
+    if diff_dir(args.actual, expected, suffixes=diff_suffixes):
         sys.exit(1)
     sys.exit(0)

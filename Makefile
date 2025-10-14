@@ -26,6 +26,15 @@ CRISPRessoPooled_on_pooled-mixed-mode \
 CRISPRessoPooled_on_pooled-mixed-mode-genome-demux \
 CRISPRessoCompare_on_Cas9_VS_Untreated)
 
+# Allow skip_html to work either as a variable or goal
+ifneq ($(filter skip_html,$(MAKECMDGOALS)),)
+  SKIP_HTML_FLAG := --skip_html
+  MAKECMDGOALS := $(filter-out skip_html,$(MAKECMDGOALS))
+endif
+ifdef skip_html
+  SKIP_HTML_FLAG := --skip_html
+endif
+
 define RUN
 if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then \
  $$cmd; \
@@ -33,7 +42,7 @@ else \
   output=`$$cmd 2>&1` || echo "$$output"; \
 fi && \
 if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then \
- python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@); \
+ python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@) $(SKIP_HTML_FLAG); \
 fi && \
 if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
  python ../test_manager.py update $(subst cli_integration_tests/,./,$@) $(subst cli_integration_tests/,./expected_results/,$@); \
