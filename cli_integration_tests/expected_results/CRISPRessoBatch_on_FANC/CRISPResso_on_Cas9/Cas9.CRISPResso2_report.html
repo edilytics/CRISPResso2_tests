@@ -200,7 +200,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 280, Substitutions outside window: 270.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 923, Substitutions: 280.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 924, Substitutions: 280.</div>
 	
 
 					<h5>CRISPResso2 run information</h5>
@@ -226,12 +226,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-09-22 14:58:35</p>
+  <p><strong>Run completed:</strong> 2025-10-28 14:11:10</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --flexiguide_gap_open_penalty -20 --amplicon_name Reference --guide_seq GGAATCCCTTCTGCAGCACC --quantification_window_size 1 --min_frequency_alleles_around_cut_to_plot 0.2 --max_rows_alleles_around_cut_to_plot 50 --conversion_nuc_to T --flash_command None --default_min_aln_score 60 --needleman_wunsch_gap_open -20 --flexiguide_homology 80 --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_gap_extend_penalty 0 --flexiguide_seq None --fastp_command fastp --debug --min_single_bp_quality 0 --base_editor_target_ref_skip_allele_count 0 --min_bp_quality_or_N 0 --verbosity 3 --aln_seed_min 2 --fastq_r1 inputs/FANC.Cas9.fastq --file_prefix Cas9 --place_report_in_output_folder --config_file None --plot_window_size 20 --n_processes 1 --flexiguide_gap_extend_penalty -2 --needleman_wunsch_gap_extend -2 --exclude_bp_from_left 15 --aln_seed_count 5 --halt_on_plot_fail --max_paired_end_reads_overlap None --min_average_read_quality 0 --trimmomatic_command None --quantification_window_center -3 --prime_editing_pegRNA_extension_quantification_window_size 5 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --min_paired_end_reads_overlap 10 --conversion_nuc_from C --aln_seed_len 10 --prime_editing_gap_open_penalty -50 --exclude_bp_from_right 15 --needleman_wunsch_gap_incentive 1 --prime_editing_pegRNA_scaffold_min_match_length 1 --base_editor_output</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --conversion_nuc_from C --trimmomatic_command None --fastp_command fastp --prime_editing_gap_open_penalty -50 --n_processes 1 --flash_command None --min_paired_end_reads_overlap 10 --flexiguide_seq None --exclude_bp_from_left 15 --flexiguide_gap_extend_penalty -2 --debug --base_editor_output --exclude_bp_from_right 15 --aln_seed_min 2 --max_paired_end_reads_overlap None --place_report_in_output_folder --min_frequency_alleles_around_cut_to_plot 0.2 --prime_editing_gap_extend_penalty 0 --aln_seed_len 10 --fastq_r1 inputs/FANC.Cas9.fastq --min_single_bp_quality 0 --default_min_aln_score 60 --needleman_wunsch_aln_matrix_loc EDNAFULL --conversion_nuc_to T --guide_seq GGAATCCCTTCTGCAGCACC --plot_window_size 20 --verbosity 3 --halt_on_plot_fail --needleman_wunsch_gap_incentive 1 --quantification_window_size 1 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --prime_editing_pegRNA_scaffold_min_match_length 1 --base_editor_target_ref_skip_allele_count 0 --config_file None --min_bp_quality_or_N 0 --needleman_wunsch_gap_open -20 --amplicon_name Reference --min_average_read_quality 0 --prime_editing_pegRNA_extension_quantification_window_size 5 --flexiguide_homology 80 --max_rows_alleles_around_cut_to_plot 50 --aln_seed_count 5 --flexiguide_gap_open_penalty -20 --needleman_wunsch_gap_extend -2 --file_prefix Cas9 --quantification_window_center -3</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -302,7 +302,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -739,7 +739,7 @@ zip_output: False</pre></p>
 									<div class="tab-pane fade" id="Reference_10i" role="tabpanel">
                     
                       <div class='mb-4'>
-                      <div id="fig_plot_10i_Reference_0" class="d-flex flex-column">
+                      <div id="fig_plot_10i_Reference" class="d-flex flex-column">
     <a href="Cas9.10i.Base_editing_Reference_upset_plot.by_amplicon_combination.no_indels_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Cas9.10i.Base_editing_Reference_upset_plot.by_amplicon_combination.no_indels_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='50%'></a>
         <label class="labelpadding">Figure 10i: Upset plot of Base Edits for C around cut site for sgRNA GGAATCCCTTCTGCAGCACC. Each dot matrix at the bottom represents a specific combination of base edits (colored by target position), and the bar plot at the top shows the number of reads with each combination.</label>
 </div>
