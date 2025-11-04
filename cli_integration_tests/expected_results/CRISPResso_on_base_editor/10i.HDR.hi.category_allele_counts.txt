@@ -1,0 +1,5 @@
+(92, 'C', 'A')	(93, 'A', 'CCTGGATC')	has_indel	count
+R	R	False	9
+N	I	False	4
+R	D	False	2
+R	D	True	1

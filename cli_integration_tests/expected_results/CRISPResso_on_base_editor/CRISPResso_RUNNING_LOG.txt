@@ -1,0 +1,225 @@
+CRISPResso version 2.3.3
+[Command used]:
+/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 2 guides with flexible matching
+	Original flexiguides: ['AGCCTTGCAGTGGGCGCGCTA', 'CCCACTGAAGGCCC']
+	Found guides: ['GGCCTTGCAGTGGGCGCGCTA', 'CCCACTGCAAGGCCC']
+	Mismatch locations: [[0], [7]]
+Added 2 guides with flexible matching
+	Original flexiguides: ['AGCCTTGCAGTGGGCGCGCTA', 'CCCACTGAAGGCCC']
+	Found guides: ['GGCCTTGCAGTGGGCGCGCTA', 'CCCACTGCAAGGCCC']
+	Mismatch locations: [[0], [7]]
+Using cut points from FANC as template for other references
+Reference 'HDR' has NO cut points or sgRNA intervals idxs defined. Inferring from 'FANC'.
+Reference 'HDR' has NO exon_positions defined. Inferring from 'FANC'.
+Counting reads in input
+Filtering reads with average bp quality < 30 and single bp quality < 0 and replacing bases with quality < 0 with N ...
+Counting reads after preprocessing...
+Aligning sequences...
+Finished reading fastq file; 194 unique reads found of 231 total reads found 
+Spinning up 10 parallel processes to analyze unique reads...
+Finished processing unique reads, now generating statistics...
+Finished reads; N_TOT_READS: 231 N_COMPUTED_ALN: 171 N_CACHED_ALN: 37 N_COMPUTED_NOTALN: 23 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Writing file for alleles with dsODN
+Dumping all the processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Plotting dsODN pie chart
+Begin processing plots for amplicon FANC
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting nucleotide distribuition around dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting nucleotide distribuition around sgRNA CCCACTGAAGGCCC for FANC
+Plotting indel size distribution for FANC
+Plotting frequency deletions/insertions for FANC
+Plotting amplication modifications for FANC
+Plotting modification frequency for FANC
+Plotting quantification window locations for FANC
+Plotting position dependent indel for FANC
+Plotting global modifications with respect to reference
+Plotting HDR nucleotide quilt
+Plotting frameshift frequency for FANC
+Plotting non-coding mutation positions for FANC
+Plotting potential splice sites
+Plotting substitutions across reference for FANC
+Plotting substitution frequency barplot for FANC
+Plotting substitution frequency barplot in quantification window for FANC
+Aligned target:    AATACGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGC--------CGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCCGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACGGCTCTGGAGCGGC
+Aligned reference: ----CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG-------------------------------
+Found 0 base changes: []
+Read 171 alleles with 208 reads
+Got 155 alleles on reference "FANC" with 192 reads
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting scaled non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting allele distribution around cut for FANC
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting scaled non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting allele distribution around cut for FANC
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Plotting non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Plotting scaled non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Plotting allele distribution around cut for FANC
+Done!
+Begin processing plots for amplicon HDR
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting nucleotide distribuition around dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting nucleotide distribuition around sgRNA CCCACTGAAGGCCC for HDR
+Plotting indel size distribution for HDR
+Plotting frequency deletions/insertions for HDR
+Plotting amplication modifications for HDR
+Plotting modification frequency for HDR
+Plotting quantification window locations for HDR
+Plotting position dependent indel for HDR
+Plotting global modifications with respect to reference
+Plotting frameshift analysis for HDR
+Plotting frameshift frequency for HDR
+Plotting non-coding mutation positions for HDR
+Plotting potential splice sites
+Plotting substitutions across reference for HDR
+Plotting substitution frequency barplot for HDR
+Plotting substitution frequency barplot in quantification window for HDR
+Aligned target:    AATACGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCCGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACGGCTCTGGAGCGGC
+Aligned reference: CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGC---TTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG-------------------------------
+Found 1 base changes: [(53, 'T', 'G')]
+Read 171 alleles with 208 reads
+Got 16 alleles on reference "HDR" with 16 reads
+Plotting allele distribution around cut for HDR
+Plotting log2 nucleotide frequency for HDR
+Plotting conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting scaled non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
+Plotting allele distribution around cut for HDR
+Plotting allele distribution around cut for HDR
+Plotting log2 nucleotide frequency for HDR
+Plotting conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting scaled non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
+Plotting allele distribution around cut for HDR
+Plotting allele distribution around cut for HDR
+Plotting log2 nucleotide frequency for HDR
+Plotting conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
+Plotting non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
+Plotting scaled non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
+Plotting allele distribution around cut for HDR
+Done!
+Plotting global frameshift in-frame mutations pie chart
+Plotting global frameshift in-frame mutation profiles
+Plotting global potential splice sites pie chart
+Plot pool results:
+future: <Future at 0x17c835a80 state=finished returned NoneType>
+future: <Future at 0x17c4e3f70 state=finished returned NoneType>
+future: <Future at 0x17c4e3970 state=finished returned NoneType>
+future: <Future at 0x17c9c5390 state=finished returned NoneType>
+future: <Future at 0x17c9c6170 state=finished returned NoneType>
+future: <Future at 0x17c9c6f50 state=finished returned NoneType>
+future: <Future at 0x17c9c6230 state=finished returned NoneType>
+future: <Future at 0x17c9c4b50 state=finished returned NoneType>
+future: <Future at 0x17c9c4130 state=finished returned NoneType>
+future: <Future at 0x17c9c41c0 state=finished returned NoneType>
+future: <Future at 0x17c9c5300 state=finished returned NoneType>
+future: <Future at 0x17c9c52a0 state=finished returned NoneType>
+future: <Future at 0x17c9c6aa0 state=finished returned NoneType>
+future: <Future at 0x17c9c4790 state=finished returned NoneType>
+future: <Future at 0x17c835a50 state=finished returned NoneType>
+future: <Future at 0x17ca23ee0 state=finished returned NoneType>
+future: <Future at 0x17ca20cd0 state=finished returned NoneType>
+future: <Future at 0x17c9be410 state=finished returned NoneType>
+future: <Future at 0x17c9bff70 state=finished returned NoneType>
+future: <Future at 0x17c9bc430 state=finished returned NoneType>
+future: <Future at 0x17c9bc1c0 state=finished returned NoneType>
+future: <Future at 0x17ca90b20 state=finished returned NoneType>
+future: <Future at 0x17c9bfee0 state=finished returned NoneType>
+future: <Future at 0x17c9bc5b0 state=finished returned NoneType>
+future: <Future at 0x17ca90b80 state=finished returned NoneType>
+future: <Future at 0x17ca91ed0 state=finished returned NoneType>
+future: <Future at 0x17ca92b30 state=finished returned NoneType>
+future: <Future at 0x17ca93d00 state=finished returned NoneType>
+future: <Future at 0x17ca908e0 state=finished returned NoneType>
+future: <Future at 0x17ca92920 state=finished returned NoneType>
+future: <Future at 0x17ca93220 state=finished returned NoneType>
+future: <Future at 0x17ca927d0 state=finished returned NoneType>
+future: <Future at 0x17ca903a0 state=finished returned NoneType>
+future: <Future at 0x17ca93520 state=finished returned NoneType>
+future: <Future at 0x17ca91e70 state=finished returned NoneType>
+future: <Future at 0x17ca92a70 state=finished returned NoneType>
+future: <Future at 0x17ca93790 state=finished returned NoneType>
+future: <Future at 0x17ca93ee0 state=finished returned NoneType>
+future: <Future at 0x17ca93b50 state=finished returned NoneType>
+future: <Future at 0x17c835b40 state=finished returned NoneType>
+future: <Future at 0x17c837c10 state=finished returned NoneType>
+future: <Future at 0x17c8361a0 state=finished returned NoneType>
+future: <Future at 0x17c837b50 state=finished returned NoneType>
+future: <Future at 0x17c836650 state=finished returned NoneType>
+future: <Future at 0x17c836230 state=finished returned NoneType>
+future: <Future at 0x17c8367d0 state=finished returned NoneType>
+future: <Future at 0x17c837190 state=finished returned NoneType>
+future: <Future at 0x17c834040 state=finished returned NoneType>
+future: <Future at 0x17c834160 state=finished returned NoneType>
+future: <Future at 0x17c836a70 state=finished returned NoneType>
+future: <Future at 0x17c837d90 state=finished returned NoneType>
+future: <Future at 0x17c836560 state=finished returned NoneType>
+future: <Future at 0x17c837940 state=finished returned NoneType>
+future: <Future at 0x17c837460 state=finished returned NoneType>
+future: <Future at 0x17c8363b0 state=finished returned NoneType>
+future: <Future at 0x17c837730 state=finished returned NoneType>
+future: <Future at 0x17c836110 state=finished returned NoneType>
+future: <Future at 0x17c4e3af0 state=finished returned NoneType>
+future: <Future at 0x17c9c5a50 state=finished returned NoneType>
+future: <Future at 0x17ca91c30 state=finished returned NoneType>
+future: <Future at 0x17ca90310 state=finished returned NoneType>
+future: <Future at 0x17d525330 state=finished returned NoneType>
+future: <Future at 0x17c4c0dc0 state=finished returned NoneType>
+future: <Future at 0x17c4e2a40 state=finished returned NoneType>
+future: <Future at 0x17ca92380 state=finished returned NoneType>
+future: <Future at 0x17ca91420 state=finished returned NoneType>
+future: <Future at 0x17c9c4040 state=finished returned NoneType>
+future: <Future at 0x17d524400 state=finished returned NoneType>
+future: <Future at 0x17cb2c2b0 state=finished returned NoneType>
+future: <Future at 0x17ca92950 state=finished returned NoneType>
+future: <Future at 0x17ca91720 state=finished returned NoneType>
+future: <Future at 0x17d524af0 state=finished returned NoneType>
+future: <Future at 0x17d524550 state=finished returned NoneType>
+future: <Future at 0x17d6196c0 state=finished returned NoneType>
+future: <Future at 0x17d524e50 state=finished returned NoneType>
+future: <Future at 0x17c4c08e0 state=finished returned NoneType>
+future: <Future at 0x17d618490 state=finished returned NoneType>
+future: <Future at 0x17ca90940 state=finished returned NoneType>
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 231.
+ Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 83.12%.
+ Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 6.93%.
+ >=1.0% of reads have modifications at the start or end. Total reads: 208, Irregular reads: 208.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 113, Substitutions outside window: 97.
+ >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 223, Substitutions: 113.
+ Guide length <19: CCCACTGCAAGGCCC, Length: 15.
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
+Analysis Complete!

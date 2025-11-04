@@ -1,6 +1,6 @@
-CRISPResso version 2.3.2
+CRISPResso version 2.3.3
 [Command used]:
-/home/snichol2/micromamba/envs/c2/bin/CRISPResso -o /mnt/c/Users/Snic9/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --quantification_window_center -3 --quantification_window_size 1 --amplicon_name Reference --trimmomatic_command None --max_paired_end_reads_overlap None --plot_window_size 20 --verbosity 3 --exclude_bp_from_right 15 --min_paired_end_reads_overlap 10 --flexiguide_gap_open_penalty -20 --prime_editing_pegRNA_extension_quantification_window_size 5 --aln_seed_min 2 --guide_seq GGAATCCCTTCTGCAGCACC --prime_editing_gap_extend_penalty 0 --max_rows_alleles_around_cut_to_plot 50 --fastq_r1 inputs/FANC.Cas9.fastq --config_file None --base_editor_output --needleman_wunsch_gap_extend -2 --prime_editing_pegRNA_scaffold_min_match_length 1 --debug --min_average_read_quality 0 --flexiguide_gap_extend_penalty -2 --prime_editing_gap_open_penalty -50 --conversion_nuc_to T --min_frequency_alleles_around_cut_to_plot 0.2 --min_single_bp_quality 0 --aln_seed_len 10 --place_report_in_output_folder --needleman_wunsch_gap_incentive 1 --min_bp_quality_or_N 0 --flash_command None --conversion_nuc_from C --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --flexiguide_homology 80 --fastp_command fastp --needleman_wunsch_gap_open -20 --n_processes 1 --file_prefix Cas9 --halt_on_plot_fail --needleman_wunsch_aln_matrix_loc EDNAFULL --aln_seed_count 5 --default_min_aln_score 60 --flexiguide_seq None --exclude_bp_from_left 15
+/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --fastq_r1 inputs/FANC.Cas9.fastq --needleman_wunsch_gap_extend -2 --flexiguide_gap_extend_penalty -2 --quantification_window_center -3 --min_paired_end_reads_overlap 10 --quantification_window_size 1 --flexiguide_seq None --max_paired_end_reads_overlap None --prime_editing_gap_open_penalty -50 --verbosity 3 --place_report_in_output_folder --min_single_bp_quality 0 --aln_seed_len 10 --amplicon_name Reference --min_bp_quality_or_N 0 --exclude_bp_from_right 15 --conversion_nuc_to T --aln_seed_min 2 --min_average_read_quality 0 --plot_window_size 20 --fastp_command fastp --needleman_wunsch_gap_incentive 1 --trimmomatic_command None --flexiguide_gap_open_penalty -20 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_aln_matrix_loc EDNAFULL --halt_on_plot_fail --prime_editing_pegRNA_extension_quantification_window_size 5 --debug --flexiguide_homology 80 --prime_editing_gap_extend_penalty 0 --aln_seed_count 5 --n_processes 1 --needleman_wunsch_gap_open -20 --exclude_bp_from_left 15 --file_prefix Cas9 --conversion_nuc_from C --flash_command None --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --config_file None --base_editor_target_ref_skip_allele_count 0 --guide_seq GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_scaffold_min_match_length 1 --min_frequency_alleles_around_cut_to_plot 0.2 --base_editor_output --default_min_aln_score 60
 
 [Execution log]:
 CRISPRessoPro not installed
@@ -37,10 +37,16 @@ Plotting substitutions across reference for Reference
 Plotting substitution frequency barplot for Reference
 Plotting substitution frequency barplot in quantification window for Reference
 Plotting allele distribution around cut for Reference
+Plotting allele distribution around cut for Reference
 Plotting log2 nucleotide frequency for Reference
 Plotting conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
 Plotting scaled non-reference conversion at Cs around the sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Aligned target:    AAAGCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGCCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGGCATGGCCCCATTCGCACTGCTC
+Aligned reference: ----CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGC-ACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG----------------------
+Found 1 base changes: [(91, 'C', 'CC')]
+Read 198 alleles with 235 reads
+Got 198 alleles on reference "Reference" with 235 reads
 Done!
 Done!
 Removing Intermediate files...

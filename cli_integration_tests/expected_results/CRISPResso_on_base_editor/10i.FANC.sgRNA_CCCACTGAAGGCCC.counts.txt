@@ -1,0 +1,2 @@
+FANC.sgRNA_CCCACTGAAGGCCC	FANC.sgRNA_CCCACTGAAGGCCC_indels	Target	Target_indels	other	other_indels
+169	23	0	0	0	0

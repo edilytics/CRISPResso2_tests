@@ -23,6 +23,7 @@ FASTP_PLOTLY_IMPORT = re.compile(r'https?://opengene.org/plotly-1.2.0.min.js')
 SAM_HEADER_BOWTIE_VERSION_REGEXP = re.compile(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:.*')
 SAM_HEADER_REGEXP = re.compile(r'@HD\tVN:.*')
 IGNORE_FILES_REGEXP = re.compile(r'.*CRISPResso.*_RUNNING_LOG.txt')
+WARNING_FILE_REGEXP = re.compile(r'CRISPResso2_report.html')
 
 
 def which(program):
@@ -102,7 +103,7 @@ def print_diff(diff_results):
         with tempfile.NamedTemporaryFile(mode='w') as fh:
             fh.writelines(''.join(diff_results))
             fh.flush()
-            subprocess.check_call(f'cat {fh.name} | ydiff -s -w 0 --wrap', shell=True)
+            subprocess.check_call(f'cat {fh.name} | ydiff -s -w 0 --wrap -p cat', shell=True)
     else:
         for line in diff_results:
             print(line, end='')
@@ -147,19 +148,22 @@ def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam'), prompt_to_upd
                     file_path_actual, files_expected[file_basename_actual],
                 ))
                 print_diff(diff_results)
-                diff_exists |= True
+                if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                    diff_exists |= True
                 if prompt_to_update:
                     update_file(file_path_actual, files_expected[file_basename_actual])
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
-            diff_exists |= True
+            if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                diff_exists |= True
             if prompt_to_update:
                 update_file(file_path_actual, join(expected, file_basename_actual))
 
     for file_basename_expected in files_expected.keys():
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
-            diff_exists |= True
+            if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                diff_exists |= True
             if prompt_to_update:
                 remove_file(join(expected, file_basename_expected))
 
@@ -210,8 +214,8 @@ def diff_running_times(
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('actual', help='Directory of text files to compare (labelled "Actual").')
-    parser.add_argument('--expected', help='Other directory of text files to compare (labelled "Expected").')
+    parser.add_argument('actual', help='Directory of text files to compare (labeled "Actual").')
+    parser.add_argument('--expected', help='Other directory of text files to compare (labeled "Expected").')
     parser.add_argument(
         '--expected_prefix',
         default='expected_results',
@@ -234,6 +238,12 @@ if __name__ == '__main__':
         ' It is assumed that the file is in the root of `actual` and `expected`.'
         'The default is `CRISPResso2_info.json`.',
     )
+    parser.add_argument(
+        '--skip_html',
+        default=False,
+        action="store_true",
+        help='Whether to skip comparisons of html files.'
+    )
 
     args = parser.parse_args()
 
@@ -245,6 +255,10 @@ if __name__ == '__main__':
     diff_running_times(
         args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    if diff_dir(args.actual, expected):
+    diff_suffixes=('.txt', '.html', '.sam')
+    if args.skip_html:
+        diff_suffixes = ('.txt', '.sam')
+
+    if diff_dir(args.actual, expected, suffixes=diff_suffixes):
         sys.exit(1)
     sys.exit(0)

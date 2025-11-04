@@ -57,7 +57,7 @@
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 
-    <link rel="shortcut icon" href="http://crispresso.pinellolab.org/static/favicon.ico" />
+    <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
 
 
     <!-- Optional JavaScript -->
@@ -158,11 +158,11 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
 
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
 
           </div>
         <div class="col-sm-7" >
-          <a href="https://crispresso2.pinellolab.org" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
+          <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
           <h3 style="margin-top: -0.5em;padding-right: 2em;">Analysis of genome editing outcomes from deep sequencing data</h3>
         </div>
         <div class="col-sm-1">
@@ -217,6 +217,7 @@
 					<div class='tab-content'>
 						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
 							<div id="fig_plot_1a" class="d-flex flex-column">
+
     <a href="1a.Read_barplot.pdf"><img src="1a.Read_barplot.png" width='40%'></a>
 
             <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
@@ -224,13 +225,13 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2025-05-15 23:00:09</p>
+  <p><strong>CRISPResso version:</strong> 2.3.3</p>
+  <p><strong>Run completed:</strong> 2025-09-22 11:42:32</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
 
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
 
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso --fastq_r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq.gz --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --guide_seq GGAATCCCTTCTGCAGCACC --name FANC --display_name FANC --output_folder CRISPRessoPooled_on_pooled-mixed-mode --keep_intermediate --place_report_in_output_folder --debug --halt_on_plot_fail</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso --fastq_r1 CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq.gz --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --guide_seq GGAATCCCTTCTGCAGCACC --name FANC --display_name FANC --output_folder CRISPRessoPooled_on_pooled-mixed-mode --keep_intermediate --place_report_in_output_folder --debug --halt_on_plot_fail</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -244,7 +245,9 @@ auto: False
 bam_chr_loc:
 bam_input:
 bam_output: False
+base_editor_consider_changes_outside_qw: False
 base_editor_output: False
+base_editor_target_ref_skip_allele_count: 0
 bowtie2_index:
 coding_seq:
 config_file: None
@@ -356,6 +359,7 @@ zip_output: False</pre></p>
 					<div class="tab-content" id="tabContent">
 						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
 							<div id="fig_plot_1b" class="d-flex flex-column">
+
     <a href="1b.Alignment_pie_chart.pdf"><img src="1b.Alignment_pie_chart.png" width='40%'></a>
 
             <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
@@ -364,6 +368,7 @@ zip_output: False</pre></p>
 						</div>
 						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
 							<div id="fig_plot_1c" class="d-flex flex-column">
+
     <a href="1c.Alignment_barplot.pdf"><img src="1c.Alignment_barplot.png" width='40%'></a>
 
             <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
@@ -473,6 +478,7 @@ zip_output: False</pre></p>
 
   						  			<div class="tab-pane fade show active" id="Reference_3a" role="tabpanel">
 							  			<div id="fig_plot_3a" class="d-flex flex-column">
+
     <a href="3a.Indel_size_distribution.pdf"><img src="3a.Indel_size_distribution.png" width='40%'></a>
         <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red). Note that histograms are clipped to show 99% of the data. To show all data, run using the parameter '--plot_histogram_outliers'.  (Maximum 54 not shown) (Minimum -43 not shown)</label>
             <p class="m-0"><small>Data: <a href="Indel_histogram.txt">Indel histogram</a></small></p>
@@ -530,6 +536,7 @@ zip_output: False</pre></p>
 
 									<div class="tab-pane fade" id="Reference_4a" role="tabpanel">
 										<div id="fig_plot_4a" class="d-flex flex-column">
+
     <a href="4a.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
 </div>
@@ -538,6 +545,7 @@ zip_output: False</pre></p>
 
 									<div class="tab-pane fade show active" id="Reference_4b" role="tabpanel">
 										<div id="fig_plot_4b" class="d-flex flex-column">
+
     <a href="4b.Insertion_deletion_substitution_locations.pdf"><img src="4b.Insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</label>
             <p class="m-0"><small>Data: <a href="Modification_count_vectors.txt">Modification frequency</a></small></p>
@@ -547,6 +555,7 @@ zip_output: False</pre></p>
 
 									<div class="tab-pane fade" id="Reference_4c" role="tabpanel">
 										<div id="fig_plot_4c" class="d-flex flex-column">
+
     <a href="4c.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</label>
             <p class="m-0"><small>Data: <a href="Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
@@ -598,6 +607,7 @@ zip_output: False</pre></p>
 
 							</div>
 						</div>
+
 
 
 

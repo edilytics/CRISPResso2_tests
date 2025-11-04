@@ -1,0 +1,7 @@
+Class	(91, 'C', 'CC')
+total_counts	235
+reference_counts	189
+target_counts	3
+deletion_counts	34
+insertion_counts	5
+other_counts	4
