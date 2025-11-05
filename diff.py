@@ -28,7 +28,7 @@ IGNORE_FILES = frozenset([
     'CRISPRessoWGS_RUNNING_LOG.txt',
     'CRISPRessoCompare_RUNNING_LOG.txt',
 ])
-WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)_report.html')
+WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
 
 
 def which(program):
