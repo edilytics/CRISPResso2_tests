@@ -12,7 +12,7 @@
     <style>
       body {
         font-family: 'Montserrat', sans-serif !important;
-      
+
       }
       @media (max-width:1015px)
       {
@@ -56,9 +56,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-    
+
     <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
-    
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -68,9 +68,9 @@
 
 
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-  
 
-<script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+
+<script src="https://cdn.plot.ly/plotly-3.0.0.min.js"></script>
 <style>
 .nav-tabs.amp-header {
   border-bottom:none !important;
@@ -117,16 +117,16 @@
   </head>
 
   <body class="m-2">
-    
 
-  
-  
+
+
+
   <div class="container">
       <div class="row pb-2">
         <div class="col-sm-1"></div>
-        
+
           <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
-        
+
           </div>
         <div class="col-sm-7" >
           <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
@@ -137,19 +137,19 @@
       </div>
 
 
-    
+
 
       <div id='top_help_div'>
         <div class="row">
           <div class="col-sm-1"></div>
           <div class='col-sm-10 pb-2 crispresso_body_div'>
-           
+
           </div>
           <div class="col-sm-1"></div>
         </div>
       </div>
 
-      
+
 <div class="row">
 <div class="col-sm-1"></div>
 <div class="col-sm-10">
@@ -157,208 +157,208 @@
 	<div class="jumbotron" style="background:rgba(0,0,0,0.0); padding:0px" >
 		<div id='jumbotron_content' >
 
-          
 
-            
 
-          
 
-          
 
-          
 
-          
 
-          
-            
+
+
+
+
+
+
+
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Editing efficiency comparison</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_1.Editing_comparison">
-    
-        
+
+
             <a href="1.Editing_comparison.pdf"><img src="1.Editing_comparison.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Figure 1: Comparison for amplicon Reference; Left: Percentage of modified and unmodified reads in each sample; Right: relative percentage of modified and unmodified reads</label>
-    
+
         <p class="m-0"><small>Data: <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/Cas9.CRISPResso2_report.html">Cas9 output</a></small></p>
-    
+
         <p class="m-0"><small>Data: <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/Untreated.CRISPResso2_report.html">Untreated output</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Insertions locations</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_2.Insertions_quantification">
-    
-        
+
+
             <a href="2.Insertions_quantification.pdf"><img src="2.Insertions_quantification.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Insertions location comparison for amplicon Reference; Top: percent difference; Bottom: p-value.</label>
-    
+
         <p class="m-0"><small>Data: <a href="Insertions_quantification.txt">Insertions quantification</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Deletions locations</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_2.Deletions_quantification">
-    
-        
+
+
             <a href="2.Deletions_quantification.pdf"><img src="2.Deletions_quantification.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Deletions location comparison for amplicon Reference; Top: percent difference; Bottom: p-value.</label>
-    
+
         <p class="m-0"><small>Data: <a href="Deletions_quantification.txt">Deletions quantification</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Substitutions locations</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_2.Substitutions_quantification">
-    
-        
+
+
             <a href="2.Substitutions_quantification.pdf"><img src="2.Substitutions_quantification.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Substitutions location comparison for amplicon Reference; Top: percent difference; Bottom: p-value.</label>
-    
+
         <p class="m-0"><small>Data: <a href="Substitutions_quantification.txt">Substitutions quantification</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Combined modifications (insertions, deletions and substitutions) locations</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_2.All_modifications_quantification">
-    
-        
+
+
             <a href="2.All_modifications_quantification.pdf"><img src="2.All_modifications_quantification.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Combined modifications (insertions, deletions and substitutions) location comparison for amplicon Reference; Top: percent difference; Bottom: p-value.</label>
-    
+
         <p class="m-0"><small>Data: <a href="All_modifications_quantification.txt">Combined modifications (insertions, deletions and substitutions) quantification</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Alleles enriched in Cas9</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_3.Cas9.base_edit_Cs_quilt_top">
-    
-        
+
+
             <a href="3.Cas9.base_edit_Cs_quilt_top.pdf"><img src="3.Cas9.base_edit_Cs_quilt_top.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Distribution comparison of alleles. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site. The proportion and number of reads is shown for each sample on the right, with the values for Cas9 followed by the values for Untreated. Alleles are sorted for enrichment in Cas9.</label>
-    
+
         <p class="m-0"><small>Data: <a href="Cas9.base_edit_Cs_quilt.txt">Allele comparison table</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Alleles enriched in Untreated</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_3.Cas9.base_edit_Cs_quilt_bottom">
-    
-        
+
+
             <a href="3.Cas9.base_edit_Cs_quilt_bottom.pdf"><img src="3.Cas9.base_edit_Cs_quilt_bottom.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Distribution comparison of alleles. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site. The proportion and number of reads is shown for each sample on the right, with the values for Cas9 followed by the values for Untreated. Alleles are sorted for enrichment in Untreated.</label>
-    
+
         <p class="m-0"><small>Data: <a href="Cas9.base_edit_Cs_quilt.txt">Allele comparison table</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Alleles enriched in Cas9</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_3.Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC_top">
-    
-        
+
+
             <a href="3.Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC_top.pdf"><img src="3.Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC_top.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Distribution comparison of alleles. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site. The proportion and number of reads is shown for each sample on the right, with the values for Cas9 followed by the values for Untreated. Alleles are sorted for enrichment in Cas9.</label>
-    
+
         <p class="m-0"><small>Data: <a href="Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele comparison table</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Alleles enriched in Untreated</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_3.Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC_bottom">
-    
-        
+
+
             <a href="3.Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC_bottom.pdf"><img src="3.Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC_bottom.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Distribution comparison of alleles. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site. The proportion and number of reads is shown for each sample on the right, with the values for Cas9 followed by the values for Untreated. Alleles are sorted for enrichment in Untreated.</label>
-    
+
         <p class="m-0"><small>Data: <a href="Cas9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele comparison table</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
-          
 
-          
+
+
+
 
             <div align="center" class='p-3'>
-  
+
   <button class='btn btn-primary hidden-print' onclick='window.print();'><i class="fas fa-print"></i> Print</button>
 </div>
 
@@ -371,7 +371,7 @@
 </div>
 
 
-      
+
       <div class="row">
       <div class="col-sm-1"></div>
       <footer class="col-sm-10 crispresso_body_div screen-only py-5">
@@ -392,9 +392,9 @@
       </footer>
       <div class="col-sm-1"></div>
     </div>
-    
+
     </div>
-    
+
 
   </body>
 

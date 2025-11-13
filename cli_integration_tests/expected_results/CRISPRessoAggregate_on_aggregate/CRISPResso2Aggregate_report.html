@@ -12,7 +12,7 @@
     <style>
       body {
         font-family: 'Montserrat', sans-serif !important;
-      
+
       }
       @media (max-width:1015px)
       {
@@ -56,9 +56,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-    
+
     <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
-    
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -68,9 +68,9 @@
 
 
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-  
 
-<script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+
+<script src="https://cdn.plot.ly/plotly-3.0.0.min.js"></script>
 <style>
 .nav-tabs.amp-header {
   border-bottom:none !important;
@@ -117,16 +117,16 @@
   </head>
 
   <body class="m-2">
-    
 
-  
-  
+
+
+
   <div class="container">
       <div class="row pb-2">
         <div class="col-sm-1"></div>
-        
+
           <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
-        
+
           </div>
         <div class="col-sm-7" >
           <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
@@ -137,19 +137,19 @@
       </div>
 
 
-    
+
 
       <div id='top_help_div'>
         <div class="row">
           <div class="col-sm-1"></div>
           <div class='col-sm-10 pb-2 crispresso_body_div'>
-           
+
           </div>
           <div class="col-sm-1"></div>
         </div>
       </div>
 
-      
+
 <div class="row">
 <div class="col-sm-1"></div>
 <div class="col-sm-10">
@@ -157,150 +157,150 @@
 	<div class="jumbotron" style="background:rgba(0,0,0,0.0); padding:0px" >
 		<div id='jumbotron_content' >
 
-          
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>aggregate</h5>
               </div>
               <div class='card-body p-0'>
                 <div class="list-group list-group-flush" style='max-height:80vh;overflow-y:auto'>
-              
+
 	              <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/Cas9.CRISPResso2_report.html" class="list-group-item list-group-item-action">CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9</a>
-                  
+
 	              <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/Untreated.CRISPResso2_report.html" class="list-group-item list-group-item-action">CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated</a>
-                  
+
                 </div>
               </div>
             </div>
-            
 
-            
 
-          
+
+
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Nucleotide percentages around guides</h5>
               </div>
               <div class='card-body'>
-                
+
                     <h5></h5>
 		            <div id="fig_summary_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC">
-    
-        
+
+
             <a href="Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Composition of each base around the guide GGAATCCCTTCTGCAGCACC for the amplicon Reference</label>
-    
+
         <p class="m-0"><small>Data: <a href="Nucleotide_frequency_summary.txt">Reference nucleotide frequencies</a></small></p>
-    
+
         <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">Reference modification frequencies</a></small></p>
-    
+
     <br>
 </div>
-                
+
               </div>
             </div>
-          
 
-          
+
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Nucleotide percentages in the entire amplicon</h5>
               </div>
               <div class='card-body'>
-                
+
                     <h5></h5>
 		            <div id="fig_summary_Nucleotide_percentage_quilt">
-    
-        
+
+
             <a href="Nucleotide_percentage_quilt.pdf"><img src="Nucleotide_percentage_quilt.png" width='100%'></a>
-        
-    
+
+
     <label class="labelpadding">Composition of each base for the amplicon Reference</label>
-    
+
         <p class="m-0"><small>Data: <a href="Nucleotide_frequency_summary.txt">Reference nucleotide frequencies</a></small></p>
-    
+
         <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">Reference modification frequencies</a></small></p>
-    
+
     <br>
 </div>
-                
+
               </div>
             </div>
-          
 
-          
 
-          
 
-          
-            
+
+
+
+
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>CRISPRessoAggregate Mapping Statistics Summary</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_CRISPRessoAggregate_reads_summary">
-    
-        
+
+
             <a href="CRISPRessoAggregate_reads_summary.pdf"><img src="CRISPRessoAggregate_reads_summary.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Each bar shows the total number of reads in each sample. The vertical line shows the cutoff for analysis, set using the --min_reads_for_inclusion parameter.</label>
-    
+
         <p class="m-0"><small>Data: <a href="CRISPRessoAggregate_quantification_of_editing_frequency.txt">CRISPRessoAggregate summary</a></small></p>
-    
+
         <p class="m-0"><small>Data: <a href="CRISPRessoAggregate_quantification_of_editing_frequency_by_amplicon.txt">CRISPRessoAggregate summary by amplicon</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>CRISPRessoAggregate Modification Summary</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_CRISPRessoAggregate_quantification_of_editing_frequency">
-    
-        
+
+
             <a href="CRISPRessoAggregate_quantification_of_editing_frequency.pdf"><img src="CRISPRessoAggregate_quantification_of_editing_frequency.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Each bar shows the total number of reads aligned to each amplicon, divided into the reads that are modified and unmodified. The vertical line shows the cutoff for analysis, set using the --min_reads_for_inclusion parameter.</label>
-    
+
         <p class="m-0"><small>Data: <a href="CRISPRessoAggregate_quantification_of_editing_frequency.txt">CRISPRessoAggregate summary</a></small></p>
-    
+
         <p class="m-0"><small>Data: <a href="CRISPRessoAggregate_quantification_of_editing_frequency_by_amplicon.txt">CRISPRessoAggregate summary by amplicon</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
-          
 
-          
+
+
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>Summary Plots</h5>
               </div>
               <div class='card-body p-0'>
                 <div class="list-group list-group-flush" style='max-height:80vh;overflow-y:auto'>
-							  
+
 	              <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/Cas9.CRISPResso2_report.html" data-toggle="tooltip" title="CRISPRessoBatch_on_FANC_CRISPResso_on_Cas9 Reference" class="list-group-item list-group-item-action p-0"><img src="../CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/Cas9.2a.Nucleotide_percentage_quilt.png" width='100%' ></a>
-                  
+
 	              <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/Untreated.CRISPResso2_report.html" data-toggle="tooltip" title="CRISPRessoBatch_on_FANC_CRISPResso_on_Untreated Reference" class="list-group-item list-group-item-action p-0"><img src="../CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/Untreated.2a.Nucleotide_percentage_quilt.png" width='100%' ></a>
-                  
+
                 </div>
               </div>
             </div>
-            
+
 
             <div align="center" class='p-3'>
-  
+
   <button class='btn btn-primary hidden-print' onclick='window.print();'><i class="fas fa-print"></i> Print</button>
 </div>
 
@@ -313,7 +313,7 @@
 </div>
 
 
-      
+
       <div class="row">
       <div class="col-sm-1"></div>
       <footer class="col-sm-10 crispresso_body_div screen-only py-5">
@@ -334,9 +334,9 @@
       </footer>
       <div class="col-sm-1"></div>
     </div>
-    
+
     </div>
-    
+
 
   </body>
 

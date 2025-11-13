@@ -59,31 +59,6 @@
     
     <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
     
-        <div id="messages"></div>
-
-        <script>
-        function fetchAndUpdateMessage() {
-        fetch('https://crispresso.com/messages')
-            .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.text();
-            })
-            .then(data => {
-            const messageDiv = document.getElementById('messages');
-            if (messageDiv) {
-                messageDiv.innerHTML = data;
-            }
-            })
-            .catch(error => {});
-        }
-
-        // Call the function
-        fetchAndUpdateMessage();
-        </script>
-
-    
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -175,10 +150,35 @@
   </head>
 
   <body class="m-2">
+    
+        <div id="messages"></div>
 
+        <script>
+        function fetchAndUpdateMessage() {
+        fetch('https://crispresso.com/messages')
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+            })
+            .then(data => {
+            const messageDiv = document.getElementById('messages');
+            if (messageDiv) {
+                messageDiv.innerHTML = data;
+            }
+            })
+            .catch(error => {});
+        }
 
+        // Call the function
+        fetchAndUpdateMessage();
+        </script>
 
+    
 
+  
+  
   <div class="container">
       <div class="row pb-2">
         <div class="col-sm-1"></div>
@@ -247,7 +247,7 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-09-09 13:56:57</p>
+  <p><strong>Run completed:</strong> 2025-11-13 10:34:31</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT</pre></p>
   
   <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej_native_merge --crispresso_merge --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>

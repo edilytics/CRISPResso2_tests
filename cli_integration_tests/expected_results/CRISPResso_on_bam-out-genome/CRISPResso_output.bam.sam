@@ -1,4 +1,4 @@
-@HD	VN:1.5	SO:unsorted	GO:query
+@HD	VN:1.0	SO:unsorted
 @SQ	SN:chr9	LN:2160
 @SQ	SN:chr11	LN:2300
 @PG	ID:bowtie2	PN:bowtie2	VN:2.5.4	CL:"/Users/cole/mambaforge/envs/crispresso/bin/bowtie2-align-s --wrapper basic-0 -x inputs/small_genome/smallGenome -p 1 -f -U CRISPResso_on_bam-out-genome/CRISPResso_amplicons_to_align.fa"

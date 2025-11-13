@@ -12,7 +12,7 @@
     <style>
       body {
         font-family: 'Montserrat', sans-serif !important;
-      
+
       }
       @media (max-width:1015px)
       {
@@ -56,9 +56,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-    
+
     <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
-    
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -68,8 +68,8 @@
 
 
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-  
-<script src="https://cdn.plot.ly/plotly-2.11.1.min.js"></script>
+
+<script src="https://cdn.plot.ly/plotly-3.0.0.min.js"></script>
 <style>
 .nav-tabs.amp-header {
   border-bottom:none !important;
@@ -116,16 +116,16 @@
   </head>
 
   <body class="m-2">
-    
 
-  
-  
+
+
+
   <div class="container">
       <div class="row pb-2">
         <div class="col-sm-1"></div>
-        
+
           <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
-        
+
           </div>
         <div class="col-sm-7" >
           <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
@@ -136,19 +136,19 @@
       </div>
 
 
-    
+
 
       <div id='top_help_div'>
         <div class="row">
           <div class="col-sm-1"></div>
           <div class='col-sm-10 pb-2 crispresso_body_div'>
-           
+
           </div>
           <div class="col-sm-1"></div>
         </div>
       </div>
 
-      
+
 <div class="row">
 <div class="col-sm-1"></div>
 <div class="col-sm-10">
@@ -162,14 +162,14 @@
                 </div>
                 <div class="card-body p-0">
                     <div class="list-group list-group-flush">
-                        
+
                         <a href="CRISPResso_on_FANCF/CRISPResso2_report.html" class="list-group-item list-group-item-action" id="FANCF">FANCF</a>
-                        
+
                     </div>
                 </div>
             </div>
 
-            
+
 <div class='card text-center mb-2'>
     <div class="card-header bg-danger d-flex justify-content-center align-items-center" title="Click to expand all error messages" onclick="toggleAllDescriptions()">
     <!-- Center the title and button -->
@@ -181,17 +181,17 @@
 
     <div class='card-body p-0'>
       <div class="list-group list-group-flush" style="max-height: 25vh; overflow-y: scroll;">
-        
-        
+
+
         <a href="javascript:void(0)" class="list-group-item list-group-item-action failed-run-name bg-light text-dark"
         id="failed_run_0" title="Click to expand error message" onclick="toggleDescription(0)">
           HEK3
         </a>
-        
+
         <div class="list-group-item text-dark failed-run-desc" id="failed_run_desc_0" style="display: none;">
           CRISPResso failed for this region! Please check your input files and parameters.
         </div>
-        
+
       </div>
     </div>
 </div>
@@ -235,52 +235,52 @@
 </script>
 
 
-            
-            
+
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>CRISPRessoWGS Read Allocation Summary</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_CRISPRessoWGS_reads_summary">
-    
-        
+
+
             <a href="CRISPRessoWGS_reads_summary.pdf"><img src="CRISPRessoWGS_reads_summary.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Each bar shows the total number of reads allocated to each amplicon. The vertical line shows the cutoff for analysis, set using the --min_reads_to_use_region parameter.</label>
-    
+
         <p class="m-0"><small>Data: <a href="SAMPLES_QUANTIFICATION_SUMMARY.txt">CRISPRessoWGS summary</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
+
             <div class='card text-center mb-2'>
               <div class='card-header'>
                 <h5>CRISPRessoWGS Modification Summary</h5>
               </div>
               <div class='card-body' style='max-height:80vh;overflow-y:auto'>
 		        <div id="fig_summary_CRISPRessoWGS_modification_summary">
-    
-        
+
+
             <a href="CRISPRessoWGS_modification_summary.pdf"><img src="CRISPRessoWGS_modification_summary.png" width='70%'></a>
-        
-    
+
+
     <label class="labelpadding">Each bar shows the total number of reads aligned to each amplicon, divided into the reads that are modified and unmodified. The vertical line shows the cutoff for analysis, set using the --min_reads_to_use_region parameter.</label>
-    
+
         <p class="m-0"><small>Data: <a href="SAMPLES_QUANTIFICATION_SUMMARY.txt">CRISPRessoWGS summary</a></small></p>
-    
+
     <br>
 </div>
               </div>
             </div>
-            
-          
+
+
 
           <div align="center" class='p-3'>
-  
+
   <button class='btn btn-primary hidden-print' onclick='window.print();'><i class="fas fa-print"></i> Print</button>
 </div>
 	</div>  <!-- end jumbotron_content -->
@@ -292,7 +292,7 @@
 </div>
 
 
-      
+
       <div class="row">
       <div class="col-sm-1"></div>
       <footer class="col-sm-10 crispresso_body_div screen-only py-5">
@@ -313,9 +313,9 @@
       </footer>
       <div class="col-sm-1"></div>
     </div>
-    
+
     </div>
-    
+
 
   </body>
 
