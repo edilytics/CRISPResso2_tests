@@ -23,7 +23,7 @@ FASTP_PLOTLY_IMPORT = re.compile(r'https?://opengene.org/plotly-1.2.0.min.js')
 SAM_HEADER_BOWTIE_VERSION_REGEXP = re.compile(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:.*')
 SAM_HEADER_REGEXP = re.compile(r'@HD\tVN:.*')
 IGNORE_FILES_REGEXP = re.compile(r'.*CRISPResso.*_RUNNING_LOG.txt')
-WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
+WARNING_FILE_REGEXP = re.compile(r'((CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?)|fastp)_report.html')
 
 
 def which(program):
