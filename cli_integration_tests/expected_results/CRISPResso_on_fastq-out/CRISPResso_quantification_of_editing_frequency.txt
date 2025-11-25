@@ -1,0 +1,3 @@
+Amplicon	Unmodified%	Modified%	Reads_in_input	Reads_aligned_all_amplicons	Reads_aligned	Unmodified	Modified	Discarded	Insertions	Deletions	Substitutions	Only Insertions	Only Deletions	Only Substitutions	Insertions and Deletions	Insertions and Substitutions	Deletions and Substitutions	Insertions Deletions and Substitutions
+Reference	71.42857143	28.57142857	15	14	7	5	2	0	1	1	0	1	1	0	0	0	0	0
+Amplicon1	85.71428571	14.28571429	15	14	7	6	1	0	0	1	0	0	1	0	0	0	0	0

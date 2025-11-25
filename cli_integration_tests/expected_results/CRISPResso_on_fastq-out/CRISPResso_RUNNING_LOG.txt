@@ -1,0 +1,66 @@
+CRISPResso version 2.3.3
+[Command used]:
+/home/trevormartinj7/micromamba/envs/crispresso2environment/bin/CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --fastq_output --halt_on_plot_fail --debug -n fastq-out --place_report_in_output_folder
+
+[Execution log]:
+CRISPRessoPro not installed
+Writing fastq output file: CRISPResso_on_fastq-out/CRISPResso_output.fastq.gz
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Counting reads in input
+Counting reads after preprocessing...
+Aligning sequences...
+Finished reading fastq file; 15 unique reads found of 15 total reads found 
+Processing Reads; 0 Completed out of 15 Unique Reads
+Finished reads; N_TOT_READS: 15 N_COMPUTED_ALN: 14 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 1 N_CACHED_NOTALN: 0
+Reads processed, now annotating fastq_output file: CRISPResso_on_fastq-out/CRISPResso_output.fastq.gz
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Done!
+Begin processing plots for amplicon Amplicon1
+Plotting nucleotide quilt across amplicon
+Plotting indel size distribution for Amplicon1
+Plotting frequency deletions/insertions for Amplicon1
+Plotting amplication modifications for Amplicon1
+Plotting modification frequency for Amplicon1
+Plotting quantification window locations for Amplicon1
+Plotting position dependent indel for Amplicon1
+Done!
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 15.
+ Disproportionate percentages of reads were aligned to amplicon: Reference, Percent of aligned reads aligned to this amplicon: 46.67%.
+ Disproportionate percentages of reads were aligned to amplicon: Amplicon1, Percent of aligned reads aligned to this amplicon: 46.67%.
+ >=1.0% of reads have modifications at the start or end. Total reads: 14, Irregular reads: 8.
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
+Analysis Complete!
