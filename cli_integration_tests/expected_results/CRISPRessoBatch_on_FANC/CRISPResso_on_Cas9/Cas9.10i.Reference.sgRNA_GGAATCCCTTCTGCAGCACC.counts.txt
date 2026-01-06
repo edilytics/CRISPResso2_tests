@@ -1,0 +1,2 @@
+Reference.sgRNA_GGAATCCCTTCTGCAGCACC	Reference.sgRNA_GGAATCCCTTCTGCAGCACC_indels	Target	Target_indels	other	other_indels
+174	15	0	3	4	39

@@ -57,10 +57,10 @@
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
     
-    <link rel="shortcut icon" href="http://crispresso.pinellolab.org/static/favicon.ico" />
+    <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
     
 
-    <!-- Optional JavaScript -->  
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
@@ -151,6 +151,31 @@
 
   <body class="m-2">
     
+        <div id="messages"></div>
+
+        <script>
+        function fetchAndUpdateMessage() {
+        fetch('https://crispresso.com/messages')
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+            })
+            .then(data => {
+            const messageDiv = document.getElementById('messages');
+            if (messageDiv) {
+                messageDiv.innerHTML = data;
+            }
+            })
+            .catch(error => {});
+        }
+
+        // Call the function
+        fetchAndUpdateMessage();
+        </script>
+
+    
 
   
   
@@ -158,11 +183,11 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
         
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
         
           </div>
         <div class="col-sm-7" >
-          <a href="https://crispresso2.pinellolab.org" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
+          <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
           <h3 style="margin-top: -0.5em;padding-right: 2em;">Analysis of genome editing outcomes from deep sequencing data</h3>
         </div>
         <div class="col-sm-1">
@@ -204,7 +229,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 113, Substitutions outside window: 97.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 223.0, Substitutions: 113.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 223, Substitutions: 113.</div>
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Guide length <19: CCCACTGCAAGGCCC, Length: 15.</div>
 	
@@ -223,6 +248,7 @@
 					<div class='tab-content'>
 						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
 							<div id="fig_plot_1a" class="d-flex flex-column">
+    
     <a href="1a.Read_barplot.pdf"><img src="1a.Read_barplot.png" width='40%'></a>
         
             <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
@@ -230,13 +256,13 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-09-27 13:21:38</p>
+  <p><strong>CRISPResso version:</strong> 2.3.3</p>
+  <p><strong>Run completed:</strong> 2025-12-22 13:23:57</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --base_editor_consider_changes_outside_qw --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -250,18 +276,22 @@ auto: False
 bam_chr_loc: 
 bam_input: 
 bam_output: False
+base_editor_consider_changes_outside_qw: True
 base_editor_output: True
+base_editor_target_ref_skip_allele_count: 0
 bowtie2_index: 
 coding_seq: GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT
 config_file: None
 conversion_nuc_from: C
 conversion_nuc_to: T
 crispresso1_mode: False
+crispresso_merge: False
 debug: True
 default_min_aln_score: 80
 disable_guardrails: False
 discard_guide_positions_overhanging_amplicon_edge: False
 discard_indel_reads: False
+display_name: 
 dsODN: GCTAGATTTCCCAAGAAGA
 dump: True
 exclude_bp_from_left: 15
@@ -320,6 +350,7 @@ prime_editing_pegRNA_spacer_seq:
 quantification_window_center: -3
 quantification_window_coordinates: 20-30_45-50
 quantification_window_size: 1
+samtools_exclude_flags: 0
 save_also_png: False
 split_interleaved_input: False
 stringent_flash_merging: False
@@ -363,6 +394,7 @@ zip_output: False</pre></p>
 					<div class="tab-content" id="tabContent">
 						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
 							<div id="fig_plot_1b" class="d-flex flex-column">
+    
     <a href="1b.Alignment_pie_chart.pdf"><img src="1b.Alignment_pie_chart.png" width='40%'></a>
         
             <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles. NHEJ reads align more closely to the unmodified reference sequence, but have mutations present in the specified quantification window. HDR reads align to the HDR reference sequence and have no mutations in the specified quantification window. Imperfect HDR reads have mutations in the specified window. AMBIGUOUS reads align equally well to the unmodified and HDR reference sequences.</label>
@@ -371,6 +403,7 @@ zip_output: False</pre></p>
 						</div>
 						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
 							<div id="fig_plot_1c" class="d-flex flex-column">
+    
     <a href="1c.Alignment_barplot.pdf"><img src="1c.Alignment_barplot.png" width='40%'></a>
         
             <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
@@ -380,6 +413,7 @@ zip_output: False</pre></p>
     						
 						<div class="tab-pane fade" id="aln_dsODN" role="tabpanel" aria-labelledby="aln_dsODN-tab">
 							<div id="fig_plot_1d" class="d-flex flex-column">
+    
     <a href="1d.Detection_of_dsODN.pdf"><img src="1d.Detection_of_dsODN.png" width='40%'></a>
         
             <label class="labelpadding">Figure 1d: Frequency of detection of dsODN GCTAGATTTCCCAAGAAGA</label>
@@ -398,6 +432,7 @@ zip_output: False</pre></p>
 				</div>
 				<div class='card-body'>
 					<div id="fig_plot_5a" class="d-flex flex-column">
+    
     <a href="5a.Global_frameshift_in-frame_mutations_pie_chart.pdf"><img src="5a.Global_frameshift_in-frame_mutations_pie_chart.png" width='40%'></a>
         
             <label class="labelpadding">Figure 5a: Frameshift analysis of coding sequence reads affected by modifications for all reads. Unmodified reference reads are excluded from this plot, and all HDR reads are included in this plot.</label>
@@ -430,6 +465,7 @@ zip_output: False</pre></p>
 				</div>
 				<div class='card-body'>
 					<div id="fig_plot_8a" class="d-flex flex-column">
+    
     <a href="8a.Global_potential_splice_sites_pie_chart.pdf"><img src="8a.Global_potential_splice_sites_pie_chart.png" width='40%'></a>
         
             <label class="labelpadding">Figure 8a: Predicted impact on splice sites for all reads. Potential splice sites modified refers to reads in which the either of the two intronic positions adjacent to exon junctions are disrupted.</label>
@@ -531,7 +567,7 @@ zip_output: False</pre></p>
 								
 									<p class="m-0"><small>Data: <a href="FANC.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
 								
-																
+								
 								
   									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
@@ -579,6 +615,7 @@ zip_output: False</pre></p>
 									
   						  			<div class="tab-pane fade show active" id="FANC_3a" role="tabpanel">
 							  			<div id="fig_plot_3a" class="d-flex flex-column">
+    
     <a href="3a.FANC.Indel_size_distribution.pdf"><img src="3a.FANC.Indel_size_distribution.png" width='40%'></a>
         <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
             <p class="m-0"><small>Data: <a href="FANC.Indel_histogram.txt">Indel histogram</a></small></p>
@@ -644,6 +681,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="FANC_4a" role="tabpanel">
 										<div id="fig_plot_4a" class="d-flex flex-column">
+    
     <a href="4a.FANC.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.FANC.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
 </div>
@@ -652,6 +690,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade show active" id="FANC_4b" role="tabpanel">
 										<div id="fig_plot_4b" class="d-flex flex-column">
+    
     <a href="4b.FANC.Insertion_deletion_substitution_locations.pdf"><img src="4b.FANC.Insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</label>
             <p class="m-0"><small>Data: <a href="HDR.Modification_count_vectors.txt">Modification frequency</a></small></p>
@@ -661,6 +700,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="FANC_4c" role="tabpanel">
 										<div id="fig_plot_4c" class="d-flex flex-column">
+    
     <a href="4c.FANC.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.FANC.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</label>
             <p class="m-0"><small>Data: <a href="HDR.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
@@ -680,6 +720,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="FANC_4e" role="tabpanel">
 										<div id="fig_plot_4e" class="d-flex flex-column">
+    
     <a href="4e.FANC.Global_mutations_in_all_reads.pdf"><img src="4e.FANC.Global_mutations_in_all_reads.png" width='40%'></a>
         <label class="labelpadding">Figure 4e: Positions of modifications in all reads when aligned to the reference sequence (FANC). Insertions: red, deletions: purple, substitutions: green. All modifications (including those outside the quantification window) are shown.</label>
 </div>
@@ -689,6 +730,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="FANC_4f" role="tabpanel">
 										<div id="fig_plot_4f" class="d-flex flex-column">
+    
     <a href="4f.FANC.Global_mutations_in_HDR_reads_with_reference_to_FANC.pdf"><img src="4f.FANC.Global_mutations_in_HDR_reads_with_reference_to_FANC.png" width='40%'></a>
         <label class="labelpadding">Figure 4f: Positions of modifications in HDR reads with respect to the reference sequence (FANC). All modifications (including those outside the quantification window) are shown.</label>
 </div>
@@ -727,6 +769,7 @@ zip_output: False</pre></p>
 							</div>
   							<div class='card-body'>
 								<div id="fig_plot_7" class="d-flex flex-column">
+    
     <a href="7.FANC.Insertion_deletion_substitution_locations_noncoding.pdf"><img src="7.FANC.Insertion_deletion_substitution_locations_noncoding.png" width='40%'></a>
         <label class="labelpadding">Figure 7: Reads with insertions, deletions, and substitutions mapped to reference amplicon position exclusively in noncoding region/s (that is, without mutations affecting coding sequences). The predicted cleavage site is indicated by a vertical dashed line. Only sequence positions directly adjacent to insertions or directly affected by deletions or substitutions are plotted.</label>
 </div>
@@ -743,6 +786,7 @@ zip_output: False</pre></p>
 							</div>
   							<div class='card-body'>
 								<div id="fig_plot_8" class="d-flex flex-column">
+    
     <a href="8.FANC.Potential_splice_sites_pie_chart.pdf"><img src="8.FANC.Potential_splice_sites_pie_chart.png" width='40%'></a>
         <label class="labelpadding">Figure 8: Predicted impact on splice sites. Potential splice sites modified refers to reads in which the either of the two intronic positions adjacent to exon junctions are disrupted.</label>
 </div>
@@ -786,6 +830,31 @@ zip_output: False</pre></p>
 							</div>
 						</div>
 						
+						
+						<div class='card text-center mb-2 breakinpage'>
+							<div class='card-header'>
+								
+  								<h5>Amino Acid plot for FANC</h5>
+								
+							</div>
+							<div class='card-body'>
+								
+                  				<div class='mb-4'>
+					  				<div id="fig_plot_9a_0" class="d-flex flex-column">
+    
+        
+        
+            
+            
+        <a href="9a.FANC.amino_acid_table_around_GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT.pdf"><img src="9a.FANC.amino_acid_table_around_GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT.png" width='52.5%'></a>
+        <label class="labelpadding">Figure 9a: Visualization of the distribution of identified amino acids based on the coding sequence (GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT). The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="FANC.amino_acid_table_for_GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT.txt">Amino Acid table</a></small></p>
+</div>
+                				</div>
+								
+							</div>
+						</div>
+						
 
 						
   						<div class='card text-center mb-2 breakinpage'>
@@ -814,6 +883,12 @@ zip_output: False</pre></p>
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#FANC_10f" role="tab" aria-controls="FANC_10f" aria-selected="false">Non-reference Bases</button>
   						  			</li>
             						
+                  
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#FANC_10h" role="tab" aria-controls="FANC_10h" aria-selected="false">Base Edit Quilt</button>
+  						  			</li>
+            						
+									
   								</ul>
 							</div>
 							<div class='card-body'>
@@ -841,8 +916,10 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="FANC.Quantification_window_substitution_frequency_table.txt">Nucleotide frequencies in quantification window</a></small></p>
 </div>
 										</div>
-                                        
+										
 									</div>
+
+									
 
 									
 									<div class="tab-pane fade" id="FANC_10d" role="tabpanel">
@@ -952,6 +1029,23 @@ zip_output: False</pre></p>
                     					</div>
 										
 									</div>
+                  
+									<div class="tab-pane fade" id="FANC_10h" role="tabpanel">
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h" class="d-flex flex-column">
+    <a href="10h.FANC.base_edit_Cs_quilt.pdf"><img src="10h.FANC.base_edit_Cs_quilt.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of target nucleotide: C across entire amplicon. The x-axis shows the corresponding position of the nucleotide in the reference amplicon (1-indexed). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences.</label>
+            <p class="m-0"><small>Data: <a href="FANC.base_edit_Cs_quilt.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+									</div>
+									
+
+									
+									<div class="tab-pane fade" id="FANC_10i" role="tabpanel">
+                    
+									</div>
+									
 								</div>
 							
 							</div>
@@ -991,7 +1085,7 @@ zip_output: False</pre></p>
 								
 									<p class="m-0"><small>Data: <a href="HDR.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
 								
-																
+								
 								
   									
 									<div id="fig_plot_2b_0" class="d-flex flex-column">
@@ -1039,6 +1133,7 @@ zip_output: False</pre></p>
 									
   						  			<div class="tab-pane fade show active" id="HDR_3a" role="tabpanel">
 							  			<div id="fig_plot_3a" class="d-flex flex-column">
+    
     <a href="3a.HDR.Indel_size_distribution.pdf"><img src="3a.HDR.Indel_size_distribution.png" width='40%'></a>
         <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
             <p class="m-0"><small>Data: <a href="HDR.Indel_histogram.txt">Indel histogram</a></small></p>
@@ -1096,6 +1191,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="HDR_4a" role="tabpanel">
 										<div id="fig_plot_4a" class="d-flex flex-column">
+    
     <a href="4a.HDR.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.HDR.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
 </div>
@@ -1104,6 +1200,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade show active" id="HDR_4b" role="tabpanel">
 										<div id="fig_plot_4b" class="d-flex flex-column">
+    
     <a href="4b.HDR.Insertion_deletion_substitution_locations.pdf"><img src="4b.HDR.Insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</label>
             <p class="m-0"><small>Data: <a href="HDR.Modification_count_vectors.txt">Modification frequency</a></small></p>
@@ -1113,6 +1210,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="HDR_4c" role="tabpanel">
 										<div id="fig_plot_4c" class="d-flex flex-column">
+    
     <a href="4c.HDR.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.HDR.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</label>
             <p class="m-0"><small>Data: <a href="HDR.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
@@ -1179,6 +1277,7 @@ zip_output: False</pre></p>
 							</div>
   							<div class='card-body'>
 								<div id="fig_plot_7" class="d-flex flex-column">
+    
     <a href="7.HDR.Insertion_deletion_substitution_locations_noncoding.pdf"><img src="7.HDR.Insertion_deletion_substitution_locations_noncoding.png" width='40%'></a>
         <label class="labelpadding">Figure 7: Reads with insertions, deletions, and substitutions mapped to reference amplicon position exclusively in noncoding region/s (that is, without mutations affecting coding sequences). The predicted cleavage site is indicated by a vertical dashed line. Only sequence positions directly adjacent to insertions or directly affected by deletions or substitutions are plotted.</label>
 </div>
@@ -1195,6 +1294,7 @@ zip_output: False</pre></p>
 							</div>
   							<div class='card-body'>
 								<div id="fig_plot_8" class="d-flex flex-column">
+    
     <a href="8.HDR.Potential_splice_sites_pie_chart.pdf"><img src="8.HDR.Potential_splice_sites_pie_chart.png" width='40%'></a>
         <label class="labelpadding">Figure 8: Predicted impact on splice sites. Potential splice sites modified refers to reads in which the either of the two intronic positions adjacent to exon junctions are disrupted.</label>
 </div>
@@ -1238,6 +1338,31 @@ zip_output: False</pre></p>
 							</div>
 						</div>
 						
+						
+						<div class='card text-center mb-2 breakinpage'>
+							<div class='card-header'>
+								
+  								<h5>Amino Acid plot for HDR</h5>
+								
+							</div>
+							<div class='card-body'>
+								
+                  				<div class='mb-4'>
+					  				<div id="fig_plot_9a_0" class="d-flex flex-column">
+    
+        
+        
+            
+            
+        <a href="9a.HDR.amino_acid_table_around_GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT.pdf"><img src="9a.HDR.amino_acid_table_around_GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT.png" width='52.5%'></a>
+        <label class="labelpadding">Figure 9a: Visualization of the distribution of identified amino acids based on the coding sequence (GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT). The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="HDR.amino_acid_table_for_GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT.txt">Amino Acid table</a></small></p>
+</div>
+                				</div>
+								
+							</div>
+						</div>
+						
 
 						
   						<div class='card text-center mb-2 breakinpage'>
@@ -1266,6 +1391,12 @@ zip_output: False</pre></p>
 						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10f" role="tab" aria-controls="HDR_10f" aria-selected="false">Non-reference Bases</button>
   						  			</li>
             						
+                  
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10h" role="tab" aria-controls="HDR_10h" aria-selected="false">Base Edit Quilt</button>
+  						  			</li>
+            						
+									
   								</ul>
 							</div>
 							<div class='card-body'>
@@ -1293,8 +1424,10 @@ zip_output: False</pre></p>
             <p class="m-0"><small>Data: <a href="HDR.Quantification_window_substitution_frequency_table.txt">Nucleotide frequencies in quantification window</a></small></p>
 </div>
 										</div>
-                                        
+										
 									</div>
+
+									
 
 									
 									<div class="tab-pane fade" id="HDR_10d" role="tabpanel">
@@ -1404,6 +1537,23 @@ zip_output: False</pre></p>
                     					</div>
 										
 									</div>
+                  
+									<div class="tab-pane fade" id="HDR_10h" role="tabpanel">
+                      <div class='mb-4'>
+                      <div id="fig_plot_10h" class="d-flex flex-column">
+    <a href="10h.HDR.base_edit_Cs_quilt.pdf"><img src="10h.HDR.base_edit_Cs_quilt.png" width='100%'></a>
+        <label class="labelpadding">Figure 10h: Quilt of target nucleotide: C across entire amplicon. The x-axis shows the corresponding position of the nucleotide in the reference amplicon (1-indexed). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences.</label>
+            <p class="m-0"><small>Data: <a href="HDR.base_edit_Cs_quilt.txt">Allele frequency table</a></small></p>
+</div>
+                      </div>
+									</div>
+									
+
+									
+									<div class="tab-pane fade" id="HDR_10i" role="tabpanel">
+                    
+									</div>
+									
 								</div>
 							
 							</div>

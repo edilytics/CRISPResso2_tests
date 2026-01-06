@@ -1,2 +1,2 @@
 Amplicon	Unmodified%	Modified%	Reads_in_input	Reads_aligned_all_amplicons	Reads_aligned	Unmodified	Modified	Discarded	Insertions	Deletions	Substitutions	Only Insertions	Only Deletions	Only Substitutions	Insertions and Deletions	Insertions and Substitutions	Deletions and Substitutions	Insertions Deletions and Substitutions
-Reference	15.10538642	84.89461358	3415	3416	3416	516	2900	0	0	0	2900	0	0	2900	0	0	0	0
+Reference	15.10538642	84.89461358	3416	3416	3416	516	2900	0	0	0	2900	0	0	2900	0	0	0	0

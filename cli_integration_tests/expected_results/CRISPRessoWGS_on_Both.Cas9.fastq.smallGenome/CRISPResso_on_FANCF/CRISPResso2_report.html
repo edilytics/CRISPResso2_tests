@@ -57,10 +57,10 @@
 
     <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
     
-    <link rel="shortcut icon" href="http://crispresso.pinellolab.org/static/favicon.ico" />
+    <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
     
 
-    <!-- Optional JavaScript -->  
+    <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
@@ -151,6 +151,31 @@
 
   <body class="m-2">
     
+        <div id="messages"></div>
+
+        <script>
+        function fetchAndUpdateMessage() {
+        fetch('https://crispresso.com/messages')
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+            })
+            .then(data => {
+            const messageDiv = document.getElementById('messages');
+            if (messageDiv) {
+                messageDiv.innerHTML = data;
+            }
+            })
+            .catch(error => {});
+        }
+
+        // Call the function
+        fetchAndUpdateMessage();
+        </script>
+
+    
 
   
   
@@ -158,11 +183,11 @@
       <div class="row pb-2">
         <div class="col-sm-1"></div>
         
-          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso2.pinellolab.org'><img class='img-fluid' src="https://crispresso.pinellolab.partners.org/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
         
           </div>
         <div class="col-sm-7" >
-          <a href="https://crispresso2.pinellolab.org" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
+          <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
           <h3 style="margin-top: -0.5em;padding-right: 2em;">Analysis of genome editing outcomes from deep sequencing data</h3>
         </div>
         <div class="col-sm-1">
@@ -200,7 +225,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 51, Substitutions outside window: 50.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 93.0, Substitutions: 51.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 115, Substitutions: 51.</div>
 	
 
 					<h5>CRISPResso2 run information</h5>
@@ -217,6 +242,7 @@
 					<div class='tab-content'>
 						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
 							<div id="fig_plot_1a" class="d-flex flex-column">
+    
     <a href="1a.Read_barplot.pdf"><img src="1a.Read_barplot.png" width='40%'></a>
         
             <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
@@ -224,11 +250,11 @@
 </div>
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
-  <p><strong>CRISPResso version:</strong> 2.3.2</p>
-  <p><strong>Run completed:</strong> 2024-09-27 15:01:52</p>
+  <p><strong>CRISPResso version:</strong> 2.3.3</p>
+  <p><strong>Run completed:</strong> 2025-11-25 14:13:39</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz -a AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA -o CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --name FANCF --needleman_wunsch_gap_extend -2 --exclude_bp_from_right 15 --prime_editing_gap_open_penalty -50 --n_processes 1 --fastp_command fastp --needleman_wunsch_gap_open -20 --flexiguide_gap_extend_penalty -2 --aln_seed_len 10 --debug --plot_window_size 20 --flexiguide_seq None --min_average_read_quality 0 --flash_command None --quantification_window_size 1 --verbosity 3 --aln_seed_min 2 --prime_editing_gap_extend_penalty 0 --exclude_bp_from_left 15 --trimmomatic_command None --max_paired_end_reads_overlap None --min_paired_end_reads_overlap 10 --needleman_wunsch_gap_incentive 1 --aln_seed_count 5 --conversion_nuc_from C --prime_editing_pegRNA_scaffold_min_match_length 1 --min_frequency_alleles_around_cut_to_plot 0.2 --default_min_aln_score 60 --flexiguide_gap_open_penalty -20 --quantification_window_center -3 --needleman_wunsch_aln_matrix_loc EDNAFULL --config_file None --place_report_in_output_folder --conversion_nuc_to T --min_single_bp_quality 0 --min_bp_quality_or_N 0 --max_rows_alleles_around_cut_to_plot 50 --prime_editing_pegRNA_extension_quantification_window_size 5 --flexiguide_homology 80</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso --fastq_r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_FANCF.fastq.gz --amplicon_seq AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA --name FANCF --output_folder CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --place_report_in_output_folder --debug --halt_on_plot_fail</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -242,18 +268,22 @@ auto: False
 bam_chr_loc: 
 bam_input: 
 bam_output: False
+base_editor_consider_changes_outside_qw: False
 base_editor_output: False
+base_editor_target_ref_skip_allele_count: 0
 bowtie2_index: 
 coding_seq: 
 config_file: None
 conversion_nuc_from: C
 conversion_nuc_to: T
 crispresso1_mode: False
+crispresso_merge: False
 debug: True
 default_min_aln_score: 60
 disable_guardrails: False
 discard_guide_positions_overhanging_amplicon_edge: False
 discard_indel_reads: False
+display_name: 
 dsODN: 
 dump: False
 exclude_bp_from_left: 15
@@ -264,7 +294,7 @@ expected_hdr_amplicon_seq:
 fastp_command: fastp
 fastp_options_string: 
 fastq_output: False
-fastq_r1: CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_1.fastq.gz
+fastq_r1: CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_FANCF.fastq.gz
 fastq_r2: 
 file_prefix: 
 flash_command: None
@@ -312,6 +342,7 @@ prime_editing_pegRNA_spacer_seq:
 quantification_window_center: -3
 quantification_window_coordinates: None
 quantification_window_size: 1
+samtools_exclude_flags: 0
 save_also_png: False
 split_interleaved_input: False
 stringent_flash_merging: False
@@ -351,6 +382,7 @@ zip_output: False</pre></p>
 					<div class="tab-content" id="tabContent">
 						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
 							<div id="fig_plot_1b" class="d-flex flex-column">
+    
     <a href="1b.Alignment_pie_chart.pdf"><img src="1b.Alignment_pie_chart.png" width='40%'></a>
         
             <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
@@ -359,6 +391,7 @@ zip_output: False</pre></p>
 						</div>
 						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
 							<div id="fig_plot_1c" class="d-flex flex-column">
+    
     <a href="1c.Alignment_barplot.pdf"><img src="1c.Alignment_barplot.png" width='40%'></a>
         
             <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
@@ -432,7 +465,7 @@ zip_output: False</pre></p>
 								
 									<p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
 								
-																
+								
 								
   									
 								
@@ -462,6 +495,7 @@ zip_output: False</pre></p>
 									
   						  			<div class="tab-pane fade show active" id="Reference_3a" role="tabpanel">
 							  			<div id="fig_plot_3a" class="d-flex flex-column">
+    
     <a href="3a.Indel_size_distribution.pdf"><img src="3a.Indel_size_distribution.png" width='40%'></a>
         <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
             <p class="m-0"><small>Data: <a href="Indel_histogram.txt">Indel histogram</a></small></p>
@@ -519,6 +553,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="Reference_4a" role="tabpanel">
 										<div id="fig_plot_4a" class="d-flex flex-column">
+    
     <a href="4a.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
 </div>
@@ -527,6 +562,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade show active" id="Reference_4b" role="tabpanel">
 										<div id="fig_plot_4b" class="d-flex flex-column">
+    
     <a href="4b.Insertion_deletion_substitution_locations.pdf"><img src="4b.Insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</label>
             <p class="m-0"><small>Data: <a href="Modification_count_vectors.txt">Modification frequency</a></small></p>
@@ -536,6 +572,7 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="Reference_4c" role="tabpanel">
 										<div id="fig_plot_4c" class="d-flex flex-column">
+    
     <a href="4c.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
         <label class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</label>
             <p class="m-0"><small>Data: <a href="Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
@@ -568,6 +605,7 @@ zip_output: False</pre></p>
 
 						
 
+						
 						
 
 						 
