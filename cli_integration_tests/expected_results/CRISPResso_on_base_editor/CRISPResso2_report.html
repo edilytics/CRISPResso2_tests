@@ -227,7 +227,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 208, Irregular reads: 208.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 113, Substitutions outside window: 109.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 113, Substitutions outside window: 107.</div>
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 223, Substitutions: 113.</div>
 	
@@ -257,12 +257,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-11-25 12:36:29</p>
+  <p><strong>Run completed:</strong> 2025-12-22 14:36:33</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -1423,10 +1423,6 @@ zip_output: False</pre></p>
   						  			</li>
             						
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10i" role="tab" aria-controls="HDR_10i" aria-selected="false">Substitution Co-occurences</button>
-  						  			</li>
-            						
   								</ul>
 							</div>
 							<div class='card-body'>
@@ -1582,14 +1578,6 @@ zip_output: False</pre></p>
 									
 									<div class="tab-pane fade" id="HDR_10i" role="tabpanel">
                     
-                      <div class='mb-4'>
-                      <div id="fig_plot_10i_HDR" class="d-flex flex-column">
-    <a href="10i.Base_editing_HDR_upset_plot.by_amplicon_combination.no_indels_hi.pdf"><img src="10i.Base_editing_HDR_upset_plot.by_amplicon_combination.no_indels_hi.png" width='70%'></a>
-        <label class="labelpadding">Figure 10i: Upset plot of Base Edits for C around cut site for hi (GGAATCCCTTCTGCAGCACC). Each dot matrix at the bottom represents a specific combination of base edits (colored by target position), and the bar plot at the top shows the number of reads with each combination.</label>
-            <p class="m-0"><small>Data: <a href="10i.HDR.hi.binary_allele_counts.txt">Binary Allele Counts</a></small></p>
-</div>
-                      </div>
-										
 									</div>
 									
 								</div>

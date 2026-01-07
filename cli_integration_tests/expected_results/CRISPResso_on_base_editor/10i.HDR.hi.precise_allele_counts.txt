@@ -1,5 +1,3 @@
-(92, 'C', 'A')	(93, 'A', 'CCTGGATC')	has_indel	count
-C	A	False	9
-G	ATC	False	4
-C	-	False	2
-C	-	True	1
+	has_indel	count
+	False	15
+	True	1
