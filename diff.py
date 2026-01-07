@@ -17,8 +17,6 @@ DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 COMMAND_HTML_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
 COMMAND_LOG_REGEXP = re.compile(r'[\S]*/CRISPResso.*')
 OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPResso[\S]*')
-FASTP_TIMESTAMP_REGEXP = re.compile(r'fastp (report|\d+\.\d+\.\d,) at \d{4}-\d{2}-\d{2} +\d{2}:\d{2}:\d{2}')
-FASTP_PLOTLY_IMPORT = re.compile(r'https?://opengene.org/plotly-1.2.0.min.js')
 SAM_HEADER_BOWTIE_VERSION_REGEXP = re.compile(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:.*')
 SAM_HEADER_REGEXP = re.compile(r'@HD\tVN:.*')
 IGNORE_FILES = frozenset([
@@ -27,6 +25,7 @@ IGNORE_FILES = frozenset([
     'CRISPRessoPooled_RUNNING_LOG.txt',
     'CRISPRessoWGS_RUNNING_LOG.txt',
     'CRISPRessoCompare_RUNNING_LOG.txt',
+    'fastp_report.html',
 ])
 WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
 
@@ -88,8 +87,6 @@ def substitute_line(line):
     line = COMMAND_HTML_REGEXP.sub('<p>Command used: <command></p>', line)
     line = COMMAND_LOG_REGEXP.sub('CRISPResso <parameters>', line)
     line = OUTPUT_REGEXP.sub('CRISPResso2_tests/cli_integration_tests/CRISPResso', line)
-    line = FASTP_TIMESTAMP_REGEXP.sub('fastp report at 2024-01-11 12:34:56', line)
-    line = FASTP_PLOTLY_IMPORT.sub('http://opengene.org/plotly-1.2.0.min.js', line)
     line = SAM_HEADER_BOWTIE_VERSION_REGEXP.sub(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:2.5.4\tCL:bowtie2-align-s <parameters>', line)
     line = SAM_HEADER_REGEXP.sub(r'@HD\tVN:1.0\tSO:unsorted', line)
     return line
