@@ -1,0 +1,1 @@
+[{"sequence": "GACATACATACA", "homology_score": 100.0, "count": 1}, {"sequence": "GACATACAGACA", "homology_score": 91.667, "count": 1}]
