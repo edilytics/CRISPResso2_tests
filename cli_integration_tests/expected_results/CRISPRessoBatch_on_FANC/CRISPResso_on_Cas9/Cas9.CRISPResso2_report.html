@@ -233,6 +233,9 @@
 						<li class="nav-item">
 						<button class="nav-link active" id="log_aln-tab" data-bs-toggle="tab" data-bs-target="#log_aln" role="tab" aria-controls="log_aln" aria-selected="true">Alignment statistics</button>
 						</li>
+            <li class="nav-item">
+						<button class="nav-link" id="aln_dist-tab" data-bs-toggle="tab" data-bs-target="#aln_dist" role="tab" aria-controls="aln_dist" aria-selected="true">Alignment Distribution</button>
+						</li>
 						<li class="nav-item">
 						<button class="nav-link" id="log_params-tab" data-bs-toggle="tab" data-bs-target="#log_params" role="tab" aria-controls="log_params" aria-selected="false">Run Parameters</button>
 						</li>
@@ -251,12 +254,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-11-25 12:25:35</p>
+  <p><strong>Run completed:</strong> 2026-01-07 15:19:12</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --prime_editing_gap_extend_penalty 0 --file_prefix Cas9 --plot_window_size 20 --aln_seed_count 5 --max_rows_alleles_around_cut_to_plot 50 --flexiguide_gap_extend_penalty -2 --exclude_bp_from_left 15 --max_paired_end_reads_overlap None --quantification_window_size 1 --fastq_r1 inputs/FANC.Cas9.fastq --config_file None --flash_command None --halt_on_plot_fail --needleman_wunsch_aln_matrix_loc EDNAFULL --min_frequency_alleles_around_cut_to_plot 0.2 --flexiguide_gap_open_penalty -20 --amplicon_name Reference --guide_seq GGAATCCCTTCTGCAGCACC --debug --conversion_nuc_from C --fastp_command fastp --trimmomatic_command None --prime_editing_pegRNA_scaffold_min_match_length 1 --min_average_read_quality 0 --prime_editing_pegRNA_extension_quantification_window_size 5 --flexiguide_homology 80 --quantification_window_center -3 --aln_seed_min 2 --conversion_nuc_to T --n_processes 1 --verbosity 3 --flexiguide_seq None --base_editor_output --exclude_bp_from_right 15 --place_report_in_output_folder --default_min_aln_score 60 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --min_paired_end_reads_overlap 10 --prime_editing_gap_open_penalty -50 --min_single_bp_quality 0 --needleman_wunsch_gap_open -20 --needleman_wunsch_gap_extend -2 --min_bp_quality_or_N 0 --needleman_wunsch_gap_incentive 1 --base_editor_target_ref_skip_allele_count 0 --aln_seed_len 10</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --aln_seed_count 5 --max_paired_end_reads_overlap None --plot_window_size 20 --exclude_bp_from_left 15 --base_editor_target_ref_skip_allele_count 0 --flexiguide_seq None --quantification_window_center -3 --min_paired_end_reads_overlap 10 --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_extend -2 --verbosity 3 --guide_seq GGAATCCCTTCTGCAGCACC --flexiguide_gap_open_penalty -20 --config_file None --trimmomatic_command None --base_editor_output --max_rows_alleles_around_cut_to_plot 50 --amplicon_name Reference --fastq_r1 inputs/FANC.Cas9.fastq --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_open -20 --min_frequency_alleles_around_cut_to_plot 0.2 --default_min_aln_score 60 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_aln_matrix_loc EDNAFULL --debug --flexiguide_homology 80 --needleman_wunsch_gap_incentive 1 --place_report_in_output_folder --min_bp_quality_or_N 0 --min_average_read_quality 0 --quantification_window_size 1 --min_single_bp_quality 0 --halt_on_plot_fail --fastp_command fastp --n_processes 1 --conversion_nuc_to T --aln_seed_len 10 --conversion_nuc_from C --aln_seed_min 2 --prime_editing_pegRNA_scaffold_min_match_length 1 --file_prefix Cas9 --flexiguide_gap_extend_penalty -2 --exclude_bp_from_right 15 --flash_command None</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -363,6 +366,15 @@ zip_output: False</pre></p>
   
   <p class='text-center m-0'><small><a href="Cas9.CRISPResso_RUNNING_LOG.txt">Running log</a></small></p>
 </div>
+            <div class="tab-pane fade" id="aln_dist" role="tabpanel">
+							<div id="fig_plot_1e" class="d-flex flex-column">
+    
+    <a href="Cas9.1e.Allele_homology_histogram.pdf"><img src="Cas9.1e.Allele_homology_histogram.png" width='40%'></a>
+        
+            <label class="labelpadding">Figure 1e: Distribution of read alignment homology scores, showing the best-scoring alignment of each sequencing read to the provided amplicons. The dashed line indicates the minimum alignment score threshold used to discard low-quality alignments.</label>
+                <p class="m-0"><small>Data: <a href="Cas9.Alleles_homology_scores.txt">Alleles Homology Scores</a></small></p>
+</div>
+						</div>
 					</div>
 				</div>
 			</div>
