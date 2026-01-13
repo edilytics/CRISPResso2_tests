@@ -229,6 +229,9 @@
 						<li class="nav-item">
 						<button class="nav-link active" id="log_aln-tab" data-bs-toggle="tab" data-bs-target="#log_aln" role="tab" aria-controls="log_aln" aria-selected="true">Alignment statistics</button>
 						</li>
+            <li class="nav-item">
+						<button class="nav-link" id="aln_dist-tab" data-bs-toggle="tab" data-bs-target="#aln_dist" role="tab" aria-controls="aln_dist" aria-selected="true">Alignment Distribution</button>
+						</li>
 						<li class="nav-item">
 						<button class="nav-link" id="log_params-tab" data-bs-toggle="tab" data-bs-target="#log_params" role="tab" aria-controls="log_params" aria-selected="false">Run Parameters</button>
 						</li>
@@ -357,6 +360,15 @@ zip_output: False</pre></p>
   
   <p class='text-center m-0'><small><a href="CRISPResso_RUNNING_LOG.txt">Running log</a></small></p>
 </div>
+            <div class="tab-pane fade" id="aln_dist" role="tabpanel">
+							<div id="fig_plot_1e" class="d-flex flex-column">
+    
+    <a href="1e.Allele_homology_histogram.pdf"><img src="1e.Allele_homology_histogram.png" width='40%'></a>
+        
+            <label class="labelpadding">Figure 1e: Distribution of read alignment homology scores, showing the best-scoring alignment of each sequencing read to the provided amplicons. The dashed line indicates the minimum alignment score threshold used to discard low-quality alignments.</label>
+                <p class="m-0"><small>Data: <a href="Alleles_homology_scores.txt">Alleles Homology Scores</a></small></p>
+</div>
+						</div>
 					</div>
 				</div>
 			</div>
