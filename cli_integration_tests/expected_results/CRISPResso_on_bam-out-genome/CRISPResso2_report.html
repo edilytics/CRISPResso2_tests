@@ -219,11 +219,13 @@
 					
 					
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 14.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 16.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: Reference, Percent of aligned reads aligned to this amplicon: 50.0%.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> <=90.0% of reads were aligned. Total reads: 16, Aligned reads: 14.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: Amplicon1, Percent of aligned reads aligned to this amplicon: 50.0%.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: Reference, Percent of aligned reads aligned to this amplicon: 43.75%.</div>
+	
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: Amplicon1, Percent of aligned reads aligned to this amplicon: 43.75%.</div>
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 14, Irregular reads: 8.</div>
 	
@@ -254,10 +256,10 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2025-11-25 14:16:23</p>
+  <p><strong>Run completed:</strong> 2026-01-09 16:24:53</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/micromamba/envs/c2/bin/CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-genome -x inputs/small_genome/smallGenome --place_report_in_output_folder --halt_on_plot_fail</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/bam_test.fq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTC,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCT --bam_output --debug -n bam-out-genome -x inputs/small_genome/smallGenome --place_report_in_output_folder --halt_on_plot_fail</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
