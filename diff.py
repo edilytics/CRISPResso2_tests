@@ -27,6 +27,7 @@ IGNORE_FILES = frozenset([
     'CRISPRessoPooled_RUNNING_LOG.txt',
     'CRISPRessoWGS_RUNNING_LOG.txt',
     'CRISPRessoCompare_RUNNING_LOG.txt',
+    'fastp_report.html',
 ])
 WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
 
