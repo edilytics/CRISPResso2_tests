@@ -4,6 +4,7 @@
 import os
 import tempfile
 import pytest
+from hypothesis import given, strategies as st, settings, assume
 
 from syn_gen import (
     FastqRead,
@@ -20,7 +21,33 @@ from syn_gen import (
     aggregate_edits_to_variants,
     generate_synthetic_data,
     validate_inputs,
+    sample_deletion_size,
+    sample_insertion_size,
+    generate_edit,
 )
+
+
+# =============================================================================
+# Hypothesis Strategies for DNA sequences
+# =============================================================================
+
+# Strategy for generating valid DNA bases
+dna_base = st.sampled_from('ACGT')
+
+# Strategy for generating DNA sequences of various lengths
+dna_sequence = st.text(alphabet='ACGT', min_size=1, max_size=500)
+
+# Strategy for short DNA sequences (guides are typically 17-23bp)
+guide_sequence = st.text(alphabet='ACGT', min_size=15, max_size=25)
+
+# Strategy for amplicon-sized sequences
+amplicon_sequence = st.text(alphabet='ACGT', min_size=50, max_size=300)
+
+# Strategy for valid rate parameters (0.0 to 1.0)
+rate = st.floats(min_value=0.0, max_value=1.0, allow_nan=False)
+
+# Strategy for positive integers
+positive_int = st.integers(min_value=1, max_value=1000)
 
 
 class TestFastqRead:
@@ -344,6 +371,561 @@ class TestGenerateSyntheticData:
 
             assert stats['edited_reads'] == 100
             assert stats['unedited_reads'] == 0
+
+
+# =============================================================================
+# Hypothesis Property-Based Tests
+# =============================================================================
+
+class TestReverseComplementProperties:
+    """Property-based tests for reverse_complement function."""
+
+    @given(seq=dna_sequence)
+    def test_involution(self, seq):
+        """Applying reverse complement twice returns the original sequence."""
+        assert reverse_complement(reverse_complement(seq)) == seq.upper()
+
+    @given(seq=dna_sequence)
+    def test_preserves_length(self, seq):
+        """Reverse complement preserves sequence length."""
+        assert len(reverse_complement(seq)) == len(seq)
+
+    @given(seq=dna_sequence)
+    def test_only_valid_bases(self, seq):
+        """Reverse complement only produces valid DNA bases."""
+        result = reverse_complement(seq)
+        assert set(result).issubset({'A', 'C', 'G', 'T'})
+
+    @given(seq=dna_sequence)
+    def test_base_counts_preserved(self, seq):
+        """A↔T and C↔G counts are swapped correctly."""
+        seq_upper = seq.upper()
+        result = reverse_complement(seq)
+        assert seq_upper.count('A') == result.count('T')
+        assert seq_upper.count('T') == result.count('A')
+        assert seq_upper.count('C') == result.count('G')
+        assert seq_upper.count('G') == result.count('C')
+
+
+class TestGenerateRandomSequenceProperties:
+    """Property-based tests for generate_random_sequence function."""
+
+    @given(length=st.integers(min_value=0, max_value=1000))
+    def test_correct_length(self, length):
+        """Generated sequence has the requested length."""
+        seq = generate_random_sequence(length)
+        assert len(seq) == length
+
+    @given(length=st.integers(min_value=1, max_value=1000))
+    def test_only_valid_bases(self, length):
+        """Generated sequence only contains valid DNA bases."""
+        seq = generate_random_sequence(length)
+        assert set(seq).issubset({'A', 'C', 'G', 'T'})
+
+
+class TestApplyEditProperties:
+    """Property-based tests for apply_edit function."""
+
+    @given(amplicon=amplicon_sequence)
+    def test_no_edit_identity(self, amplicon):
+        """Applying no edit returns the original sequence."""
+        edit = Edit('none', 0, 0, '', '')
+        result = apply_edit(amplicon, edit)
+        assert result == amplicon
+
+    @given(
+        amplicon=amplicon_sequence,
+        position=st.integers(min_value=0, max_value=49),
+        size=st.integers(min_value=1, max_value=10)
+    )
+    def test_deletion_shortens_sequence(self, amplicon, position, size):
+        """Deletion reduces sequence length by the deletion size."""
+        assume(len(amplicon) >= 50)  # Ensure amplicon is long enough
+        assume(position + size <= len(amplicon))  # Ensure deletion is valid
+
+        original_seq = amplicon[position:position + size]
+        edit = Edit('deletion', position, size, original_seq, '')
+        result = apply_edit(amplicon, edit)
+
+        assert len(result) == len(amplicon) - size
+
+    @given(
+        amplicon=amplicon_sequence,
+        position=st.integers(min_value=0, max_value=49),
+        insertion=st.text(alphabet='ACGT', min_size=1, max_size=10)
+    )
+    def test_insertion_lengthens_sequence(self, amplicon, position, insertion):
+        """Insertion increases sequence length by the insertion size."""
+        assume(len(amplicon) >= 50)  # Ensure amplicon is long enough
+        assume(position <= len(amplicon))
+
+        edit = Edit('insertion', position, len(insertion), '', insertion)
+        result = apply_edit(amplicon, edit)
+
+        assert len(result) == len(amplicon) + len(insertion)
+
+    @given(
+        amplicon=amplicon_sequence,
+        position=st.integers(min_value=0, max_value=49),
+        insertion=st.text(alphabet='ACGT', min_size=1, max_size=10)
+    )
+    def test_insertion_contains_inserted_sequence(self, amplicon, position, insertion):
+        """Insertion places the inserted sequence at the correct position."""
+        assume(len(amplicon) >= 50)
+        assume(position <= len(amplicon))
+
+        edit = Edit('insertion', position, len(insertion), '', insertion)
+        result = apply_edit(amplicon, edit)
+
+        assert insertion in result
+        assert result[position:position + len(insertion)] == insertion
+
+
+class TestAddSequencingErrorsProperties:
+    """Property-based tests for add_sequencing_errors function."""
+
+    @given(seq=dna_sequence)
+    def test_zero_error_rate_preserves_sequence(self, seq):
+        """Zero error rate returns the original sequence."""
+        result = add_sequencing_errors(seq, 0.0)
+        assert result == seq
+
+    @given(seq=dna_sequence, error_rate=rate)
+    def test_preserves_length(self, seq, error_rate):
+        """Error introduction preserves sequence length."""
+        result = add_sequencing_errors(seq, error_rate)
+        assert len(result) == len(seq)
+
+    @given(seq=dna_sequence, error_rate=rate)
+    def test_only_valid_bases(self, seq, error_rate):
+        """Errors only introduce valid DNA bases."""
+        result = add_sequencing_errors(seq, error_rate)
+        assert set(result).issubset({'A', 'C', 'G', 'T'})
+
+
+class TestGenerateQualityStringProperties:
+    """Property-based tests for generate_quality_string function."""
+
+    @given(length=st.integers(min_value=0, max_value=1000))
+    def test_correct_length(self, length):
+        """Quality string has the requested length."""
+        qual = generate_quality_string(length)
+        assert len(qual) == length
+
+    @given(
+        length=st.integers(min_value=1, max_value=100),
+        char=st.characters(whitelist_categories=['L', 'N'], min_codepoint=33, max_codepoint=126)
+    )
+    def test_uniform_quality(self, length, char):
+        """Quality string uses the specified character uniformly."""
+        qual = generate_quality_string(length, char)
+        assert all(c == char for c in qual)
+
+
+class TestFindGuideInAmpliconProperties:
+    """Property-based tests for find_guide_in_amplicon function."""
+
+    @given(
+        prefix=st.text(alphabet='ACGT', min_size=10, max_size=50),
+        guide=guide_sequence,
+        suffix=st.text(alphabet='ACGT', min_size=10, max_size=50)
+    )
+    def test_embedded_guide_found_forward(self, prefix, guide, suffix):
+        """Guide embedded in amplicon is always found (forward strand)."""
+        amplicon = prefix + guide + suffix
+        start, end, is_rc = find_guide_in_amplicon(amplicon, guide)
+
+        assert is_rc is False
+        assert amplicon[start:end].upper() == guide.upper()
+
+    @given(
+        prefix=st.text(alphabet='ACGT', min_size=10, max_size=50),
+        guide=guide_sequence,
+        suffix=st.text(alphabet='ACGT', min_size=10, max_size=50)
+    )
+    def test_embedded_guide_found_reverse(self, prefix, guide, suffix):
+        """Guide embedded as reverse complement is found."""
+        guide_rc = reverse_complement(guide)
+        # Skip palindromes where forward and RC are the same
+        assume(guide.upper() != guide_rc)
+        # Ensure the guide doesn't appear in prefix/suffix in forward orientation
+        assume(guide.upper() not in prefix.upper())
+        assume(guide.upper() not in suffix.upper())
+
+        amplicon = prefix + guide_rc + suffix
+        start, end, is_rc = find_guide_in_amplicon(amplicon, guide)
+
+        assert is_rc is True
+        assert amplicon[start:end].upper() == guide_rc.upper()
+
+    @given(
+        prefix=st.text(alphabet='ACGT', min_size=10, max_size=50),
+        guide=guide_sequence,
+        suffix=st.text(alphabet='ACGT', min_size=10, max_size=50)
+    )
+    def test_guide_position_correct(self, prefix, guide, suffix):
+        """Found guide position matches expected position."""
+        amplicon = prefix + guide + suffix
+        # Ensure the first occurrence of the guide is at the expected position
+        # (not earlier due to overlap with prefix)
+        assume(amplicon.upper().find(guide.upper()) == len(prefix))
+
+        start, end, is_rc = find_guide_in_amplicon(amplicon, guide)
+
+        assert start == len(prefix)
+        assert end == len(prefix) + len(guide)
+
+
+class TestCalculateCutSiteProperties:
+    """Property-based tests for calculate_cut_site function."""
+
+    @given(
+        guide_start=st.integers(min_value=0, max_value=100),
+        guide_length=st.integers(min_value=15, max_value=25),
+        offset=st.integers(min_value=-10, max_value=0)
+    )
+    def test_forward_cut_site_within_expected_range(self, guide_start, guide_length, offset):
+        """Forward strand cut site is near the 3' end of the guide."""
+        guide_end = guide_start + guide_length
+        cut = calculate_cut_site(guide_start, guide_end, is_rc=False, cleavage_offset=offset)
+
+        # Cut should be near the end of the guide (within offset range)
+        assert guide_end + offset == cut
+
+    @given(
+        guide_start=st.integers(min_value=10, max_value=100),
+        guide_length=st.integers(min_value=15, max_value=25),
+        offset=st.integers(min_value=-10, max_value=0)
+    )
+    def test_rc_cut_site_within_expected_range(self, guide_start, guide_length, offset):
+        """Reverse complement cut site is near the 5' end of the guide."""
+        guide_end = guide_start + guide_length
+        cut = calculate_cut_site(guide_start, guide_end, is_rc=True, cleavage_offset=offset)
+
+        # Cut should be near the start of the guide (within offset range)
+        assert guide_start - offset - 1 == cut
+
+
+class TestSampleEditSizeProperties:
+    """Property-based tests for edit size sampling functions."""
+
+    @given(st.randoms())
+    @settings(max_examples=200)
+    def test_deletion_size_positive(self, _):
+        """Deletion size is always positive."""
+        size = sample_deletion_size()
+        assert size >= 1
+
+    @given(st.randoms())
+    @settings(max_examples=200)
+    def test_deletion_size_bounded(self, _):
+        """Deletion size respects maximum bound."""
+        max_size = 50
+        size = sample_deletion_size(max_size=max_size)
+        assert size <= max_size
+
+    @given(st.randoms())
+    @settings(max_examples=200)
+    def test_insertion_size_positive(self, _):
+        """Insertion size is always positive."""
+        size = sample_insertion_size()
+        assert size >= 1
+
+    @given(st.randoms())
+    @settings(max_examples=200)
+    def test_insertion_size_bounded(self, _):
+        """Insertion size respects maximum bound."""
+        max_size = 10
+        size = sample_insertion_size(max_size=max_size)
+        assert size <= max_size
+
+
+class TestGenerateEditProperties:
+    """Property-based tests for generate_edit function."""
+
+    @given(
+        cut_site=st.integers(min_value=20, max_value=80),
+        amplicon=amplicon_sequence
+    )
+    @settings(max_examples=100)
+    def test_edit_near_cut_site(self, cut_site, amplicon):
+        """Generated edits are near the cut site."""
+        assume(len(amplicon) >= 100)
+        assume(cut_site < len(amplicon) - 10)
+
+        edit = generate_edit(cut_site, amplicon)
+
+        # Edit position should be within jitter range of cut site
+        assert abs(edit.position - cut_site) <= 2
+
+    @given(
+        cut_site=st.integers(min_value=20, max_value=80),
+        amplicon=amplicon_sequence
+    )
+    @settings(max_examples=100)
+    def test_edit_type_valid(self, cut_site, amplicon):
+        """Generated edit has valid type."""
+        assume(len(amplicon) >= 100)
+        assume(cut_site < len(amplicon) - 10)
+
+        edit = generate_edit(cut_site, amplicon)
+
+        assert edit.edit_type in ('deletion', 'insertion')
+
+    @given(
+        cut_site=st.integers(min_value=20, max_value=80),
+        amplicon=amplicon_sequence
+    )
+    @settings(max_examples=100)
+    def test_deletion_has_original_seq(self, cut_site, amplicon):
+        """Deletion edits have correct original sequence."""
+        assume(len(amplicon) >= 100)
+        assume(cut_site < len(amplicon) - 10)
+
+        edit = generate_edit(cut_site, amplicon, deletion_weight=1.0)  # Force deletion
+
+        assert edit.edit_type == 'deletion'
+        assert edit.original_seq == amplicon[edit.position:edit.position + edit.size]
+        assert edit.edited_seq == ''
+
+    @given(
+        cut_site=st.integers(min_value=20, max_value=80),
+        amplicon=amplicon_sequence
+    )
+    @settings(max_examples=100)
+    def test_insertion_has_valid_sequence(self, cut_site, amplicon):
+        """Insertion edits have valid inserted sequence."""
+        assume(len(amplicon) >= 100)
+        assume(cut_site < len(amplicon) - 10)
+
+        edit = generate_edit(cut_site, amplicon, deletion_weight=0.0)  # Force insertion
+
+        assert edit.edit_type == 'insertion'
+        assert edit.original_seq == ''
+        assert len(edit.edited_seq) == edit.size
+        assert set(edit.edited_seq).issubset({'A', 'C', 'G', 'T'})
+
+
+class TestGenerateSyntheticDataProperties:
+    """Property-based tests for the main generation function."""
+
+    @given(
+        num_reads=st.integers(min_value=10, max_value=500),
+        edit_rate=st.floats(min_value=0.0, max_value=1.0, allow_nan=False),
+        seed=st.integers(min_value=0, max_value=2**31)
+    )
+    @settings(max_examples=20, deadline=None)
+    def test_total_reads_correct(self, num_reads, edit_rate, seed):
+        """Total reads equals requested number."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=num_reads,
+                edit_rate=edit_rate,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            assert stats['total_reads'] == num_reads
+
+    @given(
+        num_reads=st.integers(min_value=10, max_value=500),
+        edit_rate=st.floats(min_value=0.0, max_value=1.0, allow_nan=False),
+        seed=st.integers(min_value=0, max_value=2**31)
+    )
+    @settings(max_examples=20, deadline=None)
+    def test_edit_counts_sum_correctly(self, num_reads, edit_rate, seed):
+        """Edited + unedited = total reads."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=num_reads,
+                edit_rate=edit_rate,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            assert stats['edited_reads'] + stats['unedited_reads'] == stats['total_reads']
+
+    @given(
+        num_reads=st.integers(min_value=10, max_value=500),
+        edit_rate=st.floats(min_value=0.0, max_value=1.0, allow_nan=False),
+        seed=st.integers(min_value=0, max_value=2**31)
+    )
+    @settings(max_examples=20, deadline=None)
+    def test_deletion_insertion_sum_to_edited(self, num_reads, edit_rate, seed):
+        """Deletions + insertions = edited reads."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=num_reads,
+                edit_rate=edit_rate,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            assert stats['deletions'] + stats['insertions'] == stats['edited_reads']
+
+    @given(seed=st.integers(min_value=0, max_value=2**31))
+    @settings(max_examples=10, deadline=None)
+    def test_zero_edit_rate_no_edits(self, seed):
+        """Zero edit rate produces no edited reads."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=100,
+                edit_rate=0.0,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            assert stats['edited_reads'] == 0
+            assert stats['deletions'] == 0
+            assert stats['insertions'] == 0
+
+    @given(seed=st.integers(min_value=0, max_value=2**31))
+    @settings(max_examples=10, deadline=None)
+    def test_full_edit_rate_all_edited(self, seed):
+        """100% edit rate produces all edited reads."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=100,
+                edit_rate=1.0,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            assert stats['edited_reads'] == 100
+            assert stats['unedited_reads'] == 0
+
+    @given(
+        num_reads=st.integers(min_value=100, max_value=500),
+        seed=st.integers(min_value=0, max_value=2**31)
+    )
+    @settings(max_examples=10, deadline=None)
+    def test_edit_rate_approximately_correct(self, num_reads, seed):
+        """Actual edit rate is approximately the requested rate (within statistical bounds)."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+            edit_rate = 0.3
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=num_reads,
+                edit_rate=edit_rate,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            actual_rate = stats['edited_reads'] / stats['total_reads']
+            # Allow 15% relative tolerance for statistical variation
+            assert abs(actual_rate - edit_rate) < 0.15
+
+    @given(
+        num_reads=st.integers(min_value=100, max_value=500),
+        seed=st.integers(min_value=0, max_value=2**31)
+    )
+    @settings(max_examples=10, deadline=None)
+    def test_output_files_created(self, num_reads, seed):
+        """All output files are created."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=num_reads,
+                edit_rate=0.3,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            assert os.path.exists(stats['output_files']['fastq'])
+            assert os.path.exists(stats['output_files']['tsv'])
+            assert os.path.exists(stats['output_files']['vcf'])
+
+
+class TestVcfVariantProperties:
+    """Property-based tests for VCF variant aggregation."""
+
+    @given(
+        num_reads=st.integers(min_value=10, max_value=100),
+        seed=st.integers(min_value=0, max_value=2**31)
+    )
+    @settings(max_examples=20, deadline=None)
+    def test_variant_frequencies_sum_correctly(self, num_reads, seed):
+        """VCF variant frequencies don't exceed 1.0."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+            amplicon = 'AAACCCGGAATCCCTTCTGCAGCACCGGGAAATTT'
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=num_reads,
+                edit_rate=0.5,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=seed,
+                quiet=True,
+            )
+
+            # Read VCF and check all AFs are valid
+            vcf_path = f'{prefix}.vcf'
+            with open(vcf_path) as f:
+                for line in f:
+                    if line.startswith('#'):
+                        continue
+                    parts = line.strip().split('\t')
+                    info = parts[7]
+                    af = float(info.split('=')[1])
+                    assert 0.0 < af <= 1.0
 
 
 if __name__ == '__main__':
