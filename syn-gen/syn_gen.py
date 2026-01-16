@@ -449,10 +449,6 @@ def generate_synthetic_data(
             edit = Edit(edit_type='none', position=0, size=0, original_seq='', edited_seq='')
             seq = amplicon
 
-        # Trim to read length if needed (from start of amplicon)
-        if len(seq) > actual_read_length:
-            seq = seq[:actual_read_length]
-
         # Add sequencing errors
         seq = add_sequencing_errors(seq, error_rate)
 
