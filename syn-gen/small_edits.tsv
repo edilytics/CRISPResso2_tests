@@ -1,0 +1,21 @@
+read_name	edit_type	edit_position	edit_size	original_seq	edited_seq
+read_0	none	0	0		
+read_1	none	0	0		
+read_2	none	0	0		
+read_3	none	0	0		
+read_4	none	0	0		
+read_5	none	0	0		
+read_6	none	0	0		
+read_7	none	0	0		
+read_8	none	0	0		
+read_9	none	0	0		
+read_10	deletion	105	6	GCCCAG	
+read_11	none	0	0		
+read_12	none	0	0		
+read_13	none	0	0		
+read_14	none	0	0		
+read_15	none	0	0		
+read_16	none	0	0		
+read_17	none	0	0		
+read_18	deletion	108	5	CAGGA	
+read_19	insertion	107	3		TCT

@@ -1,0 +1,8 @@
+##fileformat=VCFv4.5
+##source=syn-gen
+##contig=<ID=AMPLICON,length=200>
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Reference
+AMPLICON	105	.	TGCCCAG	T	.	PASS	AF=0.050	GT	.
+AMPLICON	107	.	C	CTCT	.	PASS	AF=0.050	GT	.
+AMPLICON	108	.	CCAGGA	C	.	PASS	AF=0.050	GT	.

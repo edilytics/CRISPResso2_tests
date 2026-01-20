@@ -175,3 +175,13 @@ cli_integration_tests/CRISPResso_on_asym_right*
 cli_integration_tests/CRISPResso_on_base_editor*
 
 cli_integration_tests/CRISPResso_on_nhej_native_merge*
+
+cli_integration_tests/CRISPResso_on_vcf-basic*
+
+cli_integration_tests/CRISPResso_on_vcf-deletions-only*
+
+cli_integration_tests/CRISPResso_on_vcf-insertions-only*
+
+cli_integration_tests/CRISPResso_on_vcf-no-edits*
+
+cli_integration_tests/CRISPResso_on_vcf-multi-amplicon*

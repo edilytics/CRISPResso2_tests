@@ -7,6 +7,11 @@ TEST_CLI_INTEGRATION_DIRECTORIES := $(addprefix cli_integration_tests/,CRISPRess
 CRISPResso_on_bam CRISPResso_on_params \
 CRISPRessoBatch_on_FANC CRISPRessoPooled_on_Both.Cas9 \
 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+CRISPResso_on_vcf-multi-amplicon \
+CRISPResso_on_vcf-no-edits \
+CRISPResso_on_vcf-insertions-only \
+CRISPResso_on_vcf-deletions-only \
+CRISPResso_on_vcf-basic \
 CRISPResso_on_base_editor \
 CRISPResso_on_asym_right \
 CRISPResso_on_asym_left \
@@ -52,7 +57,7 @@ if [ "$(filter update-all, $(MAKECMDGOALS))" != "" ]; then \
 fi
 endef
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon
 
 print:
 	@echo " ";
@@ -83,6 +88,11 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
+cli_integration_tests/CRISPResso_on_vcf-multi-amplicon* \
+cli_integration_tests/CRISPResso_on_vcf-no-edits* \
+cli_integration_tests/CRISPResso_on_vcf-insertions-only* \
+cli_integration_tests/CRISPResso_on_vcf-deletions-only* \
+cli_integration_tests/CRISPResso_on_vcf-basic* \
 cli_integration_tests/CRISPResso_on_base_editor* \
 cli_integration_tests/CRISPResso_on_asym_right* \
 cli_integration_tests/CRISPResso_on_asym_left* \
@@ -294,3 +304,29 @@ base_editor: cli_integration_tests/CRISPResso_on_base_editor
 
 cli_integration_tests/CRISPResso_on_base_editor: install cli_integration_tests/inputs/FANC.Cas9.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug"; $(RUN)
+
+.PHONY: vcf-basic
+vcf-basic: cli_integration_tests/CRISPResso_on_vcf-basic
+
+cli_integration_tests/CRISPResso_on_vcf-basic: install cli_integration_tests/inputs/vcf_basic.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 -n vcf-basic --place_report_in_output_folder --debug"; $(RUN)
+.PHONY: vcf-deletions-only
+vcf-deletions-only: cli_integration_tests/CRISPResso_on_vcf-deletions-only
+
+cli_integration_tests/CRISPResso_on_vcf-deletions-only: install cli_integration_tests/inputs/vcf_deletions.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 -n vcf-deletions-only --place_report_in_output_folder --debug"; $(RUN)
+.PHONY: vcf-insertions-only
+vcf-insertions-only: cli_integration_tests/CRISPResso_on_vcf-insertions-only
+
+cli_integration_tests/CRISPResso_on_vcf-insertions-only: install cli_integration_tests/inputs/vcf_insertions.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_insertions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 -n vcf-insertions-only --place_report_in_output_folder --debug"; $(RUN)
+.PHONY: vcf-no-edits
+vcf-no-edits: cli_integration_tests/CRISPResso_on_vcf-no-edits
+
+cli_integration_tests/CRISPResso_on_vcf-no-edits: install cli_integration_tests/inputs/vcf_no_edits.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_no_edits.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 -n vcf-no-edits --place_report_in_output_folder --debug"; $(RUN)
+.PHONY: vcf-multi-amplicon
+vcf-multi-amplicon: cli_integration_tests/CRISPResso_on_vcf-multi-amplicon
+
+cli_integration_tests/CRISPResso_on_vcf-multi-amplicon: install cli_integration_tests/inputs/vcf_multi_amplicon.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_multi_amplicon.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG,TACGGGTATTACCCGCGTTTAGTGGCTAGCGACTCGTGGACTTGCTGTACTGTCTACGGGCGTCAACTTGATAATCCCAAAAAAGCTTGGCCCCGCACAACTCGTTGAGCAATTCTTAAAAAGATGGTGTACGTCCCTCATACTTCGTATTCAATAAACCCGGTTAGACCATTGGGTGCGTGATGCTGCATTGCCTTGCA -an AMP1,AMP2 -g GGAATCCCTTCTGCAGCACC,CCCCGCACAACTCGTTGAGC --vcf_output --amplicon_coordinates chr1:1000,chr2:5000 -n vcf-multi-amplicon --place_report_in_output_folder --debug"; $(RUN)

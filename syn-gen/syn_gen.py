@@ -410,6 +410,7 @@ def generate_synthetic_data(
     read_length: Optional[int] = None,
     seed: Optional[int] = None,
     cleavage_offset: int = -3,
+    deletion_weight: float = 0.75,
     quiet: bool = False,
 ) -> dict:
     """
@@ -439,7 +440,7 @@ def generate_synthetic_data(
         is_edited = random.random() < edit_rate
 
         if is_edited:
-            edit = generate_edit(cut_site, amplicon)
+            edit = generate_edit(cut_site, amplicon, deletion_weight)
             seq = apply_edit(amplicon, edit)
             if edit.edit_type == 'deletion':
                 deletion_count += 1
@@ -592,6 +593,12 @@ def create_parser() -> argparse.ArgumentParser:
         help='Fraction of reads with NHEJ edits (0.0-1.0)'
     )
     gen_group.add_argument(
+        '--deletion-weight',
+        type=float,
+        default=0.75,
+        help='Probability of deletion vs insertion for edits (0.0=insertions only, 1.0=deletions only)'
+    )
+    gen_group.add_argument(
         '--error-rate',
         type=float,
         default=0.001,
@@ -687,6 +694,7 @@ def main() -> int:
             read_length=args.read_length,
             seed=args.seed,
             cleavage_offset=args.cleavage_offset,
+            deletion_weight=args.deletion_weight,
             quiet=args.quiet,
         )
     except ValueError as e:
