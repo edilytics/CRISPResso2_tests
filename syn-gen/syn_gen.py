@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-syn-gen: Synthetic CRISPR NHEJ editing data generator.
+syn-gen: Synthetic CRISPR editing data generator.
 
-Generates synthetic FASTQ files with realistic NHEJ edits for testing CRISPResso2.
+Generates synthetic FASTQ files with realistic edits for testing CRISPResso2.
+Supports NHEJ (deletions/insertions), base editing (CBE/ABE), and prime editing.
 """
 
 import argparse
 import gzip
+import math
 import random
 import sys
 from collections import Counter
@@ -32,12 +34,12 @@ class FastqRead:
 
 @dataclass
 class Edit:
-    """Represents a single NHEJ edit event."""
-    edit_type: Literal['deletion', 'insertion', 'none']
-    position: int  # Position in amplicon (0-indexed)
-    size: int  # Size of deletion or insertion
-    original_seq: str  # Original sequence at edit site
-    edited_seq: str  # Resulting sequence (empty for deletion, inserted for insertion)
+    """Represents a single edit event (NHEJ, base editing, or prime editing)."""
+    edit_type: Literal['deletion', 'insertion', 'substitution', 'prime_edit', 'none']
+    position: int | list[int]  # Position(s) in amplicon (0-indexed). List for multi-base edits.
+    size: int | list[int]  # Size of edit(s). Always 1 for substitutions.
+    original_seq: str | list[str]  # Original sequence(s) at edit site
+    edited_seq: str | list[str]  # Resulting sequence(s)
 
 
 @dataclass
@@ -244,6 +246,460 @@ def apply_edit(amplicon: str, edit: Edit) -> str:
 
 
 # =============================================================================
+# Base Editing Functions
+# =============================================================================
+
+def gaussian_probability(position: int, center: int, sigma: float) -> float:
+    """
+    Calculate Gaussian probability for a position relative to center.
+
+    Args:
+        position: Position to evaluate (1-indexed from PAM-distal end)
+        center: Center of activity window
+        sigma: Standard deviation
+
+    Returns:
+        Probability value (0-1, normalized to peak at 1.0)
+    """
+    return math.exp(-0.5 * ((position - center) / sigma) ** 2)
+
+
+def find_editable_bases(
+    amplicon: str,
+    guide_start: int,
+    guide_end: int,
+    is_rc: bool,
+    editor_type: str,
+    window_center: int,
+    window_sigma: float,
+) -> list[tuple[int, float]]:
+    """
+    Find editable bases in the activity window with their probabilities.
+
+    Args:
+        amplicon: Amplicon sequence
+        guide_start: Start position of guide in amplicon (0-indexed)
+        guide_end: End position of guide in amplicon (0-indexed, exclusive)
+        is_rc: True if guide is on reverse complement strand
+        editor_type: 'CBE' (C→T) or 'ABE' (A→G)
+        window_center: Center of activity window (position from PAM-distal end)
+        window_sigma: Spread of activity window
+
+    Returns:
+        List of (amplicon_position, probability) tuples for editable bases
+    """
+    target_base = 'C' if editor_type == 'CBE' else 'A'
+    guide_len = guide_end - guide_start
+
+    editable = []
+
+    # Activity window spans roughly center ± 3*sigma
+    window_radius = int(3 * window_sigma) + 1
+    window_start_pos = max(1, window_center - window_radius)
+    window_end_pos = min(guide_len, window_center + window_radius)
+
+    for guide_pos in range(window_start_pos, window_end_pos + 1):
+        # Convert guide position (1-indexed from PAM-distal) to amplicon position
+        if is_rc:
+            # For RC guides, position 1 is at guide_end-1, increasing toward guide_start
+            amplicon_pos = guide_end - guide_pos
+            # Check complement base (if target is C, look for G on amplicon)
+            check_base = {'C': 'G', 'A': 'T'}[target_base]
+        else:
+            # For forward guides, position 1 is at guide_start
+            amplicon_pos = guide_start + guide_pos - 1
+            check_base = target_base
+
+        if 0 <= amplicon_pos < len(amplicon):
+            if amplicon[amplicon_pos].upper() == check_base:
+                prob = gaussian_probability(guide_pos, window_center, window_sigma)
+                editable.append((amplicon_pos, prob))
+
+    return editable
+
+
+def generate_base_edit(
+    amplicon: str,
+    guide_start: int,
+    guide_end: int,
+    is_rc: bool,
+    editor_type: str,
+    window_center: int,
+    window_sigma: float,
+    base_edit_prob: float,
+) -> Edit:
+    """
+    Generate a base editing event (substitutions in activity window).
+
+    Args:
+        amplicon: Amplicon sequence
+        guide_start: Start position of guide in amplicon (0-indexed)
+        guide_end: End position of guide in amplicon (0-indexed, exclusive)
+        is_rc: True if guide is on reverse complement strand
+        editor_type: 'CBE' (C→T) or 'ABE' (A→G)
+        window_center: Center of activity window
+        window_sigma: Spread of activity window
+        base_edit_prob: Per-base conversion probability
+
+    Returns:
+        Edit object with substitution(s)
+    """
+    editable_bases = find_editable_bases(
+        amplicon, guide_start, guide_end, is_rc, editor_type,
+        window_center, window_sigma
+    )
+
+    if not editable_bases:
+        # No editable bases found - return no edit
+        return Edit(
+            edit_type='none',
+            position=0,
+            size=0,
+            original_seq='',
+            edited_seq=''
+        )
+
+    # Determine which bases get edited based on position probability and base_edit_prob
+    positions = []
+    original_seqs = []
+    edited_seqs = []
+
+    conversion = {'CBE': ('C', 'T'), 'ABE': ('A', 'G')}
+    from_base, to_base = conversion[editor_type]
+    # For RC strand, we edit the complement
+    if is_rc:
+        from_base = {'C': 'G', 'A': 'T'}[from_base]
+        to_base = {'T': 'A', 'G': 'C'}[to_base]
+
+    for amp_pos, pos_prob in editable_bases:
+        # Combined probability: position weight * base edit probability
+        if random.random() < pos_prob * base_edit_prob:
+            positions.append(amp_pos)
+            original_seqs.append(amplicon[amp_pos])
+            edited_seqs.append(to_base)
+
+    if not positions:
+        # Probabilistically, no bases were edited this time
+        return Edit(
+            edit_type='none',
+            position=0,
+            size=0,
+            original_seq='',
+            edited_seq=''
+        )
+
+    # Return single or multi-position edit
+    if len(positions) == 1:
+        return Edit(
+            edit_type='substitution',
+            position=positions[0],
+            size=1,
+            original_seq=original_seqs[0],
+            edited_seq=edited_seqs[0]
+        )
+    else:
+        return Edit(
+            edit_type='substitution',
+            position=positions,
+            size=[1] * len(positions),
+            original_seq=original_seqs,
+            edited_seq=edited_seqs
+        )
+
+
+def apply_base_edit(amplicon: str, edit: Edit) -> str:
+    """
+    Apply base editing substitutions to amplicon.
+
+    Args:
+        amplicon: Original amplicon sequence
+        edit: Edit object with substitution(s)
+
+    Returns:
+        Edited sequence
+    """
+    if edit.edit_type == 'none':
+        return amplicon
+
+    seq = list(amplicon)
+
+    # Handle both single and multi-position edits
+    positions = edit.position if isinstance(edit.position, list) else [edit.position]
+    edited_seqs = edit.edited_seq if isinstance(edit.edited_seq, list) else [edit.edited_seq]
+
+    for pos, new_base in zip(positions, edited_seqs):
+        seq[pos] = new_base
+
+    return ''.join(seq)
+
+
+# =============================================================================
+# Prime Editing Functions
+# =============================================================================
+
+@dataclass
+class PrimeEditIntent:
+    """Represents the intended edit from a pegRNA."""
+    edit_type: Literal['substitution', 'insertion', 'deletion', 'complex']
+    position: int  # Position in amplicon where edit starts (0-indexed)
+    original_seq: str  # Original sequence at edit site
+    edited_seq: str  # Intended edited sequence
+    pbs_start: int  # Start of PBS binding region
+    pbs_end: int  # End of PBS binding region
+    rt_template: str  # RT template portion of extension
+
+
+def parse_peg_extension(
+    amplicon: str,
+    cut_site: int,
+    peg_extension: str,
+    pbs_length: int = 13,
+) -> PrimeEditIntent:
+    """
+    Parse pegRNA extension to identify the intended edit.
+
+    The pegRNA extension consists of:
+    - RT template (5' portion): specifies the edit
+    - PBS (3' portion): binds to the nicked strand
+
+    The PBS binds upstream of the nick site (on the nicked strand).
+    The RT template specifies the sequence to be installed.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        cut_site: Position of the nick (0-indexed)
+        peg_extension: 3' extension sequence (RT template + PBS)
+        pbs_length: Length of primer binding site (default 13bp)
+
+    Returns:
+        PrimeEditIntent describing the intended edit
+    """
+    # The extension is provided 5' to 3' as: RT_template + PBS
+    # PBS binds to the nicked strand upstream of the nick
+    # PBS is reverse complement of the genomic sequence upstream of nick
+
+    # Extract PBS (last pbs_length bases of extension)
+    pbs = peg_extension[-pbs_length:]
+    rt_template = peg_extension[:-pbs_length]
+
+    if len(rt_template) == 0:
+        raise ValueError("RT template is empty - peg_extension too short for given PBS length")
+
+    # PBS binds upstream of the nick site
+    # The PBS is complementary to positions [cut_site - pbs_length : cut_site] on the target strand
+    pbs_start = cut_site - pbs_length
+    pbs_end = cut_site
+
+    # The RT template will replace sequence starting at the cut site
+    # Compare RT template to reference to identify the edit
+
+    # Get the reference sequence that would be replaced
+    # RT template length determines how much reference to compare
+    rt_len = len(rt_template)
+    ref_seq = amplicon[cut_site:cut_site + rt_len]
+
+    # Compare to find differences
+    if rt_template == ref_seq:
+        # No edit - this shouldn't happen with a real pegRNA but handle it
+        return PrimeEditIntent(
+            edit_type='substitution',
+            position=cut_site,
+            original_seq=ref_seq,
+            edited_seq=rt_template,
+            pbs_start=pbs_start,
+            pbs_end=pbs_end,
+            rt_template=rt_template,
+        )
+
+    # Determine edit type by comparing lengths and content
+    if len(rt_template) == len(ref_seq):
+        # Same length - substitution(s)
+        edit_type = 'substitution'
+    elif len(rt_template) > len(ref_seq):
+        # RT template longer - insertion
+        edit_type = 'insertion'
+    else:
+        # RT template shorter - deletion
+        edit_type = 'deletion'
+
+    return PrimeEditIntent(
+        edit_type=edit_type,
+        position=cut_site,
+        original_seq=ref_seq,
+        edited_seq=rt_template,
+        pbs_start=pbs_start,
+        pbs_end=pbs_end,
+        rt_template=rt_template,
+    )
+
+
+def generate_prime_edit(
+    amplicon: str,
+    intent: PrimeEditIntent,
+    outcome_type: str,
+    scaffold: str = '',
+) -> Edit:
+    """
+    Generate a prime editing Edit based on outcome type.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        intent: The intended edit from the pegRNA
+        outcome_type: Type of outcome ('perfect', 'partial', 'indel', 'scaffold', 'flap_indel')
+        scaffold: pegRNA scaffold sequence (for scaffold incorporation)
+
+    Returns:
+        Edit object representing the outcome
+    """
+    if outcome_type == 'perfect':
+        # Perfect edit - exact RT template incorporation
+        return Edit(
+            edit_type='prime_edit',
+            position=intent.position,
+            size=len(intent.edited_seq) - len(intent.original_seq),
+            original_seq=intent.original_seq,
+            edited_seq=intent.edited_seq,
+        )
+
+    elif outcome_type == 'partial':
+        # Partial edit - truncated RT template (random truncation point)
+        if len(intent.rt_template) <= 2:
+            # Too short to truncate meaningfully
+            truncation = len(intent.rt_template)
+        else:
+            truncation = random.randint(2, len(intent.rt_template) - 1)
+
+        truncated_template = intent.rt_template[:truncation]
+        truncated_ref = intent.original_seq[:truncation] if truncation <= len(intent.original_seq) else intent.original_seq
+
+        return Edit(
+            edit_type='prime_edit',
+            position=intent.position,
+            size=len(truncated_template) - len(truncated_ref),
+            original_seq=truncated_ref,
+            edited_seq=truncated_template,
+        )
+
+    elif outcome_type == 'indel':
+        # NHEJ-like indel at nick site
+        indel_size = random.choice([-3, -2, -1, 1, 2, 3])
+        if indel_size < 0:
+            # Deletion
+            del_size = abs(indel_size)
+            return Edit(
+                edit_type='deletion',
+                position=intent.position,
+                size=del_size,
+                original_seq=amplicon[intent.position:intent.position + del_size],
+                edited_seq='',
+            )
+        else:
+            # Insertion
+            insert_seq = generate_random_sequence(indel_size)
+            return Edit(
+                edit_type='insertion',
+                position=intent.position,
+                size=indel_size,
+                original_seq='',
+                edited_seq=insert_seq,
+            )
+
+    elif outcome_type == 'scaffold':
+        # Scaffold incorporation - part of scaffold sequence included
+        scaffold_len = random.randint(5, min(20, len(scaffold))) if len(scaffold) > 5 else len(scaffold)
+        scaffold_fragment = scaffold[:scaffold_len]
+
+        # Scaffold gets incorporated at the edit site
+        edited_seq = intent.edited_seq + scaffold_fragment
+
+        return Edit(
+            edit_type='prime_edit',
+            position=intent.position,
+            size=len(edited_seq) - len(intent.original_seq),
+            original_seq=intent.original_seq,
+            edited_seq=edited_seq,
+        )
+
+    elif outcome_type == 'flap_indel':
+        # Small indel at the 3' flap junction
+        # This occurs at the boundary between the RT template and downstream sequence
+        flap_indel = random.choice([-2, -1, 1, 2])
+        if flap_indel < 0:
+            # Small deletion at the junction
+            del_size = abs(flap_indel)
+            # Apply the intended edit but with a small deletion at the end
+            edited_seq = intent.edited_seq[:-del_size] if len(intent.edited_seq) > del_size else ''
+            return Edit(
+                edit_type='prime_edit',
+                position=intent.position,
+                size=len(edited_seq) - len(intent.original_seq),
+                original_seq=intent.original_seq,
+                edited_seq=edited_seq,
+            )
+        else:
+            # Small insertion at the junction
+            insert_seq = generate_random_sequence(flap_indel)
+            edited_seq = intent.edited_seq + insert_seq
+            return Edit(
+                edit_type='prime_edit',
+                position=intent.position,
+                size=len(edited_seq) - len(intent.original_seq),
+                original_seq=intent.original_seq,
+                edited_seq=edited_seq,
+            )
+
+    else:
+        raise ValueError(f"Unknown outcome type: {outcome_type}")
+
+
+def select_prime_edit_outcome(
+    perfect_frac: float = 0.6,
+    partial_frac: float = 0.15,
+    indel_frac: float = 0.15,
+    scaffold_frac: float = 0.05,
+    flap_indel_frac: float = 0.05,
+) -> str:
+    """
+    Randomly select a prime editing outcome type based on distribution.
+
+    Returns:
+        Outcome type string
+    """
+    outcomes = ['perfect', 'partial', 'indel', 'scaffold', 'flap_indel']
+    weights = [perfect_frac, partial_frac, indel_frac, scaffold_frac, flap_indel_frac]
+
+    # Normalize weights
+    total = sum(weights)
+    weights = [w / total for w in weights]
+
+    return random.choices(outcomes, weights=weights, k=1)[0]
+
+
+def apply_prime_edit(amplicon: str, edit: Edit) -> str:
+    """
+    Apply prime edit to amplicon.
+
+    Handles substitutions, insertions, deletions, and complex edits.
+
+    Args:
+        amplicon: Original amplicon sequence
+        edit: Edit object
+
+    Returns:
+        Edited sequence
+    """
+    if edit.edit_type == 'none':
+        return amplicon
+
+    pos = edit.position
+    original = edit.original_seq
+    edited = edit.edited_seq
+
+    # Replace the original sequence with the edited sequence
+    return amplicon[:pos] + edited + amplicon[pos + len(original):]
+
+
+# =============================================================================
 # Sequencing Simulation
 # =============================================================================
 
@@ -301,15 +757,32 @@ def write_fastq(reads: list[EditedRead], filepath: str) -> None:
 
 
 def write_edit_tsv(reads: list[EditedRead], filepath: str) -> None:
-    """Write per-read edit information to TSV."""
+    """Write per-read edit information to TSV.
+
+    Handles both single edits (NHEJ) and multi-position edits (base editing).
+    Multi-position edits have list values which are formatted as comma-separated.
+    """
     with open(filepath, 'w') as fh:
         # Header
         fh.write('read_name\tedit_type\tedit_position\tedit_size\toriginal_seq\tedited_seq\n')
 
         for edited_read in reads:
             edit = edited_read.edit
-            fh.write(f'{edited_read.read.name}\t{edit.edit_type}\t{edit.position}\t'
-                     f'{edit.size}\t{edit.original_seq}\t{edit.edited_seq}\n')
+
+            # Format values - handle both single values and lists (for multi-position edits)
+            if isinstance(edit.position, list):
+                pos_str = ','.join(str(p) for p in edit.position)
+                size_str = ','.join(str(s) for s in edit.size)
+                orig_str = ','.join(edit.original_seq)
+                edit_str = ','.join(edit.edited_seq)
+            else:
+                pos_str = str(edit.position)
+                size_str = str(edit.size)
+                orig_str = edit.original_seq
+                edit_str = edit.edited_seq
+
+            fh.write(f'{edited_read.read.name}\t{edit.edit_type}\t{pos_str}\t'
+                     f'{size_str}\t{orig_str}\t{edit_str}\n')
 
 
 def write_vcf(
@@ -342,8 +815,11 @@ def aggregate_edits_to_variants(
     Convert per-read edits to VCF variant calls with allele frequencies.
 
     Groups identical edits and calculates AF = count / total_reads.
+    Handles single-position and multi-position edits (e.g., base editing).
     """
     total_reads = len(reads)
+    # Key: (edit_type, position, original_seq, edited_seq) -> count
+    # For multi-position edits, we expand to individual positions
     edit_counts: Counter[tuple] = Counter()
 
     for edited_read in reads:
@@ -351,9 +827,19 @@ def aggregate_edits_to_variants(
         if edit.edit_type == 'none':
             continue
 
-        # Create a hashable key for the edit
-        key = (edit.edit_type, edit.position, edit.size, edit.original_seq, edit.edited_seq)
-        edit_counts[key] += 1
+        # Handle multi-position edits (e.g., multiple substitutions)
+        if isinstance(edit.position, list):
+            # Expand multi-position edit into individual position counts
+            for i, pos in enumerate(edit.position):
+                orig = edit.original_seq[i] if isinstance(edit.original_seq, list) else edit.original_seq
+                edited = edit.edited_seq[i] if isinstance(edit.edited_seq, list) else edit.edited_seq
+                size = edit.size[i] if isinstance(edit.size, list) else edit.size
+                key = (edit.edit_type, pos, size, orig, edited)
+                edit_counts[key] += 1
+        else:
+            # Single-position edit
+            key = (edit.edit_type, edit.position, edit.size, edit.original_seq, edit.edited_seq)
+            edit_counts[key] += 1
 
     variants = []
     for (edit_type, position, size, original_seq, edited_seq), count in edit_counts.items():
@@ -370,7 +856,7 @@ def aggregate_edits_to_variants(
                 ref = amplicon[position:position + size + 1]
                 alt = amplicon[position + size]
                 vcf_pos = 1
-        else:  # insertion
+        elif edit_type == 'insertion':
             # For VCF, include the base before the insertion
             if position > 0:
                 ref = amplicon[position - 1]
@@ -381,6 +867,30 @@ def aggregate_edits_to_variants(
                 ref = amplicon[0]
                 alt = edited_seq + amplicon[0]
                 vcf_pos = 1
+        elif edit_type == 'substitution':
+            # Simple: REF is original base, ALT is new base
+            ref = original_seq
+            alt = edited_seq
+            vcf_pos = position + 1  # Convert 0-indexed to 1-indexed
+        elif edit_type == 'prime_edit':
+            # Prime edits: complex variants with original_seq -> edited_seq
+            # Include anchor base before the edit for VCF compliance
+            if position > 0:
+                anchor = amplicon[position - 1]
+                ref = anchor + original_seq
+                alt = anchor + edited_seq
+                vcf_pos = position  # 1-indexed (anchor position)
+            else:
+                # Edit at start - use first base as anchor after
+                if len(original_seq) > 0:
+                    ref = original_seq
+                    alt = edited_seq if edited_seq else '.'
+                else:
+                    ref = amplicon[0]
+                    alt = edited_seq + amplicon[0] if edited_seq else amplicon[0]
+                vcf_pos = 1
+        else:
+            continue  # Skip unknown edit types
 
         variants.append(VcfVariant(
             chrom=amplicon_name,
@@ -411,9 +921,37 @@ def generate_synthetic_data(
     seed: Optional[int] = None,
     cleavage_offset: int = -3,
     quiet: bool = False,
+    # Mode and base editing parameters
+    mode: str = 'nhej',
+    base_editor: str = 'CBE',
+    window_center: int = 6,
+    window_sigma: float = 1.5,
+    base_edit_prob: float = 0.5,
+    # Prime editing parameters
+    peg_extension: Optional[str] = None,
+    peg_scaffold: str = '',
+    perfect_edit_fraction: float = 0.6,
+    partial_edit_fraction: float = 0.15,
+    pe_indel_fraction: float = 0.15,
+    scaffold_incorporation_fraction: float = 0.05,
+    flap_indel_fraction: float = 0.05,
 ) -> dict:
     """
     Main entry point for synthetic data generation.
+
+    Args:
+        mode: Editing mode - 'nhej' (deletions/insertions), 'base-edit' (CBE/ABE), or 'prime-edit'
+        base_editor: Type of base editor ('CBE' or 'ABE') for base-edit mode
+        window_center: Center of activity window (position from PAM-distal end)
+        window_sigma: Spread of activity window (std dev)
+        base_edit_prob: Per-eligible-base conversion probability
+        peg_extension: pegRNA 3' extension (RT template + PBS) for prime-edit mode
+        peg_scaffold: pegRNA scaffold sequence
+        perfect_edit_fraction: Fraction of perfect prime edits
+        partial_edit_fraction: Fraction of partial prime edits
+        pe_indel_fraction: Fraction of indels at nick site
+        scaffold_incorporation_fraction: Fraction with scaffold incorporation
+        flap_indel_fraction: Fraction with flap indels
 
     Returns dict with summary statistics.
     """
@@ -421,9 +959,18 @@ def generate_synthetic_data(
     if seed is not None:
         random.seed(seed)
 
+    # Validate mode-specific requirements
+    if mode == 'prime-edit' and not peg_extension:
+        raise ValueError("--peg-extension is required for prime-edit mode")
+
     # Find guide and calculate cut site
     guide_start, guide_end, is_rc = find_guide_in_amplicon(amplicon, guide)
     cut_site = calculate_cut_site(guide_start, guide_end, is_rc, cleavage_offset)
+
+    # For prime editing, parse the pegRNA extension to get intended edit
+    prime_edit_intent = None
+    if mode == 'prime-edit':
+        prime_edit_intent = parse_peg_extension(amplicon, cut_site, peg_extension)
 
     # Determine read length
     actual_read_length = read_length if read_length else len(amplicon)
@@ -434,17 +981,60 @@ def generate_synthetic_data(
     reads: list[EditedRead] = []
     deletion_count = 0
     insertion_count = 0
+    substitution_count = 0
+    prime_edit_count = 0
 
     for i in range(num_reads):
         is_edited = random.random() < edit_rate
 
         if is_edited:
-            edit = generate_edit(cut_site, amplicon)
-            seq = apply_edit(amplicon, edit)
-            if edit.edit_type == 'deletion':
-                deletion_count += 1
+            if mode == 'base-edit':
+                # Base editing mode - generate substitutions
+                edit = generate_base_edit(
+                    amplicon=amplicon,
+                    guide_start=guide_start,
+                    guide_end=guide_end,
+                    is_rc=is_rc,
+                    editor_type=base_editor,
+                    window_center=window_center,
+                    window_sigma=window_sigma,
+                    base_edit_prob=base_edit_prob,
+                )
+                seq = apply_base_edit(amplicon, edit)
+                if edit.edit_type == 'substitution':
+                    substitution_count += 1
+
+            elif mode == 'prime-edit':
+                # Prime editing mode - generate various outcome types
+                outcome = select_prime_edit_outcome(
+                    perfect_frac=perfect_edit_fraction,
+                    partial_frac=partial_edit_fraction,
+                    indel_frac=pe_indel_fraction,
+                    scaffold_frac=scaffold_incorporation_fraction,
+                    flap_indel_frac=flap_indel_fraction,
+                )
+                edit = generate_prime_edit(
+                    amplicon=amplicon,
+                    intent=prime_edit_intent,
+                    outcome_type=outcome,
+                    scaffold=peg_scaffold,
+                )
+                seq = apply_prime_edit(amplicon, edit)
+                if edit.edit_type == 'prime_edit':
+                    prime_edit_count += 1
+                elif edit.edit_type == 'deletion':
+                    deletion_count += 1
+                elif edit.edit_type == 'insertion':
+                    insertion_count += 1
+
             else:
-                insertion_count += 1
+                # NHEJ mode (default) - generate deletions/insertions
+                edit = generate_edit(cut_site, amplicon, deletion_weight)
+                seq = apply_edit(amplicon, edit)
+                if edit.edit_type == 'deletion':
+                    deletion_count += 1
+                else:
+                    insertion_count += 1
         else:
             edit = Edit(edit_type='none', position=0, size=0, original_seq='', edited_seq='')
             seq = amplicon
@@ -470,7 +1060,7 @@ def generate_synthetic_data(
     write_vcf(variants, amplicon_name, amplicon, vcf_path)
 
     # Calculate statistics
-    edited_count = deletion_count + insertion_count
+    edited_count = deletion_count + insertion_count + substitution_count + prime_edit_count
     unedited_count = num_reads - edited_count
 
     stats = {
@@ -480,6 +1070,9 @@ def generate_synthetic_data(
         'edit_rate_actual': edited_count / num_reads if num_reads > 0 else 0,
         'deletions': deletion_count,
         'insertions': insertion_count,
+        'substitutions': substitution_count,
+        'prime_edits': prime_edit_count,
+        'mode': mode,
         'cut_site': cut_site,
         'guide_start': guide_start,
         'guide_end': guide_end,
@@ -494,6 +1087,7 @@ def generate_synthetic_data(
     # Print summary
     if not quiet:
         print('=== syn-gen Summary ===')
+        print(f'Mode:            {mode}')
         print(f'Amplicon length: {len(amplicon)} bp')
         print(f'Guide position:  {guide_start}-{guide_end} ({"RC" if is_rc else "FWD"})')
         print(f'Cut site:        {cut_site}')
@@ -502,8 +1096,14 @@ def generate_synthetic_data(
         print(f'Edited reads:    {edited_count} ({100 * edited_count / num_reads:.2f}%)')
         print(f'Unedited reads:  {unedited_count} ({100 * unedited_count / num_reads:.2f}%)')
         if edited_count > 0:
-            print(f'  - Deletions:   {deletion_count} ({100 * deletion_count / edited_count:.2f}% of edits)')
-            print(f'  - Insertions:  {insertion_count} ({100 * insertion_count / edited_count:.2f}% of edits)')
+            if mode == 'base-edit':
+                print(f'  - Substitutions: {substitution_count} ({100 * substitution_count / edited_count:.2f}% of edits)')
+            elif mode == 'prime-edit':
+                print(f'  - Prime edits: {prime_edit_count} ({100 * prime_edit_count / edited_count:.2f}% of edits)')
+                print(f'  - Indels:      {deletion_count + insertion_count} ({100 * (deletion_count + insertion_count) / edited_count:.2f}% of edits)')
+            else:
+                print(f'  - Deletions:   {deletion_count} ({100 * deletion_count / edited_count:.2f}% of edits)')
+                print(f'  - Insertions:  {insertion_count} ({100 * insertion_count / edited_count:.2f}% of edits)')
         print()
         print('Output files:')
         print(f'  FASTQ: {fastq_path}')
@@ -554,8 +1154,17 @@ def validate_inputs(
 
 def create_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description='Generate synthetic CRISPR NHEJ editing data for testing.',
+        description='Generate synthetic CRISPR editing data for testing (NHEJ, base editing, prime editing).',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+
+    # Mode selection
+    parser.add_argument(
+        '--mode',
+        type=str,
+        choices=['nhej', 'base-edit', 'prime-edit'],
+        default='nhej',
+        help='Editing mode: nhej (deletions/insertions), base-edit (CBE/ABE substitutions), prime-edit (pegRNA templated)'
     )
 
     # Input sequences
@@ -608,6 +1217,91 @@ def create_parser() -> argparse.ArgumentParser:
         type=int,
         default=-3,
         help="Cut site offset from 3' end of guide (Cas9 default: -3)"
+    )
+
+    # Base editing parameters
+    base_group = parser.add_argument_group('Base editing parameters (for --mode base-edit)')
+    base_group.add_argument(
+        '--base-editor',
+        type=str,
+        choices=['CBE', 'ABE'],
+        default='CBE',
+        help='Base editor type: CBE (C→T) or ABE (A→G)'
+    )
+    base_group.add_argument(
+        '--window-center',
+        type=int,
+        default=6,
+        help='Activity window center position (from PAM-distal end of guide, 1-indexed)'
+    )
+    base_group.add_argument(
+        '--window-sigma',
+        type=float,
+        default=1.5,
+        help='Activity window spread (standard deviation for Gaussian model)'
+    )
+    base_group.add_argument(
+        '--base-edit-prob',
+        type=float,
+        default=0.5,
+        help='Per-eligible-base conversion probability within the window'
+    )
+
+    # Prime editing parameters
+    prime_group = parser.add_argument_group('Prime editing parameters (for --mode prime-edit)')
+    prime_group.add_argument(
+        '--peg-spacer',
+        type=str,
+        default=None,
+        help='pegRNA spacer sequence (defaults to --guide if not specified)'
+    )
+    prime_group.add_argument(
+        '--peg-extension',
+        type=str,
+        default=None,
+        help='pegRNA 3\' extension (RT template + PBS). Required for prime-edit mode.'
+    )
+    prime_group.add_argument(
+        '--peg-scaffold',
+        type=str,
+        default='GTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGC',
+        help='pegRNA scaffold sequence (default: standard SpCas9 scaffold)'
+    )
+    prime_group.add_argument(
+        '--nick-guide',
+        type=str,
+        default=None,
+        help='PE3 nicking guide sequence (optional, for PE3 mode)'
+    )
+    prime_group.add_argument(
+        '--perfect-edit-fraction',
+        type=float,
+        default=0.6,
+        help='Fraction of edits that are perfect RT template incorporation (default: 0.6)'
+    )
+    prime_group.add_argument(
+        '--partial-edit-fraction',
+        type=float,
+        default=0.15,
+        help='Fraction of edits with incomplete/truncated RT template (default: 0.15)'
+    )
+    prime_group.add_argument(
+        '--pe-indel-fraction',
+        type=float,
+        default=0.15,
+        help='Fraction of edits with indels at nick site (default: 0.15)'
+    )
+    prime_group.add_argument(
+        '--scaffold-incorporation-fraction',
+        type=float,
+        default=0.05,
+        help='Fraction of edits with scaffold sequence incorporation (default: 0.05)'
+    )
+    prime_group.add_argument(
+        '--flap-indel-fraction',
+        type=float,
+        default=0.05,
+        help='Fraction of edits with small indels at 3\' flap junction (default: 0.05)'
     )
 
     # Output options
@@ -688,6 +1382,20 @@ def main() -> int:
             seed=args.seed,
             cleavage_offset=args.cleavage_offset,
             quiet=args.quiet,
+            # Mode and base editing parameters
+            mode=args.mode,
+            base_editor=args.base_editor,
+            window_center=args.window_center,
+            window_sigma=args.window_sigma,
+            base_edit_prob=args.base_edit_prob,
+            # Prime editing parameters
+            peg_extension=args.peg_extension,
+            peg_scaffold=args.peg_scaffold,
+            perfect_edit_fraction=args.perfect_edit_fraction,
+            partial_edit_fraction=args.partial_edit_fraction,
+            pe_indel_fraction=args.pe_indel_fraction,
+            scaffold_incorporation_fraction=args.scaffold_incorporation_fraction,
+            flap_indel_fraction=args.flap_indel_fraction,
         )
     except ValueError as e:
         print(f'Error: {e}', file=sys.stderr)
