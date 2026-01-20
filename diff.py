@@ -135,7 +135,7 @@ def remove_file(file_path):
     os.remove(file_path)
 
 
-def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam'), prompt_to_update=False):
+def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam', '.vcf'), prompt_to_update=False):
     files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
@@ -256,9 +256,9 @@ if __name__ == '__main__':
     diff_running_times(
         args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    diff_suffixes=('.txt', '.html', '.sam')
+    diff_suffixes=('.txt', '.html', '.sam', '.vcf')
     if args.skip_html:
-        diff_suffixes = ('.txt', '.sam')
+        diff_suffixes = ('.txt', '.sam', '.vcf')
 
     if diff_dir(args.actual, expected, suffixes=diff_suffixes):
         sys.exit(1)
