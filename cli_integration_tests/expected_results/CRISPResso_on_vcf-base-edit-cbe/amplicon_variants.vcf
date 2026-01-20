@@ -1,0 +1,9 @@
+##fileformat=VCFv4.5
+##source=CRISPResso2
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Reference
+FANC	79	.	A	C	.	PASS	AF=0.010	GT	.
+FANC	80	.	T	G	.	PASS	AF=0.010	GT	.
+FANC	81	.	C	T	.	PASS	AF=0.120	GT	.
+FANC	82	.	C	T	.	PASS	AF=0.090	GT	.
+FANC	83	.	C	T	.	PASS	AF=0.040	GT	.
