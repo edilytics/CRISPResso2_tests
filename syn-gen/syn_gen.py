@@ -1029,7 +1029,7 @@ def generate_synthetic_data(
 
             else:
                 # NHEJ mode (default) - generate deletions/insertions
-                edit = generate_edit(cut_site, amplicon, deletion_weight)
+                edit = generate_edit(cut_site, amplicon)
                 seq = apply_edit(amplicon, edit)
                 if edit.edit_type == 'deletion':
                     deletion_count += 1
