@@ -54,6 +54,12 @@ def crispresso_available():
     return True
 
 
+@pytest.fixture
+def random_seed():
+    """Provide a consistent random seed for reproducible tests."""
+    return 42
+
+
 # =============================================================================
 # Helper Functions
 # =============================================================================
@@ -177,7 +183,128 @@ def parse_edits_tsv(tsv_path: str) -> list[dict]:
 
 class TestNHEJEndToEnd:
     """End-to-end tests for NHEJ editing mode."""
-    pass
+
+    def test_nhej_basic(self, temp_dir, random_seed, crispresso_available):
+        """
+        Test that CRISPResso correctly detects NHEJ edits (deletions/insertions).
+
+        Generates synthetic data with 50% edit rate, runs CRISPResso,
+        and verifies the detected edit counts match the ground truth.
+        """
+        random.seed(random_seed)
+
+        # Generate synthetic data
+        output_prefix = os.path.join(temp_dir, "nhej_test")
+        stats = generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=1000,
+            edit_rate=0.5,
+            error_rate=0.0,  # No sequencing errors for exact matching
+            output_prefix=output_prefix,
+            seed=random_seed,
+            quiet=True,
+            mode='nhej',
+        )
+
+        fastq_path = f"{output_prefix}.fastq"
+        edits_path = f"{output_prefix}_edits.tsv"
+
+        # Run CRISPResso
+        result = run_crispresso(
+            fastq_path=fastq_path,
+            output_dir=temp_dir,
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+        )
+
+        # Check CRISPResso ran successfully
+        assert result.returncode == 0, f"CRISPResso failed: {result.stderr}"
+
+        # Parse results
+        ground_truth = parse_edits_tsv(edits_path)
+        alleles = parse_alleles_table(temp_dir)
+
+        # Count edits in ground truth
+        gt_edited = sum(1 for e in ground_truth if e['edit_type'] != 'none')
+        gt_unedited = sum(1 for e in ground_truth if e['edit_type'] == 'none')
+
+        # Count total reads in CRISPResso output
+        total_crispresso_reads = sum(int(a.get('#Reads', a.get('Reads', 0))) for a in alleles)
+
+        # Verify total read count matches
+        assert total_crispresso_reads == 1000, (
+            f"Read count mismatch: CRISPResso={total_crispresso_reads}, expected=1000"
+        )
+
+        # Find reference allele (unedited) in CRISPResso output
+        ref_reads = 0
+        for allele in alleles:
+            n_deleted = int(allele.get('n_deleted', 0))
+            n_inserted = int(allele.get('n_inserted', 0))
+            n_mutated = int(allele.get('n_mutated', 0))
+            if n_deleted == 0 and n_inserted == 0 and n_mutated == 0:
+                ref_reads += int(allele.get('#Reads', allele.get('Reads', 0)))
+
+        # Verify unedited count is close to ground truth (allow 5% tolerance)
+        tolerance = 0.05 * 1000
+        assert abs(ref_reads - gt_unedited) <= tolerance, (
+            f"Unedited count mismatch: CRISPResso={ref_reads}, ground_truth={gt_unedited}"
+        )
+
+        # Verify edited count
+        edited_reads = total_crispresso_reads - ref_reads
+        assert abs(edited_reads - gt_edited) <= tolerance, (
+            f"Edited count mismatch: CRISPResso={edited_reads}, ground_truth={gt_edited}"
+        )
+
+    def test_nhej_deletions_detected(self, temp_dir, random_seed, crispresso_available):
+        """Test that deletions are correctly detected by CRISPResso."""
+        random.seed(random_seed)
+
+        output_prefix = os.path.join(temp_dir, "nhej_del_test")
+        stats = generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=500,
+            edit_rate=1.0,  # All reads edited
+            error_rate=0.0,
+            output_prefix=output_prefix,
+            seed=random_seed,
+            quiet=True,
+            mode='nhej',
+        )
+
+        fastq_path = f"{output_prefix}.fastq"
+        edits_path = f"{output_prefix}_edits.tsv"
+
+        result = run_crispresso(
+            fastq_path=fastq_path,
+            output_dir=temp_dir,
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+        )
+
+        assert result.returncode == 0, f"CRISPResso failed: {result.stderr}"
+
+        ground_truth = parse_edits_tsv(edits_path)
+        alleles = parse_alleles_table(temp_dir)
+
+        # Count deletions in ground truth
+        gt_deletions = sum(1 for e in ground_truth if e['edit_type'] == 'deletion')
+
+        # Count reads with deletions in CRISPResso
+        crispresso_deletions = sum(
+            int(a.get('#Reads', a.get('Reads', 0)))
+            for a in alleles
+            if int(a.get('n_deleted', 0)) > 0
+        )
+
+        # Verify deletion detection (allow 10% tolerance due to alignment differences)
+        tolerance = 0.10 * 500
+        assert abs(crispresso_deletions - gt_deletions) <= tolerance, (
+            f"Deletion count mismatch: CRISPResso={crispresso_deletions}, ground_truth={gt_deletions}"
+        )
 
 
 class TestBaseEditingEndToEnd:
