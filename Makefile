@@ -1,5 +1,5 @@
 .PHONY: all install test test_cli_integration clean clean_cli_integration \
-	basic params batch pooled wgs compare print update syn-gen-test
+	basic params batch pooled wgs compare print update syn-gen-test syn-gen-e2e syn-gen-all
 
 CRISPRESSO2_DIR ?= ../CRISPResso2
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*)
@@ -297,3 +297,9 @@ cli_integration_tests/CRISPResso_on_base_editor: install cli_integration_tests/i
 
 syn-gen-test:
 	cd syn-gen && pytest test_syn_gen.py -v
+
+syn-gen-e2e:
+	cd syn-gen && pytest test_e2e.py -v
+
+syn-gen-all:
+	cd syn-gen && pytest test_syn_gen.py test_e2e.py -v
