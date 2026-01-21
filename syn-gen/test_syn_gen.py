@@ -12,6 +12,7 @@ from syn_gen import (
     EditedRead,
     VcfVariant,
     PrimeEditIntent,
+    SequencingError,
     reverse_complement,
     generate_random_sequence,
     find_guide_in_amplicon,
@@ -194,19 +195,33 @@ class TestApplyEdit:
 class TestAddSequencingErrors:
     def test_zero_error_rate(self):
         seq = 'ACGTACGTACGT'
-        result = add_sequencing_errors(seq, 0.0)
+        result, errors = add_sequencing_errors(seq, 0.0)
         assert result == seq
+        assert errors == []
 
     def test_full_error_rate(self):
         seq = 'AAAA'
-        result = add_sequencing_errors(seq, 1.0)
+        result, errors = add_sequencing_errors(seq, 1.0)
         # All bases should be changed
         assert 'A' not in result
+        assert len(errors) == 4
 
     def test_preserves_length(self):
         seq = 'ACGT' * 100
-        result = add_sequencing_errors(seq, 0.01)
+        result, errors = add_sequencing_errors(seq, 0.01)
         assert len(result) == len(seq)
+
+    def test_errors_recorded_correctly(self):
+        """Sequencing errors should be recorded with correct positions and bases."""
+        seq = 'AAAA'
+        result, errors = add_sequencing_errors(seq, 1.0)
+        # Check that each error is valid
+        for error in errors:
+            assert error.original_base == 'A'
+            assert error.error_base in 'CGT'
+            assert 0 <= error.position < 4
+            # Verify the error was applied at the recorded position
+            assert result[error.position] == error.error_base
 
 
 class TestGenerateQualityString:
@@ -491,20 +506,30 @@ class TestAddSequencingErrorsProperties:
     @given(seq=dna_sequence)
     def test_zero_error_rate_preserves_sequence(self, seq):
         """Zero error rate returns the original sequence."""
-        result = add_sequencing_errors(seq, 0.0)
+        result, errors = add_sequencing_errors(seq, 0.0)
         assert result == seq
+        assert errors == []
 
     @given(seq=dna_sequence, error_rate=rate)
     def test_preserves_length(self, seq, error_rate):
         """Error introduction preserves sequence length."""
-        result = add_sequencing_errors(seq, error_rate)
+        result, errors = add_sequencing_errors(seq, error_rate)
         assert len(result) == len(seq)
 
     @given(seq=dna_sequence, error_rate=rate)
     def test_only_valid_bases(self, seq, error_rate):
         """Errors only introduce valid DNA bases."""
-        result = add_sequencing_errors(seq, error_rate)
+        result, errors = add_sequencing_errors(seq, error_rate)
         assert set(result).issubset({'A', 'C', 'G', 'T'})
+
+    @given(seq=dna_sequence, error_rate=rate)
+    def test_error_count_matches_list(self, seq, error_rate):
+        """Number of errors recorded matches changes made."""
+        result, errors = add_sequencing_errors(seq, error_rate)
+        # Each error should correspond to a change
+        for error in errors:
+            assert result[error.position] == error.error_base
+            assert seq[error.position].upper() == error.original_base
 
 
 class TestGenerateQualityStringProperties:
