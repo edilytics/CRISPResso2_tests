@@ -942,10 +942,24 @@ def write_alleles_tsv(reads: list[EditedRead], filepath: str) -> None:
                 sub_positions, sub_values = zip(*sorted(zip(sub_positions, sub_values)))
                 sub_positions, sub_values = list(sub_positions), list(sub_values)
 
+            # Expand positions to match CRISPResso format
+            # CRISPResso lists each deleted position individually
+            expanded_del_positions = []
+            for pos, size in zip(del_positions, del_sizes):
+                expanded_del_positions.extend(range(pos, pos + size))
+
+            # CRISPResso lists insertion positions as [left_pos, left_pos+1] pairs
+            # where left_pos is the reference position to the left of the insertion
+            # syn-gen records position as "insert at this index", so left_pos = pos - 1
+            expanded_ins_positions = []
+            for pos, size in zip(ins_positions, ins_sizes):
+                # CRISPResso uses [pos-1, pos] regardless of insertion size
+                expanded_ins_positions.extend([pos - 1, pos])
+
             # Format as Python lists (matching CRISPResso format)
             fh.write(f'{count}\t{seq}\t'
-                     f'{del_positions}\t{del_sizes}\t'
-                     f'{ins_positions}\t{ins_sizes}\t'
+                     f'{expanded_del_positions}\t{del_sizes}\t'
+                     f'{expanded_ins_positions}\t{ins_sizes}\t'
                      f'{sub_positions}\t{sub_values}\n')
 
 
