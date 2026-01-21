@@ -6,6 +6,8 @@ Generates synthetic FASTQ files with realistic edits for testing CRISPResso2.
 Supports NHEJ (deletions/insertions), base editing (CBE/ABE), and prime editing.
 """
 
+from __future__ import annotations
+
 import argparse
 import gzip
 import math

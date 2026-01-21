@@ -34,7 +34,7 @@ jobs:
 
       - name: Install CRISPResso2
         run: |
-          conda install -y -c bioconda crispresso2 "python>=3.10,<3.13"
+          conda install -y -c bioconda crispresso2
           CRISPResso --version
 
       - name: Install test dependencies
