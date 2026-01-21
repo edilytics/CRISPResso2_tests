@@ -2,9 +2,7 @@ name: syn-gen tests
 
 on:
   push:
-    branches: [master, main, cole/syn-gen]
   pull_request:
-    branches: [master, main, cole/syn-gen]
 
 jobs:
   test:
@@ -23,7 +21,6 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
           auto-update-conda: true
-          python-version: "3.12"
           channels: bioconda,conda-forge,defaults
           channel-priority: strict
 
