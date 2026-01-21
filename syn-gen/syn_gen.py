@@ -1216,9 +1216,11 @@ def generate_synthetic_data(
     fastq_path = f'{output_prefix}.fastq'
     tsv_path = f'{output_prefix}_edits.tsv'
     vcf_path = f'{output_prefix}.vcf'
+    alleles_path = f'{output_prefix}_alleles.tsv'
 
     write_fastq(reads, fastq_path)
     write_edit_tsv(reads, tsv_path)
+    write_alleles_tsv(reads, alleles_path)
 
     variants = aggregate_edits_to_variants(reads, amplicon, amplicon_name)
     write_vcf(variants, amplicon_name, amplicon, vcf_path)
@@ -1244,7 +1246,8 @@ def generate_synthetic_data(
         'output_files': {
             'fastq': fastq_path,
             'tsv': tsv_path,
-            'vcf': vcf_path
+            'vcf': vcf_path,
+            'alleles': alleles_path
         }
     }
 
@@ -1270,9 +1273,10 @@ def generate_synthetic_data(
                 print(f'  - Insertions:  {insertion_count} ({100 * insertion_count / edited_count:.2f}% of edits)')
         print()
         print('Output files:')
-        print(f'  FASTQ: {fastq_path}')
-        print(f'  TSV:   {tsv_path}')
-        print(f'  VCF:   {vcf_path}')
+        print(f'  FASTQ:   {fastq_path}')
+        print(f'  TSV:     {tsv_path}')
+        print(f'  VCF:     {vcf_path}')
+        print(f'  Alleles: {alleles_path}')
 
     return stats
 
