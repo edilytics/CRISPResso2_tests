@@ -420,4 +420,156 @@ class TestBaseEditingEndToEnd:
 
 class TestPrimeEditingEndToEnd:
     """End-to-end tests for prime editing mode."""
-    pass
+
+    def test_prime_edit_basic(self, temp_dir, random_seed, crispresso_available):
+        """
+        Test that CRISPResso correctly detects prime editing outcomes.
+
+        In prime editing mode, CRISPResso creates multiple reference sequences:
+        - Reference: the original amplicon
+        - Prime-edited: the expected edited amplicon
+        - Scaffold-incorporated: variant with scaffold sequence
+
+        Reads are assigned to the best-matching reference. We verify that:
+        1. Unedited reads match the "Reference" amplicon
+        2. Edited reads match the "Prime-edited" amplicon
+        """
+        random.seed(random_seed)
+
+        output_prefix = os.path.join(temp_dir, "pe_test")
+        stats = generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=1000,
+            edit_rate=0.5,
+            error_rate=0.0,
+            output_prefix=output_prefix,
+            seed=random_seed,
+            quiet=True,
+            mode='prime-edit',
+            peg_extension=PE_EXTENSION,
+            peg_scaffold=PE_SCAFFOLD,
+            perfect_edit_fraction=0.8,  # Mostly perfect edits for cleaner validation
+            partial_edit_fraction=0.1,
+            pe_indel_fraction=0.1,
+            scaffold_incorporation_fraction=0.0,
+            flap_indel_fraction=0.0,
+        )
+
+        fastq_path = f"{output_prefix}.fastq"
+        edits_path = f"{output_prefix}_edits.tsv"
+
+        result = run_crispresso(
+            fastq_path=fastq_path,
+            output_dir=temp_dir,
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            extra_args=[
+                "--prime_editing_pegRNA_spacer_seq", TEST_GUIDE,
+                "--prime_editing_pegRNA_extension_seq", PE_EXTENSION,
+                "--prime_editing_pegRNA_scaffold_seq", PE_SCAFFOLD,
+            ],
+        )
+
+        assert result.returncode == 0, f"CRISPResso failed: {result.stderr}"
+
+        ground_truth = parse_edits_tsv(edits_path)
+        alleles = parse_alleles_table(temp_dir)
+
+        # Count prime edits in ground truth
+        gt_prime_edits = sum(1 for e in ground_truth if e['edit_type'] == 'prime_edit')
+        gt_unedited = sum(1 for e in ground_truth if e['edit_type'] == 'none')
+
+        # Count total reads
+        total_crispresso_reads = sum(int(a.get('#Reads', a.get('Reads', 0))) for a in alleles)
+
+        # Verify total read count
+        assert total_crispresso_reads == 1000, (
+            f"Read count mismatch: CRISPResso={total_crispresso_reads}, expected=1000"
+        )
+
+        # In prime editing mode, count reads assigned to each reference
+        # Reference_Name column tells us which amplicon the reads aligned to
+        reference_reads = 0
+        prime_edited_reads = 0
+        for allele in alleles:
+            reads = int(allele.get('#Reads', allele.get('Reads', 0)))
+            ref_name = allele.get('Reference_Name', '')
+            if ref_name == 'Reference':
+                reference_reads += reads
+            elif ref_name == 'Prime-edited':
+                prime_edited_reads += reads
+
+        # Verify unedited count (allow 10% tolerance)
+        tolerance = 0.10 * 1000
+        assert abs(reference_reads - gt_unedited) <= tolerance, (
+            f"Reference read count mismatch: CRISPResso={reference_reads}, ground_truth={gt_unedited}"
+        )
+
+        # Verify edited reads are detected (prime edits should align to Prime-edited reference)
+        # Note: some prime edits with indels may align to Reference with modifications
+        assert prime_edited_reads > 0, (
+            f"No reads aligned to Prime-edited reference (expected ~{gt_prime_edits})"
+        )
+
+    def test_prime_edit_perfect_edits(self, temp_dir, random_seed, crispresso_available):
+        """Test that perfect prime edits are detected with correct sequence."""
+        random.seed(random_seed)
+
+        output_prefix = os.path.join(temp_dir, "pe_perfect_test")
+        stats = generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=500,
+            edit_rate=1.0,  # All reads edited
+            error_rate=0.0,
+            output_prefix=output_prefix,
+            seed=random_seed,
+            quiet=True,
+            mode='prime-edit',
+            peg_extension=PE_EXTENSION,
+            peg_scaffold=PE_SCAFFOLD,
+            perfect_edit_fraction=1.0,  # All perfect edits
+            partial_edit_fraction=0.0,
+            pe_indel_fraction=0.0,
+            scaffold_incorporation_fraction=0.0,
+            flap_indel_fraction=0.0,
+        )
+
+        fastq_path = f"{output_prefix}.fastq"
+
+        result = run_crispresso(
+            fastq_path=fastq_path,
+            output_dir=temp_dir,
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            extra_args=[
+                "--prime_editing_pegRNA_spacer_seq", TEST_GUIDE,
+                "--prime_editing_pegRNA_extension_seq", PE_EXTENSION,
+                "--prime_editing_pegRNA_scaffold_seq", PE_SCAFFOLD,
+            ],
+        )
+
+        assert result.returncode == 0, f"CRISPResso failed: {result.stderr}"
+
+        alleles = parse_alleles_table(temp_dir)
+
+        # Count reads by reference assignment
+        reference_reads = 0
+        prime_edited_reads = 0
+        for allele in alleles:
+            reads = int(allele.get('#Reads', allele.get('Reads', 0)))
+            ref_name = allele.get('Reference_Name', '')
+            if ref_name == 'Reference':
+                reference_reads += reads
+            elif ref_name == 'Prime-edited':
+                prime_edited_reads += reads
+
+        # With 100% edit rate and perfect edits, all reads should align to Prime-edited
+        # Allow small tolerance for alignment edge cases
+        assert reference_reads <= 25, (
+            f"Too many reads aligned to Reference: {reference_reads} (expected ~0)"
+        )
+        assert prime_edited_reads >= 475, (
+            f"Too few reads aligned to Prime-edited: {prime_edited_reads} (expected ~500)"
+        )
