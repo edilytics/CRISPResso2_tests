@@ -177,6 +177,144 @@ def parse_edits_tsv(tsv_path: str) -> list[dict]:
     return edits
 
 
+def parse_syngen_alleles(alleles_path: str) -> dict[str, dict]:
+    """
+    Parse syn-gen's *_alleles.tsv file.
+
+    Returns:
+        Dict mapping sequence -> allele info dict
+    """
+    alleles = {}
+    with open(alleles_path) as f:
+        lines = f.read().strip().split('\n')
+        if len(lines) < 2:
+            return alleles
+
+        header = lines[0].split('\t')
+        for line in lines[1:]:
+            values = line.split('\t')
+            allele = dict(zip(header, values))
+            seq = allele['Aligned_Sequence']
+            alleles[seq] = allele
+
+    return alleles
+
+
+def parse_crispresso_alleles(crispresso_output_dir: str) -> dict[str, dict]:
+    """
+    Parse CRISPResso's Alleles_frequency_table.zip with detailed columns.
+
+    Returns:
+        Dict mapping sequence -> allele info dict
+    """
+    # Find the CRISPResso output folder
+    output_folders = [
+        d for d in os.listdir(crispresso_output_dir)
+        if d.startswith("CRISPResso_on_")
+    ]
+    if not output_folders:
+        raise FileNotFoundError(f"No CRISPResso output folder in {crispresso_output_dir}")
+
+    crispresso_folder = os.path.join(crispresso_output_dir, output_folders[0])
+    zip_path = os.path.join(crispresso_folder, "Alleles_frequency_table.zip")
+
+    if not os.path.exists(zip_path):
+        raise FileNotFoundError(f"Alleles_frequency_table.zip not found in {crispresso_folder}")
+
+    alleles = {}
+    with zipfile.ZipFile(zip_path, 'r') as zf:
+        tsv_files = [f for f in zf.namelist() if f.endswith('.txt')]
+        if not tsv_files:
+            raise FileNotFoundError("No .txt file in Alleles_frequency_table.zip")
+
+        with zf.open(tsv_files[0]) as f:
+            lines = f.read().decode('utf-8').strip().split('\n')
+            if len(lines) < 2:
+                return alleles
+
+            header = lines[0].split('\t')
+            for line in lines[1:]:
+                values = line.split('\t')
+                allele = dict(zip(header, values))
+                # Remove gaps from aligned sequence for comparison
+                seq = allele['Aligned_Sequence'].replace('-', '')
+                alleles[seq] = allele
+
+    return alleles
+
+
+def compare_alleles(syngen_alleles_path: str, crispresso_output_dir: str) -> list[str]:
+    """
+    Compare syn-gen ground truth against CRISPResso output.
+
+    Args:
+        syngen_alleles_path: Path to syn-gen's _alleles.tsv
+        crispresso_output_dir: Path to CRISPResso output directory
+
+    Returns:
+        List of discrepancy messages (empty = all match)
+    """
+    syngen = parse_syngen_alleles(syngen_alleles_path)
+    crispresso = parse_crispresso_alleles(crispresso_output_dir)
+
+    discrepancies = []
+
+    # Check for missing alleles (in syn-gen but not CRISPResso)
+    for seq, sg_allele in syngen.items():
+        if seq not in crispresso:
+            count = sg_allele['#Reads']
+            short_seq = seq[:20] + '...' + seq[-20:] if len(seq) > 50 else seq
+            discrepancies.append(f"MISSING allele {short_seq} ({count} reads) - not found in CRISPResso")
+            continue
+
+        cr_allele = crispresso[seq]
+
+        # Compare read counts
+        sg_count = int(sg_allele['#Reads'])
+        cr_count = int(cr_allele['#Reads'])
+        if sg_count != cr_count:
+            short_seq = seq[:20] + '...' + seq[-20:] if len(seq) > 50 else seq
+            discrepancies.append(
+                f"COUNT mismatch for {short_seq}: expected {sg_count}, got {cr_count}"
+            )
+
+        # Compare deletion positions
+        sg_del = sg_allele.get('all_deletion_positions', '[]')
+        cr_del = cr_allele.get('all_deletion_positions', '[]')
+        if sg_del != cr_del:
+            short_seq = seq[:20] + '...' + seq[-20:] if len(seq) > 50 else seq
+            discrepancies.append(
+                f"DELETION positions mismatch for {short_seq}: expected {sg_del}, got {cr_del}"
+            )
+
+        # Compare insertion positions
+        sg_ins = sg_allele.get('all_insertion_positions', '[]')
+        cr_ins = cr_allele.get('all_insertion_positions', '[]')
+        if sg_ins != cr_ins:
+            short_seq = seq[:20] + '...' + seq[-20:] if len(seq) > 50 else seq
+            discrepancies.append(
+                f"INSERTION positions mismatch for {short_seq}: expected {sg_ins}, got {cr_ins}"
+            )
+
+        # Compare substitution positions
+        sg_sub = sg_allele.get('all_substitution_positions', '[]')
+        cr_sub = cr_allele.get('all_substitution_positions', '[]')
+        if sg_sub != cr_sub:
+            short_seq = seq[:20] + '...' + seq[-20:] if len(seq) > 50 else seq
+            discrepancies.append(
+                f"SUBSTITUTION positions mismatch for {short_seq}: expected {sg_sub}, got {cr_sub}"
+            )
+
+    # Check for extra alleles (in CRISPResso but not syn-gen)
+    for seq, cr_allele in crispresso.items():
+        if seq not in syngen:
+            count = cr_allele['#Reads']
+            short_seq = seq[:20] + '...' + seq[-20:] if len(seq) > 50 else seq
+            discrepancies.append(f"EXTRA allele {short_seq} ({count} reads) - unexpected in CRISPResso")
+
+    return discrepancies
+
+
 # =============================================================================
 # Test Classes (placeholders for subsequent tasks)
 # =============================================================================
