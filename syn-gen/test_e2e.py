@@ -308,8 +308,114 @@ class TestNHEJEndToEnd:
 
 
 class TestBaseEditingEndToEnd:
-    """End-to-end tests for base editing mode."""
-    pass
+    """End-to-end tests for base editing mode (CBE and ABE)."""
+
+    def test_cbe_basic(self, temp_dir, random_seed, crispresso_available):
+        """
+        Test that CRISPResso correctly detects CBE edits (C→T conversions).
+        """
+        random.seed(random_seed)
+
+        output_prefix = os.path.join(temp_dir, "cbe_test")
+        stats = generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=1000,
+            edit_rate=0.5,
+            error_rate=0.0,
+            output_prefix=output_prefix,
+            seed=random_seed,
+            quiet=True,
+            mode='base-edit',
+            base_editor='CBE',
+            window_center=6,
+            window_sigma=1.5,
+            base_edit_prob=0.8,  # High conversion probability
+        )
+
+        fastq_path = f"{output_prefix}.fastq"
+        edits_path = f"{output_prefix}_edits.tsv"
+
+        result = run_crispresso(
+            fastq_path=fastq_path,
+            output_dir=temp_dir,
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            extra_args=["--base_editor_output"],
+        )
+
+        assert result.returncode == 0, f"CRISPResso failed: {result.stderr}"
+
+        ground_truth = parse_edits_tsv(edits_path)
+        alleles = parse_alleles_table(temp_dir)
+
+        # Count substitutions in ground truth
+        gt_substitutions = sum(1 for e in ground_truth if e['edit_type'] == 'substitution')
+
+        # Count reads with mutations in CRISPResso
+        crispresso_mutated = sum(
+            int(a.get('#Reads', a.get('Reads', 0)))
+            for a in alleles
+            if int(a.get('n_mutated', 0)) > 0
+        )
+
+        # Verify substitution detection (allow 15% tolerance)
+        tolerance = 0.15 * 1000
+        assert abs(crispresso_mutated - gt_substitutions) <= tolerance, (
+            f"Substitution count mismatch: CRISPResso={crispresso_mutated}, ground_truth={gt_substitutions}"
+        )
+
+    def test_abe_basic(self, temp_dir, random_seed, crispresso_available):
+        """
+        Test that CRISPResso correctly detects ABE edits (A→G conversions).
+        """
+        random.seed(random_seed)
+
+        output_prefix = os.path.join(temp_dir, "abe_test")
+        stats = generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=1000,
+            edit_rate=0.5,
+            error_rate=0.0,
+            output_prefix=output_prefix,
+            seed=random_seed,
+            quiet=True,
+            mode='base-edit',
+            base_editor='ABE',
+            window_center=6,
+            window_sigma=1.5,
+            base_edit_prob=0.8,
+        )
+
+        fastq_path = f"{output_prefix}.fastq"
+        edits_path = f"{output_prefix}_edits.tsv"
+
+        result = run_crispresso(
+            fastq_path=fastq_path,
+            output_dir=temp_dir,
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            extra_args=["--base_editor_output"],
+        )
+
+        assert result.returncode == 0, f"CRISPResso failed: {result.stderr}"
+
+        ground_truth = parse_edits_tsv(edits_path)
+        alleles = parse_alleles_table(temp_dir)
+
+        gt_substitutions = sum(1 for e in ground_truth if e['edit_type'] == 'substitution')
+
+        crispresso_mutated = sum(
+            int(a.get('#Reads', a.get('Reads', 0)))
+            for a in alleles
+            if int(a.get('n_mutated', 0)) > 0
+        )
+
+        tolerance = 0.15 * 1000
+        assert abs(crispresso_mutated - gt_substitutions) <= tolerance, (
+            f"ABE substitution count mismatch: CRISPResso={crispresso_mutated}, ground_truth={gt_substitutions}"
+        )
 
 
 class TestPrimeEditingEndToEnd:
