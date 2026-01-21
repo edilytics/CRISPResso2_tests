@@ -11,11 +11,13 @@ from syn_gen import (
     Edit,
     EditedRead,
     VcfVariant,
+    PrimeEditIntent,
     reverse_complement,
     generate_random_sequence,
     find_guide_in_amplicon,
     calculate_cut_site,
     apply_edit,
+    apply_prime_edit,
     add_sequencing_errors,
     generate_quality_string,
     aggregate_edits_to_variants,
@@ -24,6 +26,8 @@ from syn_gen import (
     sample_deletion_size,
     sample_insertion_size,
     generate_edit,
+    parse_peg_extension,
+    generate_prime_edit,
 )
 
 
@@ -926,6 +930,267 @@ class TestVcfVariantProperties:
                     info = parts[7]
                     af = float(info.split('=')[1])
                     assert 0.0 < af <= 1.0
+
+
+# =============================================================================
+# Prime Editing Tests
+# =============================================================================
+
+class TestParsePegExtension:
+    """Tests for parse_peg_extension function."""
+
+    # Standard test amplicon and guide from CRISPResso tests
+    AMPLICON = 'CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG'
+    GUIDE = 'GGAATCCCTTCTGCAGCACC'
+    CUT_SITE = 92  # Guide at 75-95, cut site = 95 - 3 = 92
+
+    def test_rt_template_is_reverse_complemented(self):
+        """RT template should be reverse complemented to match CRISPResso behavior."""
+        peg_extension = 'ATCTGGATCGGCTGCAGAAGGGA'  # RT template + PBS
+
+        intent = parse_peg_extension(
+            amplicon=self.AMPLICON,
+            cut_site=self.CUT_SITE,
+            peg_extension=peg_extension,
+            pbs_length=13,
+        )
+
+        # RT template is first 10 bp: ATCTGGATCG
+        # RC of RT template: CGATCCAGAT
+        assert intent.edited_seq == 'CGATCCAGAT'
+        assert intent.original_seq == 'ACCTGGATCG'  # Reference at position 92-102
+
+    def test_edit_type_substitution(self):
+        """Same length RT template = substitution."""
+        peg_extension = 'ATCTGGATCGGCTGCAGAAGGGA'
+
+        intent = parse_peg_extension(
+            amplicon=self.AMPLICON,
+            cut_site=self.CUT_SITE,
+            peg_extension=peg_extension,
+            pbs_length=13,
+        )
+
+        assert intent.edit_type == 'substitution'
+        assert len(intent.edited_seq) == len(intent.original_seq)
+
+    def test_edit_position(self):
+        """Edit should be at the cut site."""
+        peg_extension = 'ATCTGGATCGGCTGCAGAAGGGA'
+
+        intent = parse_peg_extension(
+            amplicon=self.AMPLICON,
+            cut_site=self.CUT_SITE,
+            peg_extension=peg_extension,
+            pbs_length=13,
+        )
+
+        assert intent.position == self.CUT_SITE
+
+    def test_pbs_boundaries(self):
+        """PBS should span cut_site - pbs_length to cut_site."""
+        peg_extension = 'ATCTGGATCGGCTGCAGAAGGGA'
+
+        intent = parse_peg_extension(
+            amplicon=self.AMPLICON,
+            cut_site=self.CUT_SITE,
+            peg_extension=peg_extension,
+            pbs_length=13,
+        )
+
+        assert intent.pbs_start == self.CUT_SITE - 13
+        assert intent.pbs_end == self.CUT_SITE
+
+    def test_empty_rt_template_raises(self):
+        """Should raise if pbs_length >= len(peg_extension)."""
+        peg_extension = 'GCTGCAGAAGGGA'  # 13 bp, all PBS
+
+        with pytest.raises(ValueError, match="RT template is empty"):
+            parse_peg_extension(
+                amplicon=self.AMPLICON,
+                cut_site=self.CUT_SITE,
+                peg_extension=peg_extension,
+                pbs_length=13,
+            )
+
+
+class TestGeneratePrimeEdit:
+    """Tests for generate_prime_edit function."""
+
+    def test_perfect_edit(self):
+        """Perfect edit should exactly match the intent."""
+        intent = PrimeEditIntent(
+            edit_type='substitution',
+            position=92,
+            original_seq='ACCTGGATCG',
+            edited_seq='CGATCCAGAT',
+            pbs_start=79,
+            pbs_end=92,
+            rt_template='CGATCCAGAT',
+        )
+
+        edit = generate_prime_edit(
+            amplicon='A' * 223,  # Dummy amplicon
+            intent=intent,
+            outcome_type='perfect',
+        )
+
+        assert edit.edit_type == 'prime_edit'
+        assert edit.original_seq == 'ACCTGGATCG'
+        assert edit.edited_seq == 'CGATCCAGAT'
+        assert edit.position == 92
+
+    def test_indel_outcome(self):
+        """Indel outcome should generate deletion or insertion."""
+        intent = PrimeEditIntent(
+            edit_type='substitution',
+            position=92,
+            original_seq='ACCTGGATCG',
+            edited_seq='CGATCCAGAT',
+            pbs_start=79,
+            pbs_end=92,
+            rt_template='CGATCCAGAT',
+        )
+
+        amplicon = 'A' * 100 + 'ACCTGGATCG' + 'A' * 113
+
+        edit = generate_prime_edit(
+            amplicon=amplicon,
+            intent=intent,
+            outcome_type='indel',
+        )
+
+        assert edit.edit_type in ('deletion', 'insertion')
+
+
+class TestApplyPrimeEdit:
+    """Tests for apply_prime_edit function."""
+
+    AMPLICON = 'CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG'
+
+    def test_substitution_edit(self):
+        """Substitution edit should replace sequence at position."""
+        edit = Edit(
+            edit_type='prime_edit',
+            position=92,
+            size=0,
+            original_seq='ACCTGGATCG',
+            edited_seq='CGATCCAGAT',
+        )
+
+        result = apply_prime_edit(self.AMPLICON, edit)
+
+        # Check the edit was applied correctly
+        assert result[92:102] == 'CGATCCAGAT'
+        # Check flanking regions are unchanged
+        assert result[:92] == self.AMPLICON[:92]
+        assert result[102:] == self.AMPLICON[102:]
+
+    def test_no_edit(self):
+        """No edit should return original amplicon."""
+        edit = Edit(
+            edit_type='none',
+            position=0,
+            size=0,
+            original_seq='',
+            edited_seq='',
+        )
+
+        result = apply_prime_edit(self.AMPLICON, edit)
+        assert result == self.AMPLICON
+
+    def test_matches_crispresso_expectation(self):
+        """Generated sequence should match what CRISPResso expects."""
+        # This is the critical test - verify syn-gen output matches CRISPResso's
+        # Prime-edited reference sequence
+
+        edit = Edit(
+            edit_type='prime_edit',
+            position=92,
+            size=0,
+            original_seq='ACCTGGATCG',
+            edited_seq='CGATCCAGAT',
+        )
+
+        result = apply_prime_edit(self.AMPLICON, edit)
+
+        # CRISPResso Prime-edited reference at position 85-105:
+        # CTGCAGCCGATCCAGATCTT
+        assert result[85:105] == 'CTGCAGCCGATCCAGATCTT'
+
+
+class TestPrimeEditingIntegration:
+    """Integration tests for prime editing data generation."""
+
+    AMPLICON = 'CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG'
+    GUIDE = 'GGAATCCCTTCTGCAGCACC'
+    PEG_EXTENSION = 'ATCTGGATCGGCTGCAGAAGGGA'
+
+    def test_prime_edit_mode_generates_correct_sequences(self):
+        """Prime edit mode should generate sequences matching CRISPResso expectations."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+
+            stats = generate_synthetic_data(
+                amplicon=self.AMPLICON,
+                guide=self.GUIDE,
+                num_reads=50,
+                edit_rate=0.5,
+                error_rate=0.0,
+                output_prefix=prefix,
+                mode='prime-edit',
+                peg_extension=self.PEG_EXTENSION,
+                seed=42,
+                quiet=True,
+            )
+
+            # Read the TSV to check edit details
+            with open(f'{prefix}_edits.tsv') as f:
+                lines = f.readlines()[1:]  # Skip header
+
+            # Find a perfect prime edit
+            for line in lines:
+                parts = line.strip().split('\t')
+                if parts[1] == 'prime_edit' and parts[4] == 'ACCTGGATCG':
+                    # Should have RC of RT template as edited_seq
+                    assert parts[5] == 'CGATCCAGAT'
+                    break
+            else:
+                pytest.fail("No perfect prime edit found in output")
+
+    def test_prime_edit_read_sequences_correct(self):
+        """Prime edited reads should have correct sequence at edit site."""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'test')
+
+            generate_synthetic_data(
+                amplicon=self.AMPLICON,
+                guide=self.GUIDE,
+                num_reads=100,
+                edit_rate=1.0,  # All reads edited
+                error_rate=0.0,
+                output_prefix=prefix,
+                mode='prime-edit',
+                peg_extension=self.PEG_EXTENSION,
+                perfect_edit_fraction=1.0,  # All perfect edits
+                partial_edit_fraction=0.0,
+                pe_indel_fraction=0.0,
+                scaffold_incorporation_fraction=0.0,
+                flap_indel_fraction=0.0,
+                seed=42,
+                quiet=True,
+            )
+
+            # Read FASTQ and check sequences
+            with open(f'{prefix}.fastq') as f:
+                lines = f.readlines()
+
+            # Check first read has correct edit
+            seq = lines[1].strip()  # Second line is sequence
+            # Should have CGATCCAGAT at position 92-102
+            assert seq[92:102] == 'CGATCCAGAT'
+            # Should match CRISPResso expectation at 85-105
+            assert seq[85:105] == 'CTGCAGCCGATCCAGATCTT'
 
 
 if __name__ == '__main__':

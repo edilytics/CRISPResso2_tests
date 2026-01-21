@@ -465,6 +465,9 @@ def parse_peg_extension(
     The PBS binds upstream of the nick site (on the nicked strand).
     The RT template specifies the sequence to be installed.
 
+    IMPORTANT: The RT template on the pegRNA is reverse complemented when
+    incorporated into the target strand. This matches CRISPResso2's behavior.
+
     Args:
         amplicon: Reference amplicon sequence
         cut_site: Position of the nick (0-indexed)
@@ -491,31 +494,33 @@ def parse_peg_extension(
     pbs_end = cut_site
 
     # The RT template will replace sequence starting at the cut site
-    # Compare RT template to reference to identify the edit
+    # CRITICAL: The RT template must be reverse complemented to get the
+    # sequence that appears on the target strand (this matches CRISPResso2)
+    rt_template_rc = reverse_complement(rt_template)
 
     # Get the reference sequence that would be replaced
     # RT template length determines how much reference to compare
-    rt_len = len(rt_template)
+    rt_len = len(rt_template_rc)
     ref_seq = amplicon[cut_site:cut_site + rt_len]
 
     # Compare to find differences
-    if rt_template == ref_seq:
+    if rt_template_rc == ref_seq:
         # No edit - this shouldn't happen with a real pegRNA but handle it
         return PrimeEditIntent(
             edit_type='substitution',
             position=cut_site,
             original_seq=ref_seq,
-            edited_seq=rt_template,
+            edited_seq=rt_template_rc,
             pbs_start=pbs_start,
             pbs_end=pbs_end,
-            rt_template=rt_template,
+            rt_template=rt_template_rc,
         )
 
     # Determine edit type by comparing lengths and content
-    if len(rt_template) == len(ref_seq):
+    if len(rt_template_rc) == len(ref_seq):
         # Same length - substitution(s)
         edit_type = 'substitution'
-    elif len(rt_template) > len(ref_seq):
+    elif len(rt_template_rc) > len(ref_seq):
         # RT template longer - insertion
         edit_type = 'insertion'
     else:
@@ -526,10 +531,10 @@ def parse_peg_extension(
         edit_type=edit_type,
         position=cut_site,
         original_seq=ref_seq,
-        edited_seq=rt_template,
+        edited_seq=rt_template_rc,
         pbs_start=pbs_start,
         pbs_end=pbs_end,
-        rt_template=rt_template,
+        rt_template=rt_template_rc,
     )
 
 
