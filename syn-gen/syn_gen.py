@@ -43,10 +43,23 @@ class Edit:
 
 
 @dataclass
+class SequencingError:
+    """A sequencing error introduced during simulation."""
+    position: int  # 0-indexed position in the read
+    original_base: str  # Base before error
+    error_base: str  # Base after error
+
+
+@dataclass
 class EditedRead:
     """A read with its associated edit information."""
     read: FastqRead
     edit: Edit
+    sequencing_errors: list[SequencingError] = None  # Optional list of sequencing errors
+
+    def __post_init__(self):
+        if self.sequencing_errors is None:
+            self.sequencing_errors = []
 
 
 @dataclass
@@ -465,6 +478,9 @@ def parse_peg_extension(
     The PBS binds upstream of the nick site (on the nicked strand).
     The RT template specifies the sequence to be installed.
 
+    IMPORTANT: The RT template on the pegRNA is reverse complemented when
+    incorporated into the target strand. This matches CRISPResso2's behavior.
+
     Args:
         amplicon: Reference amplicon sequence
         cut_site: Position of the nick (0-indexed)
@@ -491,31 +507,33 @@ def parse_peg_extension(
     pbs_end = cut_site
 
     # The RT template will replace sequence starting at the cut site
-    # Compare RT template to reference to identify the edit
+    # CRITICAL: The RT template must be reverse complemented to get the
+    # sequence that appears on the target strand (this matches CRISPResso2)
+    rt_template_rc = reverse_complement(rt_template)
 
     # Get the reference sequence that would be replaced
     # RT template length determines how much reference to compare
-    rt_len = len(rt_template)
+    rt_len = len(rt_template_rc)
     ref_seq = amplicon[cut_site:cut_site + rt_len]
 
     # Compare to find differences
-    if rt_template == ref_seq:
+    if rt_template_rc == ref_seq:
         # No edit - this shouldn't happen with a real pegRNA but handle it
         return PrimeEditIntent(
             edit_type='substitution',
             position=cut_site,
             original_seq=ref_seq,
-            edited_seq=rt_template,
+            edited_seq=rt_template_rc,
             pbs_start=pbs_start,
             pbs_end=pbs_end,
-            rt_template=rt_template,
+            rt_template=rt_template_rc,
         )
 
     # Determine edit type by comparing lengths and content
-    if len(rt_template) == len(ref_seq):
+    if len(rt_template_rc) == len(ref_seq):
         # Same length - substitution(s)
         edit_type = 'substitution'
-    elif len(rt_template) > len(ref_seq):
+    elif len(rt_template_rc) > len(ref_seq):
         # RT template longer - insertion
         edit_type = 'insertion'
     else:
@@ -526,10 +544,10 @@ def parse_peg_extension(
         edit_type=edit_type,
         position=cut_site,
         original_seq=ref_seq,
-        edited_seq=rt_template,
+        edited_seq=rt_template_rc,
         pbs_start=pbs_start,
         pbs_end=pbs_end,
-        rt_template=rt_template,
+        rt_template=rt_template_rc,
     )
 
 
@@ -703,7 +721,10 @@ def apply_prime_edit(amplicon: str, edit: Edit) -> str:
 # Sequencing Simulation
 # =============================================================================
 
-def add_sequencing_errors(seq: str, error_rate: float) -> str:
+def add_sequencing_errors(
+    seq: str,
+    error_rate: float,
+) -> tuple[str, list[SequencingError]]:
     """
     Add random substitution errors to simulate sequencing noise.
 
@@ -712,10 +733,12 @@ def add_sequencing_errors(seq: str, error_rate: float) -> str:
         error_rate: Per-base error rate
 
     Returns:
-        Sequence with errors introduced
+        Tuple of (sequence with errors, list of SequencingError objects)
     """
+    errors: list[SequencingError] = []
+
     if error_rate == 0:
-        return seq
+        return seq, errors
 
     bases = list(seq)
     for i in range(len(bases)):
@@ -723,9 +746,15 @@ def add_sequencing_errors(seq: str, error_rate: float) -> str:
             # Substitute with a different base
             current = bases[i]
             alternatives = [b for b in 'ACGT' if b != current.upper()]
-            bases[i] = random.choice(alternatives)
+            new_base = random.choice(alternatives)
+            errors.append(SequencingError(
+                position=i,
+                original_base=current.upper(),
+                error_base=new_base,
+            ))
+            bases[i] = new_base
 
-    return ''.join(bases)
+    return ''.join(bases), errors
 
 
 def generate_quality_string(length: int, quality_char: str = 'I') -> str:
@@ -761,10 +790,12 @@ def write_edit_tsv(reads: list[EditedRead], filepath: str) -> None:
 
     Handles both single edits (NHEJ) and multi-position edits (base editing).
     Multi-position edits have list values which are formatted as comma-separated.
+    Also includes sequencing error information.
     """
     with open(filepath, 'w') as fh:
-        # Header
-        fh.write('read_name\tedit_type\tedit_position\tedit_size\toriginal_seq\tedited_seq\n')
+        # Header - includes sequencing error columns
+        fh.write('read_name\tedit_type\tedit_position\tedit_size\toriginal_seq\tedited_seq\t'
+                 'seq_error_count\tseq_error_positions\tseq_error_original\tseq_error_new\n')
 
         for edited_read in reads:
             edit = edited_read.edit
@@ -781,8 +812,21 @@ def write_edit_tsv(reads: list[EditedRead], filepath: str) -> None:
                 orig_str = edit.original_seq
                 edit_str = edit.edited_seq
 
+            # Format sequencing errors
+            seq_errors = edited_read.sequencing_errors
+            error_count = len(seq_errors)
+            if error_count > 0:
+                error_positions = ','.join(str(e.position) for e in seq_errors)
+                error_original = ','.join(e.original_base for e in seq_errors)
+                error_new = ','.join(e.error_base for e in seq_errors)
+            else:
+                error_positions = ''
+                error_original = ''
+                error_new = ''
+
             fh.write(f'{edited_read.read.name}\t{edit.edit_type}\t{pos_str}\t'
-                     f'{size_str}\t{orig_str}\t{edit_str}\n')
+                     f'{size_str}\t{orig_str}\t{edit_str}\t'
+                     f'{error_count}\t{error_positions}\t{error_original}\t{error_new}\n')
 
 
 def write_vcf(
@@ -1030,7 +1074,7 @@ def generate_synthetic_data(
 
             else:
                 # NHEJ mode (default) - generate deletions/insertions
-                edit = generate_edit(cut_site, amplicon, deletion_weight)
+                edit = generate_edit(cut_site, amplicon)
                 seq = apply_edit(amplicon, edit)
                 if edit.edit_type == 'deletion':
                     deletion_count += 1
@@ -1041,13 +1085,13 @@ def generate_synthetic_data(
             seq = amplicon
 
         # Add sequencing errors
-        seq = add_sequencing_errors(seq, error_rate)
+        seq, seq_errors = add_sequencing_errors(seq, error_rate)
 
         # Create FASTQ read
         qual = generate_quality_string(len(seq))
         fastq_read = FastqRead(name=f'read_{i}', seq=seq, qual=qual)
 
-        reads.append(EditedRead(read=fastq_read, edit=edit))
+        reads.append(EditedRead(read=fastq_read, edit=edit, sequencing_errors=seq_errors))
 
     # Write outputs
     fastq_path = f'{output_prefix}.fastq'
