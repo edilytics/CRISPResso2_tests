@@ -265,6 +265,76 @@ def generate_edit(
         )
 
 
+def left_align_edit(amplicon: str, edit: Edit) -> Edit:
+    """
+    Left-align an indel to match BWA's normalization behavior.
+
+    BWA left-aligns indels to the leftmost equivalent position. For example,
+    deleting 'TGC' at position 5 in 'AATGCTGC' is equivalent to deleting at
+    position 2 - BWA will report position 2.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        edit: Edit to left-align
+
+    Returns:
+        New Edit with left-aligned position and updated original_seq
+    """
+    if edit.edit_type == 'none' or edit.edit_type == 'substitution':
+        return edit
+
+    position = edit.position
+    size = edit.size
+
+    if edit.edit_type == 'deletion':
+        # Left-align deletion: shift left while base at pos-1 equals base at pos+size-1
+        # This is equivalent to rotating the deleted sequence left
+        while position > 0:
+            left_base = amplicon[position - 1]
+            right_base = amplicon[position + size - 1]
+            if left_base != right_base:
+                break
+            position -= 1
+
+        # Update the deleted sequence to reflect new position
+        new_original_seq = amplicon[position:position + size]
+
+        return Edit(
+            edit_type='deletion',
+            position=position,
+            size=size,
+            original_seq=new_original_seq,
+            edited_seq='',
+        )
+
+    elif edit.edit_type == 'insertion':
+        # Left-align insertion: shift left while base at pos-1 equals last base of insert
+        inserted_seq = edit.edited_seq
+        while position > 0:
+            left_base = amplicon[position - 1]
+            last_insert_base = inserted_seq[-1]
+            if left_base != last_insert_base:
+                break
+            # Rotate the insertion sequence
+            inserted_seq = inserted_seq[-1] + inserted_seq[:-1]
+            position -= 1
+
+        return Edit(
+            edit_type='insertion',
+            position=position,
+            size=size,
+            original_seq='',
+            edited_seq=inserted_seq,
+        )
+
+    elif edit.edit_type == 'prime_edit':
+        # Prime edits may have both insertions and deletions
+        # For now, don't left-align prime edits as they're more complex
+        return edit
+
+    return edit
+
+
 def apply_edit(amplicon: str, edit: Edit) -> str:
     """
     Apply an edit to the amplicon sequence.
@@ -1374,6 +1444,9 @@ def generate_synthetic_data(
                     outcome_type=outcome,
                     scaffold=peg_scaffold,
                 )
+                # Left-align indel-type edits to match BWA's normalization
+                if edit.edit_type in ('deletion', 'insertion'):
+                    edit = left_align_edit(amplicon, edit)
                 seq = apply_prime_edit(amplicon, edit)
                 if edit.edit_type == 'prime_edit':
                     prime_edit_count += 1
@@ -1385,6 +1458,8 @@ def generate_synthetic_data(
             else:
                 # NHEJ mode (default) - generate deletions/insertions
                 edit = generate_edit(cut_site, amplicon)
+                # Left-align to match BWA's normalization behavior
+                edit = left_align_edit(amplicon, edit)
                 seq = apply_edit(amplicon, edit)
                 if edit.edit_type == 'deletion':
                     deletion_count += 1
