@@ -998,17 +998,25 @@ def edit_to_aligned_allele(
     n_inserted = sum(ins_sizes)
     n_mutated = len(all_sub_positions)
 
+    # Convert to 1-based indexing (CRISPResso convention)
+    all_del_positions_1based = [p + 1 for p in all_del_positions]
+    del_coordinates_1based = [(s + 1, e + 1) for s, e in del_coordinates]
+    all_ins_positions_1based = [p + 1 for p in all_ins_positions]
+    all_ins_left_positions_1based = [p + 1 for p in all_ins_left_positions]
+    ins_coordinates_1based = [(s + 1, e + 1) for s, e in ins_coordinates]
+    all_sub_positions_1based = [p + 1 for p in all_sub_positions]
+
     return AlignedAllele(
         aligned_sequence=aligned_read,
         reference_sequence=aligned_ref,
-        all_deletion_positions=all_del_positions,
-        deletion_coordinates=del_coordinates,
+        all_deletion_positions=all_del_positions_1based,
+        deletion_coordinates=del_coordinates_1based,
         deletion_sizes=del_sizes,
-        all_insertion_positions=all_ins_positions,
-        all_insertion_left_positions=all_ins_left_positions,
-        insertion_coordinates=ins_coordinates,
+        all_insertion_positions=all_ins_positions_1based,
+        all_insertion_left_positions=all_ins_left_positions_1based,
+        insertion_coordinates=ins_coordinates_1based,
         insertion_sizes=ins_sizes,
-        all_substitution_positions=all_sub_positions,
+        all_substitution_positions=all_sub_positions_1based,
         substitution_values=sub_values,
         n_deleted=n_deleted,
         n_inserted=n_inserted,

@@ -1464,8 +1464,9 @@ def test_edit_to_aligned_allele_deletion():
 
     assert allele.aligned_sequence == 'ACGT--GTACGT'
     assert allele.reference_sequence == amplicon
-    assert allele.all_deletion_positions == [4, 5]
-    assert allele.deletion_coordinates == [(4, 6)]
+    # Positions are 1-based (CRISPResso convention)
+    assert allele.all_deletion_positions == [5, 6]
+    assert allele.deletion_coordinates == [(5, 7)]
     assert allele.deletion_sizes == [2]
     assert allele.n_deleted == 2
     assert allele.n_inserted == 0
@@ -1489,9 +1490,10 @@ def test_edit_to_aligned_allele_insertion():
 
     assert allele.aligned_sequence == 'ACGTGGGACGT'
     assert allele.reference_sequence == 'ACGT---ACGT'
-    assert allele.all_insertion_positions == [3, 4]
-    assert allele.all_insertion_left_positions == [3]
-    assert allele.insertion_coordinates == [(3, 4)]
+    # Positions are 1-based (CRISPResso convention)
+    assert allele.all_insertion_positions == [4, 5]
+    assert allele.all_insertion_left_positions == [4]
+    assert allele.insertion_coordinates == [(4, 5)]
     assert allele.insertion_sizes == [3]
     assert allele.n_inserted == 3
 

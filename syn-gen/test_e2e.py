@@ -182,7 +182,7 @@ def parse_syngen_alleles(alleles_path: str) -> dict[str, dict]:
     Parse syn-gen's *_alleles.tsv file.
 
     Returns:
-        Dict mapping sequence -> allele info dict
+        Dict mapping sequence (without gaps) -> allele info dict
     """
     alleles = {}
     with open(alleles_path) as f:
@@ -194,7 +194,8 @@ def parse_syngen_alleles(alleles_path: str) -> dict[str, dict]:
         for line in lines[1:]:
             values = line.split('\t')
             allele = dict(zip(header, values))
-            seq = allele['Aligned_Sequence']
+            # Remove gaps from sequence for matching (same as parse_crispresso_alleles)
+            seq = allele['Aligned_Sequence'].replace('-', '')
             alleles[seq] = allele
 
     return alleles
