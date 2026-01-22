@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import os
 import re
+import subprocess
 from dataclasses import dataclass, field
 
 
@@ -485,4 +487,106 @@ def verify_read(
         bwa_deletions=bwa_deletions,
         bwa_insertions=bwa_insertions,
         bwa_substitutions=bwa_substitutions,
+    )
+
+
+def run_bwa(
+    amplicon: str,
+    amplicon_name: str,
+    fastq_path: str,
+    temp_dir: str,
+) -> str:
+    """
+    Run BWA alignment and return SAM content.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        amplicon_name: Name for the reference
+        fastq_path: Path to FASTQ file
+        temp_dir: Temporary directory for index files
+
+    Returns:
+        SAM file content as string
+    """
+    # Write reference FASTA
+    ref_path = os.path.join(temp_dir, 'reference.fa')
+    with open(ref_path, 'w') as f:
+        f.write(f'>{amplicon_name}\n{amplicon}\n')
+
+    # Index reference
+    subprocess.run(
+        ['bwa', 'index', ref_path],
+        capture_output=True,
+        check=True,
+    )
+
+    # Run alignment
+    result = subprocess.run(
+        ['bwa', 'mem', ref_path, fastq_path],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+
+    return result.stdout
+
+
+def verify_reads_with_bwa(
+    amplicon: str,
+    fastq_path: str,
+    edits_tsv_path: str,
+    temp_dir: str,
+    amplicon_name: str = 'AMPLICON',
+) -> VerificationResult:
+    """
+    Align reads with BWA and verify each against ground truth.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        fastq_path: Path to syn-gen FASTQ output
+        edits_tsv_path: Path to syn-gen _edits.tsv ground truth
+        temp_dir: Temporary directory for BWA files
+        amplicon_name: Name for reference sequence
+
+    Returns:
+        VerificationResult with pass/fail and detailed discrepancies
+    """
+    # Read ground truth
+    with open(edits_tsv_path) as f:
+        ground_truth = parse_edits_tsv(f.read())
+
+    # Run BWA alignment
+    sam_content = run_bwa(amplicon, amplicon_name, fastq_path, temp_dir)
+
+    # Parse alignments
+    alignments = parse_sam(sam_content)
+
+    # Verify each read
+    passed = 0
+    failed = 0
+    failures = []
+
+    for read_name, edit_info in ground_truth.items():
+        if read_name not in alignments:
+            failures.append(ReadVerification(
+                read_name=read_name,
+                passed=False,
+                mismatches=[f"Read not found in BWA output (unmapped?)"],
+            ))
+            failed += 1
+            continue
+
+        result = verify_read(read_name, edit_info, alignments[read_name])
+
+        if result.passed:
+            passed += 1
+        else:
+            failed += 1
+            failures.append(result)
+
+    return VerificationResult(
+        total_reads=len(ground_truth),
+        passed_reads=passed,
+        failed_reads=failed,
+        failures=failures,
     )
