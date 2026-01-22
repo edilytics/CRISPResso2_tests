@@ -1,5 +1,5 @@
 .PHONY: all install test test_cli_integration clean clean_cli_integration \
-	basic params batch pooled wgs compare print update syn-gen-test
+	basic params batch pooled wgs compare print update syn-gen-test syn-gen-e2e syn-gen-all
 
 CRISPRESSO2_DIR ?= ../CRISPResso2
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*)
@@ -356,3 +356,9 @@ cli_integration_tests/CRISPResso_on_vcf-prime-edit-basic: install cli_integratio
 	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_prime_edit_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_spacer_seq GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_extension_seq ATCTGGATCGGCTGCAGAAGGGA --vcf_output --amplicon_coordinates FANC:1,FANC:1 -n vcf-prime-edit-basic --place_report_in_output_folder --debug"; $(RUN)
 syn-gen-test:
 	cd syn-gen && pytest test_syn_gen.py -v
+
+syn-gen-e2e:
+	cd syn-gen && pytest test_bwa_e2e.py test_bwa_verify.py -v
+
+syn-gen-all:
+	cd syn-gen && pytest test_syn_gen.py test_bwa_e2e.py test_bwa_verify.py -v

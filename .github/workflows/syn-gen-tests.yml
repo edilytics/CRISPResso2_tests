@@ -1,0 +1,67 @@
+name: syn-gen tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Miniconda
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-update-conda: true
+          channels: bioconda,conda-forge,defaults
+          channel-priority: strict
+
+      - name: Cache conda environment
+        uses: actions/cache@v4
+        with:
+          path: ~/conda_pkgs_dir
+          key: ${{ runner.os }}-conda-${{ hashFiles('.github/workflows/syn-gen-tests.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-conda-
+
+      - name: Install BWA
+        run: |
+          conda install -y -c bioconda bwa
+          bwa 2>&1 | head -3 || true
+
+      - name: Install test dependencies
+        run: |
+          pip install pytest hypothesis
+
+      - name: Run unit tests
+        run: |
+          cd syn-gen && pytest test_syn_gen.py test_bwa_verify.py -v
+
+      - name: Run end-to-end tests
+        run: |
+          cd syn-gen && pytest test_bwa_e2e.py -v
+
+      - name: Upload test artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-outputs
+          path: |
+            syn-gen/*.fastq
+            syn-gen/*.tsv
+            syn-gen/*.vcf
+          retention-days: 7
