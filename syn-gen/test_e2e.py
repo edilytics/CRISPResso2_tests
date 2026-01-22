@@ -605,3 +605,66 @@ class TestPrimeEditingEndToEnd:
             + "\n".join(discrepancies[:10])
             + (f"\n... and {len(discrepancies) - 10} more" if len(discrepancies) > 10 else "")
         )
+
+    def test_syn_gen_crispresso_deletion_coordinates_match(
+        self, temp_dir, random_seed, crispresso_available
+    ):
+        """E2E test: verify syn-gen and CRISPResso report same deletion coordinates."""
+        import pandas as pd
+
+        output_prefix = os.path.join(temp_dir, "del_coord_test")
+
+        # Generate synthetic data with deletions only (NHEJ mode)
+        stats = generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=50,
+            edit_rate=1.0,
+            error_rate=0,
+            output_prefix=output_prefix,
+            seed=random_seed,
+            mode='nhej',
+            quiet=True,
+        )
+
+        fastq_path = f"{output_prefix}.fastq"
+        alleles_path = f"{output_prefix}_alleles.tsv"
+
+        # Run CRISPResso
+        result = run_crispresso(
+            fastq_path=fastq_path,
+            output_dir=temp_dir,
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+        )
+
+        assert result.returncode == 0, f"CRISPResso failed: {result.stderr}"
+
+        # Read syn-gen output
+        syngen_df = pd.read_csv(alleles_path, sep='\t')
+
+        # Read CRISPResso output
+        crispresso_alleles = parse_crispresso_alleles(temp_dir)
+
+        # Compare: for each syn-gen allele, find matching CRISPResso allele
+        mismatches = []
+        for _, syngen_row in syngen_df.iterrows():
+            syngen_seq_no_gaps = syngen_row['Aligned_Sequence'].replace('-', '')
+
+            # Find matching CRISPResso row by sequence
+            if syngen_seq_no_gaps in crispresso_alleles:
+                crisp_allele = crispresso_alleles[syngen_seq_no_gaps]
+
+                # Compare deletion positions
+                syngen_del = str(syngen_row['all_deletion_positions'])
+                crisp_del = str(crisp_allele.get('all_deletion_positions', '[]'))
+
+                if syngen_del != crisp_del:
+                    mismatches.append(
+                        f"Deletion mismatch: syn-gen={syngen_del}, CRISPResso={crisp_del}"
+                    )
+
+        assert len(mismatches) == 0, (
+            f"Found {len(mismatches)} deletion coordinate mismatches:\n"
+            + "\n".join(mismatches[:10])
+        )
