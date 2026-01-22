@@ -1218,5 +1218,59 @@ class TestPrimeEditingIntegration:
             assert seq[85:105] == 'CTGCAGCCGATCCAGATCTT'
 
 
+# =============================================================================
+# AlignedAllele Tests
+# =============================================================================
+
+def test_aligned_allele_dataclass():
+    """Test AlignedAllele stores all required fields."""
+    from syn_gen import AlignedAllele
+
+    allele = AlignedAllele(
+        aligned_sequence='CAGC--CTG',
+        reference_sequence='CAGCACCTG',
+        all_deletion_positions=[92, 93],
+        deletion_coordinates=[(92, 94)],
+        deletion_sizes=[2],
+        all_insertion_positions=[],
+        all_insertion_left_positions=[],
+        insertion_coordinates=[],
+        insertion_sizes=[],
+        all_substitution_positions=[],
+        substitution_values=[],
+        n_deleted=2,
+        n_inserted=0,
+        n_mutated=0,
+    )
+
+    assert allele.aligned_sequence == 'CAGC--CTG'
+    assert allele.n_deleted == 2
+    assert allele.read_status == 'MODIFIED'
+
+
+def test_aligned_allele_unmodified():
+    """Test AlignedAllele read_status for unmodified reads."""
+    from syn_gen import AlignedAllele
+
+    allele = AlignedAllele(
+        aligned_sequence='CAGCACCTG',
+        reference_sequence='CAGCACCTG',
+        all_deletion_positions=[],
+        deletion_coordinates=[],
+        deletion_sizes=[],
+        all_insertion_positions=[],
+        all_insertion_left_positions=[],
+        insertion_coordinates=[],
+        insertion_sizes=[],
+        all_substitution_positions=[],
+        substitution_values=[],
+        n_deleted=0,
+        n_inserted=0,
+        n_mutated=0,
+    )
+
+    assert allele.read_status == 'UNMODIFIED'
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

@@ -65,6 +65,32 @@ class EditedRead:
 
 
 @dataclass
+class AlignedAllele:
+    """Allele with CRISPResso-compatible alignment information."""
+    aligned_sequence: str
+    reference_sequence: str
+    all_deletion_positions: list[int]
+    deletion_coordinates: list[tuple[int, int]]
+    deletion_sizes: list[int]
+    all_insertion_positions: list[int]
+    all_insertion_left_positions: list[int]
+    insertion_coordinates: list[tuple[int, int]]
+    insertion_sizes: list[int]
+    all_substitution_positions: list[int]
+    substitution_values: list[str]
+    n_deleted: int
+    n_inserted: int
+    n_mutated: int
+
+    @property
+    def read_status(self) -> str:
+        """Return MODIFIED or UNMODIFIED based on edit counts."""
+        if self.n_deleted > 0 or self.n_inserted > 0 or self.n_mutated > 0:
+            return 'MODIFIED'
+        return 'UNMODIFIED'
+
+
+@dataclass
 class VcfVariant:
     """A VCF-format variant call."""
     chrom: str  # Amplicon name
