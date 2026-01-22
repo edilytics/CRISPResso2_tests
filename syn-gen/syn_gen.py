@@ -65,32 +65,6 @@ class EditedRead:
 
 
 @dataclass
-class AlignedAllele:
-    """Allele with CRISPResso-compatible alignment information."""
-    aligned_sequence: str
-    reference_sequence: str
-    all_deletion_positions: list[int]
-    deletion_coordinates: list[tuple[int, int]]
-    deletion_sizes: list[int]
-    all_insertion_positions: list[int]
-    all_insertion_left_positions: list[int]
-    insertion_coordinates: list[tuple[int, int]]
-    insertion_sizes: list[int]
-    all_substitution_positions: list[int]
-    substitution_values: list[str]
-    n_deleted: int
-    n_inserted: int
-    n_mutated: int
-
-    @property
-    def read_status(self) -> str:
-        """Return MODIFIED or UNMODIFIED based on edit counts."""
-        if self.n_deleted > 0 or self.n_inserted > 0 or self.n_mutated > 0:
-            return 'MODIFIED'
-        return 'UNMODIFIED'
-
-
-@dataclass
 class VcfVariant:
     """A VCF-format variant call."""
     chrom: str  # Amplicon name
@@ -870,231 +844,6 @@ def generate_quality_string(length: int, quality_char: str = 'I') -> str:
 
 
 # =============================================================================
-# Alignment Functions
-# =============================================================================
-
-def create_aligned_deletion(amplicon: str, position: int, size: int) -> tuple[str, str]:
-    """Create aligned read and reference sequences for a deletion.
-
-    Args:
-        amplicon: Reference amplicon sequence
-        position: Start position of deletion (0-indexed)
-        size: Number of bases deleted
-
-    Returns:
-        Tuple of (aligned_read, aligned_reference) with gaps in read
-    """
-    # The edited sequence has the deletion applied
-    edited_seq = amplicon[:position] + amplicon[position + size:]
-    # Insert gaps at the deletion site to match reference length
-    aligned_read = edited_seq[:position] + '-' * size + edited_seq[position:]
-    aligned_ref = amplicon
-    return aligned_read, aligned_ref
-
-
-def create_aligned_insertion(amplicon: str, position: int, inserted_seq: str) -> tuple[str, str]:
-    """Create aligned read and reference sequences for an insertion.
-
-    Args:
-        amplicon: Reference amplicon sequence
-        position: Position where insertion occurs (0-indexed)
-        inserted_seq: The inserted sequence
-
-    Returns:
-        Tuple of (aligned_read, aligned_reference) with gaps in reference
-    """
-    size = len(inserted_seq)
-    # Read has the insertion
-    aligned_read = amplicon[:position] + inserted_seq + amplicon[position:]
-    # Reference has gaps where insertion occurred
-    aligned_ref = amplicon[:position] + '-' * size + amplicon[position:]
-    return aligned_read, aligned_ref
-
-
-def create_aligned_substitution(amplicon: str, positions: list[int], new_bases: list[str]) -> tuple[str, str]:
-    """Create aligned read and reference sequences for substitution(s).
-
-    Args:
-        amplicon: Reference amplicon sequence
-        positions: List of positions with substitutions (0-indexed)
-        new_bases: List of new bases at those positions
-
-    Returns:
-        Tuple of (aligned_read, aligned_reference) - no gaps, same length
-    """
-    seq = list(amplicon)
-    for pos, base in zip(positions, new_bases):
-        seq[pos] = base
-    aligned_read = ''.join(seq)
-    aligned_ref = amplicon
-    return aligned_read, aligned_ref
-
-
-def create_aligned_prime_edit(amplicon: str, position: int, original: str, edited: str) -> tuple[str, str]:
-    """Create aligned read and reference sequences for a prime edit.
-
-    Args:
-        amplicon: Reference amplicon sequence
-        position: Position where edit starts (0-indexed)
-        original: Original sequence at edit site
-        edited: Edited sequence (may differ in length)
-
-    Returns:
-        Tuple of (aligned_read, aligned_reference) with appropriate gaps
-    """
-    len_diff = len(edited) - len(original)
-
-    if len_diff == 0:
-        # Pure substitution - no gaps
-        aligned_read = amplicon[:position] + edited + amplicon[position + len(original):]
-        aligned_ref = amplicon
-    elif len_diff > 0:
-        # Net insertion - reference gets gaps
-        aligned_read = amplicon[:position] + edited + amplicon[position + len(original):]
-        aligned_ref = amplicon[:position] + original + '-' * len_diff + amplicon[position + len(original):]
-    else:
-        # Net deletion - read gets gaps
-        gap_size = abs(len_diff)
-        edited_padded = edited + '-' * gap_size
-        aligned_read = amplicon[:position] + edited_padded + amplicon[position + len(original):]
-        aligned_ref = amplicon
-
-    return aligned_read, aligned_ref
-
-
-def edit_to_aligned_allele(
-    amplicon: str,
-    edit: Edit,
-    sequencing_errors: list[SequencingError],
-) -> AlignedAllele:
-    """Convert an Edit and sequencing errors to an AlignedAllele.
-
-    Args:
-        amplicon: Reference amplicon sequence
-        edit: The Edit object describing the intentional edit
-        sequencing_errors: List of sequencing errors applied after the edit
-
-    Returns:
-        AlignedAllele with CRISPResso-compatible alignment and coordinates
-    """
-    # Initialize coordinate lists
-    all_del_positions = []
-    del_coordinates = []
-    del_sizes = []
-    all_ins_positions = []
-    all_ins_left_positions = []
-    ins_coordinates = []
-    ins_sizes = []
-    all_sub_positions = []
-    sub_values = []
-
-    # Handle the edit based on type
-    if edit.edit_type == 'none':
-        aligned_read = amplicon
-        aligned_ref = amplicon
-
-    elif edit.edit_type == 'deletion':
-        pos = edit.position
-        size = edit.size
-        aligned_read, aligned_ref = create_aligned_deletion(amplicon, pos, size)
-        all_del_positions = list(range(pos, pos + size))
-        del_coordinates = [(pos, pos + size)]
-        del_sizes = [size]
-
-    elif edit.edit_type == 'insertion':
-        pos = edit.position
-        size = len(edit.edited_seq)
-        aligned_read, aligned_ref = create_aligned_insertion(amplicon, pos, edit.edited_seq)
-        # CRISPResso uses flanking positions: [left_pos, right_pos]
-        left_pos = pos - 1 if pos > 0 else 0
-        all_ins_positions = [left_pos, pos]
-        all_ins_left_positions = [left_pos]
-        ins_coordinates = [(left_pos, pos)]
-        ins_sizes = [size]
-
-    elif edit.edit_type == 'substitution':
-        # Handle single or multiple substitutions
-        if isinstance(edit.position, list):
-            positions = edit.position
-            new_bases = edit.edited_seq
-        else:
-            positions = [edit.position]
-            new_bases = [edit.edited_seq]
-
-        aligned_read, aligned_ref = create_aligned_substitution(amplicon, positions, new_bases)
-        all_sub_positions = positions
-        sub_values = new_bases
-
-    elif edit.edit_type == 'prime_edit':
-        pos = edit.position
-        original = edit.original_seq
-        edited = edit.edited_seq
-        aligned_read, aligned_ref = create_aligned_prime_edit(amplicon, pos, original, edited)
-
-        len_diff = len(edited) - len(original)
-        if len_diff > 0:
-            # Net insertion
-            left_pos = pos - 1 if pos > 0 else 0
-            all_ins_positions = [left_pos, pos]
-            all_ins_left_positions = [left_pos]
-            ins_coordinates = [(left_pos, pos)]
-            ins_sizes = [len_diff]
-        elif len_diff < 0:
-            # Net deletion
-            del_size = abs(len_diff)
-            del_start = pos + len(edited)
-            all_del_positions = list(range(del_start, del_start + del_size))
-            del_coordinates = [(del_start, del_start + del_size)]
-            del_sizes = [del_size]
-
-        # Check for substitutions within the edited region
-        for i, (o, e) in enumerate(zip(original, edited)):
-            if o != e:
-                all_sub_positions.append(pos + i)
-                sub_values.append(e)
-
-    else:
-        raise ValueError(f"Unknown edit type: {edit.edit_type}")
-
-    # Add sequencing errors as substitutions
-    # Note: sequencing error positions are in the edited read coordinates
-    # For now, we add them directly (coordinate conversion can be added later)
-    for seq_error in sequencing_errors:
-        all_sub_positions.append(seq_error.position)
-        sub_values.append(seq_error.error_base)
-
-    # Calculate totals
-    n_deleted = sum(del_sizes)
-    n_inserted = sum(ins_sizes)
-    n_mutated = len(all_sub_positions)
-
-    # Convert to 1-based indexing (CRISPResso convention)
-    all_del_positions_1based = [p + 1 for p in all_del_positions]
-    del_coordinates_1based = [(s + 1, e + 1) for s, e in del_coordinates]
-    all_ins_positions_1based = [p + 1 for p in all_ins_positions]
-    all_ins_left_positions_1based = [p + 1 for p in all_ins_left_positions]
-    ins_coordinates_1based = [(s + 1, e + 1) for s, e in ins_coordinates]
-    all_sub_positions_1based = [p + 1 for p in all_sub_positions]
-
-    return AlignedAllele(
-        aligned_sequence=aligned_read,
-        reference_sequence=aligned_ref,
-        all_deletion_positions=all_del_positions_1based,
-        deletion_coordinates=del_coordinates_1based,
-        deletion_sizes=del_sizes,
-        all_insertion_positions=all_ins_positions_1based,
-        all_insertion_left_positions=all_ins_left_positions_1based,
-        insertion_coordinates=ins_coordinates_1based,
-        insertion_sizes=ins_sizes,
-        all_substitution_positions=all_sub_positions_1based,
-        substitution_values=sub_values,
-        n_deleted=n_deleted,
-        n_inserted=n_inserted,
-        n_mutated=n_mutated,
-    )
-
-
-# =============================================================================
 # Output Writers
 # =============================================================================
 
@@ -1150,64 +899,6 @@ def write_edit_tsv(reads: list[EditedRead], filepath: str) -> None:
             fh.write(f'{edited_read.read.name}\t{edit.edit_type}\t{pos_str}\t'
                      f'{size_str}\t{orig_str}\t{edit_str}\t'
                      f'{error_count}\t{error_positions}\t{error_original}\t{error_new}\n')
-
-
-def write_alleles_tsv(reads: list[EditedRead], amplicon: str, filepath: str) -> None:
-    """Write per-allele aggregated edit info matching CRISPResso format.
-
-    Groups reads by aligned sequence, aggregates counts, outputs CRISPResso-compatible
-    columns for direct comparison with Alleles_frequency_table output.
-
-    Args:
-        reads: List of EditedRead objects
-        amplicon: Reference amplicon sequence
-        filepath: Output file path
-    """
-    # Convert each read to aligned allele and group by aligned sequence
-    allele_groups: dict[str, tuple[AlignedAllele, int]] = {}
-
-    for edited_read in reads:
-        allele = edit_to_aligned_allele(
-            amplicon,
-            edited_read.edit,
-            edited_read.sequencing_errors,
-        )
-        key = allele.aligned_sequence
-        if key in allele_groups:
-            existing_allele, count = allele_groups[key]
-            allele_groups[key] = (existing_allele, count + 1)
-        else:
-            allele_groups[key] = (allele, 1)
-
-    # Sort by count descending
-    sorted_alleles = sorted(allele_groups.values(), key=lambda x: -x[1])
-
-    with open(filepath, 'w') as fh:
-        # Header matching CRISPResso's detailed allele table columns
-        fh.write('#Reads\tAligned_Sequence\tReference_Sequence\t'
-                 'n_inserted\tn_deleted\tn_mutated\tRead_Status\t'
-                 'all_insertion_positions\tall_insertion_left_positions\t'
-                 'insertion_coordinates\tinsertion_sizes\t'
-                 'all_deletion_positions\tdeletion_coordinates\tdeletion_sizes\t'
-                 'all_substitution_positions\tsubstitution_values\n')
-
-        for allele, count in sorted_alleles:
-            fh.write(f'{count}\t'
-                     f'{allele.aligned_sequence}\t'
-                     f'{allele.reference_sequence}\t'
-                     f'{allele.n_inserted}\t'
-                     f'{allele.n_deleted}\t'
-                     f'{allele.n_mutated}\t'
-                     f'{allele.read_status}\t'
-                     f'{allele.all_insertion_positions}\t'
-                     f'{allele.all_insertion_left_positions}\t'
-                     f'{allele.insertion_coordinates}\t'
-                     f'{allele.insertion_sizes}\t'
-                     f'{allele.all_deletion_positions}\t'
-                     f'{allele.deletion_coordinates}\t'
-                     f'{allele.deletion_sizes}\t'
-                     f'{allele.all_substitution_positions}\t'
-                     f'{allele.substitution_values}\n')
 
 
 def write_vcf(
@@ -1482,11 +1173,9 @@ def generate_synthetic_data(
     fastq_path = f'{output_prefix}.fastq'
     tsv_path = f'{output_prefix}_edits.tsv'
     vcf_path = f'{output_prefix}.vcf'
-    alleles_path = f'{output_prefix}_alleles.tsv'
 
     write_fastq(reads, fastq_path)
     write_edit_tsv(reads, tsv_path)
-    write_alleles_tsv(reads, amplicon, alleles_path)
 
     variants = aggregate_edits_to_variants(reads, amplicon, amplicon_name)
     write_vcf(variants, amplicon_name, amplicon, vcf_path)
@@ -1513,7 +1202,6 @@ def generate_synthetic_data(
             'fastq': fastq_path,
             'tsv': tsv_path,
             'vcf': vcf_path,
-            'alleles': alleles_path
         }
     }
 
@@ -1542,7 +1230,6 @@ def generate_synthetic_data(
         print(f'  FASTQ:   {fastq_path}')
         print(f'  TSV:     {tsv_path}')
         print(f'  VCF:     {vcf_path}')
-        print(f'  Alleles: {alleles_path}')
 
     return stats
 
