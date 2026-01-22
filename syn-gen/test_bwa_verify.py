@@ -196,3 +196,62 @@ read_1\t0\tAMPLICON\t1\t60\t100M\t*\t0\t0\tACGT\tIIII\tMD:Z:100
 
         assert len(alignments) == 1
         assert 'read_1' in alignments
+
+
+class TestVerificationTypes:
+    """Tests for verification result dataclasses."""
+
+    def test_read_verification_passed(self):
+        from bwa_verify import ReadVerification
+
+        rv = ReadVerification(
+            read_name='read_0',
+            passed=True,
+            mismatches=[],
+        )
+
+        assert rv.passed is True
+        assert rv.mismatches == []
+
+    def test_read_verification_failed(self):
+        from bwa_verify import ReadVerification
+
+        rv = ReadVerification(
+            read_name='read_0',
+            passed=False,
+            mismatches=['Deletion size mismatch: expected 3, got 2'],
+        )
+
+        assert rv.passed is False
+        assert len(rv.mismatches) == 1
+
+    def test_verification_result_all_passed(self):
+        from bwa_verify import VerificationResult, ReadVerification
+
+        result = VerificationResult(
+            total_reads=10,
+            passed_reads=10,
+            failed_reads=0,
+            failures=[],
+        )
+
+        assert result.all_passed is True
+
+    def test_verification_result_some_failed(self):
+        from bwa_verify import VerificationResult, ReadVerification
+
+        failure = ReadVerification(
+            read_name='read_5',
+            passed=False,
+            mismatches=['Position mismatch'],
+        )
+
+        result = VerificationResult(
+            total_reads=10,
+            passed_reads=9,
+            failed_reads=1,
+            failures=[failure],
+        )
+
+        assert result.all_passed is False
+        assert result.failed_reads == 1

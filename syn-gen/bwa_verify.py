@@ -253,3 +253,32 @@ def parse_sam(sam_content: str) -> dict[str, BWAAlignment]:
         )
 
     return alignments
+
+
+@dataclass
+class ReadVerification:
+    """Verification result for a single read."""
+
+    read_name: str
+    passed: bool
+    mismatches: list[str] = field(default_factory=list)
+    expected_deletions: list[tuple[int, int]] = field(default_factory=list)
+    expected_insertions: list[tuple[int, str]] = field(default_factory=list)
+    expected_substitutions: list[tuple[int, str]] = field(default_factory=list)
+    bwa_deletions: list[tuple[int, int, str]] = field(default_factory=list)
+    bwa_insertions: list[tuple[int, str]] = field(default_factory=list)
+    bwa_substitutions: list[tuple[int, str, str]] = field(default_factory=list)
+
+
+@dataclass
+class VerificationResult:
+    """Overall verification result for a test run."""
+
+    total_reads: int
+    passed_reads: int
+    failed_reads: int
+    failures: list[ReadVerification]
+
+    @property
+    def all_passed(self) -> bool:
+        return self.failed_reads == 0
