@@ -71,3 +71,78 @@ class TestParseMdTag:
         # MD:Z:10A0C10 means sub at pos 11, sub at pos 12 (0 between means adjacent)
         result = parse_md_tag('10A0C10')
         assert result == [('match', 10), ('sub', 'A'), ('match', 0), ('sub', 'C'), ('match', 10)]
+
+
+class TestBWAAlignment:
+    """Tests for BWAAlignment dataclass and edit extraction."""
+
+    def test_get_deletions_simple(self):
+        from bwa_verify import BWAAlignment
+
+        aln = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='50M3D47M',
+            md_tag='50^ACG47',
+            read_seq='A' * 97,  # 100 - 3 deleted = 97
+        )
+
+        deletions = aln.get_deletions()
+        assert deletions == [(50, 3, 'ACG')]  # (position, size, deleted_seq)
+
+    def test_get_deletions_multiple(self):
+        from bwa_verify import BWAAlignment
+
+        aln = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='20M2D30M1D47M',
+            md_tag='20^AT30^G47',
+            read_seq='A' * 97,
+        )
+
+        deletions = aln.get_deletions()
+        assert deletions == [(20, 2, 'AT'), (52, 1, 'G')]
+
+    def test_get_insertions_simple(self):
+        from bwa_verify import BWAAlignment
+
+        aln = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='50M3I47M',
+            md_tag='97',  # MD doesn't show insertions
+            read_seq='A' * 50 + 'GGG' + 'A' * 47,
+        )
+
+        insertions = aln.get_insertions()
+        assert insertions == [(50, 'GGG')]  # (position, inserted_seq)
+
+    def test_get_substitutions_simple(self):
+        from bwa_verify import BWAAlignment
+
+        aln = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='100M',
+            md_tag='45A54',  # Substitution at position 45
+            read_seq='A' * 45 + 'T' + 'A' * 54,
+        )
+
+        subs = aln.get_substitutions()
+        # (position, ref_base, read_base)
+        assert subs == [(45, 'A', 'T')]
+
+    def test_get_substitutions_multiple(self):
+        from bwa_verify import BWAAlignment
+
+        aln = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='100M',
+            md_tag='10A20C67',
+            read_seq='A' * 10 + 'T' + 'A' * 20 + 'G' + 'A' * 67,
+        )
+
+        subs = aln.get_substitutions()
+        assert subs == [(10, 'A', 'T'), (31, 'C', 'G')]
