@@ -860,6 +860,38 @@ def create_aligned_substitution(amplicon: str, positions: list[int], new_bases: 
     return aligned_read, aligned_ref
 
 
+def create_aligned_prime_edit(amplicon: str, position: int, original: str, edited: str) -> tuple[str, str]:
+    """Create aligned read and reference sequences for a prime edit.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        position: Position where edit starts (0-indexed)
+        original: Original sequence at edit site
+        edited: Edited sequence (may differ in length)
+
+    Returns:
+        Tuple of (aligned_read, aligned_reference) with appropriate gaps
+    """
+    len_diff = len(edited) - len(original)
+
+    if len_diff == 0:
+        # Pure substitution - no gaps
+        aligned_read = amplicon[:position] + edited + amplicon[position + len(original):]
+        aligned_ref = amplicon
+    elif len_diff > 0:
+        # Net insertion - reference gets gaps
+        aligned_read = amplicon[:position] + edited + amplicon[position + len(original):]
+        aligned_ref = amplicon[:position] + original + '-' * len_diff + amplicon[position + len(original):]
+    else:
+        # Net deletion - read gets gaps
+        gap_size = abs(len_diff)
+        edited_padded = edited + '-' * gap_size
+        aligned_read = amplicon[:position] + edited_padded + amplicon[position + len(original):]
+        aligned_ref = amplicon
+
+    return aligned_read, aligned_ref
+
+
 # =============================================================================
 # Output Writers
 # =============================================================================

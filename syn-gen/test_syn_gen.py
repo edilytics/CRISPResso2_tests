@@ -1391,5 +1391,57 @@ def test_create_aligned_substitution_multiple():
     assert aligned_ref == amplicon
 
 
+def test_create_aligned_prime_edit_substitution():
+    """Test prime edit with same-length replacement (substitution)."""
+    from syn_gen import create_aligned_prime_edit
+
+    amplicon = 'ACGTACGTACGT'
+    position = 4
+    original = 'ACG'
+    edited = 'TTT'
+
+    aligned_read, aligned_ref = create_aligned_prime_edit(amplicon, position, original, edited)
+
+    # 'ACGT' + 'TTT' + 'TACGT' = 'ACGTTTTTACGT' (replacing ACG at pos 4-6 with TTT)
+    assert aligned_read == 'ACGTTTTTACGT'
+    assert aligned_ref == amplicon
+    assert len(aligned_read) == len(aligned_ref)
+
+
+def test_create_aligned_prime_edit_insertion():
+    """Test prime edit with net insertion (edited longer than original)."""
+    from syn_gen import create_aligned_prime_edit
+
+    amplicon = 'ACGTACGTACGT'
+    position = 4
+    original = 'ACG'
+    edited = 'TTTTT'  # 2 more bases
+
+    aligned_read, aligned_ref = create_aligned_prime_edit(amplicon, position, original, edited)
+
+    # 'ACGT' + 'TTTTT' + 'TACGT' = 'ACGTTTTTTTACGT' (14 chars)
+    # Reference gets gaps: 'ACGT' + 'ACG--' + 'TACGT' = 'ACGTACG--TACGT' (14 chars)
+    assert aligned_read == 'ACGTTTTTTTACGT'
+    assert aligned_ref == 'ACGTACG--TACGT'
+    assert len(aligned_read) == len(aligned_ref)
+
+
+def test_create_aligned_prime_edit_deletion():
+    """Test prime edit with net deletion (edited shorter than original)."""
+    from syn_gen import create_aligned_prime_edit
+
+    amplicon = 'ACGTACGTACGT'
+    position = 4
+    original = 'ACGT'
+    edited = 'TT'  # 2 fewer bases
+
+    aligned_read, aligned_ref = create_aligned_prime_edit(amplicon, position, original, edited)
+
+    # 'ACGT' + 'TT--' + 'ACGT' = 'ACGTTT--ACGT' (12 chars with gaps)
+    assert aligned_read == 'ACGTTT--ACGT'
+    assert aligned_ref == amplicon
+    assert len(aligned_read) == len(aligned_ref)
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
