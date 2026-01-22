@@ -1272,5 +1272,52 @@ def test_aligned_allele_unmodified():
     assert allele.read_status == 'UNMODIFIED'
 
 
+# =============================================================================
+# Alignment Function Tests
+# =============================================================================
+
+def test_create_aligned_deletion_simple():
+    """Test aligned sequences for a simple deletion."""
+    from syn_gen import create_aligned_deletion
+
+    amplicon = 'CAGCACCTGGATCGC'
+    position = 4  # Delete 'AC' at positions 4-5
+    size = 2
+
+    aligned_read, aligned_ref = create_aligned_deletion(amplicon, position, size)
+
+    assert aligned_ref == amplicon
+    assert aligned_read == 'CAGC--CTGGATCGC'
+    assert len(aligned_read) == len(aligned_ref)
+
+
+def test_create_aligned_deletion_at_start():
+    """Test deletion at the start of sequence."""
+    from syn_gen import create_aligned_deletion
+
+    amplicon = 'ACGTACGT'
+    position = 0
+    size = 2
+
+    aligned_read, aligned_ref = create_aligned_deletion(amplicon, position, size)
+
+    assert aligned_ref == amplicon
+    assert aligned_read == '--GTACGT'
+
+
+def test_create_aligned_deletion_at_end():
+    """Test deletion at the end of sequence."""
+    from syn_gen import create_aligned_deletion
+
+    amplicon = 'ACGTACGT'
+    position = 6
+    size = 2
+
+    aligned_read, aligned_ref = create_aligned_deletion(amplicon, position, size)
+
+    assert aligned_ref == amplicon
+    assert aligned_read == 'ACGTAC--'
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

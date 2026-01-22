@@ -800,6 +800,29 @@ def generate_quality_string(length: int, quality_char: str = 'I') -> str:
 
 
 # =============================================================================
+# Alignment Functions
+# =============================================================================
+
+def create_aligned_deletion(amplicon: str, position: int, size: int) -> tuple[str, str]:
+    """Create aligned read and reference sequences for a deletion.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        position: Start position of deletion (0-indexed)
+        size: Number of bases deleted
+
+    Returns:
+        Tuple of (aligned_read, aligned_reference) with gaps in read
+    """
+    # The edited sequence has the deletion applied
+    edited_seq = amplicon[:position] + amplicon[position + size:]
+    # Insert gaps at the deletion site to match reference length
+    aligned_read = edited_seq[:position] + '-' * size + edited_seq[position:]
+    aligned_ref = amplicon
+    return aligned_read, aligned_ref
+
+
+# =============================================================================
 # Output Writers
 # =============================================================================
 
