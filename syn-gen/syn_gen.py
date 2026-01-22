@@ -822,6 +822,25 @@ def create_aligned_deletion(amplicon: str, position: int, size: int) -> tuple[st
     return aligned_read, aligned_ref
 
 
+def create_aligned_insertion(amplicon: str, position: int, inserted_seq: str) -> tuple[str, str]:
+    """Create aligned read and reference sequences for an insertion.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        position: Position where insertion occurs (0-indexed)
+        inserted_seq: The inserted sequence
+
+    Returns:
+        Tuple of (aligned_read, aligned_reference) with gaps in reference
+    """
+    size = len(inserted_seq)
+    # Read has the insertion
+    aligned_read = amplicon[:position] + inserted_seq + amplicon[position:]
+    # Reference has gaps where insertion occurred
+    aligned_ref = amplicon[:position] + '-' * size + amplicon[position:]
+    return aligned_read, aligned_ref
+
+
 # =============================================================================
 # Output Writers
 # =============================================================================

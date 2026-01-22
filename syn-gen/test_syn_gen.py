@@ -1319,5 +1319,48 @@ def test_create_aligned_deletion_at_end():
     assert aligned_read == 'ACGTAC--'
 
 
+def test_create_aligned_insertion_simple():
+    """Test aligned sequences for a simple insertion."""
+    from syn_gen import create_aligned_insertion
+
+    amplicon = 'CAGCACCTG'
+    position = 4  # Insert 'GGG' at position 4
+    inserted_seq = 'GGG'
+
+    aligned_read, aligned_ref = create_aligned_insertion(amplicon, position, inserted_seq)
+
+    assert aligned_read == 'CAGCGGGACCTG'
+    assert aligned_ref == 'CAGC---ACCTG'
+    assert len(aligned_read) == len(aligned_ref)
+
+
+def test_create_aligned_insertion_at_start():
+    """Test insertion at the start of sequence."""
+    from syn_gen import create_aligned_insertion
+
+    amplicon = 'ACGTACGT'
+    position = 0
+    inserted_seq = 'TTT'
+
+    aligned_read, aligned_ref = create_aligned_insertion(amplicon, position, inserted_seq)
+
+    assert aligned_read == 'TTTACGTACGT'
+    assert aligned_ref == '---ACGTACGT'
+
+
+def test_create_aligned_insertion_single_base():
+    """Test single base insertion."""
+    from syn_gen import create_aligned_insertion
+
+    amplicon = 'CAGCACCTG'
+    position = 4
+    inserted_seq = 'A'
+
+    aligned_read, aligned_ref = create_aligned_insertion(amplicon, position, inserted_seq)
+
+    assert aligned_read == 'CAGCAACCTG'
+    assert aligned_ref == 'CAGC-ACCTG'
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])
