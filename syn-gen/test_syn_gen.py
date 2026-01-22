@@ -1362,5 +1362,34 @@ def test_create_aligned_insertion_single_base():
     assert aligned_ref == 'CAGC-ACCTG'
 
 
+def test_create_aligned_substitution_single():
+    """Test aligned sequences for a single substitution."""
+    from syn_gen import create_aligned_substitution
+
+    amplicon = 'ACGTACGT'
+    positions = [2]
+    new_bases = ['T']
+
+    aligned_read, aligned_ref = create_aligned_substitution(amplicon, positions, new_bases)
+
+    assert aligned_read == 'ACTTACGT'
+    assert aligned_ref == amplicon
+    assert len(aligned_read) == len(aligned_ref)
+
+
+def test_create_aligned_substitution_multiple():
+    """Test aligned sequences for multiple substitutions."""
+    from syn_gen import create_aligned_substitution
+
+    amplicon = 'ACGTACGT'
+    positions = [0, 4]
+    new_bases = ['T', 'T']
+
+    aligned_read, aligned_ref = create_aligned_substitution(amplicon, positions, new_bases)
+
+    assert aligned_read == 'TCGTTCGT'
+    assert aligned_ref == amplicon
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

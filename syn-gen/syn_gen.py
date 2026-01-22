@@ -841,6 +841,25 @@ def create_aligned_insertion(amplicon: str, position: int, inserted_seq: str) ->
     return aligned_read, aligned_ref
 
 
+def create_aligned_substitution(amplicon: str, positions: list[int], new_bases: list[str]) -> tuple[str, str]:
+    """Create aligned read and reference sequences for substitution(s).
+
+    Args:
+        amplicon: Reference amplicon sequence
+        positions: List of positions with substitutions (0-indexed)
+        new_bases: List of new bases at those positions
+
+    Returns:
+        Tuple of (aligned_read, aligned_reference) - no gaps, same length
+    """
+    seq = list(amplicon)
+    for pos, base in zip(positions, new_bases):
+        seq[pos] = base
+    aligned_read = ''.join(seq)
+    aligned_ref = amplicon
+    return aligned_read, aligned_ref
+
+
 # =============================================================================
 # Output Writers
 # =============================================================================
