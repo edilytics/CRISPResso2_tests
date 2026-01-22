@@ -299,7 +299,7 @@ syn-gen-test:
 	cd syn-gen && pytest test_syn_gen.py -v
 
 syn-gen-e2e:
-	cd syn-gen && pytest test_e2e.py -v
+	cd syn-gen && pytest test_bwa_e2e.py test_bwa_verify.py -v
 
 syn-gen-all:
-	cd syn-gen && pytest test_syn_gen.py test_e2e.py -v
+	cd syn-gen && pytest test_syn_gen.py test_bwa_e2e.py test_bwa_verify.py -v

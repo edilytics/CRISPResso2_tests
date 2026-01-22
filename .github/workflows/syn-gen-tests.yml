@@ -38,10 +38,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-conda-
 
-      - name: Install CRISPResso2
+      - name: Install BWA
         run: |
-          conda install -y -c bioconda crispresso2
-          CRISPResso --version
+          conda install -y -c bioconda bwa
+          bwa 2>&1 | head -3
 
       - name: Install test dependencies
         run: |
@@ -49,11 +49,11 @@ jobs:
 
       - name: Run unit tests
         run: |
-          cd syn-gen && pytest test_syn_gen.py -v
+          cd syn-gen && pytest test_syn_gen.py test_bwa_verify.py -v
 
       - name: Run end-to-end tests
         run: |
-          cd syn-gen && pytest test_e2e.py -v
+          cd syn-gen && pytest test_bwa_e2e.py -v
 
       - name: Upload test artifacts on failure
         if: failure()
