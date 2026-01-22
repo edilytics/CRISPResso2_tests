@@ -1518,5 +1518,56 @@ def test_edit_to_aligned_allele_none():
     assert allele.read_status == 'UNMODIFIED'
 
 
+# =============================================================================
+# write_alleles_tsv Tests
+# =============================================================================
+
+def test_write_alleles_tsv_crispresso_format():
+    """Test that write_alleles_tsv outputs CRISPResso-compatible format."""
+    import tempfile
+    import os
+    from syn_gen import write_alleles_tsv, EditedRead, FastqRead, Edit
+
+    amplicon = 'ACGTACGTACGT'
+    reads = [
+        EditedRead(
+            read=FastqRead(name='read_0', seq='ACGT--GTACGT'.replace('-', ''), qual='I' * 10),
+            edit=Edit(edit_type='deletion', position=4, size=2, original_seq='AC', edited_seq=''),
+        ),
+        EditedRead(
+            read=FastqRead(name='read_1', seq='ACGT--GTACGT'.replace('-', ''), qual='I' * 10),
+            edit=Edit(edit_type='deletion', position=4, size=2, original_seq='AC', edited_seq=''),
+        ),
+    ]
+
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.tsv', delete=False) as f:
+        filepath = f.name
+
+    try:
+        write_alleles_tsv(reads, amplicon, filepath)
+
+        with open(filepath) as f:
+            lines = f.readlines()
+
+        # Check header
+        header = lines[0].strip().split('\t')
+        assert '#Reads' in header
+        assert 'Aligned_Sequence' in header
+        assert 'Reference_Sequence' in header
+        assert 'all_deletion_positions' in header
+        assert 'deletion_coordinates' in header
+        assert 'deletion_sizes' in header
+        assert 'n_deleted' in header
+        assert 'Read_Status' in header
+
+        # Check data row
+        data = lines[1].strip().split('\t')
+        assert data[0] == '2'  # 2 reads with same sequence
+        assert '--' in data[1]  # Aligned_Sequence has gaps
+
+    finally:
+        os.unlink(filepath)
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

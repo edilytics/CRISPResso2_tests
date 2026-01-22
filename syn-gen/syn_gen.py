@@ -1074,136 +1074,62 @@ def write_edit_tsv(reads: list[EditedRead], filepath: str) -> None:
                      f'{error_count}\t{error_positions}\t{error_original}\t{error_new}\n')
 
 
-def write_alleles_tsv(reads: list[EditedRead], filepath: str) -> None:
+def write_alleles_tsv(reads: list[EditedRead], amplicon: str, filepath: str) -> None:
     """Write per-allele aggregated edit info matching CRISPResso format.
 
-    Groups reads by sequence, aggregates edit metadata into CRISPResso-compatible
+    Groups reads by aligned sequence, aggregates counts, outputs CRISPResso-compatible
     columns for direct comparison with Alleles_frequency_table output.
-    """
-    from collections import defaultdict
 
-    # Group reads by sequence
-    allele_groups: dict[str, list[EditedRead]] = defaultdict(list)
+    Args:
+        reads: List of EditedRead objects
+        amplicon: Reference amplicon sequence
+        filepath: Output file path
+    """
+    # Convert each read to aligned allele and group by aligned sequence
+    allele_groups: dict[str, tuple[AlignedAllele, int]] = {}
+
     for edited_read in reads:
-        allele_groups[edited_read.read.seq].append(edited_read)
+        allele = edit_to_aligned_allele(
+            amplicon,
+            edited_read.edit,
+            edited_read.sequencing_errors,
+        )
+        key = allele.aligned_sequence
+        if key in allele_groups:
+            existing_allele, count = allele_groups[key]
+            allele_groups[key] = (existing_allele, count + 1)
+        else:
+            allele_groups[key] = (allele, 1)
+
+    # Sort by count descending
+    sorted_alleles = sorted(allele_groups.values(), key=lambda x: -x[1])
 
     with open(filepath, 'w') as fh:
         # Header matching CRISPResso's detailed allele table columns
-        fh.write('#Reads\tAligned_Sequence\t'
-                 'all_deletion_positions\tall_deletion_sizes\t'
-                 'all_insertion_positions\tall_insertion_sizes\t'
-                 'all_substitution_positions\tall_substitution_values\n')
+        fh.write('#Reads\tAligned_Sequence\tReference_Sequence\t'
+                 'n_inserted\tn_deleted\tn_mutated\tRead_Status\t'
+                 'all_insertion_positions\tall_insertion_left_positions\t'
+                 'insertion_coordinates\tinsertion_sizes\t'
+                 'all_deletion_positions\tdeletion_coordinates\tdeletion_sizes\t'
+                 'all_substitution_positions\tsubstitution_values\n')
 
-        for seq, group in sorted(allele_groups.items(), key=lambda x: -len(x[1])):
-            count = len(group)
-
-            # Aggregate edits from first read (all reads with same seq have same edits)
-            # Note: sequencing errors may differ, but final sequence is the same
-            first_read = group[0]
-            edit = first_read.edit
-
-            del_positions = []
-            del_sizes = []
-            ins_positions = []
-            ins_sizes = []
-            sub_positions = []
-            sub_values = []
-
-            # Process intentional edits
-            if edit.edit_type == 'deletion':
-                if isinstance(edit.position, list):
-                    del_positions.extend(edit.position)
-                    del_sizes.extend(edit.size)
-                else:
-                    del_positions.append(edit.position)
-                    del_sizes.append(edit.size)
-
-            elif edit.edit_type == 'insertion':
-                if isinstance(edit.position, list):
-                    ins_positions.extend(edit.position)
-                    ins_sizes.extend(edit.size)
-                else:
-                    ins_positions.append(edit.position)
-                    ins_sizes.append(edit.size)
-
-            elif edit.edit_type == 'substitution':
-                if isinstance(edit.position, list):
-                    for i, pos in enumerate(edit.position):
-                        sub_positions.append(pos)
-                        orig = edit.original_seq[i]
-                        edited = edit.edited_seq[i]
-                        sub_values.append(f'{orig}>{edited}')
-                else:
-                    sub_positions.append(edit.position)
-                    sub_values.append(f'{edit.original_seq}>{edit.edited_seq}')
-
-            elif edit.edit_type == 'prime_edit':
-                # Prime edits can have mixed edit types - check the sequences
-                # For now, treat as substitutions if sizes match, else deletion/insertion
-                if isinstance(edit.position, list):
-                    for i, pos in enumerate(edit.position):
-                        orig = edit.original_seq[i] if isinstance(edit.original_seq, list) else edit.original_seq
-                        edited = edit.edited_seq[i] if isinstance(edit.edited_seq, list) else edit.edited_seq
-                        size = edit.size[i] if isinstance(edit.size, list) else edit.size
-                        if len(orig) == len(edited) == 1:
-                            sub_positions.append(pos)
-                            sub_values.append(f'{orig}>{edited}')
-                        elif len(edited) < len(orig):
-                            del_positions.append(pos)
-                            del_sizes.append(len(orig) - len(edited))
-                        else:
-                            ins_positions.append(pos)
-                            ins_sizes.append(len(edited) - len(orig))
-                else:
-                    orig = edit.original_seq
-                    edited = edit.edited_seq
-                    if len(orig) == len(edited):
-                        for i, (o, e) in enumerate(zip(orig, edited)):
-                            if o != e:
-                                sub_positions.append(edit.position + i)
-                                sub_values.append(f'{o}>{e}')
-                    elif len(edited) < len(orig):
-                        del_positions.append(edit.position)
-                        del_sizes.append(len(orig) - len(edited))
-                    else:
-                        ins_positions.append(edit.position)
-                        ins_sizes.append(len(edited) - len(orig))
-
-            # Add sequencing errors as substitutions
-            for seq_error in first_read.sequencing_errors:
-                sub_positions.append(seq_error.position)
-                sub_values.append(f'{seq_error.original_base}>{seq_error.error_base}')
-
-            # Sort positions for consistent output
-            if del_positions:
-                del_positions, del_sizes = zip(*sorted(zip(del_positions, del_sizes)))
-                del_positions, del_sizes = list(del_positions), list(del_sizes)
-            if ins_positions:
-                ins_positions, ins_sizes = zip(*sorted(zip(ins_positions, ins_sizes)))
-                ins_positions, ins_sizes = list(ins_positions), list(ins_sizes)
-            if sub_positions:
-                sub_positions, sub_values = zip(*sorted(zip(sub_positions, sub_values)))
-                sub_positions, sub_values = list(sub_positions), list(sub_values)
-
-            # Expand positions to match CRISPResso format
-            # CRISPResso lists each deleted position individually
-            expanded_del_positions = []
-            for pos, size in zip(del_positions, del_sizes):
-                expanded_del_positions.extend(range(pos, pos + size))
-
-            # CRISPResso lists insertion positions as [left_pos, left_pos+1] pairs
-            # where left_pos is the reference position to the left of the insertion
-            # syn-gen records position as "insert at this index", so left_pos = pos - 1
-            expanded_ins_positions = []
-            for pos, size in zip(ins_positions, ins_sizes):
-                # CRISPResso uses [pos-1, pos] regardless of insertion size
-                expanded_ins_positions.extend([pos - 1, pos])
-
-            # Format as Python lists (matching CRISPResso format)
-            fh.write(f'{count}\t{seq}\t'
-                     f'{expanded_del_positions}\t{del_sizes}\t'
-                     f'{expanded_ins_positions}\t{ins_sizes}\t'
-                     f'{sub_positions}\t{sub_values}\n')
+        for allele, count in sorted_alleles:
+            fh.write(f'{count}\t'
+                     f'{allele.aligned_sequence}\t'
+                     f'{allele.reference_sequence}\t'
+                     f'{allele.n_inserted}\t'
+                     f'{allele.n_deleted}\t'
+                     f'{allele.n_mutated}\t'
+                     f'{allele.read_status}\t'
+                     f'{allele.all_insertion_positions}\t'
+                     f'{allele.all_insertion_left_positions}\t'
+                     f'{allele.insertion_coordinates}\t'
+                     f'{allele.insertion_sizes}\t'
+                     f'{allele.all_deletion_positions}\t'
+                     f'{allele.deletion_coordinates}\t'
+                     f'{allele.deletion_sizes}\t'
+                     f'{allele.all_substitution_positions}\t'
+                     f'{allele.substitution_values}\n')
 
 
 def write_vcf(
