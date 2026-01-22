@@ -311,3 +311,113 @@ read_0\tnone\t0\t0\t\t\t2\t30,60\tA,C\tT,G
         assert edits['read_0']['seq_error_count'] == 2
         assert edits['read_0']['seq_error_positions'] == [30, 60]
         assert edits['read_0']['seq_error_new'] == ['T', 'G']
+
+
+class TestVerifyRead:
+    """Tests for single read verification."""
+
+    def test_verify_deletion_match(self):
+        from bwa_verify import verify_read, BWAAlignment
+
+        ground_truth = {
+            'edit_type': 'deletion',
+            'edit_position': 50,
+            'edit_size': 3,
+            'original_seq': 'ACG',
+            'edited_seq': '',
+            'seq_error_count': 0,
+            'seq_error_positions': [],
+            'seq_error_new': [],
+        }
+
+        alignment = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='50M3D47M',
+            md_tag='50^ACG47',
+            read_seq='A' * 97,
+        )
+
+        result = verify_read('read_0', ground_truth, alignment)
+
+        assert result.passed is True
+        assert result.mismatches == []
+
+    def test_verify_deletion_size_mismatch(self):
+        from bwa_verify import verify_read, BWAAlignment
+
+        ground_truth = {
+            'edit_type': 'deletion',
+            'edit_position': 50,
+            'edit_size': 5,  # Expected 5
+            'original_seq': 'ACGTA',
+            'edited_seq': '',
+            'seq_error_count': 0,
+            'seq_error_positions': [],
+            'seq_error_new': [],
+        }
+
+        alignment = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='50M3D47M',  # BWA found 3
+            md_tag='50^ACG47',
+            read_seq='A' * 97,
+        )
+
+        result = verify_read('read_0', ground_truth, alignment)
+
+        assert result.passed is False
+        assert any('size' in m.lower() for m in result.mismatches)
+
+    def test_verify_insertion_match(self):
+        from bwa_verify import verify_read, BWAAlignment
+
+        ground_truth = {
+            'edit_type': 'insertion',
+            'edit_position': 50,
+            'edit_size': 3,
+            'original_seq': '',
+            'edited_seq': 'GGG',
+            'seq_error_count': 0,
+            'seq_error_positions': [],
+            'seq_error_new': [],
+        }
+
+        alignment = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='50M3I47M',
+            md_tag='97',
+            read_seq='A' * 50 + 'GGG' + 'A' * 47,
+        )
+
+        result = verify_read('read_0', ground_truth, alignment)
+
+        assert result.passed is True
+
+    def test_verify_no_edit(self):
+        from bwa_verify import verify_read, BWAAlignment
+
+        ground_truth = {
+            'edit_type': 'none',
+            'edit_position': 0,
+            'edit_size': 0,
+            'original_seq': '',
+            'edited_seq': '',
+            'seq_error_count': 0,
+            'seq_error_positions': [],
+            'seq_error_new': [],
+        }
+
+        alignment = BWAAlignment(
+            read_name='read_0',
+            ref_start=0,
+            cigar='100M',
+            md_tag='100',
+            read_seq='A' * 100,
+        )
+
+        result = verify_read('read_0', ground_truth, alignment)
+
+        assert result.passed is True

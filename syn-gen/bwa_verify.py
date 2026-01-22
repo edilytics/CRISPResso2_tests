@@ -355,3 +355,134 @@ def parse_edits_tsv(tsv_content: str) -> dict[str, dict]:
         edits[read_name] = row
 
     return edits
+
+
+def verify_read(
+    read_name: str,
+    ground_truth: dict,
+    alignment: BWAAlignment,
+) -> ReadVerification:
+    """
+    Verify a single read's BWA alignment against ground truth.
+
+    Args:
+        read_name: Name of the read
+        ground_truth: Edit info from syn-gen's _edits.tsv
+        alignment: Parsed BWA alignment
+
+    Returns:
+        ReadVerification with pass/fail and any mismatches
+    """
+    mismatches = []
+
+    edit_type = ground_truth['edit_type']
+    bwa_deletions = alignment.get_deletions()
+    bwa_insertions = alignment.get_insertions()
+    bwa_substitutions = alignment.get_substitutions()
+
+    # Collect expected sequencing errors as substitutions
+    expected_seq_errors = []
+    for i, pos in enumerate(ground_truth.get('seq_error_positions', [])):
+        new_base = ground_truth['seq_error_new'][i]
+        expected_seq_errors.append((pos, new_base))
+
+    if edit_type == 'none':
+        # Should have no edits (only sequencing errors as substitutions)
+        if bwa_deletions:
+            mismatches.append(f"Expected no deletions, found {len(bwa_deletions)}")
+        if bwa_insertions:
+            mismatches.append(f"Expected no insertions, found {len(bwa_insertions)}")
+
+        # Check sequencing errors match substitutions
+        if expected_seq_errors:
+            for pos, new_base in expected_seq_errors:
+                found = any(s[0] == pos and s[2] == new_base for s in bwa_substitutions)
+                if not found:
+                    mismatches.append(f"Missing sequencing error at pos {pos}")
+
+    elif edit_type == 'deletion':
+        expected_pos = ground_truth['edit_position']
+        expected_size = ground_truth['edit_size']
+
+        if not bwa_deletions:
+            mismatches.append(f"Expected deletion at {expected_pos}, found none")
+        else:
+            # Find matching deletion
+            found = False
+            for pos, size, seq in bwa_deletions:
+                if pos == expected_pos and size == expected_size:
+                    found = True
+                    break
+
+            if not found:
+                bwa_info = [(pos, size) for pos, size, _ in bwa_deletions]
+                mismatches.append(
+                    f"Deletion mismatch: expected pos={expected_pos} size={expected_size}, "
+                    f"found {bwa_info}"
+                )
+
+    elif edit_type == 'insertion':
+        expected_pos = ground_truth['edit_position']
+        expected_seq = ground_truth['edited_seq']
+
+        if not bwa_insertions:
+            mismatches.append(f"Expected insertion at {expected_pos}, found none")
+        else:
+            found = False
+            for pos, seq in bwa_insertions:
+                if pos == expected_pos and seq == expected_seq:
+                    found = True
+                    break
+
+            if not found:
+                mismatches.append(
+                    f"Insertion mismatch: expected pos={expected_pos} seq={expected_seq}, "
+                    f"found {bwa_insertions}"
+                )
+
+    elif edit_type == 'substitution':
+        positions = ground_truth['edit_position']
+        new_bases = ground_truth['edited_seq']
+
+        if not isinstance(positions, list):
+            positions = [positions]
+            new_bases = [new_bases]
+
+        for pos, new_base in zip(positions, new_bases):
+            found = any(s[0] == pos and s[2] == new_base for s in bwa_substitutions)
+            if not found:
+                mismatches.append(f"Missing substitution at pos {pos} -> {new_base}")
+
+    elif edit_type == 'prime_edit':
+        # Prime edits may result in insertions, deletions, or substitutions
+        # depending on length difference. Verify based on what's expected.
+        original = ground_truth['original_seq']
+        edited = ground_truth['edited_seq']
+        expected_pos = ground_truth['edit_position']
+
+        len_diff = len(edited) - len(original)
+
+        if len_diff > 0:
+            # Net insertion expected
+            if not bwa_insertions:
+                mismatches.append(f"Expected prime edit insertion, found none")
+        elif len_diff < 0:
+            # Net deletion expected
+            if not bwa_deletions:
+                mismatches.append(f"Expected prime edit deletion, found none")
+        # Substitutions within the edit region are also expected
+
+    # Verify sequencing errors appear as substitutions
+    for pos, new_base in expected_seq_errors:
+        found = any(s[0] == pos and s[2] == new_base for s in bwa_substitutions)
+        if not found:
+            mismatches.append(f"Missing sequencing error substitution at pos {pos}")
+
+    return ReadVerification(
+        read_name=read_name,
+        passed=len(mismatches) == 0,
+        mismatches=mismatches,
+        bwa_deletions=bwa_deletions,
+        bwa_insertions=bwa_insertions,
+        bwa_substitutions=bwa_substitutions,
+    )
