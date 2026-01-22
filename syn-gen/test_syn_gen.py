@@ -1443,5 +1443,80 @@ def test_create_aligned_prime_edit_deletion():
     assert len(aligned_read) == len(aligned_ref)
 
 
+# =============================================================================
+# edit_to_aligned_allele Tests
+# =============================================================================
+
+def test_edit_to_aligned_allele_deletion():
+    """Test converting a deletion Edit to AlignedAllele."""
+    from syn_gen import edit_to_aligned_allele, Edit, AlignedAllele
+
+    amplicon = 'ACGTACGTACGT'
+    edit = Edit(
+        edit_type='deletion',
+        position=4,
+        size=2,
+        original_seq='AC',
+        edited_seq='',
+    )
+
+    allele = edit_to_aligned_allele(amplicon, edit, sequencing_errors=[])
+
+    assert allele.aligned_sequence == 'ACGT--GTACGT'
+    assert allele.reference_sequence == amplicon
+    assert allele.all_deletion_positions == [4, 5]
+    assert allele.deletion_coordinates == [(4, 6)]
+    assert allele.deletion_sizes == [2]
+    assert allele.n_deleted == 2
+    assert allele.n_inserted == 0
+    assert allele.read_status == 'MODIFIED'
+
+
+def test_edit_to_aligned_allele_insertion():
+    """Test converting an insertion Edit to AlignedAllele."""
+    from syn_gen import edit_to_aligned_allele, Edit
+
+    amplicon = 'ACGTACGT'
+    edit = Edit(
+        edit_type='insertion',
+        position=4,
+        size=3,
+        original_seq='',
+        edited_seq='GGG',
+    )
+
+    allele = edit_to_aligned_allele(amplicon, edit, sequencing_errors=[])
+
+    assert allele.aligned_sequence == 'ACGTGGGACGT'
+    assert allele.reference_sequence == 'ACGT---ACGT'
+    assert allele.all_insertion_positions == [3, 4]
+    assert allele.all_insertion_left_positions == [3]
+    assert allele.insertion_coordinates == [(3, 4)]
+    assert allele.insertion_sizes == [3]
+    assert allele.n_inserted == 3
+
+
+def test_edit_to_aligned_allele_none():
+    """Test converting a 'none' Edit to AlignedAllele."""
+    from syn_gen import edit_to_aligned_allele, Edit
+
+    amplicon = 'ACGTACGT'
+    edit = Edit(
+        edit_type='none',
+        position=0,
+        size=0,
+        original_seq='',
+        edited_seq='',
+    )
+
+    allele = edit_to_aligned_allele(amplicon, edit, sequencing_errors=[])
+
+    assert allele.aligned_sequence == amplicon
+    assert allele.reference_sequence == amplicon
+    assert allele.all_deletion_positions == []
+    assert allele.all_insertion_positions == []
+    assert allele.read_status == 'UNMODIFIED'
+
+
 if __name__ == '__main__':
     pytest.main([__file__, '-v'])

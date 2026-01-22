@@ -892,6 +892,130 @@ def create_aligned_prime_edit(amplicon: str, position: int, original: str, edite
     return aligned_read, aligned_ref
 
 
+def edit_to_aligned_allele(
+    amplicon: str,
+    edit: Edit,
+    sequencing_errors: list[SequencingError],
+) -> AlignedAllele:
+    """Convert an Edit and sequencing errors to an AlignedAllele.
+
+    Args:
+        amplicon: Reference amplicon sequence
+        edit: The Edit object describing the intentional edit
+        sequencing_errors: List of sequencing errors applied after the edit
+
+    Returns:
+        AlignedAllele with CRISPResso-compatible alignment and coordinates
+    """
+    # Initialize coordinate lists
+    all_del_positions = []
+    del_coordinates = []
+    del_sizes = []
+    all_ins_positions = []
+    all_ins_left_positions = []
+    ins_coordinates = []
+    ins_sizes = []
+    all_sub_positions = []
+    sub_values = []
+
+    # Handle the edit based on type
+    if edit.edit_type == 'none':
+        aligned_read = amplicon
+        aligned_ref = amplicon
+
+    elif edit.edit_type == 'deletion':
+        pos = edit.position
+        size = edit.size
+        aligned_read, aligned_ref = create_aligned_deletion(amplicon, pos, size)
+        all_del_positions = list(range(pos, pos + size))
+        del_coordinates = [(pos, pos + size)]
+        del_sizes = [size]
+
+    elif edit.edit_type == 'insertion':
+        pos = edit.position
+        size = len(edit.edited_seq)
+        aligned_read, aligned_ref = create_aligned_insertion(amplicon, pos, edit.edited_seq)
+        # CRISPResso uses flanking positions: [left_pos, right_pos]
+        left_pos = pos - 1 if pos > 0 else 0
+        all_ins_positions = [left_pos, pos]
+        all_ins_left_positions = [left_pos]
+        ins_coordinates = [(left_pos, pos)]
+        ins_sizes = [size]
+
+    elif edit.edit_type == 'substitution':
+        # Handle single or multiple substitutions
+        if isinstance(edit.position, list):
+            positions = edit.position
+            new_bases = edit.edited_seq
+        else:
+            positions = [edit.position]
+            new_bases = [edit.edited_seq]
+
+        aligned_read, aligned_ref = create_aligned_substitution(amplicon, positions, new_bases)
+        all_sub_positions = positions
+        sub_values = new_bases
+
+    elif edit.edit_type == 'prime_edit':
+        pos = edit.position
+        original = edit.original_seq
+        edited = edit.edited_seq
+        aligned_read, aligned_ref = create_aligned_prime_edit(amplicon, pos, original, edited)
+
+        len_diff = len(edited) - len(original)
+        if len_diff > 0:
+            # Net insertion
+            left_pos = pos - 1 if pos > 0 else 0
+            all_ins_positions = [left_pos, pos]
+            all_ins_left_positions = [left_pos]
+            ins_coordinates = [(left_pos, pos)]
+            ins_sizes = [len_diff]
+        elif len_diff < 0:
+            # Net deletion
+            del_size = abs(len_diff)
+            del_start = pos + len(edited)
+            all_del_positions = list(range(del_start, del_start + del_size))
+            del_coordinates = [(del_start, del_start + del_size)]
+            del_sizes = [del_size]
+
+        # Check for substitutions within the edited region
+        for i, (o, e) in enumerate(zip(original, edited)):
+            if o != e:
+                all_sub_positions.append(pos + i)
+                sub_values.append(e)
+
+    else:
+        raise ValueError(f"Unknown edit type: {edit.edit_type}")
+
+    # Add sequencing errors as substitutions
+    # Note: sequencing error positions are in the edited read coordinates
+    # For now, we add them directly (coordinate conversion can be added later)
+    for seq_error in sequencing_errors:
+        all_sub_positions.append(seq_error.position)
+        sub_values.append(seq_error.error_base)
+
+    # Calculate totals
+    n_deleted = sum(del_sizes)
+    n_inserted = sum(ins_sizes)
+    n_mutated = len(all_sub_positions)
+
+    return AlignedAllele(
+        aligned_sequence=aligned_read,
+        reference_sequence=aligned_ref,
+        all_deletion_positions=all_del_positions,
+        deletion_coordinates=del_coordinates,
+        deletion_sizes=del_sizes,
+        all_insertion_positions=all_ins_positions,
+        all_insertion_left_positions=all_ins_left_positions,
+        insertion_coordinates=ins_coordinates,
+        insertion_sizes=ins_sizes,
+        all_substitution_positions=all_sub_positions,
+        substitution_values=sub_values,
+        n_deleted=n_deleted,
+        n_inserted=n_inserted,
+        n_mutated=n_mutated,
+    )
+
+
 # =============================================================================
 # Output Writers
 # =============================================================================
