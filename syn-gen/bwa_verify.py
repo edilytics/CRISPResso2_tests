@@ -204,3 +204,52 @@ class BWAAlignment:
                 read_pos += length
 
         return substitutions
+
+
+def parse_sam(sam_content: str) -> dict[str, BWAAlignment]:
+    """
+    Parse SAM content into dict of BWAAlignment objects.
+
+    Args:
+        sam_content: SAM file content as string
+
+    Returns:
+        Dict mapping read_name -> BWAAlignment
+    """
+    alignments = {}
+
+    for line in sam_content.strip().split('\n'):
+        if line.startswith('@'):
+            continue  # Skip header lines
+
+        fields = line.split('\t')
+        if len(fields) < 11:
+            continue
+
+        read_name = fields[0]
+        flag = int(fields[1])
+        ref_name = fields[2]
+        pos = int(fields[3])  # 1-based in SAM
+        cigar = fields[5]
+        seq = fields[9]
+
+        # Skip unmapped reads (flag & 4)
+        if flag & 4 or ref_name == '*' or cigar == '*':
+            continue
+
+        # Extract MD tag from optional fields
+        md_tag = ''
+        for field in fields[11:]:
+            if field.startswith('MD:Z:'):
+                md_tag = field[5:]
+                break
+
+        alignments[read_name] = BWAAlignment(
+            read_name=read_name,
+            ref_start=pos - 1,  # Convert to 0-based
+            cigar=cigar,
+            md_tag=md_tag,
+            read_seq=seq,
+        )
+
+    return alignments

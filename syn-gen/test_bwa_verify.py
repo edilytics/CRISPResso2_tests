@@ -146,3 +146,53 @@ class TestBWAAlignment:
 
         subs = aln.get_substitutions()
         assert subs == [(10, 'A', 'T'), (31, 'C', 'G')]
+
+
+class TestParseSam:
+    """Tests for SAM file parsing."""
+
+    def test_parse_single_alignment(self):
+        from bwa_verify import parse_sam
+
+        sam_content = """\
+@HD\tVN:1.6\tSO:unsorted
+@SQ\tSN:AMPLICON\tLN:200
+read_0\t0\tAMPLICON\t1\t60\t100M\t*\t0\t0\tACGT\tIIII\tMD:Z:100
+"""
+        alignments = parse_sam(sam_content)
+
+        assert len(alignments) == 1
+        assert alignments['read_0'].read_name == 'read_0'
+        assert alignments['read_0'].ref_start == 0  # SAM is 1-based, we convert to 0-based
+        assert alignments['read_0'].cigar == '100M'
+        assert alignments['read_0'].md_tag == '100'
+
+    def test_parse_multiple_alignments(self):
+        from bwa_verify import parse_sam
+
+        sam_content = """\
+@HD\tVN:1.6
+@SQ\tSN:AMPLICON\tLN:200
+read_0\t0\tAMPLICON\t1\t60\t100M\t*\t0\t0\tACGT\tIIII\tMD:Z:100
+read_1\t0\tAMPLICON\t1\t60\t50M3D47M\t*\t0\t0\tACGT\tIIII\tMD:Z:50^ACG47
+"""
+        alignments = parse_sam(sam_content)
+
+        assert len(alignments) == 2
+        assert 'read_0' in alignments
+        assert 'read_1' in alignments
+        assert alignments['read_1'].cigar == '50M3D47M'
+
+    def test_skip_unmapped(self):
+        from bwa_verify import parse_sam
+
+        sam_content = """\
+@HD\tVN:1.6
+@SQ\tSN:AMPLICON\tLN:200
+read_0\t4\t*\t0\t0\t*\t*\t0\t0\tACGT\tIIII
+read_1\t0\tAMPLICON\t1\t60\t100M\t*\t0\t0\tACGT\tIIII\tMD:Z:100
+"""
+        alignments = parse_sam(sam_content)
+
+        assert len(alignments) == 1
+        assert 'read_1' in alignments
