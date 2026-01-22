@@ -282,3 +282,76 @@ class VerificationResult:
     @property
     def all_passed(self) -> bool:
         return self.failed_reads == 0
+
+
+def parse_edits_tsv(tsv_content: str) -> dict[str, dict]:
+    """
+    Parse syn-gen's _edits.tsv ground truth file.
+
+    Args:
+        tsv_content: TSV file content as string
+
+    Returns:
+        Dict mapping read_name -> edit info dict
+    """
+    edits = {}
+    lines = tsv_content.strip().split('\n')
+
+    if len(lines) < 2:
+        return edits
+
+    header = lines[0].split('\t')
+
+    for line in lines[1:]:
+        values = line.split('\t')
+        row = dict(zip(header, values))
+
+        read_name = row['read_name']
+
+        # Parse position (may be comma-separated for multi-position edits)
+        pos_str = row['edit_position']
+        if ',' in pos_str:
+            row['edit_position'] = [int(p) for p in pos_str.split(',')]
+        else:
+            row['edit_position'] = int(pos_str) if pos_str else 0
+
+        # Parse size
+        size_str = row['edit_size']
+        if ',' in size_str:
+            row['edit_size'] = [int(s) for s in size_str.split(',')]
+        else:
+            row['edit_size'] = int(size_str) if size_str else 0
+
+        # Parse original_seq and edited_seq (may be comma-separated)
+        orig_str = row.get('original_seq', '')
+        if ',' in orig_str:
+            row['original_seq'] = orig_str.split(',')
+
+        edit_str = row.get('edited_seq', '')
+        if ',' in edit_str:
+            row['edited_seq'] = edit_str.split(',')
+
+        # Parse sequencing errors
+        row['seq_error_count'] = int(row.get('seq_error_count', 0))
+
+        err_pos_str = row.get('seq_error_positions', '')
+        if err_pos_str:
+            row['seq_error_positions'] = [int(p) for p in err_pos_str.split(',')]
+        else:
+            row['seq_error_positions'] = []
+
+        err_orig_str = row.get('seq_error_original', '')
+        if err_orig_str:
+            row['seq_error_original'] = err_orig_str.split(',')
+        else:
+            row['seq_error_original'] = []
+
+        err_new_str = row.get('seq_error_new', '')
+        if err_new_str:
+            row['seq_error_new'] = err_new_str.split(',')
+        else:
+            row['seq_error_new'] = []
+
+        edits[read_name] = row
+
+    return edits

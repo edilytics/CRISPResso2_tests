@@ -255,3 +255,59 @@ class TestVerificationTypes:
 
         assert result.all_passed is False
         assert result.failed_reads == 1
+
+
+class TestParseEditsTsv:
+    """Tests for parsing syn-gen's _edits.tsv ground truth."""
+
+    def test_parse_deletion(self):
+        from bwa_verify import parse_edits_tsv
+
+        tsv_content = """\
+read_name\tedit_type\tedit_position\tedit_size\toriginal_seq\tedited_seq\tseq_error_count\tseq_error_positions\tseq_error_original\tseq_error_new
+read_0\tdeletion\t50\t3\tACG\t\t0\t\t\t
+"""
+        edits = parse_edits_tsv(tsv_content)
+
+        assert len(edits) == 1
+        assert edits['read_0']['edit_type'] == 'deletion'
+        assert edits['read_0']['edit_position'] == 50
+        assert edits['read_0']['edit_size'] == 3
+
+    def test_parse_insertion(self):
+        from bwa_verify import parse_edits_tsv
+
+        tsv_content = """\
+read_name\tedit_type\tedit_position\tedit_size\toriginal_seq\tedited_seq\tseq_error_count\tseq_error_positions\tseq_error_original\tseq_error_new
+read_0\tinsertion\t50\t3\t\tGGG\t0\t\t\t
+"""
+        edits = parse_edits_tsv(tsv_content)
+
+        assert edits['read_0']['edit_type'] == 'insertion'
+        assert edits['read_0']['edited_seq'] == 'GGG'
+
+    def test_parse_substitution_multi(self):
+        from bwa_verify import parse_edits_tsv
+
+        tsv_content = """\
+read_name\tedit_type\tedit_position\tedit_size\toriginal_seq\tedited_seq\tseq_error_count\tseq_error_positions\tseq_error_original\tseq_error_new
+read_0\tsubstitution\t10,15,20\t1,1,1\tC,C,C\tT,T,T\t0\t\t\t
+"""
+        edits = parse_edits_tsv(tsv_content)
+
+        assert edits['read_0']['edit_type'] == 'substitution'
+        assert edits['read_0']['edit_position'] == [10, 15, 20]
+        assert edits['read_0']['edited_seq'] == ['T', 'T', 'T']
+
+    def test_parse_sequencing_errors(self):
+        from bwa_verify import parse_edits_tsv
+
+        tsv_content = """\
+read_name\tedit_type\tedit_position\tedit_size\toriginal_seq\tedited_seq\tseq_error_count\tseq_error_positions\tseq_error_original\tseq_error_new
+read_0\tnone\t0\t0\t\t\t2\t30,60\tA,C\tT,G
+"""
+        edits = parse_edits_tsv(tsv_content)
+
+        assert edits['read_0']['seq_error_count'] == 2
+        assert edits['read_0']['seq_error_positions'] == [30, 60]
+        assert edits['read_0']['seq_error_new'] == ['T', 'G']
