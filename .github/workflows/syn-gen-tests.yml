@@ -41,7 +41,7 @@ jobs:
       - name: Install BWA
         run: |
           conda install -y -c bioconda bwa
-          bwa 2>&1 | head -3
+          bwa 2>&1 | head -3 || true
 
       - name: Install test dependencies
         run: |
