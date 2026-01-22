@@ -32,8 +32,8 @@ def temp_dir():
 @pytest.fixture
 def bwa_available():
     """Check if BWA is available."""
-    result = subprocess.run(["which", "bwa"], capture_output=True)
-    if result.returncode != 0:
+    import shutil
+    if shutil.which("bwa") is None:
         pytest.skip("BWA not available in PATH")
 
 
