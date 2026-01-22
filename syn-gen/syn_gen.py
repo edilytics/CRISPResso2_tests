@@ -1403,7 +1403,7 @@ def generate_synthetic_data(
 
     write_fastq(reads, fastq_path)
     write_edit_tsv(reads, tsv_path)
-    write_alleles_tsv(reads, alleles_path)
+    write_alleles_tsv(reads, amplicon, alleles_path)
 
     variants = aggregate_edits_to_variants(reads, amplicon, amplicon_name)
     write_vcf(variants, amplicon_name, amplicon, vcf_path)
