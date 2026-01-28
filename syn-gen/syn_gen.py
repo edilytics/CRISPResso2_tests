@@ -1215,8 +1215,9 @@ def generate_synthetic_data(
         print(f'Cut site:        {cut_site}')
         print()
         print(f'Total reads:     {num_reads}')
-        print(f'Edited reads:    {edited_count} ({100 * edited_count / num_reads:.2f}%)')
-        print(f'Unedited reads:  {unedited_count} ({100 * unedited_count / num_reads:.2f}%)')
+        if num_reads > 0:
+            print(f'Edited reads:    {edited_count} ({100 * edited_count / num_reads:.2f}%)')
+            print(f'Unedited reads:  {unedited_count} ({100 * unedited_count / num_reads:.2f}%)')
         if edited_count > 0:
             if mode == 'base-edit':
                 print(f'  - Substitutions: {substitution_count} ({100 * substitution_count / edited_count:.2f}% of edits)')
