@@ -1,4 +1,6 @@
 ##fileformat=VCFv4.5
 ##source=CRISPResso2
 ##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Reference
+##contig=<ID=FANC,length=223>
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+FANC	92	.	C	T	.	PASS	AF=0.010
