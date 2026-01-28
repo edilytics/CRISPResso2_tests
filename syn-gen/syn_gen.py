@@ -13,9 +13,9 @@ import gzip
 import math
 import random
 import sys
+import warnings
 from collections import Counter
-from dataclasses import dataclass
-from pathlib import Path
+from dataclasses import dataclass, field
 from typing import Literal, Optional
 
 
@@ -36,12 +36,50 @@ class FastqRead:
 
 @dataclass
 class Edit:
-    """Represents a single edit event (NHEJ, base editing, or prime editing)."""
+    """Represents a single edit event (NHEJ, base editing, or prime editing).
+
+    All fields use lists to uniformly handle single and multi-position edits
+    (e.g., base editing with multiple substitutions). Use Edit.single() for
+    convenience when creating single-position edits.
+    """
     edit_type: Literal['deletion', 'insertion', 'substitution', 'prime_edit', 'none']
-    position: int | list[int]  # Position(s) in amplicon (0-indexed). List for multi-base edits.
-    size: int | list[int]  # Size of edit(s). Always 1 for substitutions.
-    original_seq: str | list[str]  # Original sequence(s) at edit site
-    edited_seq: str | list[str]  # Resulting sequence(s)
+    position: list[int] = field(default_factory=list)
+    size: list[int] = field(default_factory=list)
+    original_seq: list[str] = field(default_factory=list)
+    edited_seq: list[str] = field(default_factory=list)
+
+    @staticmethod
+    def single(edit_type: str, position: int, size: int, original_seq: str, edited_seq: str) -> Edit:
+        """Create an Edit with single-position values (wraps scalars in lists)."""
+        return Edit(edit_type, [position], [size], [original_seq], [edited_seq])
+
+    @staticmethod
+    def none() -> Edit:
+        """Create a no-op edit."""
+        return Edit('none')
+
+    def apply(self, amplicon: str) -> str:
+        """Apply this edit to an amplicon sequence and return the result."""
+        if self.edit_type == 'none':
+            return amplicon
+        elif self.edit_type == 'deletion':
+            pos, size = self.position[0], self.size[0]
+            return amplicon[:pos] + amplicon[pos + size:]
+        elif self.edit_type == 'insertion':
+            pos = self.position[0]
+            return amplicon[:pos] + self.edited_seq[0] + amplicon[pos:]
+        elif self.edit_type == 'substitution':
+            seq = list(amplicon)
+            for pos, new_base in zip(self.position, self.edited_seq):
+                seq[pos] = new_base
+            return ''.join(seq)
+        elif self.edit_type == 'prime_edit':
+            pos = self.position[0]
+            original = self.original_seq[0]
+            edited = self.edited_seq[0]
+            return amplicon[:pos] + edited + amplicon[pos + len(original):]
+        else:
+            raise ValueError(f"Unknown edit type: {self.edit_type}")
 
 
 @dataclass
@@ -218,24 +256,24 @@ def generate_edit(
         end_pos = min(position + size, len(amplicon))
         actual_size = end_pos - position
 
-        return Edit(
-            edit_type='deletion',
+        return Edit.single(
+            'deletion',
             position=position,
             size=actual_size,
             original_seq=amplicon[position:end_pos],
-            edited_seq=''
+            edited_seq='',
         )
     else:
         # Generate insertion
         size = sample_insertion_size()
         inserted_seq = generate_random_sequence(size)
 
-        return Edit(
-            edit_type='insertion',
+        return Edit.single(
+            'insertion',
             position=position,
             size=size,
             original_seq='',
-            edited_seq=inserted_seq
+            edited_seq=inserted_seq,
         )
 
 
@@ -257,8 +295,8 @@ def left_align_edit(amplicon: str, edit: Edit) -> Edit:
     if edit.edit_type == 'none' or edit.edit_type == 'substitution':
         return edit
 
-    position = edit.position
-    size = edit.size
+    position = edit.position[0]
+    size = edit.size[0]
 
     if edit.edit_type == 'deletion':
         # Left-align deletion: shift left while base at pos-1 equals base at pos+size-1
@@ -273,8 +311,8 @@ def left_align_edit(amplicon: str, edit: Edit) -> Edit:
         # Update the deleted sequence to reflect new position
         new_original_seq = amplicon[position:position + size]
 
-        return Edit(
-            edit_type='deletion',
+        return Edit.single(
+            'deletion',
             position=position,
             size=size,
             original_seq=new_original_seq,
@@ -283,7 +321,7 @@ def left_align_edit(amplicon: str, edit: Edit) -> Edit:
 
     elif edit.edit_type == 'insertion':
         # Left-align insertion: shift left while base at pos-1 equals last base of insert
-        inserted_seq = edit.edited_seq
+        inserted_seq = edit.edited_seq[0]
         while position > 0:
             left_base = amplicon[position - 1]
             last_insert_base = inserted_seq[-1]
@@ -293,8 +331,8 @@ def left_align_edit(amplicon: str, edit: Edit) -> Edit:
             inserted_seq = inserted_seq[-1] + inserted_seq[:-1]
             position -= 1
 
-        return Edit(
-            edit_type='insertion',
+        return Edit.single(
+            'insertion',
             position=position,
             size=size,
             original_seq='',
@@ -307,27 +345,6 @@ def left_align_edit(amplicon: str, edit: Edit) -> Edit:
         return edit
 
     return edit
-
-
-def apply_edit(amplicon: str, edit: Edit) -> str:
-    """
-    Apply an edit to the amplicon sequence.
-
-    Args:
-        amplicon: Reference amplicon sequence
-        edit: Edit to apply
-
-    Returns:
-        Edited sequence
-    """
-    if edit.edit_type == 'none':
-        return amplicon
-    elif edit.edit_type == 'deletion':
-        return amplicon[:edit.position] + amplicon[edit.position + edit.size:]
-    elif edit.edit_type == 'insertion':
-        return amplicon[:edit.position] + edit.edited_seq + amplicon[edit.position:]
-    else:
-        raise ValueError(f"Unknown edit type: {edit.edit_type}")
 
 
 # =============================================================================
@@ -435,14 +452,7 @@ def generate_base_edit(
     )
 
     if not editable_bases:
-        # No editable bases found - return no edit
-        return Edit(
-            edit_type='none',
-            position=0,
-            size=0,
-            original_seq='',
-            edited_seq=''
-        )
+        return Edit.none()
 
     # Determine which bases get edited based on position probability and base_edit_prob
     positions = []
@@ -464,58 +474,15 @@ def generate_base_edit(
             edited_seqs.append(to_base)
 
     if not positions:
-        # Probabilistically, no bases were edited this time
-        return Edit(
-            edit_type='none',
-            position=0,
-            size=0,
-            original_seq='',
-            edited_seq=''
-        )
+        return Edit.none()
 
-    # Return single or multi-position edit
-    if len(positions) == 1:
-        return Edit(
-            edit_type='substitution',
-            position=positions[0],
-            size=1,
-            original_seq=original_seqs[0],
-            edited_seq=edited_seqs[0]
-        )
-    else:
-        return Edit(
-            edit_type='substitution',
-            position=positions,
-            size=[1] * len(positions),
-            original_seq=original_seqs,
-            edited_seq=edited_seqs
-        )
-
-
-def apply_base_edit(amplicon: str, edit: Edit) -> str:
-    """
-    Apply base editing substitutions to amplicon.
-
-    Args:
-        amplicon: Original amplicon sequence
-        edit: Edit object with substitution(s)
-
-    Returns:
-        Edited sequence
-    """
-    if edit.edit_type == 'none':
-        return amplicon
-
-    seq = list(amplicon)
-
-    # Handle both single and multi-position edits
-    positions = edit.position if isinstance(edit.position, list) else [edit.position]
-    edited_seqs = edit.edited_seq if isinstance(edit.edited_seq, list) else [edit.edited_seq]
-
-    for pos, new_base in zip(positions, edited_seqs):
-        seq[pos] = new_base
-
-    return ''.join(seq)
+    return Edit(
+        edit_type='substitution',
+        position=positions,
+        size=[1] * len(positions),
+        original_seq=original_seqs,
+        edited_seq=edited_seqs,
+    )
 
 
 # =============================================================================
@@ -566,8 +533,7 @@ def parse_peg_extension(
     # PBS binds to the nicked strand upstream of the nick
     # PBS is reverse complement of the genomic sequence upstream of nick
 
-    # Extract PBS (last pbs_length bases of extension)
-    pbs = peg_extension[-pbs_length:]
+    # Extract RT template (everything before the PBS at the 3' end)
     rt_template = peg_extension[:-pbs_length]
 
     if len(rt_template) == 0:
@@ -588,20 +554,7 @@ def parse_peg_extension(
     rt_len = len(rt_template_rc)
     ref_seq = amplicon[cut_site:cut_site + rt_len]
 
-    # Compare to find differences
-    if rt_template_rc == ref_seq:
-        # No edit - this shouldn't happen with a real pegRNA but handle it
-        return PrimeEditIntent(
-            edit_type='substitution',
-            position=cut_site,
-            original_seq=ref_seq,
-            edited_seq=rt_template_rc,
-            pbs_start=pbs_start,
-            pbs_end=pbs_end,
-            rt_template=rt_template_rc,
-        )
-
-    # Determine edit type by comparing lengths and content
+    # Determine edit type by comparing lengths
     if len(rt_template_rc) == len(ref_seq):
         # Same length - substitution(s)
         edit_type = 'substitution'
@@ -643,8 +596,8 @@ def generate_prime_edit(
     """
     if outcome_type == 'perfect':
         # Perfect edit - exact RT template incorporation
-        return Edit(
-            edit_type='prime_edit',
+        return Edit.single(
+            'prime_edit',
             position=intent.position,
             size=len(intent.edited_seq) - len(intent.original_seq),
             original_seq=intent.original_seq,
@@ -662,8 +615,8 @@ def generate_prime_edit(
         truncated_template = intent.rt_template[:truncation]
         truncated_ref = intent.original_seq[:truncation] if truncation <= len(intent.original_seq) else intent.original_seq
 
-        return Edit(
-            edit_type='prime_edit',
+        return Edit.single(
+            'prime_edit',
             position=intent.position,
             size=len(truncated_template) - len(truncated_ref),
             original_seq=truncated_ref,
@@ -674,20 +627,18 @@ def generate_prime_edit(
         # NHEJ-like indel at nick site
         indel_size = random.choice([-3, -2, -1, 1, 2, 3])
         if indel_size < 0:
-            # Deletion
             del_size = abs(indel_size)
-            return Edit(
-                edit_type='deletion',
+            return Edit.single(
+                'deletion',
                 position=intent.position,
                 size=del_size,
                 original_seq=amplicon[intent.position:intent.position + del_size],
                 edited_seq='',
             )
         else:
-            # Insertion
             insert_seq = generate_random_sequence(indel_size)
-            return Edit(
-                edit_type='insertion',
+            return Edit.single(
+                'insertion',
                 position=intent.position,
                 size=indel_size,
                 original_seq='',
@@ -699,11 +650,10 @@ def generate_prime_edit(
         scaffold_len = random.randint(5, min(20, len(scaffold))) if len(scaffold) > 5 else len(scaffold)
         scaffold_fragment = scaffold[:scaffold_len]
 
-        # Scaffold gets incorporated at the edit site
         edited_seq = intent.edited_seq + scaffold_fragment
 
-        return Edit(
-            edit_type='prime_edit',
+        return Edit.single(
+            'prime_edit',
             position=intent.position,
             size=len(edited_seq) - len(intent.original_seq),
             original_seq=intent.original_seq,
@@ -712,26 +662,22 @@ def generate_prime_edit(
 
     elif outcome_type == 'flap_indel':
         # Small indel at the 3' flap junction
-        # This occurs at the boundary between the RT template and downstream sequence
         flap_indel = random.choice([-2, -1, 1, 2])
         if flap_indel < 0:
-            # Small deletion at the junction
             del_size = abs(flap_indel)
-            # Apply the intended edit but with a small deletion at the end
             edited_seq = intent.edited_seq[:-del_size] if len(intent.edited_seq) > del_size else ''
-            return Edit(
-                edit_type='prime_edit',
+            return Edit.single(
+                'prime_edit',
                 position=intent.position,
                 size=len(edited_seq) - len(intent.original_seq),
                 original_seq=intent.original_seq,
                 edited_seq=edited_seq,
             )
         else:
-            # Small insertion at the junction
             insert_seq = generate_random_sequence(flap_indel)
             edited_seq = intent.edited_seq + insert_seq
-            return Edit(
-                edit_type='prime_edit',
+            return Edit.single(
+                'prime_edit',
                 position=intent.position,
                 size=len(edited_seq) - len(intent.original_seq),
                 original_seq=intent.original_seq,
@@ -763,30 +709,6 @@ def select_prime_edit_outcome(
     weights = [w / total for w in weights]
 
     return random.choices(outcomes, weights=weights, k=1)[0]
-
-
-def apply_prime_edit(amplicon: str, edit: Edit) -> str:
-    """
-    Apply prime edit to amplicon.
-
-    Handles substitutions, insertions, deletions, and complex edits.
-
-    Args:
-        amplicon: Original amplicon sequence
-        edit: Edit object
-
-    Returns:
-        Edited sequence
-    """
-    if edit.edit_type == 'none':
-        return amplicon
-
-    pos = edit.position
-    original = edit.original_seq
-    edited = edit.edited_seq
-
-    # Replace the original sequence with the edited sequence
-    return amplicon[:pos] + edited + amplicon[pos + len(original):]
 
 
 # =============================================================================
@@ -872,17 +794,10 @@ def write_edit_tsv(reads: list[EditedRead], filepath: str) -> None:
         for edited_read in reads:
             edit = edited_read.edit
 
-            # Format values - handle both single values and lists (for multi-position edits)
-            if isinstance(edit.position, list):
-                pos_str = ','.join(str(p) for p in edit.position)
-                size_str = ','.join(str(s) for s in edit.size)
-                orig_str = ','.join(edit.original_seq)
-                edit_str = ','.join(edit.edited_seq)
-            else:
-                pos_str = str(edit.position)
-                size_str = str(edit.size)
-                orig_str = edit.original_seq
-                edit_str = edit.edited_seq
+            pos_str = ','.join(str(p) for p in edit.position)
+            size_str = ','.join(str(s) for s in edit.size)
+            orig_str = ','.join(edit.original_seq)
+            edit_str = ','.join(edit.edited_seq)
 
             # Format sequencing errors
             seq_errors = edited_read.sequencing_errors
@@ -943,18 +858,8 @@ def aggregate_edits_to_variants(
         if edit.edit_type == 'none':
             continue
 
-        # Handle multi-position edits (e.g., multiple substitutions)
-        if isinstance(edit.position, list):
-            # Expand multi-position edit into individual position counts
-            for i, pos in enumerate(edit.position):
-                orig = edit.original_seq[i] if isinstance(edit.original_seq, list) else edit.original_seq
-                edited = edit.edited_seq[i] if isinstance(edit.edited_seq, list) else edit.edited_seq
-                size = edit.size[i] if isinstance(edit.size, list) else edit.size
-                key = (edit.edit_type, pos, size, orig, edited)
-                edit_counts[key] += 1
-        else:
-            # Single-position edit
-            key = (edit.edit_type, edit.position, edit.size, edit.original_seq, edit.edited_seq)
+        for i, pos in enumerate(edit.position):
+            key = (edit.edit_type, pos, edit.size[i], edit.original_seq[i], edit.edited_seq[i])
             edit_counts[key] += 1
 
     variants = []
@@ -1089,24 +994,15 @@ def generate_synthetic_data(
     if mode == 'prime-edit':
         prime_edit_intent = parse_peg_extension(amplicon, cut_site, peg_extension)
 
-    # Determine read length
-    actual_read_length = read_length if read_length else len(amplicon)
-    if actual_read_length > len(amplicon):
-        actual_read_length = len(amplicon)
-
     # Generate reads
     reads: list[EditedRead] = []
-    deletion_count = 0
-    insertion_count = 0
-    substitution_count = 0
-    prime_edit_count = 0
+    edit_type_counts: Counter[str] = Counter()
 
     for i in range(num_reads):
         is_edited = random.random() < edit_rate
 
         if is_edited:
             if mode == 'base-edit':
-                # Base editing mode - generate substitutions
                 edit = generate_base_edit(
                     amplicon=amplicon,
                     guide_start=guide_start,
@@ -1117,12 +1013,8 @@ def generate_synthetic_data(
                     window_sigma=window_sigma,
                     base_edit_prob=base_edit_prob,
                 )
-                seq = apply_base_edit(amplicon, edit)
-                if edit.edit_type == 'substitution':
-                    substitution_count += 1
 
             elif mode == 'prime-edit':
-                # Prime editing mode - generate various outcome types
                 outcome = select_prime_edit_outcome(
                     perfect_frac=perfect_edit_fraction,
                     partial_frac=partial_edit_fraction,
@@ -1136,29 +1028,18 @@ def generate_synthetic_data(
                     outcome_type=outcome,
                     scaffold=peg_scaffold,
                 )
-                # Left-align indel-type edits to match BWA's normalization
                 if edit.edit_type in ('deletion', 'insertion'):
                     edit = left_align_edit(amplicon, edit)
-                seq = apply_prime_edit(amplicon, edit)
-                if edit.edit_type == 'prime_edit':
-                    prime_edit_count += 1
-                elif edit.edit_type == 'deletion':
-                    deletion_count += 1
-                elif edit.edit_type == 'insertion':
-                    insertion_count += 1
 
             else:
-                # NHEJ mode (default) - generate deletions/insertions
                 edit = generate_edit(cut_site, amplicon)
-                # Left-align to match BWA's normalization behavior
                 edit = left_align_edit(amplicon, edit)
-                seq = apply_edit(amplicon, edit)
-                if edit.edit_type == 'deletion':
-                    deletion_count += 1
-                else:
-                    insertion_count += 1
+
+            seq = edit.apply(amplicon)
+            if edit.edit_type != 'none':
+                edit_type_counts[edit.edit_type] += 1
         else:
-            edit = Edit(edit_type='none', position=0, size=0, original_seq='', edited_seq='')
+            edit = Edit.none()
             seq = amplicon
 
         # Add sequencing errors
@@ -1182,7 +1063,11 @@ def generate_synthetic_data(
     write_vcf(variants, amplicon_name, amplicon, vcf_path)
 
     # Calculate statistics
-    edited_count = deletion_count + insertion_count + substitution_count + prime_edit_count
+    deletion_count = edit_type_counts['deletion']
+    insertion_count = edit_type_counts['insertion']
+    substitution_count = edit_type_counts['substitution']
+    prime_edit_count = edit_type_counts['prime_edit']
+    edited_count = sum(edit_type_counts.values())
     unedited_count = num_reads - edited_count
 
     stats = {
@@ -1215,8 +1100,9 @@ def generate_synthetic_data(
         print(f'Cut site:        {cut_site}')
         print()
         print(f'Total reads:     {num_reads}')
-        print(f'Edited reads:    {edited_count} ({100 * edited_count / num_reads:.2f}%)')
-        print(f'Unedited reads:  {unedited_count} ({100 * unedited_count / num_reads:.2f}%)')
+        if num_reads > 0:
+            print(f'Edited reads:    {edited_count} ({100 * edited_count / num_reads:.2f}%)')
+            print(f'Unedited reads:  {unedited_count} ({100 * unedited_count / num_reads:.2f}%)')
         if edited_count > 0:
             if mode == 'base-edit':
                 print(f'  - Substitutions: {substitution_count} ({100 * substitution_count / edited_count:.2f}% of edits)')
@@ -1263,10 +1149,8 @@ def validate_inputs(
         raise ValueError(f"error_rate must be between 0 and 1, got {error_rate}")
 
     if len(guide) < 10:
-        import warnings
         warnings.warn(f"Guide length {len(guide)} is unusually short (typical: 17-23bp)")
     elif len(guide) > 25:
-        import warnings
         warnings.warn(f"Guide length {len(guide)} is unusually long (typical: 17-23bp)")
 
 
