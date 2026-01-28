@@ -1,101 +1,101 @@
-read_name	edit_type	edit_position	edit_size	original_seq	edited_seq
-read_0	deletion	91	3	CAC	
-read_1	deletion	94	2	CT	
-read_2	none	0	0		
-read_3	deletion	92	1	A	
-read_4	deletion	90	2	GC	
-read_5	none	0	0		
-read_6	deletion	90	3	GCA	
-read_7	deletion	90	4	GCAC	
-read_8	none	0	0		
-read_9	none	0	0		
-read_10	none	0	0		
-read_11	none	0	0		
-read_12	none	0	0		
-read_13	none	0	0		
-read_14	none	0	0		
-read_15	none	0	0		
-read_16	none	0	0		
-read_17	deletion	92	7	ACCTGGA	
-read_18	none	0	0		
-read_19	none	0	0		
-read_20	deletion	92	1	A	
-read_21	none	0	0		
-read_22	none	0	0		
-read_23	none	0	0		
-read_24	none	0	0		
-read_25	none	0	0		
-read_26	deletion	90	5	GCACC	
-read_27	none	0	0		
-read_28	deletion	93	1	C	
-read_29	none	0	0		
-read_30	deletion	91	4	CACC	
-read_31	deletion	92	6	ACCTGG	
-read_32	deletion	90	8	GCACCTGG	
-read_33	none	0	0		
-read_34	none	0	0		
-read_35	none	0	0		
-read_36	deletion	90	6	GCACCT	
-read_37	none	0	0		
-read_38	none	0	0		
-read_39	deletion	93	9	CCTGGATCG	
-read_40	deletion	92	8	ACCTGGAT	
-read_41	deletion	91	4	CACC	
-read_42	none	0	0		
-read_43	deletion	93	5	CCTGG	
-read_44	none	0	0		
-read_45	deletion	91	1	C	
-read_46	deletion	90	1	G	
-read_47	deletion	92	13	ACCTGGATCGCTT	
-read_48	none	0	0		
-read_49	none	0	0		
-read_50	deletion	93	5	CCTGG	
-read_51	deletion	92	5	ACCTG	
-read_52	none	0	0		
-read_53	deletion	92	5	ACCTG	
-read_54	deletion	94	6	CTGGAT	
-read_55	deletion	94	5	CTGGA	
-read_56	deletion	91	2	CA	
-read_57	deletion	94	9	CTGGATCGC	
-read_58	deletion	93	3	CCT	
-read_59	none	0	0		
-read_60	none	0	0		
-read_61	deletion	90	3	GCA	
-read_62	deletion	92	1	A	
-read_63	none	0	0		
-read_64	deletion	94	4	CTGG	
-read_65	deletion	91	6	CACCTG	
-read_66	none	0	0		
-read_67	none	0	0		
-read_68	none	0	0		
-read_69	none	0	0		
-read_70	none	0	0		
-read_71	none	0	0		
-read_72	deletion	94	1	C	
-read_73	none	0	0		
-read_74	deletion	90	9	GCACCTGGA	
-read_75	deletion	92	4	ACCT	
-read_76	deletion	91	2	CA	
-read_77	deletion	94	3	CTG	
-read_78	deletion	92	3	ACC	
-read_79	none	0	0		
-read_80	none	0	0		
-read_81	none	0	0		
-read_82	none	0	0		
-read_83	none	0	0		
-read_84	deletion	91	1	C	
-read_85	deletion	94	4	CTGG	
-read_86	none	0	0		
-read_87	deletion	91	18	CACCTGGATCGCTTTTCC	
-read_88	deletion	93	1	C	
-read_89	deletion	94	1	C	
-read_90	none	0	0		
-read_91	deletion	90	2	GC	
-read_92	none	0	0		
-read_93	deletion	93	3	CCT	
-read_94	deletion	90	10	GCACCTGGAT	
-read_95	deletion	94	14	CTGGATCGCTTTTC	
-read_96	deletion	93	7	CCTGGAT	
-read_97	deletion	92	2	AC	
-read_98	none	0	0		
-read_99	none	0	0		
+read_name	edit_type	edit_position	edit_size	original_seq	edited_seq	seq_error_count	seq_error_positions	seq_error_original	seq_error_new
+read_0	none					1	123	C	G
+read_1	deletion	93	2	CC		1	165	G	C
+read_2	deletion	93	12	CCTGGATCGCTT		0			
+read_3	deletion	91	2	CA		0			
+read_4	none					0			
+read_5	none					0			
+read_6	none					0			
+read_7	deletion	93	1	C		0			
+read_8	none					0			
+read_9	none					0			
+read_10	none					0			
+read_11	none					1	69	C	G
+read_12	none					0			
+read_13	deletion	94	5	CTGGA		0			
+read_14	none					0			
+read_15	deletion	90	1	G		0			
+read_16	none					0			
+read_17	none					0			
+read_18	none					0			
+read_19	none					0			
+read_20	none					1	97	G	A
+read_21	deletion	90	4	GCAC		0			
+read_22	deletion	94	4	CTGG		0			
+read_23	insertion	91	2		CA	2	50,74	G,T	A,G
+read_24	none					0			
+read_25	insertion	92	3		GAA	0			
+read_26	none					0			
+read_27	none					0			
+read_28	none					0			
+read_29	none					0			
+read_30	deletion	91	3	CAC		0			
+read_31	none					1	194	T	C
+read_32	deletion	94	2	CT		0			
+read_33	none					0			
+read_34	insertion	92	2		GG	0			
+read_35	deletion	93	1	C		0			
+read_36	none					0			
+read_37	none					0			
+read_38	deletion	91	4	CACC		1	30	C	T
+read_39	none					0			
+read_40	none					0			
+read_41	deletion	92	6	ACCTGG		0			
+read_42	none					0			
+read_43	none					0			
+read_44	insertion	90	1		T	0			
+read_45	none					0			
+read_46	none					0			
+read_47	deletion	90	8	GCACCTGG		0			
+read_48	none					1	146	C	A
+read_49	none					0			
+read_50	none					0			
+read_51	deletion	91	1	C		0			
+read_52	none					1	183	G	C
+read_53	none					0			
+read_54	none					0			
+read_55	none					0			
+read_56	none					0			
+read_57	deletion	93	2	CC		0			
+read_58	none					1	9	C	A
+read_59	none					0			
+read_60	none					0			
+read_61	none					1	186	G	A
+read_62	deletion	90	2	GC		0			
+read_63	none					0			
+read_64	none					0			
+read_65	none					0			
+read_66	deletion	91	2	CA		1	203	C	T
+read_67	none					1	66	G	A
+read_68	none					1	26	G	T
+read_69	none					0			
+read_70	none					0			
+read_71	none					1	206	A	T
+read_72	none					1	17	A	C
+read_73	none					0			
+read_74	insertion	91	1		C	1	129	G	T
+read_75	none					1	95	T	A
+read_76	insertion	92	1		G	0			
+read_77	none					0			
+read_78	none					1	179	A	C
+read_79	none					0			
+read_80	none					0			
+read_81	none					1	196	C	A
+read_82	none					1	114	T	G
+read_83	deletion	92	1	A		0			
+read_84	none					0			
+read_85	none					0			
+read_86	deletion	90	2	GC		0			
+read_87	none					0			
+read_88	none					0			
+read_89	deletion	93	1	C		0			
+read_90	none					0			
+read_91	none					0			
+read_92	none					1	140	T	C
+read_93	none					0			
+read_94	deletion	93	11	CCTGGATCGCT		0			
+read_95	insertion	93	2		AT	0			
+read_96	deletion	90	5	GCACC		0			
+read_97	deletion	91	2	CA		0			
+read_98	deletion	93	3	CCT		0			
+read_99	deletion	93	2	CC		0			

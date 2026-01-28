@@ -1,6 +1,6 @@
 ##fileformat=VCFv4.5
 ##source=syn-gen
-##contig=<ID=AMPLICON,length=223>
+##contig=<ID=FANC,length=170>
 ##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
 #CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Reference
-AMPLICON	79	.	A	G	.	PASS	AF=0.030	GT	.
+FANC	79	.	A	G	.	PASS	AF=0.040	GT	.
