@@ -17,8 +17,6 @@ from syn_gen import (
     generate_random_sequence,
     find_guide_in_amplicon,
     calculate_cut_site,
-    apply_edit,
-    apply_prime_edit,
     add_sequencing_errors,
     generate_quality_string,
     aggregate_edits_to_variants,
@@ -149,46 +147,46 @@ class TestApplyEdit:
     def test_no_edit(self):
         amplicon = 'AAAAACCCCCGGGGGTTTT'
         edit = Edit.none()
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == amplicon
 
     def test_deletion(self):
         amplicon = 'AAAAACCCCCGGGGGTTTT'
         edit = Edit.single('deletion', 5, 5, 'CCCCC', '')
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == 'AAAAAGGGGGTTTT'
         assert len(result) == len(amplicon) - 5
 
     def test_deletion_at_start(self):
         amplicon = 'AAAAACCCCC'
         edit = Edit.single('deletion', 0, 3, 'AAA', '')
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == 'AACCCCC'
 
     def test_deletion_at_end(self):
         amplicon = 'AAAAACCCCC'
         # Position 7, size 3 deletes indices 7,8,9 (the last 3 C's)
         edit = Edit.single('deletion', 7, 3, 'CCC', '')
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == 'AAAAACC'  # 5 A's + 2 C's (positions 5,6)
 
     def test_insertion(self):
         amplicon = 'AAAAAGGGGG'
         edit = Edit.single('insertion', 5, 3, '', 'TTT')
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == 'AAAAATTTGGGGG'
         assert len(result) == len(amplicon) + 3
 
     def test_insertion_at_start(self):
         amplicon = 'AAAAAGGGGG'
         edit = Edit.single('insertion', 0, 2, '', 'CC')
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == 'CCAAAAAGGGGG'
 
     def test_insertion_at_end(self):
         amplicon = 'AAAAAGGGGG'
         edit = Edit.single('insertion', 10, 2, '', 'TT')
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == 'AAAAAGGGGGTT'
 
 
@@ -443,13 +441,13 @@ class TestGenerateRandomSequenceProperties:
 
 
 class TestApplyEditProperties:
-    """Property-based tests for apply_edit function."""
+    """Property-based tests for Edit.apply() method."""
 
     @given(amplicon=amplicon_sequence)
     def test_no_edit_identity(self, amplicon):
         """Applying no edit returns the original sequence."""
         edit = Edit.none()
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
         assert result == amplicon
 
     @given(
@@ -464,7 +462,7 @@ class TestApplyEditProperties:
 
         original_seq = amplicon[position:position + size]
         edit = Edit.single('deletion', position, size, original_seq, '')
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
 
         assert len(result) == len(amplicon) - size
 
@@ -479,7 +477,7 @@ class TestApplyEditProperties:
         assume(position <= len(amplicon))
 
         edit = Edit.single('insertion', position, len(insertion), '', insertion)
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
 
         assert len(result) == len(amplicon) + len(insertion)
 
@@ -494,7 +492,7 @@ class TestApplyEditProperties:
         assume(position <= len(amplicon))
 
         edit = Edit.single('insertion', position, len(insertion), '', insertion)
-        result = apply_edit(amplicon, edit)
+        result = edit.apply(amplicon)
 
         assert insertion in result
         assert result[position:position + len(insertion)] == insertion
@@ -1090,7 +1088,7 @@ class TestGeneratePrimeEdit:
 
 
 class TestApplyPrimeEdit:
-    """Tests for apply_prime_edit function."""
+    """Tests for Edit.apply() with prime edits."""
 
     AMPLICON = 'CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG'
 
@@ -1104,7 +1102,7 @@ class TestApplyPrimeEdit:
             edited_seq='CGATCCAGAT',
         )
 
-        result = apply_prime_edit(self.AMPLICON, edit)
+        result = edit.apply(self.AMPLICON)
 
         # Check the edit was applied correctly
         assert result[92:102] == 'CGATCCAGAT'
@@ -1116,7 +1114,7 @@ class TestApplyPrimeEdit:
         """No edit should return original amplicon."""
         edit = Edit.none()
 
-        result = apply_prime_edit(self.AMPLICON, edit)
+        result = edit.apply(self.AMPLICON)
         assert result == self.AMPLICON
 
     def test_matches_crispresso_expectation(self):
@@ -1132,7 +1130,7 @@ class TestApplyPrimeEdit:
             edited_seq='CGATCCAGAT',
         )
 
-        result = apply_prime_edit(self.AMPLICON, edit)
+        result = edit.apply(self.AMPLICON)
 
         # CRISPResso Prime-edited reference at position 85-105:
         # CTGCAGCCGATCCAGATCTT

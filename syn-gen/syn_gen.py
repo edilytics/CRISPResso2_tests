@@ -16,7 +16,6 @@ import sys
 import warnings
 from collections import Counter
 from dataclasses import dataclass, field
-from pathlib import Path
 from typing import Literal, Optional
 
 
@@ -348,11 +347,6 @@ def left_align_edit(amplicon: str, edit: Edit) -> Edit:
     return edit
 
 
-def apply_edit(amplicon: str, edit: Edit) -> str:
-    """Apply an edit to the amplicon sequence. Delegates to edit.apply()."""
-    return edit.apply(amplicon)
-
-
 # =============================================================================
 # Base Editing Functions
 # =============================================================================
@@ -491,11 +485,6 @@ def generate_base_edit(
     )
 
 
-def apply_base_edit(amplicon: str, edit: Edit) -> str:
-    """Apply base editing substitutions to amplicon. Delegates to edit.apply()."""
-    return edit.apply(amplicon)
-
-
 # =============================================================================
 # Prime Editing Functions
 # =============================================================================
@@ -544,8 +533,7 @@ def parse_peg_extension(
     # PBS binds to the nicked strand upstream of the nick
     # PBS is reverse complement of the genomic sequence upstream of nick
 
-    # Extract PBS (last pbs_length bases of extension)
-    pbs = peg_extension[-pbs_length:]
+    # Extract RT template (everything before the PBS at the 3' end)
     rt_template = peg_extension[:-pbs_length]
 
     if len(rt_template) == 0:
@@ -566,20 +554,7 @@ def parse_peg_extension(
     rt_len = len(rt_template_rc)
     ref_seq = amplicon[cut_site:cut_site + rt_len]
 
-    # Compare to find differences
-    if rt_template_rc == ref_seq:
-        # No edit - this shouldn't happen with a real pegRNA but handle it
-        return PrimeEditIntent(
-            edit_type='substitution',
-            position=cut_site,
-            original_seq=ref_seq,
-            edited_seq=rt_template_rc,
-            pbs_start=pbs_start,
-            pbs_end=pbs_end,
-            rt_template=rt_template_rc,
-        )
-
-    # Determine edit type by comparing lengths and content
+    # Determine edit type by comparing lengths
     if len(rt_template_rc) == len(ref_seq):
         # Same length - substitution(s)
         edit_type = 'substitution'
@@ -734,11 +709,6 @@ def select_prime_edit_outcome(
     weights = [w / total for w in weights]
 
     return random.choices(outcomes, weights=weights, k=1)[0]
-
-
-def apply_prime_edit(amplicon: str, edit: Edit) -> str:
-    """Apply prime edit to amplicon. Delegates to edit.apply()."""
-    return edit.apply(amplicon)
 
 
 # =============================================================================
@@ -1022,11 +992,6 @@ def generate_synthetic_data(
     prime_edit_intent = None
     if mode == 'prime-edit':
         prime_edit_intent = parse_peg_extension(amplicon, cut_site, peg_extension)
-
-    # Determine read length
-    actual_read_length = read_length if read_length else len(amplicon)
-    if actual_read_length > len(amplicon):
-        actual_read_length = len(amplicon)
 
     # Generate reads
     reads: list[EditedRead] = []
