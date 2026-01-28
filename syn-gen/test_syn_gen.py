@@ -148,46 +148,46 @@ class TestCalculateCutSite:
 class TestApplyEdit:
     def test_no_edit(self):
         amplicon = 'AAAAACCCCCGGGGGTTTT'
-        edit = Edit('none', 0, 0, '', '')
+        edit = Edit.none()
         result = apply_edit(amplicon, edit)
         assert result == amplicon
 
     def test_deletion(self):
         amplicon = 'AAAAACCCCCGGGGGTTTT'
-        edit = Edit('deletion', 5, 5, 'CCCCC', '')
+        edit = Edit.single('deletion', 5, 5, 'CCCCC', '')
         result = apply_edit(amplicon, edit)
         assert result == 'AAAAAGGGGGTTTT'
         assert len(result) == len(amplicon) - 5
 
     def test_deletion_at_start(self):
         amplicon = 'AAAAACCCCC'
-        edit = Edit('deletion', 0, 3, 'AAA', '')
+        edit = Edit.single('deletion', 0, 3, 'AAA', '')
         result = apply_edit(amplicon, edit)
         assert result == 'AACCCCC'
 
     def test_deletion_at_end(self):
         amplicon = 'AAAAACCCCC'
         # Position 7, size 3 deletes indices 7,8,9 (the last 3 C's)
-        edit = Edit('deletion', 7, 3, 'CCC', '')
+        edit = Edit.single('deletion', 7, 3, 'CCC', '')
         result = apply_edit(amplicon, edit)
         assert result == 'AAAAACC'  # 5 A's + 2 C's (positions 5,6)
 
     def test_insertion(self):
         amplicon = 'AAAAAGGGGG'
-        edit = Edit('insertion', 5, 3, '', 'TTT')
+        edit = Edit.single('insertion', 5, 3, '', 'TTT')
         result = apply_edit(amplicon, edit)
         assert result == 'AAAAATTTGGGGG'
         assert len(result) == len(amplicon) + 3
 
     def test_insertion_at_start(self):
         amplicon = 'AAAAAGGGGG'
-        edit = Edit('insertion', 0, 2, '', 'CC')
+        edit = Edit.single('insertion', 0, 2, '', 'CC')
         result = apply_edit(amplicon, edit)
         assert result == 'CCAAAAAGGGGG'
 
     def test_insertion_at_end(self):
         amplicon = 'AAAAAGGGGG'
-        edit = Edit('insertion', 10, 2, '', 'TT')
+        edit = Edit.single('insertion', 10, 2, '', 'TT')
         result = apply_edit(amplicon, edit)
         assert result == 'AAAAAGGGGGTT'
 
@@ -240,7 +240,7 @@ class TestAggregateEditsToVariants:
         reads = [
             EditedRead(
                 read=FastqRead('r1', 'AAAAAGGGGG', 'IIIIIIIIII'),
-                edit=Edit('deletion', 5, 5, 'CCCCC', '')
+                edit=Edit.single('deletion', 5, 5, 'CCCCC', '')
             )
         ]
         variants = aggregate_edits_to_variants(reads, amplicon, 'TEST')
@@ -253,7 +253,7 @@ class TestAggregateEditsToVariants:
         reads = [
             EditedRead(
                 read=FastqRead('r1', 'AAAAACCCCC', 'IIIIIIIIII'),
-                edit=Edit('none', 0, 0, '', '')
+                edit=Edit.none()
             )
         ]
         variants = aggregate_edits_to_variants(reads, amplicon, 'TEST')
@@ -261,11 +261,11 @@ class TestAggregateEditsToVariants:
 
     def test_multiple_same_edit(self):
         amplicon = 'AAAAACCCCCGGGGG'
-        edit = Edit('deletion', 5, 3, 'CCC', '')
+        edit = Edit.single('deletion', 5, 3, 'CCC', '')
         reads = [
             EditedRead(FastqRead('r1', '', ''), edit),
             EditedRead(FastqRead('r2', '', ''), edit),
-            EditedRead(FastqRead('r3', '', ''), Edit('none', 0, 0, '', '')),
+            EditedRead(FastqRead('r3', '', ''), Edit.none()),
         ]
         variants = aggregate_edits_to_variants(reads, amplicon, 'TEST')
         assert len(variants) == 1
@@ -448,7 +448,7 @@ class TestApplyEditProperties:
     @given(amplicon=amplicon_sequence)
     def test_no_edit_identity(self, amplicon):
         """Applying no edit returns the original sequence."""
-        edit = Edit('none', 0, 0, '', '')
+        edit = Edit.none()
         result = apply_edit(amplicon, edit)
         assert result == amplicon
 
@@ -463,7 +463,7 @@ class TestApplyEditProperties:
         assume(position + size <= len(amplicon))  # Ensure deletion is valid
 
         original_seq = amplicon[position:position + size]
-        edit = Edit('deletion', position, size, original_seq, '')
+        edit = Edit.single('deletion', position, size, original_seq, '')
         result = apply_edit(amplicon, edit)
 
         assert len(result) == len(amplicon) - size
@@ -478,7 +478,7 @@ class TestApplyEditProperties:
         assume(len(amplicon) >= 50)  # Ensure amplicon is long enough
         assume(position <= len(amplicon))
 
-        edit = Edit('insertion', position, len(insertion), '', insertion)
+        edit = Edit.single('insertion', position, len(insertion), '', insertion)
         result = apply_edit(amplicon, edit)
 
         assert len(result) == len(amplicon) + len(insertion)
@@ -493,7 +493,7 @@ class TestApplyEditProperties:
         assume(len(amplicon) >= 50)
         assume(position <= len(amplicon))
 
-        edit = Edit('insertion', position, len(insertion), '', insertion)
+        edit = Edit.single('insertion', position, len(insertion), '', insertion)
         result = apply_edit(amplicon, edit)
 
         assert insertion in result
@@ -685,7 +685,7 @@ class TestGenerateEditProperties:
         edit = generate_edit(cut_site, amplicon)
 
         # Edit position should be within jitter range of cut site
-        assert abs(edit.position - cut_site) <= 2
+        assert abs(edit.position[0] - cut_site) <= 2
 
     @given(
         cut_site=st.integers(min_value=20, max_value=80),
@@ -714,8 +714,9 @@ class TestGenerateEditProperties:
         edit = generate_edit(cut_site, amplicon, deletion_weight=1.0)  # Force deletion
 
         assert edit.edit_type == 'deletion'
-        assert edit.original_seq == amplicon[edit.position:edit.position + edit.size]
-        assert edit.edited_seq == ''
+        pos, size = edit.position[0], edit.size[0]
+        assert edit.original_seq == [amplicon[pos:pos + size]]
+        assert edit.edited_seq == ['']
 
     @given(
         cut_site=st.integers(min_value=20, max_value=80),
@@ -730,9 +731,9 @@ class TestGenerateEditProperties:
         edit = generate_edit(cut_site, amplicon, deletion_weight=0.0)  # Force insertion
 
         assert edit.edit_type == 'insertion'
-        assert edit.original_seq == ''
-        assert len(edit.edited_seq) == edit.size
-        assert set(edit.edited_seq).issubset({'A', 'C', 'G', 'T'})
+        assert edit.original_seq == ['']
+        assert len(edit.edited_seq[0]) == edit.size[0]
+        assert set(edit.edited_seq[0]).issubset({'A', 'C', 'G', 'T'})
 
 
 class TestGenerateSyntheticDataProperties:
@@ -1061,9 +1062,9 @@ class TestGeneratePrimeEdit:
         )
 
         assert edit.edit_type == 'prime_edit'
-        assert edit.original_seq == 'ACCTGGATCG'
-        assert edit.edited_seq == 'CGATCCAGAT'
-        assert edit.position == 92
+        assert edit.original_seq == ['ACCTGGATCG']
+        assert edit.edited_seq == ['CGATCCAGAT']
+        assert edit.position == [92]
 
     def test_indel_outcome(self):
         """Indel outcome should generate deletion or insertion."""
@@ -1095,8 +1096,8 @@ class TestApplyPrimeEdit:
 
     def test_substitution_edit(self):
         """Substitution edit should replace sequence at position."""
-        edit = Edit(
-            edit_type='prime_edit',
+        edit = Edit.single(
+            'prime_edit',
             position=92,
             size=0,
             original_seq='ACCTGGATCG',
@@ -1113,13 +1114,7 @@ class TestApplyPrimeEdit:
 
     def test_no_edit(self):
         """No edit should return original amplicon."""
-        edit = Edit(
-            edit_type='none',
-            position=0,
-            size=0,
-            original_seq='',
-            edited_seq='',
-        )
+        edit = Edit.none()
 
         result = apply_prime_edit(self.AMPLICON, edit)
         assert result == self.AMPLICON
@@ -1129,8 +1124,8 @@ class TestApplyPrimeEdit:
         # This is the critical test - verify syn-gen output matches CRISPResso's
         # Prime-edited reference sequence
 
-        edit = Edit(
-            edit_type='prime_edit',
+        edit = Edit.single(
+            'prime_edit',
             position=92,
             size=0,
             original_seq='ACCTGGATCG',
