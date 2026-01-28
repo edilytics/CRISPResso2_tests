@@ -13,6 +13,7 @@ import gzip
 import math
 import random
 import sys
+import warnings
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
@@ -1262,10 +1263,8 @@ def validate_inputs(
         raise ValueError(f"error_rate must be between 0 and 1, got {error_rate}")
 
     if len(guide) < 10:
-        import warnings
         warnings.warn(f"Guide length {len(guide)} is unusually short (typical: 17-23bp)")
     elif len(guide) > 25:
-        import warnings
         warnings.warn(f"Guide length {len(guide)} is unusually long (typical: 17-23bp)")
 
 
