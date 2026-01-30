@@ -221,7 +221,7 @@
 	
 		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 100.</div>
 	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 23, Substitutions outside window: 23.</div>
+		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 23, Substitutions outside window: 22.</div>
 	
 
 					<h5>CRISPResso2 run information</h5>
@@ -250,12 +250,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.3</p>
-  <p><strong>Run completed:</strong> 2026-01-20 11:24:30</p>
+  <p><strong>Run completed:</strong> 2026-01-30 15:42:03</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/vcf_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 -n vcf-basic --place_report_in_output_folder --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/bin/CRISPResso -r1 inputs/vcf_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --quantification_window_coordinates 89-95 --fastq_output --vcf_output --amplicon_coordinates FANC:1 -n vcf-basic --place_report_in_output_folder --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -295,7 +295,7 @@ expand_ambiguous_alignments: False
 expected_hdr_amplicon_seq: 
 fastp_command: fastp
 fastp_options_string: 
-fastq_output: False
+fastq_output: True
 fastq_r1: inputs/vcf_basic.fastq
 fastq_r2: 
 file_prefix: 
@@ -342,7 +342,7 @@ prime_editing_pegRNA_scaffold_min_match_length: 1
 prime_editing_pegRNA_scaffold_seq: 
 prime_editing_pegRNA_spacer_seq: 
 quantification_window_center: -3
-quantification_window_coordinates: None
+quantification_window_coordinates: 89-95
 quantification_window_size: 1
 samtools_exclude_flags: 0
 save_also_png: False
