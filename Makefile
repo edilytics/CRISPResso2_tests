@@ -323,7 +323,7 @@ cli_integration_tests/CRISPResso_on_vcf-basic: install cli_integration_tests/inp
 vcf-deletions-only: cli_integration_tests/CRISPResso_on_vcf-deletions-only
 
 cli_integration_tests/CRISPResso_on_vcf-deletions-only: install cli_integration_tests/inputs/vcf_deletions.fastq cli_integration_tests/inputs/ cli_integration_tests/inputs/
-	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 -n vcf-deletions-only --place_report_in_output_folder --debug"; $(RUN)
+	cd cli_integration_tests && cmd="CRISPResso -r1 inputs/vcf_deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 --quantification_window_coordinates 89-94 -n vcf-deletions-only --place_report_in_output_folder --debug"; $(RUN)
 .PHONY: vcf-insertions-only
 vcf-insertions-only: cli_integration_tests/CRISPResso_on_vcf-insertions-only
 
