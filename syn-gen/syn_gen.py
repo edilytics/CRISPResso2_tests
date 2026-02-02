@@ -829,12 +829,12 @@ def write_vcf(
         fh.write('##source=syn-gen\n')
         fh.write(f'##contig=<ID={amplicon_name},length={len(amplicon_seq)}>\n')
         fh.write('##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">\n')
-        fh.write('#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tReference\n')
+        fh.write('#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\n')
 
         # Variants
         for var in variants:
             fh.write(f'{var.chrom}\t{var.pos}\t.\t{var.ref}\t{var.alt}\t.\tPASS\t'
-                     f'AF={var.af:.3f}\tGT\t.\n')
+                     f'AF={var.af:.3f}\n')
 
 
 def aggregate_edits_to_variants(
