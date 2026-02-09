@@ -2,5 +2,5 @@
 ##source=syn-gen
 ##contig=<ID=FANC,length=170>
 ##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	Reference
-FANC	79	.	A	G	.	PASS	AF=0.040	GT	.
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+FANC	79	.	A	G	.	PASS	AF=0.040

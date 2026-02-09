@@ -56,8 +56,8 @@ $SYNGEN -a "$AMP2" -g "$AMP2_GUIDE" --amplicon-name AMP2 \
 # Combine FASTQ files
 cat "$OUTDIR/vcf_multi_amp1.fastq" "$OUTDIR/vcf_multi_amp2.fastq" > "$OUTDIR/vcf_multi_amplicon.fastq"
 # Clean up temp files (keep the combined one)
-rm -f "$OUTDIR/vcf_multi_amp1.fastq" "$OUTDIR/vcf_multi_amp1.vcf" "$OUTDIR/vcf_multi_amp1_edits.tsv"
-rm -f "$OUTDIR/vcf_multi_amp2.fastq" "$OUTDIR/vcf_multi_amp2.vcf" "$OUTDIR/vcf_multi_amp2_edits.tsv"
+rm -f "$OUTDIR/vcf_multi_amp1.fastq"
+rm -f "$OUTDIR/vcf_multi_amp2.fastq"
 
 # 6. vcf_base_edit_cbe: cytosine base editor (C→T)
 echo "6/8: vcf_base_edit_cbe"
