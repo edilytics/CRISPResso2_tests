@@ -254,16 +254,17 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-02-09 15:39:22</p>
+  <p><strong>Run completed:</strong> 2026-02-10 05:52:59</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --needleman_wunsch_gap_open -20 --flexiguide_gap_extend_penalty -2 --quantification_window_size 1 --fastp_command fastp --default_min_aln_score 60 --base_editor_output --aln_seed_len 10 --halt_on_plot_fail --flexiguide_gap_open_penalty -20 --needleman_wunsch_aln_matrix_loc EDNAFULL --min_bp_quality_or_N 0 --plot_window_size 20 --conversion_nuc_to T --min_single_bp_quality 0 --min_frequency_alleles_around_cut_to_plot 0.2 --flash_command None --trimmomatic_command None --min_average_read_quality 0 --file_prefix Cas9 --aln_seed_count 5 --exclude_bp_from_right 15 --guide_seq GGAATCCCTTCTGCAGCACC --conversion_nuc_from C --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --min_paired_end_reads_overlap 10 --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_gap_open_penalty -50 --prime_editing_pegRNA_extension_quantification_window_size 5 --needleman_wunsch_gap_incentive 1 --n_processes 1 --place_report_in_output_folder --amplicon_name Reference --max_paired_end_reads_overlap None --exclude_bp_from_left 15 --aln_seed_min 2 --verbosity 3 --flexiguide_homology 80 --needleman_wunsch_gap_extend -2 --fastq_r1 inputs/FANC.Cas9.fastq --flexiguide_seq None --max_rows_alleles_around_cut_to_plot 50 --config_file None --debug --prime_editing_gap_extend_penalty 0 --base_editor_target_ref_skip_allele_count 0 --quantification_window_center -3</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/.worktrees/CRISPResso2_cole-vcf-parameters/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --exclude_bp_from_right 15 --needleman_wunsch_aln_matrix_loc EDNAFULL --guide_seq GGAATCCCTTCTGCAGCACC --n_processes 1 --flash_command None --base_editor_target_ref_skip_allele_count 0 --file_prefix Cas9 --verbosity 3 --conversion_nuc_from C --min_paired_end_reads_overlap 10 --fastq_r1 inputs/FANC.Cas9.fastq --needleman_wunsch_gap_open -20 --quantification_window_center -3 --conversion_nuc_to T --config_file None --trimmomatic_command None --prime_editing_pegRNA_scaffold_min_match_length 1 --flexiguide_seq None --min_single_bp_quality 0 --base_editor_output --fastp_command fastp --default_min_aln_score 60 --max_rows_alleles_around_cut_to_plot 50 --prime_editing_gap_open_penalty -50 --flexiguide_gap_extend_penalty -2 --needleman_wunsch_gap_extend -2 --place_report_in_output_folder --flexiguide_homology 80 --prime_editing_pegRNA_extension_quantification_window_size 5 --plot_window_size 20 --max_paired_end_reads_overlap None --debug --min_frequency_alleles_around_cut_to_plot 0.2 --flexiguide_gap_open_penalty -20 --prime_editing_gap_extend_penalty 0 --aln_seed_count 5 --amplicon_name Reference --aln_seed_min 2 --quantification_window_size 1 --min_bp_quality_or_N 0 --min_average_read_quality 0 --halt_on_plot_fail --needleman_wunsch_gap_incentive 1 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_len 10 --exclude_bp_from_left 15</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
 aln_seed_min: 2
+amplicon_coordinates: 
 amplicon_min_alignment_score: 
 amplicon_name: Reference
 amplicon_seq: CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG
@@ -359,6 +360,7 @@ trimmomatic_command: None
 trimmomatic_options_string: 
 use_legacy_insertion_quantification: False
 use_matplotlib: False
+vcf_output: False
 verbosity: 3
 write_cleaned_report: False
 write_detailed_allele_table: False
