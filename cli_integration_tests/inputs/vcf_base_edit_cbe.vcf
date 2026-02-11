@@ -1,0 +1,8 @@
+##fileformat=VCFv4.5
+##source=syn-gen
+##contig=<ID=FANC,length=223>
+##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+FANC	81	.	C	T	.	PASS	AF=0.150
+FANC	82	.	C	T	.	PASS	AF=0.170
+FANC	83	.	C	T	.	PASS	AF=0.080

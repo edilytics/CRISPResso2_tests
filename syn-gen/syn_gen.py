@@ -829,12 +829,12 @@ def write_vcf(
         fh.write('##source=syn-gen\n')
         fh.write(f'##contig=<ID={amplicon_name},length={len(amplicon_seq)}>\n')
         fh.write('##INFO=<ID=AF,Number=A,Type=Float,Description="Allele Frequency">\n')
-        fh.write('#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\tReference\n')
+        fh.write('#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\n')
 
         # Variants
         for var in variants:
             fh.write(f'{var.chrom}\t{var.pos}\t.\t{var.ref}\t{var.alt}\t.\tPASS\t'
-                     f'AF={var.af:.3f}\tGT\t.\n')
+                     f'AF={var.af:.3f}\n')
 
 
 def aggregate_edits_to_variants(
@@ -941,6 +941,7 @@ def generate_synthetic_data(
     read_length: Optional[int] = None,
     seed: Optional[int] = None,
     cleavage_offset: int = -3,
+    deletion_weight: float = 0.75,
     quiet: bool = False,
     # Mode and base editing parameters
     mode: str = 'nhej',
@@ -1206,6 +1207,12 @@ def create_parser() -> argparse.ArgumentParser:
         help='Fraction of reads with NHEJ edits (0.0-1.0)'
     )
     gen_group.add_argument(
+        '--deletion-weight',
+        type=float,
+        default=0.75,
+        help='Probability of deletion vs insertion for edits (0.0=insertions only, 1.0=deletions only)'
+    )
+    gen_group.add_argument(
         '--error-rate',
         type=float,
         default=0.001,
@@ -1386,6 +1393,7 @@ def main() -> int:
             read_length=args.read_length,
             seed=args.seed,
             cleavage_offset=args.cleavage_offset,
+            deletion_weight=args.deletion_weight,
             quiet=args.quiet,
             # Mode and base editing parameters
             mode=args.mode,
