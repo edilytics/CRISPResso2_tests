@@ -2,9 +2,22 @@ import argparse
 import glob
 import json
 import os
+import re
 from shutil import copyfile, copytree
 
 from diff import diff_dir
+
+
+COMMON_FLAGS = {'--place_report_in_output_folder', '--halt_on_plot_fail', '--debug'}
+
+TOOL_TO_MARK = {
+    'CRISPResso': 'crispresso',
+    'CRISPRessoBatch': 'batch',
+    'CRISPRessoPooled': 'pooled',
+    'CRISPRessoWGS': 'wgs',
+    'CRISPRessoCompare': 'compare',
+    'CRISPRessoAggregate': 'aggregate',
+}
 
 
 def get_crispresso2_info_path(result_dir):
@@ -23,28 +36,114 @@ def get_crispresso2_info(result_directory):
     return crispresso2_info
 
 
-def add_test_to_makefile(command, name, directory, input_files):
+def parse_command_to_list(command):
+    """Parse a command string into one-parameter-per-element list.
+
+    Returns a list where each element is a single flag (possibly with its
+    value), with COMMON_FLAGS stripped out.  The first element is the bare
+    tool name.
+    """
+    tokens = command.split()
+    # First token is the tool (may be a full path)
+    tool = os.path.basename(tokens[0])
+    parts = [tool]
+    i = 1
+    while i < len(tokens):
+        token = tokens[i]
+        if token in COMMON_FLAGS:
+            i += 1
+            continue
+        if token.startswith('-'):
+            # If the next token exists and is NOT a flag, it's the value
+            if i + 1 < len(tokens) and not tokens[i + 1].startswith('-'):
+                parts.append('{0} {1}'.format(token, tokens[i + 1]))
+                i += 2
+            else:
+                parts.append(token)
+                i += 1
+        else:
+            # Positional arg (rare) – keep as-is
+            parts.append(token)
+            i += 1
+    return parts
+
+
+def add_test_to_test_cli(cmd_parts, test_id, output_dir, mark):
+    """Append a CLITestCase entry to the TESTS list in test_cli.py."""
+    cmd_lines = ',\n            '.join(repr(p) for p in cmd_parts)
+    marks_str = '[{0!r}]'.format(mark) if mark else '[]'
+    entry = (
+        "    CLITestCase(\n"
+        "        id={id!r},\n"
+        "        cmd=[\n"
+        "            {cmd},\n"
+        "        ],\n"
+        "        output_dir={output_dir!r},\n"
+        "        marks={marks},\n"
+        "    ),\n"
+    ).format(id=test_id, cmd=cmd_lines, output_dir=output_dir, marks=marks_str)
+
+    with open('test_cli.py', 'r') as fh:
+        content = fh.read()
+
+    # Insert just before the closing ] of the TESTS list.
+    # The list is followed by _make_params.
+    m = re.search(r'\n]\n\n+def _make_params', content)
+    if not m:
+        raise Exception('Could not find end of TESTS list in test_cli.py')
+    insert_pos = m.start()
+    content = content[:insert_pos] + '\n' + entry + content[insert_pos:]
+
+    with open('test_cli.py', 'w') as fh:
+        fh.write(content)
+
+
+def add_test_to_makefile(test_id, run_name, output_dir):
+    """Add a pytest-backed Make target and update all:/clean/.PHONY."""
     with open('Makefile', 'r') as fh:
-        makefile_lines = fh.readlines()
+        lines = fh.readlines()
+
+    new_lines = []
+    for line in lines:
+        # Append run_name to the .PHONY declaration (last continuation line)
+        # The .PHONY block ends at the first non-continuation line.
+        # We append to the last `\`-continued line.
+        if line.startswith('all:'):
+            line = line.rstrip('\n') + ' ' + run_name + '\n'
+        new_lines.append(line)
+
+    # Add to clean_cli_integration: find the last `cli_integration_tests/...* \`
+    # line and insert after it.
+    clean_insert_idx = None
+    for i, line in enumerate(new_lines):
+        if line.startswith('cli_integration_tests/') and line.rstrip().endswith('* \\'):
+            clean_insert_idx = i
+    if clean_insert_idx is not None:
+        new_lines.insert(
+            clean_insert_idx + 1,
+            'cli_integration_tests/{0}* \\\n'.format(output_dir),
+        )
+
+    # Add the Make target at the end of the pytest-backed section
+    # (just before "# ── Non-pytest targets")
+    target_block = (
+        "\n{name}: .install_sentinel\n"
+        "\t$(call PYTEST_RUN,test_crispresso_cli[{test_id}],{output_dir})\n"
+    ).format(name=run_name, test_id=test_id, output_dir=output_dir)
+
+    insert_idx = None
+    for i, line in enumerate(new_lines):
+        if line.startswith('# ── Non-pytest targets'):
+            insert_idx = i
+            break
+    if insert_idx is not None:
+        new_lines.insert(insert_idx, target_block)
+    else:
+        # Fallback: append at end of file
+        new_lines.append(target_block)
 
     with open('Makefile', 'w') as fh:
-        for line in makefile_lines:
-            if line.startswith('all:'):
-                fh.write('{0} {1}\n'.format(line.strip(), name))
-            elif line.startswith('cli_integration_tests/CRISPRessoBatch_on_large_batch* \\'):
-                fh.write(line)
-                fh.write('cli_integration_tests/{0}* \\\n'.format(directory))
-            elif line.startswith('CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \\'):
-                fh.write(line)
-                fh.write('{0} \\\n'.format(directory))
-            else:
-                fh.write(line)
-        fh.write('\n.PHONY: {name}\n{name}: cli_integration_tests/{directory}\n'.format(name=name, directory=directory))
-        fh.write('\ncli_integration_tests/{directory}: install {input_files}\n'.format(
-            directory=directory,
-            input_files=' '.join('cli_integration_tests/inputs/{0}'.format(os.path.basename(i)) for i in input_files)
-        ))
-        fh.write('\tcd cli_integration_tests && cmd="{command}"; $(RUN)'.format(command=command))
+        fh.writelines(new_lines)
 
 
 def add_test(args):
@@ -53,15 +152,18 @@ def add_test(args):
     run_name = crispresso2_info['running_info']['args']['value']['name']
     input_file_keys = ['fastq_r1', 'r1', 'fastq_r2', 'r2', 'bam_input', 'batch_settings', 'amplicons_file']
 
+    # Normalise tool path to bare name
     command_parts = test_command.split(' ')
     command_parts[0] = os.path.basename(command_parts[0])
     test_command = ' '.join(command_parts)
+    tool_name = command_parts[0]
 
     print('Adding a new test case!\n')
     print('Test command: {0}'.format(test_command))
     command_input = input('Is this correct? [y/n]: ')
     if command_input.lower() == 'n':
         test_command = input('Enter the correct test command: ')
+        tool_name = test_command.split()[0]
 
     if run_name:
         print('\nRun name: {0}'.format(run_name))
@@ -72,6 +174,9 @@ def add_test(args):
             run_name = input('Enter the correct run name: ')
     else:
         run_name = input('Enter the run name: ')
+
+    # Derive the pytest test id (underscores, no hyphens)
+    test_id = run_name.replace('-', '_')
 
     print('Copying files to cli_integration_tests/inputs directory...')
     input_files = [
@@ -114,15 +219,22 @@ def add_test(args):
     except:
         print('Could not copy {0}.html to cli_integration_tests/expected_results, please manually copy!'.format(args.directory))
 
-    print('\nAdding test to Makefile...')
-    add_test_to_makefile(test_command, run_name, directory_name, input_files)
+    # Parse command into one-param-per-element list (common flags stripped)
+    cmd_parts = parse_command_to_list(test_command)
+    mark = TOOL_TO_MARK.get(tool_name, '')
+
+    print('\nAdding test to test_cli.py...')
+    add_test_to_test_cli(cmd_parts, test_id, directory_name, mark)
+
+    print('Adding target to Makefile...')
+    add_test_to_makefile(test_id, run_name, directory_name)
 
     print('\nAdding actual files to .gitignore...')
     with open('.gitignore', 'a') as fh:
         fh.write('\ncli_integration_tests/{0}*\n'.format(directory_name))
 
     print('\nYou can now run the command with `make {0}`'.format(run_name))
-    print('And test with the command `make {0}-test`'.format(run_name))
+    print('And test with the command `make {0} test`'.format(run_name))
 
 
 def update_test(args):
