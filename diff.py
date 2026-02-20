@@ -27,6 +27,7 @@ IGNORE_FILES = frozenset([
     'CRISPRessoCompare_RUNNING_LOG.txt',
     'fastp_report.html',
 ])
+IGNORE_SUFFIX = '_RUNNING_LOG.txt'
 WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
 
 
@@ -140,7 +141,8 @@ def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam', '.vcf'), promp
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
     for file_basename_actual, file_path_actual in files_actual.items():
-        if basename(file_basename_actual) in IGNORE_FILES:
+        fname = basename(file_basename_actual)
+        if fname in IGNORE_FILES or fname.endswith(IGNORE_SUFFIX):
             continue
         if file_basename_actual in files_expected:
             diff_results = diff(file_path_actual, files_expected[file_basename_actual])

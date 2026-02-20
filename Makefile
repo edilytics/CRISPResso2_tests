@@ -366,3 +366,25 @@ syn-gen-e2e:
 
 syn-gen-all:
 	cd syn-gen && pytest test_syn_gen.py test_bwa_e2e.py test_bwa_verify.py -v
+
+# ── pytest-based test targets ────────────────────────────────────────
+.PHONY: pytest pytest-coverage pytest-test coverage-report coverage-clean
+
+pytest:
+	pytest test_cli.py
+
+pytest-coverage:
+	pytest test_cli.py --with-coverage
+	coverage combine
+	coverage report
+
+pytest-test:
+	pytest test_cli.py -k "$(TEST)" -v
+
+coverage-report:
+	coverage html
+	@echo "Coverage report: htmlcov/index.html"
+
+coverage-clean:
+	coverage erase
+	rm -rf htmlcov/
