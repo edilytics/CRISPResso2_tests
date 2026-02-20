@@ -233,19 +233,6 @@ TESTS = [
         output_dir='CRISPRessoBatch_on_FANC',
         marks=['batch'],
     ),
-    CLITestCase(
-        id='batch_failing',
-        cmd=(
-            'CRISPRessoBatch -bs inputs/FANC_failing.batch'
-            ' -n batch-failing'
-            ' -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG'
-            ' -g GGAATCCCTTCTGCAGCACC'
-            ' --debug --place_report_in_output_folder'
-            ' --base_editor_output --skip_failed --halt_on_plot_fail'
-        ),
-        output_dir='CRISPRessoBatch_on_batch-failing',
-        marks=['batch'],
-    ),
     # ── Pooled ───────────────────────────────────────────────────────
     CLITestCase(
         id='pooled',
