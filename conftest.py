@@ -55,8 +55,6 @@ def pytest_collection_modifyitems(config, items):
 
 @pytest.fixture(scope='session')
 def pro_installed(request):
-    if request.config.getoption('--pro'):
-        return True
     return importlib.util.find_spec('CRISPRessoPro') is not None
 
 
