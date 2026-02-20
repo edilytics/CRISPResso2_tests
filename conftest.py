@@ -36,6 +36,12 @@ def pytest_addoption(parser):
         default=False,
         help='Skip HTML file comparisons (useful for quick local iteration).',
     )
+    parser.addoption(
+        '--pro',
+        action='store_true',
+        default=False,
+        help='Compare HTML against expected_results_pro/ (overrides auto-detection).',
+    )
 
 
 def pytest_collection_modifyitems(config, items):
@@ -48,7 +54,9 @@ def pytest_collection_modifyitems(config, items):
 
 
 @pytest.fixture(scope='session')
-def pro_installed():
+def pro_installed(request):
+    if request.config.getoption('--pro'):
+        return True
     return importlib.util.find_spec('CRISPRessoPro') is not None
 
 
