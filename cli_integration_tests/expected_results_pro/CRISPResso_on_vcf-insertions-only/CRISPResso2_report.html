@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CRISPResso2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CRISPResso2: Analysis of genome editing outcomes from deep sequencing data">
+    <meta name="author" content="Kendell Clement and Luca Pinello">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Ranga:700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif !important;
+      
+      }
+      @media (max-width:1015px)
+      {
+        #crispresso_h
+        {
+          font-size:5rem;
+          font-weight:300;
+          line-height:1.2;
+        }
+        #left_help_div
+        {
+          display:none
+        }
+        #top_help_div
+        {
+          display:block
+        }
+      }
+      @media (min-width:1015px)
+      {
+        #crispresso_h
+        {
+          font-size:8rem;
+          font-weight:300;
+          line-height:1.2;
+        }
+        #left_help_div
+        {
+          display:block
+        }
+        #top_help_div
+        {
+          display:none
+        }
+      }
+    </style>
+
+
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+    Remove this if you use the .htaccess -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+    
+    <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  
+<style>
+.nav-tabs.amp-header {
+  border-bottom:none !important;
+}
+
+.card-header.amp-header {
+  border-bottom:none !important;
+}
+.nav-tabs.amp-header .nav-link.active {
+  background-color:lightsteelblue;
+  border-bottom:lightsteelblue;
+}
+
+.pre-scrollable {
+    max-height: 340px;
+    overflow-y: auto;
+    background-color: #f8f8f8;
+    text-align: left
+}
+
+.tab-content.amp-body {
+  background-color:lightsteelblue;
+}
+
+@media only screen and (max-width: 600px) {
+	.jumbotron img {
+		width:100%
+	}
+    .print-only{
+      display: none !important;
+    }
+    .screen-only{
+      display: block;
+    }
+}
+
+@media print {
+  .tab-content > .tab-pane {
+   display: block !important;
+   opacity: 1 !important;
+   visibility: visible !important;
+   margin-bottom: .5em !important;
+ }
+ .nav-tabs {
+   display:none !important;
+   visibility:hidden !important;
+ }
+ .tab-content.amp-body {
+   background-color:transparent !important;
+   border:None !important;
+ }
+ .col-sm-10 {
+		margin-left: -15%;
+		width: 130% !important;
+	}
+ .breakinpage {
+   clear: both;
+   page-break-before: always !important;
+   display: block;
+ }
+ .print-only, .print-only *
+ {
+       display: block;
+   }
+ .screen-only, .screen-only *
+ {
+   display: none !important;
+ }
+ div {
+	border: none !important;
+ }
+}
+</style>
+
+
+<script src="https://cdn.plot.ly/plotly-3.3.0.min.js" charset="utf-8"></script>
+
+
+
+
+  </head>
+
+  <body class="m-2">
+    
+        <div id="messages"></div>
+
+        <script>
+        function fetchAndUpdateMessage() {
+        fetch('https://crispresso.com/messages')
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+            })
+            .then(data => {
+            const messageDiv = document.getElementById('messages');
+            if (messageDiv) {
+                messageDiv.innerHTML = data;
+            }
+            })
+            .catch(error => {});
+        }
+
+        // Call the function
+        fetchAndUpdateMessage();
+        </script>
+
+    
+
+  
+  
+  <div class="container">
+      <div class="row pb-2">
+        <div class="col-sm-1"></div>
+        
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+        
+          </div>
+        <div class="col-sm-7" >
+          <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
+          <h3 style="margin-top: -0.5em;padding-right: 2em;">Analysis of genome editing outcomes from deep sequencing data</h3>
+        </div>
+        <div class="col-sm-1">
+        </div>
+      </div>
+
+
+    
+
+      <div id='top_help_div'>
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class='col-sm-10 pb-2 crispresso_body_div'>
+           
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+      </div>
+
+      
+<div class="col-sm-1"></div>
+<center><div class="col-sm-10">
+	<div class="jumbotron" style="background:rgba(0,0,0,0.0); padding:0px" >
+		<div id='jumbotron_content' >
+			
+
+
+<style>
+.guardrail-toggle { transition: transform 0.2s ease; }
+details[open] > summary .guardrail-toggle { transform: rotate(180deg); }
+.guardrail-summary { list-style: none; }
+.guardrail-summary::-webkit-details-marker { display: none; }
+</style>
+<details style="margin-bottom: 10px; text-align: center; border-radius: 5px;">
+	<summary style="cursor: pointer; font-weight: bold; font-size: 1.1em; padding: 8px 10px; border-radius: 5px; list-style: none; display: flex; justify-content: center; align-items: center; background-color: #f8d7da; border: 2px solid #dc3545;">Guardrails — 2 out of 9 failed <i class="fas fa-chevron-down guardrail-toggle" style="margin-left: auto;"></i></summary>
+	<div style="padding: 10px; background-color: #ffffff;">
+	
+	<details open style="margin-left: 20px; margin-top: 5px; text-align: left;">
+		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #842029;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Failed Guardrails (2)</summary>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 100.</div>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 23, Substitutions outside window: 22.</div>
+		
+	</details>
+	
+	
+	<details style="margin-left: 20px; margin-top: 5px; text-align: left;">
+		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #0f5132;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Passed Guardrails (7)</summary>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Read alignment rate above threshold. 100.0% of reads aligned.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Sufficient ratio of modifications inside quantification window.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Acceptable rate of modifications at read ends.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Substitution rate within acceptable range.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> All amplicon lengths above minimum threshold (50).</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> All guide lengths above minimum threshold (19).</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Amplicon lengths within acceptable range of read lengths.</div>
+		
+	</details>
+	
+	</div>
+</details>
+
+			<div class='card text-center mb-2'>
+				<div class='card-header'>
+					
+					<h5>vcf-insertions-only</h5>
+					
+					<h5>CRISPResso2 run information</h5>
+					<ul class="nav nav-tabs justify-content-center card-header-tabs" id="log-tab" role="tablist">
+						<li class="nav-item">
+						<button class="nav-link active" id="log_aln-tab" data-bs-toggle="tab" data-bs-target="#log_aln" role="tab" aria-controls="log_aln" aria-selected="true">Alignment statistics</button>
+						</li>
+            <li class="nav-item">
+						<button class="nav-link" id="aln_dist-tab" data-bs-toggle="tab" data-bs-target="#aln_dist" role="tab" aria-controls="aln_dist" aria-selected="true">Alignment Distribution</button>
+						</li>
+						<li class="nav-item">
+						<button class="nav-link" id="log_params-tab" data-bs-toggle="tab" data-bs-target="#log_params" role="tab" aria-controls="log_params" aria-selected="false">Run Parameters</button>
+						</li>
+					</ul>
+				</div>
+				<div class='card-body'>
+					<div class='tab-content'>
+						<div class="tab-pane fade show active" id="log_aln" role="tabpanel">
+							<div id="fig_plot_1a" class="d-flex flex-column">
+    
+    <div align='center'><div>                            <div id="log-aln-read_barplot" class="plotly-graph-div" style="height:600px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("log-aln-read_barplot")) {                    Plotly.newPlot(                        "log-aln-read_barplot",                        [{"alignmentgroup":"True","hovertemplate":"Category=%{x}\u003cbr\u003eSequences %(no.)=%{y}\u003cbr\u003etext=%{text}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"blue","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"text":["100.0%","100.0%","100.0%"],"textposition":"outside","x":["READS\nIN INPUTS\n(100)","READS AFTER\nPREPROCESSING\n(100)","READS\nALIGNED\n(100)"],"xaxis":"x","y":[100.0,100.0,100.0],"yaxis":"y","type":"bar","textfont":{"size":14},"width":0.75}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":""}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"tickfont":{"size":14},"ticktext":["0%(0)","20%(20)","40%(40)","60%(60)","80%(80)","100%(100)"],"tickvals":[0,20,40,60,80,100],"tickmode":"array"},"legend":{"tracegroupgap":0},"margin":{"t":60},"barmode":"relative","autosize":false,"height":600,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div>
+            <label class="labelpadding">Figure 1a: The number of reads in input fastqs, after preprocessing, and after alignment to amplicons.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_mapping_statistics.txt">Mapping statistics</a></small></p>
+</div>
+						</div>
+						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
+  <p><strong>CRISPResso version:</strong> 2.3.4</p>
+  <p><strong>Run completed:</strong> 2026-02-20 12:13:36</p>
+  <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
+  
+    <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
+  
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/micromamba/envs/c2/bin/CRISPResso -r1 inputs/vcf_insertions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --quantification_window_coordinates 89-95 --vcf_output --amplicon_coordinates FANC:1 -n vcf-insertions-only --place_report_in_output_folder --debug</pre></p>
+  <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
+aln_seed_count: 5
+aln_seed_len: 10
+aln_seed_min: 2
+amplicon_coordinates: FANC:1
+amplicon_min_alignment_score: 
+amplicon_name: Reference
+amplicon_seq: CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG
+annotate_wildtype_allele: 
+assign_ambiguous_alignments_to_first_reference: False
+auto: False
+bam_chr_loc: 
+bam_input: 
+bam_output: False
+base_editor_consider_changes_outside_qw: False
+base_editor_output: False
+base_editor_target_ref_skip_allele_count: 0
+bowtie2_index: 
+coding_seq: 
+config_file: None
+conversion_nuc_from: C
+conversion_nuc_to: T
+crispresso1_mode: False
+crispresso_merge: False
+debug: True
+default_min_aln_score: 60
+disable_guardrails: False
+discard_guide_positions_overhanging_amplicon_edge: False
+discard_indel_reads: False
+display_name: 
+dsODN: 
+dump: False
+exclude_bp_from_left: 15
+exclude_bp_from_right: 15
+expand_allele_plots_by_quantification: False
+expand_ambiguous_alignments: False
+expected_hdr_amplicon_seq: 
+fastp_command: fastp
+fastp_options_string: 
+fastq_output: False
+fastq_r1: inputs/vcf_insertions.fastq
+fastq_r2: 
+file_prefix: 
+flash_command: None
+flexiguide_gap_extend_penalty: -2
+flexiguide_gap_open_penalty: -20
+flexiguide_homology: 80
+flexiguide_name: 
+flexiguide_seq: None
+force_merge_pairs: False
+guide_name: 
+guide_seq: GGAATCCCTTCTGCAGCACC
+halt_on_plot_fail: False
+ignore_deletions: False
+ignore_insertions: False
+ignore_substitutions: False
+keep_intermediate: False
+max_paired_end_reads_overlap: None
+max_rows_alleles_around_cut_to_plot: 50
+min_average_read_quality: 0
+min_bp_quality_or_N: 0
+min_frequency_alleles_around_cut_to_plot: 0.2
+min_paired_end_reads_overlap: 10
+min_single_bp_quality: 0
+n_processes: 1
+name: vcf-insertions-only
+needleman_wunsch_aln_matrix_loc: EDNAFULL
+needleman_wunsch_gap_extend: -2
+needleman_wunsch_gap_incentive: 1
+needleman_wunsch_gap_open: -20
+no_rerun: False
+output_folder: 
+place_report_in_output_folder: True
+plot_histogram_outliers: False
+plot_window_size: 20
+prime_editing_gap_extend_penalty: 0
+prime_editing_gap_open_penalty: -50
+prime_editing_nicking_guide_seq: 
+prime_editing_override_prime_edited_ref_seq: 
+prime_editing_override_sequence_checks: False
+prime_editing_pegRNA_extension_quantification_window_size: 5
+prime_editing_pegRNA_extension_seq: 
+prime_editing_pegRNA_scaffold_min_match_length: 1
+prime_editing_pegRNA_scaffold_seq: 
+prime_editing_pegRNA_spacer_seq: 
+quantification_window_center: -3
+quantification_window_coordinates: 89-95
+quantification_window_size: 1
+samtools_exclude_flags: 0
+save_also_png: False
+split_interleaved_input: False
+stringent_flash_merging: False
+suppress_amplicon_name_truncation: False
+suppress_plots: False
+suppress_report: False
+trim_sequences: False
+trimmomatic_command: None
+trimmomatic_options_string: 
+use_legacy_insertion_quantification: False
+use_matplotlib: False
+vcf_output: True
+verbosity: 3
+write_cleaned_report: False
+write_detailed_allele_table: False
+zip_output: False</pre></p>
+  
+  <p class='text-center m-0'><small><a href="CRISPResso_RUNNING_LOG.txt">Running log</a></small></p>
+</div>
+            <div class="tab-pane fade" id="aln_dist" role="tabpanel">
+							<div id="fig_plot_1e" class="d-flex flex-column">
+    
+    <a href="1e.Allele_homology_histogram.pdf"><img src="1e.Allele_homology_histogram.png" width='40%'></a>
+        
+            <label class="labelpadding">Figure 1e: Distribution of read alignment homology scores, showing the best-scoring alignment of each sequencing read to the provided amplicons. The dashed line indicates the minimum alignment score threshold used to discard low-quality alignments.</label>
+                <p class="m-0"><small>Data: <a href="Alleles_homology_scores.txt">Alleles Homology Scores</a></small></p>
+</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class='card text-center mb-2 breakinpage'>
+				<div class='card-header'>
+					<h5>Allele assignments</h5>
+					<ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
+						<li class="nav-item">
+							<button class="nav-link active" id="aln_pie-tab" data-bs-toggle="tab" data-bs-target="#aln_pie" role="tab" aria-controls="aln_pie" aria-selected="true">Piechart</button>
+						</li>
+						<li class="nav-item">
+							<button class="nav-link" id="aln_bar-tab" data-bs-toggle="tab" data-bs-target="#aln_bar" role="tab" aria-controls="aln_bar" aria-selected="false">Barplot</button>
+						</li>
+    						
+					</ul>
+				</div>
+				<div class='card-body'>
+					<div class="tab-content" id="tabContent">
+						<div class="tab-pane fade show active" id="aln_pie" role="tabpanel" aria-labelledby="aln_pie-tab">
+							<div id="fig_plot_1b" class="d-flex flex-column">
+    
+    <div align='center'><div>                            <div id="aln_pie_chart" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("aln_pie_chart")) {                    Plotly.newPlot(                        "aln_pie_chart",                        [{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"hovertemplate":"Category=%{label}\u003cbr\u003eSequences %(no.)=%{value}\u003cextra\u003e\u003c\u002fextra\u003e","labels":["UNMODIFIED\n(66 reads)","MODIFIED\n(34 reads)"],"legendgroup":"","name":"","showlegend":true,"values":[66.0,34.0],"type":"pie"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"legend":{"tracegroupgap":0},"margin":{"t":60},"piecolorway":["#0000FF","#008000","#FF0000","#7FC97F","#BEAED4","#FDC086","#FFFF99","#C8C8C8","#1E1E1E"]},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div>
+            <label class="labelpadding">Figure 1b: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+</div>
+						</div>
+						<div class="tab-pane fade" id="aln_bar" role="tabpanel" aria-labelledby="aln_bar-tab">
+							<div id="fig_plot_1c" class="d-flex flex-column">
+    
+    <div align='center'><div>                            <div id="aln_bar_graph" class="plotly-graph-div" style="height:600px; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("aln_bar_graph")) {                    Plotly.newPlot(                        "aln_bar_graph",                        [{"alignmentgroup":"True","hovertemplate":"Category=%{x}\u003cbr\u003eSequences %(no.)=%{marker.color}\u003cbr\u003etext=%{text}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":[66.0,34.0],"coloraxis":"coloraxis","pattern":{"shape":""},"colorscale":[[0.0,"rgb(12,51,131)"],[0.25,"rgb(10,136,186)"],[0.5,"rgb(242,211,56)"],[0.75,"rgb(242,143,56)"],[1.0,"rgb(217,30,30)"]]},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"text":["66.0%","34.0%"],"textposition":"outside","x":["UNMODIFIED\n(66 reads)","MODIFIED\n(34 reads)"],"xaxis":"x","y":[66.0,34.0],"yaxis":"y","type":"bar","textfont":{"size":14},"width":0.75}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Category"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"tickfont":{"size":14},"ticktext":["0%(0)","20%(20)","40%(40)","60%(60)","80%(80)","100%(100)"],"tickvals":[0,20,40,60,80,100],"tickmode":"array"},"coloraxis":{"colorbar":{"title":{"text":"Sequences %(no.)"}},"colorscale":[[0.0,"#440154"],[0.1111111111111111,"#482878"],[0.2222222222222222,"#3e4989"],[0.3333333333333333,"#31688e"],[0.4444444444444444,"#26828e"],[0.5555555555555556,"#1f9e89"],[0.6666666666666666,"#35b779"],[0.7777777777777778,"#6ece58"],[0.8888888888888888,"#b5de2b"],[1.0,"#fde725"]]},"legend":{"tracegroupgap":0},"margin":{"t":60},"barmode":"relative","height":600,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div>
+            <label class="labelpadding">Figure 1c: Alignment and editing frequency of reads as determined by the percentage and number of sequence reads showing unmodified and modified alleles.</label>
+                <p class="m-0"><small>Data: <a href="CRISPResso_quantification_of_editing_frequency.txt">Quantification of editing</a></small></p>
+</div>
+						</div>
+    						
+					</div>
+				</div>
+			</div> 
+
+        		
+			
+
+			
+
+			
+			
+
+			
+			
+            		
+
+			
+			
+
+			
+			
+
+			
+			
+
+			
+          	<div> 
+          	 
+
+
+				 
+				<div>
+				
+
+				
+					 
+					<div>
+					
+
+		      				<div class='card text-center mb-2'>
+      							<div class='card-header'>
+								 
+      								<h5>Nucleotide composition</h5>
+								
+      							</div>
+      							<div class='card-body'>
+
+								
+									<div id="fig_plot_2a" class="d-flex flex-column">
+    
+                <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2a_Nucleotide_percentage_quilt"></div>
+                <script type="text/javascript">const nuc_quilt_2a_Nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 0.99}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 0.99}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.99}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 0.99}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99}, {"C": 1.0}, {"A": 1.0}, {"C": 0.99}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 0.99}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.94, "-": 0.06}, {"C": 0.93, "-": 0.07, "Insertion": 0.05}, {"A": 0.9, "-": 0.1}, {"C": 0.85, "-": 0.15}, {"C": 0.83, "-": 0.17}, {"T": 0.91, "-": 0.08}, {"G": 0.94, "-": 0.06}, {"G": 0.93, "-": 0.06}, {"A": 0.97, "-": 0.03}, {"T": 0.98, "-": 0.02}, {"C": 0.98, "-": 0.02}, {"G": 0.98, "-": 0.02}, {"C": 0.98, "-": 0.02}, {"T": 0.98, "-": 0.02}, {"T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 0.99}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 0.99}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 0.99}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 0.99}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 0.99}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.99}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 0.99}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 0.99}, {"G": 1.0}, {"C": 0.99}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 0.99}, {"A": 0.99}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [75, 94], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[89, 95]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}}</script>
+                    <label class="labelpadding">Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
+            <p class="m-0"><small>Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
+</div>
+								
+								
+  									
+									<div id="fig_plot_2b_0" class="d-flex flex-column">
+    
+                <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
+                <script type="text/javascript">const nuc_quilt_2b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 0.99}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.94, "-": 0.06}, {"C": 0.93, "-": 0.07, "Insertion": 0.05}, {"A": 0.9, "-": 0.1}, {"C": 0.85, "-": 0.15}, {"C": 0.83, "-": 0.17}, {"T": 0.91, "-": 0.08}, {"G": 0.94, "-": 0.06}, {"G": 0.93, "-": 0.06}, {"A": 0.97, "-": 0.03}, {"T": 0.98, "-": 0.02}, {"C": 0.98, "-": 0.02}, {"G": 0.98, "-": 0.02}, {"C": 0.98, "-": 0.02}, {"T": 0.98, "-": 0.02}, {"T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[17, 23]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}}</script>
+                    <label class="labelpadding">Figure 2b: Nucleotide distribution around the sgRNA GGAATCCCTTCTGCAGCACC.</label>
+            <p class="m-0"><small>Data: <a href="Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
+</div>
+  									
+								
+            		</div>
+					</div> 
+
+  						<div class='card text-center mb-2 breakinpage'>
+  							<div class='card-header'>
+								 
+      							<h5>Modification lengths</h5>
+								
+  								<ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
+									
+  						  			<li class="nav-item">
+						  				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#Reference_3a" role="tab" aria-controls="Reference_3a" aria-selected="true">Summary</button>
+  						  			</li>
+            								
+									
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_3b" role="tab" aria-controls="Reference_3b" aria-selected="false">Indels</button>
+  						  			</li>
+            						
+  								</ul>
+  							</div>
+  							<div class='card-body'>
+								<div class="tab-content" id="pills-tabContent">
+									
+  						  			<div class="tab-pane fade show active" id="Reference_3a" role="tabpanel">
+							  			<div id="fig_plot_3a" class="d-flex flex-column">
+    
+    <div align='center'><div>                            <div id="hist_aln-reference" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("hist_aln-reference")) {                    Plotly.newPlot(                        "hist_aln-reference",                        [{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Key=Indel\u003cbr\u003eIndel size (bp)=%{x}\u003cbr\u003esum of Sequences %(no.)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Indel","marker":{"color":"blue","pattern":{"shape":""}},"name":"Indel","offsetgroup":"Indel","orientation":"v","showlegend":true,"x":[-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],"xaxis":"x","y":[0.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0,1.0,2.0,3.0,2.0,9.0,6.0,3.0,3.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"histogram","xbins":{"end":15.5,"size":1,"start":-15.5}},{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Key=No Indel\u003cbr\u003eIndel size (bp)=%{x}\u003cbr\u003esum of Sequences %(no.)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"No Indel","marker":{"color":"red","pattern":{"shape":""}},"name":"No Indel","offsetgroup":"No Indel","orientation":"v","showlegend":true,"x":[0],"xaxis":"x","y":[67.0],"yaxis":"y","type":"histogram","xbins":{"end":15.5,"size":1,"start":-15.5}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Indel size (bp)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"tickfont":{"size":14},"ticktext":["0%(0)","20%(20)","40%(40)","60%(60)","80%(80)","100%(100)"],"tickvals":[0,20,40,60,80,100],"tickmode":"array"},"legend":{"title":{"text":"Key"},"tracegroupgap":0},"title":{"text":"Indel size distribution"},"barmode":"relative","bargap":0.2,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div><label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
+            <p class="m-0"><small>Data: <a href="Indel_histogram.txt">Indel histogram</a></small></p>
+</div>
+						  			</div>
+									
+
+									
+  						  			<div class="tab-pane fade" id="Reference_3b" role="tabpanel">
+							  			<div id="fig_plot_3b" class="d-flex flex-column">
+    <div align='center'><div>                            <div id="hist_aln_indels-reference" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("hist_aln_indels-reference")) {                    Plotly.newPlot(                        "hist_aln_indels-reference",                        [{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],"xaxis":"x","y":[99.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"bar"},{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],"xaxis":"x2","y":[93.0,3.0,3.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y2","type":"bar"},{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0],"xaxis":"x3","y":[0.0,0.0,0.0,1.0,1.0,0.0,0.0,1.0,0.0,1.0,2.0,3.0,2.0,9.0,6.0,74.0],"yaxis":"y3","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.26666666666666666],"title":{"text":"Positions substituted (number)"},"range":[-1,16]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"xaxis2":{"anchor":"y2","domain":[0.3666666666666667,0.6333333333333333],"title":{"text":"Size (bp)"},"range":[-1,16]},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"xaxis3":{"anchor":"y3","domain":[0.7333333333333334,1.0],"title":{"text":"Size (bp)"},"range":[-16,1]},"yaxis3":{"anchor":"x3","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"annotations":[{"font":{"size":12},"showarrow":false,"text":"Substitutions","x":0.13333333333333333,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12},"showarrow":false,"text":"Insertions","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12},"showarrow":false,"text":"Deletions","x":0.8666666666666667,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"coloraxis":{"colorscale":[[0.0,"rgb(255,0,0)"],[1.0,"rgb(0,0,255)"]]},"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div><label class="labelpadding">Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown).</label>
+            <p class="m-0"><small>Data: <a href="Insertion_histogram.txt">Insertions frequency</a></small></p>
+            <p class="m-0"><small>Data: <a href="Deletion_histogram.txt">Deletions Frequency</a></small></p>
+            <p class="m-0"><small>Data: <a href="Substitution_histogram.txt">Substitutions Frequency</a></small></p>
+</div>
+						  			</div>
+									
+  								</div>
+  							</div> 
+  						</div> 
+
+						<div class='card text-center mb-2 breakinpage'>
+  							<div class='card-header'>
+								 
+  								<h5>Indel characterization</h5>
+								
+  								<ul class="nav nav-tabs justify-content-center card-header-tabs" id="indel-characterization-tabs" role="tablist">
+									
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_4a" role="tab" aria-controls="Reference_4a" aria-selected="true">All Modifications Combined</button>
+  						  			</li>
+            								
+									
+  						  			<li class="nav-item">
+						  				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#Reference_4b" role="tab" aria-controls="Reference_4b" aria-selected="false">All Modifications by Type</button>
+  						  			</li>
+            								
+									
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_4c" role="tab" aria-controls="Reference_4c" aria-selected="false">Modifications in Quantification Window</button>
+  						  			</li>
+            								
+									
+  						  			<li class="nav-item">
+						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#Reference_4d" role="tab" aria-controls="Reference_4d" aria-selected="false">Indel Lengths</button>
+  						  			</li>
+            								
+									
+									
+  								</ul>
+  							</div> 
+  							<div class='card-body'>
+  								<div class="tab-content" id="pills-tabContent">
+									
+									<div class="tab-pane fade" id="Reference_4a" role="tabpanel">
+										<div id="fig_plot_4a" class="d-flex flex-column">
+    
+    <div align='center'><div>                            <div id="amplicon-modification-reference" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("amplicon-modification-reference")) {                    Plotly.newPlot(                        "amplicon-modification-reference",                        [{"line":{"color":"#FF0000"},"mode":"lines","name":"Combined Insertions\u002fDeletions\u002fSubstitutions","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,7.0,12.0,16.0,16.0,17.0,9.0,6.0,7.0,3.0,2.0,2.0,2.0,2.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"line":{"color":"black","dash":"dash","width":1},"mode":"lines","name":"Predicted Cleavage Position","x":[91.5,91.5],"y":[0,18.700000000000003],"type":"scatter"},{"line":{"color":"gray","width":10},"mode":"lines","name":"sgRNA_(75, 94)","opacity":0.7,"x":[75,94],"y":[0,0],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"shapes":[{"fillcolor":"gray","line":{"dash":"dot","width":1},"opacity":0.2,"type":"rect","x0":89,"x1":95,"xref":"x","y0":0,"y1":1,"yref":"y domain"}],"annotations":[{"showarrow":false,"text":"Quantification window","textangle":-90,"x":89,"xanchor":"left","xref":"x","y":1,"yanchor":"top","yref":"y domain"}],"xaxis":{"range":[0,223],"title":{"text":"Reference Amplicon Position (bp)"}},"yaxis":{"tickfont":{"size":14},"range":[0,18.700000000000003],"ticktext":["0%(0)","10%(10)","20%(20)","30%(30)","40%(40)","50%(50)","60%(60)","70%(70)","80%(80)","90%(90)","100%(100)"],"tickvals":[0,10,20,30,40,50,60,70,80,90,"100"],"tickmode":"array","title":{"text":"Sequences %(no.)"}},"title":{"text":"Mutation position distribution"},"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div><label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
+</div>
+									</div>
+									
+									
+									<div class="tab-pane fade show active" id="Reference_4b" role="tabpanel">
+										<div id="fig_plot_4b" class="d-flex flex-column">
+    
+    <div align='center'><div>                            <div id="modification-frequency-reference" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("modification-frequency-reference")) {                    Plotly.newPlot(                        "modification-frequency-reference",                        [{"line":{"color":"#FF0000"},"mode":"lines","name":"Deletions","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,7.0,10.0,15.0,17.0,8.0,6.0,6.0,3.0,2.0,2.0,2.0,2.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"line":{"color":"#008000"},"mode":"lines","name":"Insertions","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,5.0,6.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"line":{"color":"#0000FF"},"mode":"lines","name":"Substitutions","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"line":{"color":"black","dash":"dash","width":1},"mode":"lines","name":"Predicted Cleavage Position","x":[91.5,91.5],"y":[0,18.700000000000003],"type":"scatter"},{"line":{"color":"gray","width":9},"mode":"lines","name":"sgRNA_(75, 94)","opacity":0.7,"x":[75,94],"y":[0,0],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"shapes":[{"fillcolor":"gray","line":{"dash":"dot","width":1},"opacity":0.2,"type":"rect","x0":89,"x1":95,"xref":"x","y0":0,"y1":1,"yref":"y domain"}],"annotations":[{"showarrow":false,"text":"Quantification window","textangle":-90,"x":89,"xanchor":"left","xref":"x","y":1,"yanchor":"top","yref":"y domain"}],"xaxis":{"range":[0,223],"title":{"text":"Reference Amplicon Position (bp)"}},"yaxis":{"tickfont":{"size":14},"range":[0,18.700000000000003],"ticktext":["0%(0)","10%(10)","20%(20)","30%(30)","40%(40)","50%(50)","60%(60)","70%(70)","80%(80)","90%(90)","100%(100)"],"tickvals":[0,10,20,30,40,50,60,70,80,90,"100"],"tickmode":"array","title":{"text":"Sequences %(no.)"}},"title":{"text":"Mutation position distribution"},"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div><label class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</label>
+            <p class="m-0"><small>Data: <a href="Modification_count_vectors.txt">Modification frequency</a></small></p>
+</div>
+									</div>
+									
+									
+									<div class="tab-pane fade" id="Reference_4c" role="tabpanel">
+										<div id="fig_plot_4c" class="d-flex flex-column">
+    
+    <div align='center'><div>                            <div id="quantification-window-reference" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("quantification-window-reference")) {                    Plotly.newPlot(                        "quantification-window-reference",                        [{"line":{"color":"#FF0000"},"mode":"lines","name":"Deletions","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0,7.0,10.0,15.0,17.0,8.0,6.0,6.0,3.0,2.0,2.0,2.0,2.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"line":{"color":"#008000"},"mode":"lines","name":"Insertions","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,5.0,6.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"line":{"color":"#0000FF"},"mode":"lines","name":"Substitutions","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"type":"scatter"},{"line":{"color":"black","dash":"dash","width":1},"mode":"lines","name":"Predicted Cleavage Position","x":[91.5,91.5],"y":[0,18.700000000000003],"type":"scatter"},{"line":{"color":"gray","width":9},"mode":"lines","name":"sgRNA_(75, 94)","opacity":0.7,"x":[75,94],"y":[0,0],"type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"shapes":[{"fillcolor":"gray","line":{"dash":"dot","width":1},"opacity":0.2,"type":"rect","x0":89,"x1":95,"xref":"x","y0":0,"y1":1,"yref":"y domain"}],"annotations":[{"showarrow":false,"text":"Quantification window","textangle":-90,"x":89,"xanchor":"left","xref":"x","y":1,"yanchor":"top","yref":"y domain"}],"xaxis":{"range":[0,223],"title":{"text":"Reference Amplicon Position (bp)"}},"yaxis":{"tickfont":{"size":14},"range":[0,18.700000000000003],"ticktext":["0%(0)","10%(10)","20%(20)","30%(30)","40%(40)","50%(50)","60%(60)","70%(70)","80%(80)","90%(90)","100%(100)"],"tickvals":[0,10,20,30,40,50,60,70,80,90,"100"],"tickmode":"array","title":{"text":"Sequences %(no.)"}},"title":{"text":"Mutation position distribution"},"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div><label class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</label>
+            <p class="m-0"><small>Data: <a href="Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
+</div>
+									</div>
+									
+
+									
+									<div class="tab-pane fade" id="Reference_4d" role="tabpanel">
+										<div id="fig_plot_4d" class="d-flex flex-column">
+    <div align='center'><div>                            <div id="Positions_dependent_indels-ins-del-reference" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("Positions_dependent_indels-ins-del-reference")) {                    Plotly.newPlot(                        "Positions_dependent_indels-ins-del-reference",                        [{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Reference Amplicon Position (bp)=%{x}\u003cbr\u003esum of Average Insertion Length=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"xaxis":"x","xbins":{"end":223.5,"size":1,"start":-0.5},"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.8,1.8333333333333333,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"histogram"},{"line":{"color":"black","dash":"dash","width":1},"mode":"lines","name":"Predicted Cleavage Position","x":[91.5,91.5],"y":[0,12.0],"type":"scatter","xaxis":"x","yaxis":"y","showlegend":false},{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Reference Amplicon Position (bp)=%{x}\u003cbr\u003esum of Average Deletion Length=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222],"xaxis":"x2","xbins":{"end":223.5,"size":1,"start":-0.5},"y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.6666666666666665,3.7142857142857144,3.7,4.533333333333333,4.235294117647059,6.375,7.666666666666667,7.666666666666667,9.333333333333334,11.5,11.5,11.5,11.5,11.5,12.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y2","type":"histogram"},{"line":{"color":"black","dash":"dash","width":1},"mode":"lines","name":"Predicted Cleavage Position","x":[91.5,91.5],"y":[0,22.0],"type":"scatter","xaxis":"x2","yaxis":"y2"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.425],"title":{"text":"Reference Amplicon Position (bp)"},"range":[-0.5,223]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Average Insertion Length"},"showgrid":false,"range":[0,12.0]},"xaxis2":{"anchor":"y2","domain":[0.575,1.0],"title":{"text":"Reference Amplicon Position (bp)"},"range":[-0.5,223]},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"title":{"text":"Average Deletion Length"},"showgrid":false,"range":[0,22.0]},"annotations":[{"font":{"size":12},"showarrow":false,"text":"Position dependent insertion size","x":0.2125,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12},"showarrow":false,"text":"Position dependent deletion size","x":0.7875,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div></div><label class="labelpadding">Figure 4d: Position dependent insertion size(left) and deletion size (right), including only modifications that overlap with the quantification window.</label>
+</div>
+									</div>
+									
+
+									
+
+									
+  								</div>
+  							</div> 
+  						</div> 
+
+
+						
+
+						
+
+						
+
+						
+
+						
+						<div class='card text-center mb-2 breakinpage'>
+							<div class='card-header'>
+								 
+								<h5>Allele plots</h5>
+								
+							</div>
+							<div class='card-body'>
+								
+                  				<div class='mb-4'>
+					  				<div id="fig_plot_9_0" class="d-flex flex-column">
+    <a href="9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="9.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='100%'></a>
+        <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA GGAATCCCTTCTGCAGCACC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+            <p class="m-0"><small>Data: <a href="Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele frequency table</a></small></p>
+</div>
+                				</div>
+								
+							</div>
+						</div>
+						
+						
+
+						 
+					</div>  <!--end amp tab -->
+				
+				</div>  <!-- end tab content -->
+			</div> <!-- end card -->
+
+            <div align="center" class='p-3'>
+  
+  <button class='btn btn-primary hidden-print' onclick='window.print();'><i class="fas fa-print"></i> Print</button>
+</div>
+		</div>  <!-- end jumbotron_content -->
+	</div>  <!-- end jumbotron -->
+</div>  <!-- end column -->
+</center>
+
+<div class="col-sm-1"></div>
+
+
+      
+      <div class="row">
+      <div class="col-sm-1"></div>
+      <footer class="col-sm-10 crispresso_body_div screen-only py-5">
+        <p class="text-center">
+      If you like CRISPResso2 please support us by citing it in your work: <br>
+          Clement K, Rees H, Canver MC, Gehrke JM, Farouni R, Hsu JY, Cole MA, Liu DR, Joung JK, Bauer DE, Pinello L.<br>
+          <a href="https://rdcu.be/boxVG" target="_blank">CRISPResso2 provides accurate and rapid genome editing sequence analysis. </a><br>
+          Nat Biotechnol. 2019 Mar; 37(3):224-226. doi: 10.1038/s41587-019-0032-3. PubMed PMID: 30809026.
+        </p>
+        <p class="text-center"><small> &copy; Copyright <a href="http://pinellolab.org">Kendell Clement and Luca Pinello</a></small></p>
+        <p class="text-center">
+          <small>
+        <a href="https://twitter.com/intent/tweet?text=CRISPResso2%20provides%20accurate%20and%20rapid%20genome%20editing%20sequence%20analysis%20%40kendellclement%20%40lucapinello%20%23CRISPR%20%23CRISPResso2"
+          class="twitter-share-button" data-via="kendellclement" data-size="large" data-count="none" data-hashtags="CRISPR" data-url="http://crispresso2.pinellolab.org">Tweet about CRISPresso2!</a>
+        </small>
+        </p>
+
+      </footer>
+      <div class="col-sm-1"></div>
+    </div>
+    
+    </div>
+    
+<script>
+
+</script>
+
+
+
+<script src="https://unpkg.com/d3@5"></script>
+  <style>
+  .qw {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23D9D9D9FF' stroke-width='4' stroke-dasharray='6%2c14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  }
+</style>
+
+<script type="text/javascript">
+  const buildNucleotideQuilt = (data, slug) => {
+    return new Promise((resolve, reject) => {
+      try {
+        if (data.custom_colors == null) {
+          color = {
+            "A": "#7FC97F",
+            "T": "#BEAED4",
+            "C": "#FDC086",
+            "G": "#FFFF99",
+            "N": "#C8C8C8",
+            "-": "#000000",
+            "Insertion": "#C18172",
+            "sgRNA": "#D9D9D9",
+          };
+        } else {
+          color = {
+            "A": data.custom_colors["A"],
+            "T": data.custom_colors["T"],
+            "C": data.custom_colors["C"],
+            "G": data.custom_colors["G"],
+            "N": data.custom_colors["N"],
+            "-": data.custom_colors["-"],
+            "Insertion": data.custom_colors["Insertion"],
+            "sgRNA": "#D9D9D9",
+          };
+        }
+
+        const seqLength = data["reference"].length,
+          tableCellHeight = 10,
+          tableCellWidth = 10,
+          batchCellHeight = 30,
+          batchPadding = tableCellHeight / 5,
+          numGuides = data.hasOwnProperty("sgRNAs") ? data["sgRNAs"].length : 0,
+          numGuideRows = data.hasOwnProperty("sgRNAs") ? Math.max(...data["sgRNAs"].map(d => d["row"])) + 1 : 0,
+          numBatches = data["batches"].length,
+          minPlotPct = 0.01,
+          shadeReference = true;
+
+          const guidePadding = tableCellHeight / 2,
+          guideHeight = numGuides > 0 ? (guidePadding * 2) + (numGuideRows * tableCellHeight) : 0,
+          batchHeight = (numBatches * batchCellHeight) + (tableCellHeight * 2),
+          quiltHeight = batchHeight + guideHeight + (guidePadding * 2)
+
+        const quiltSvg = d3.select(`#${slug}`)
+          .append("svg")
+          .attr("viewBox", `0 0 ${(seqLength * tableCellWidth) + 50} ${quiltHeight}`)
+          .style("user-select", "none")
+          .style("width", "88%")
+          .style("height", `${((2300 / seqLength) * numBatches) + 150}px`)
+
+        const quiltGroup = quiltSvg.append("g");
+
+        const y = d3.scaleLinear()
+          .domain([0, 1])
+          .range([batchCellHeight - batchPadding, 0]);
+
+        const stackGen = d3.stack()
+          .keys(["A", "C", "G", "T", "-", "Insertion"])
+          .order(d3.stackOrderNone)
+          .offset(d3.stackOffsetNone);
+
+        const tooltip = d3.select("body")
+          .append("div")
+          .style("position", "absolute")
+          .style("z-index", "10")
+          .style("visibility", "hidden")
+          .style("background-color", "#FFFFFF")
+          .style("border", "solid")
+          .style("border-width", "1px")
+          .style("border-radius", "5px")
+          .style("padding", "10px")
+          .style("opacity", "0.9");
+
+        const innerTooltip = tooltip.append("div")
+          .attr("class", "text-center")
+          .style("display", "grid")
+          .style("grid-template-columns", "1fr 1fr")
+          .style("column-gap", "10px");
+
+        const defaultTooltipData = Object.keys(color)
+          .filter(d => d !== "sgRNA" && d !== "Deletion" && d !== "Substitution")
+          .reduce((o, key) => ({ ...o, [key]: "0%" }), {});
+
+          const tooltipMouseover = function (d) {
+          let sampleName = d3.select(this.parentNode.parentNode).datum().name
+          let key = d3.select(this.parentNode).datum().key,
+            tooltipData = { "Sample:": sampleName, "Index:": d[2], ...defaultTooltipData, ...d.data };
+            let tooltipHtml = Object.entries(tooltipData)
+            .map(([key, value]) => {
+              if (typeof value === 'number' && key != "Index:") {
+                value = (value * 100).toPrecision(3) + '%';
+              }
+              var keyStyle = '';
+              var valueStyle =''
+              if (color.hasOwnProperty(key)) {
+                keyStyle = `background-color: ${color[key]}; `;
+                if (key == '-') {
+                  keyStyle += 'color: white';
+                }
+              }
+              if (key == "Index:"){
+                var indexStyle = `
+                  display: flex;
+                  flex-direction: column;
+                  position: relative;
+                  border-bottom: 1px solid black;
+                  margin-bottom: 5px;
+                `;
+                return `
+                  <div style="${indexStyle}">
+                    ${key}
+                  </div>
+                  <div style="${indexStyle}">${value}<div style="position: absolute; left: -10px; bottom: -1px; width: 10px; height: 1px; background-color: black;"></div></div>
+                `;
+              } else{
+                return `<div style="${keyStyle}">${key}</div> <div style="${valueStyle}">${value}</div>`;
+              }
+            });
+          tooltip.style("left", `${window.event.pageX + 10}px`)
+            .style("top", `${window.event.pageY + 10}px`)
+            .style("visibility", "visible");
+          innerTooltip.html(tooltipHtml.join(""));
+        };
+
+        const tooltipMouseleave = d => tooltip.style("visibility", "hidden");
+
+        const batchGroup = quiltGroup.selectAll(`.${slug}_batch`)
+          .data(data["batches"], d => d.name)
+          .join(
+            enter => {
+              let root = enter.append("g");
+              root.attr("transform", (d, i) => `translate(0,${(batchCellHeight * i) + batchPadding})`);
+
+              root.append("text")
+                .attr("x", (seqLength * tableCellWidth) + 2)
+                .attr("dy", batchCellHeight / 2)
+                .style("font-family", "Arial")
+                .style("font-size", "7pt")
+                .style("fill", "#262626")
+                .text(d => d.name)
+                .append("svg:title")
+                .text(d => d.name);
+
+              root.append("rect")
+                .attr("width", tableCellWidth * seqLength)
+                .attr("height", batchCellHeight - batchPadding)
+                .attr("stroke", "#000000")
+                .attr("stroke-width", "0.5")
+                .attr("fill", "none");
+
+              return root;
+            },
+          )
+          .selectAll(".batch_cells")
+          .data(d => stackGen(Object.keys(d.nuc_pct).map(key => d.nuc_pct[key])))
+          .join(
+            enter => {
+              let root = enter.append("g")
+                .attr("fill", d => color[d["key"]]);
+              return root;
+            }
+          )
+          .selectAll("rect")
+          .data(d => d.map((e, i) => { e.push(i); return e }).filter(e => !(isNaN(e[0]) || isNaN(e[1]))))
+          .join(
+            enter => {
+              let root = enter.append("rect")
+                .attr("x", function (d) {
+                  if (this.parentNode.__data__.key == "Insertion") {
+                    return (d[2] * tableCellWidth) + (0.75 * tableCellWidth);
+                  } else {
+                    return d[2] * tableCellWidth;
+                  }
+                })
+                .attr("y", function (d) {
+                  if (this.parentNode.__data__.key == "Insertion") {
+                    return batchCellHeight + (y(d[1]) - y(d[0])) - 2;
+                  } else {
+                    return y(d[1]);
+                  }
+                })
+                .attr("height", d => y(d[0]) - y(d[1]))
+                .attr("width", function (d) {
+                  if (this.parentNode.__data__.key == "Insertion") {
+                    return tableCellWidth / 2;
+                  } else {
+                    return tableCellWidth;
+                  }
+                });
+              if (shadeReference) {
+                root.style("opacity", function (d, i) {
+                  return this.parentNode.__data__.key == data["reference"][d[2]] ? 0.25 : 1;
+                });
+              }
+              return root;
+            }
+          )
+          .on("mouseover", tooltipMouseover)
+          .on("mouseleave", tooltipMouseleave);
+
+          const guides = quiltGroup.selectAll(`.${slug}_guide`)
+          .data(data["sgRNAs"].filter(d => d["interval"][1] > 0), d => d)
+          .join(
+            enter => {
+              let root = enter.append("g");
+              root.attr("transform", (d, i) => `translate(${(d["interval"][0] * tableCellWidth)},${(d["row"] * tableCellHeight) + batchHeight + guidePadding})`);
+              let rect = root.append("rect")
+              .attr("width", (d, i) => {
+                let sgRNAWidth = Math.abs(d["interval"][1] - d["interval"][0]) + 1;
+                if (seqLength < (sgRNAWidth + d["interval"][0])) {
+                  sgRNAWidth = Math.abs(seqLength - d["interval"][0]);
+                  //This checks the location and length of the sgrna block and shortens it if it goes past the end of the graph
+                }
+                  return sgRNAWidth * tableCellWidth;
+              })
+                .attr("height", tableCellHeight)
+                .attr("stroke", "#FFFFFF")
+                .style("fill", "#D9D9D9");
+              rect.append("svg:title")
+                .text(d => d["sequence"]);
+              root.append("text")
+                .attr("dx", "0.2em")
+                .attr("dy", "1em")
+                .attr("text-anchor", "start")
+                .style("font-size", "6pt")
+                .text(d => d.hasOwnProperty("name") ? d["name"] : "sgRNA");
+              return root;
+            }
+          );
+
+        const referenceGroup = quiltGroup.append("g")
+          .attr("transform", `translate(0, ${batchHeight})`);
+        referenceGroup.selectAll(".reference")
+          .data(d => data["reference"])
+          .join(enter => {
+            let root = enter.append("g");
+            root.append("rect")
+              .attr("fill", d => color[d])
+              .attr("width", tableCellWidth)
+              .attr("height", tableCellHeight)
+              .attr("x", (d, i) => i * tableCellWidth)
+              .attr("y", -10)
+              .style("opacity", "0.9");
+            root.append("text")
+              .attr("x", (d, i) => (i * tableCellWidth) + (tableCellWidth / 2))
+              .attr("text-anchor", "middle")
+              .attr("dy", "-0.2em")
+              .style("font-size", "6pt")
+              .style("font-family", "Arial")
+              .style("stroke-width", "0.3pt")
+              .style("fill", "#262626")
+              .text(d => d);
+            return root;
+          });
+        referenceGroup.append("text")
+          .attr("x", (seqLength * tableCellWidth) + 2)
+          .attr("dy", "-0.2em")
+          .style("font-family", "Arial")
+          .style("font-size", "7pt")
+          .style("fill", "#262626")
+          .text("Reference");
+
+        const quantificationWindowGroup = quiltGroup.append("g");
+
+        const generateQuantificationWindowPolylinePoints = (quantificationRange) => {
+          if(quantificationRange[1] < 0 || quantificationRange[0] > seqLength) {
+            return ""
+          }
+          let leftPosition = Math.max(quantificationRange[0] * tableCellWidth, 0),
+              rightPosition = Math.min((quantificationRange[1] + 1) * tableCellWidth, seqLength * tableCellWidth),
+              lowerPosition = quiltHeight + (guidePadding * 2) - 2
+          if(quantificationRange[0] < 0) {
+            return `${leftPosition},0 ${rightPosition},0 ${rightPosition},${lowerPosition} ${leftPosition},${lowerPosition}`
+          }
+          else if(quantificationRange[1] > seqLength) {
+            return `${rightPosition},0 ${leftPosition},0 ${leftPosition},${lowerPosition} ${rightPosition},${lowerPosition}`
+          }
+          else {
+            return `${leftPosition},0 ${rightPosition},0 ${rightPosition},${lowerPosition} ${leftPosition},${lowerPosition} ${leftPosition},0`
+          }
+        }
+
+        // plot quantification windows where at least one end of the range is visible
+        quantificationWindowGroup.selectAll(".quantificationWindow")
+          .data(d => data["quantification_windows"].filter(d => d[0] > 0 || d[1] < seqLength))
+          .join(enter => {
+            let root = enter.append("polyline")
+              .attr("points", d => generateQuantificationWindowPolylinePoints(d))
+              .style("stroke", "#D9D9D9")
+              .style("stroke-dasharray", "4,4")
+              .style("stroke-width", "0.7pt")
+              .style("fill", "none");
+            return root;
+          });
+
+        // plot quantification windows that span the entire viewport
+        quantificationWindowGroup.selectAll(".quantificationWindow")
+          .data(d => data["quantification_windows"].filter(d => d[0] < 0 && d[1] > seqLength))
+          .join(enter => {
+            enter.append("line")
+                 .attr("x1", 0)
+                 .attr("x2", seqLength * tableCellWidth)
+                 .attr("y1", 0)
+                 .attr("y2", 0)
+                 .style("stroke", "#D9D9D9")
+                 .style("stroke-dasharray", "4,4")
+                 .style("stroke-width", "0.7pt")
+
+            enter.append("line")
+                 .attr("x1", 0)
+                 .attr("x2", seqLength * tableCellWidth)
+                 .attr("y1", quiltHeight - (guidePadding * 2) - 2)
+                 .attr("y2", quiltHeight - (guidePadding * 2) - 2)
+                 .style("stroke", "#D9D9D9")
+                 .style("stroke-dasharray", "4,4")
+                 .style("stroke-width", "0.7pt")
+
+            return enter
+        });
+
+        const legendGroup = d3.select(`#${slug}`).append("div"),
+          legendData = Object.keys(color);
+        legendData.push("Quantification Window");
+
+        legendGroup.style("width", "12%").style("position", "sticky").style("top", "0").classed("d-flex", true).classed("align-items-center", true).classed("flex-column", true);
+        legendGroup.append("h5")
+          .text("Legend");
+
+        legendGroup.selectAll(".legend")
+          .attr("class", "text-center")
+          .style("display", "grid")
+          .style("grid-template-columns", "1fr 1fr")
+          .style("column-gap", "10px")
+          .data(legendData.filter(d => d !== "Deletion" && d !== "Substitution"))
+          .join(enter => enter.append("div")
+            .style("background-color", d => color.hasOwnProperty(d) ? color[d] : "white")
+            .style("color", d => d === '-' ? "white" : "black")
+            .style("font-size", "0.7rem")
+            .style("width", "75%")
+            .classed("qw", d => d === "Quantification Window")
+            .text(d => d)
+          );
+
+
+        const zoom = d3.zoom()
+          .scaleExtent([0.5, 20]) // Adjust the scale extent as needed
+          .on("zoom", function () {
+            const transform = d3.event.transform;
+            if (transform) {
+              quiltGroup.attr("transform", transform);
+            } else {
+              console.warn("Zoom event transform is undefined");
+            }
+          });
+
+        quiltSvg.call(zoom);
+
+        // Function to reset the zoom level
+        function resetZoom() {
+          quiltSvg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
+        }
+
+        legendGroup.append("button")
+          .text("Reset Zoom")
+          .on("click", resetZoom)
+          .style("display", "block")
+          .style("width", "75%")
+          .style("margin-top", "10px")
+          .style("border", "1px solid black")
+          .style("padding", "5px 10px")
+          .style("background-color", "#f0f0f0")
+          .style("color", "#333")
+          .style("font-size", "0.7rem")
+          .style("border-radius", "4px");
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+
+
+    var topQuilt = document.getElementById('nucleotide-header');
+    var bottomQuilt = document.getElementById('nucleotide-header-full-amplicon');
+    if (topQuilt) {
+      topQuilt.innerHTML = "Loading Graph...";
+    }
+
+    if (bottomQuilt) {
+      bottomQuilt.innerHTML = "Loading Graph...";
+    }
+    setTimeout(async () => {
+      
+      await buildNucleotideQuilt(nuc_quilt_2a_Nucleotide_percentage_quilt, "nuc_quilt_2a_Nucleotide_percentage_quilt")
+      
+      await buildNucleotideQuilt(nuc_quilt_2b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC, "nuc_quilt_2b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC")
+      
+      if (topQuilt) {
+        topQuilt.innerHTML = "Nucleotide percentages around guides";
+      }
+      if (bottomQuilt) {
+        bottomQuilt.innerHTML = "Nucleotide percentages in the entire amplicon";
+      }
+    }, 100); // Delay of 100 ms to allow javascript to rerender loading message to dom before rendering D3 plot
+
+</script>
+
+
+
+  </body>
+
+</html>
