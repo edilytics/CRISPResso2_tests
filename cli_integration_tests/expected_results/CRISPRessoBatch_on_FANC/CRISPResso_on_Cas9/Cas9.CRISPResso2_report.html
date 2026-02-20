@@ -212,22 +212,56 @@
 <center><div class="col-sm-10">
 	<div class="jumbotron" style="background:rgba(0,0,0,0.0); padding:0px" >
 		<div id='jumbotron_content' >
+			
+
+
+<style>
+.guardrail-toggle { transition: transform 0.2s ease; }
+details[open] > summary .guardrail-toggle { transform: rotate(180deg); }
+.guardrail-summary { list-style: none; }
+.guardrail-summary::-webkit-details-marker { display: none; }
+</style>
+<details style="margin-bottom: 10px; text-align: center; border-radius: 5px;">
+	<summary style="cursor: pointer; font-weight: bold; font-size: 1.1em; padding: 8px 10px; border-radius: 5px; list-style: none; display: flex; justify-content: center; align-items: center; background-color: #f8d7da; border: 2px solid #dc3545;">Guardrails — 4 out of 9 failed <i class="fas fa-chevron-down guardrail-toggle" style="margin-left: auto;"></i></summary>
+	<div style="padding: 10px; background-color: #ffffff;">
+	
+	<details open style="margin-left: 20px; margin-top: 5px; text-align: left;">
+		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #842029;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Failed Guardrails (4)</summary>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 250.</div>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 235, Irregular reads: 235.</div>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 280, Substitutions outside window: 270.</div>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 924, Substitutions: 280.</div>
+		
+	</details>
+	
+	
+	<details style="margin-left: 20px; margin-top: 5px; text-align: left;">
+		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #0f5132;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Passed Guardrails (5)</summary>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Read alignment rate above threshold. 94.0% of reads aligned.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Sufficient ratio of modifications inside quantification window.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> All amplicon lengths above minimum threshold (50).</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> All guide lengths above minimum threshold (19).</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Amplicon lengths within acceptable range of read lengths.</div>
+		
+	</details>
+	
+	</div>
+</details>
+
 			<div class='card text-center mb-2'>
 				<div class='card-header'>
 					
 					<h5>Cas9</h5>
 					
-					
-	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 250.</div>
-	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 235, Irregular reads: 235.</div>
-	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 280, Substitutions outside window: 270.</div>
-	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 924, Substitutions: 280.</div>
-	
-
 					<h5>CRISPResso2 run information</h5>
 					<ul class="nav nav-tabs justify-content-center card-header-tabs" id="log-tab" role="tablist">
 						<li class="nav-item">
@@ -254,12 +288,12 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-02-10 05:52:59</p>
+  <p><strong>Run completed:</strong> 2026-02-20 14:01:25</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -o /Users/cole/code/edilytics/.worktrees/CRISPResso2_cole-vcf-parameters/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --exclude_bp_from_right 15 --needleman_wunsch_aln_matrix_loc EDNAFULL --guide_seq GGAATCCCTTCTGCAGCACC --n_processes 1 --flash_command None --base_editor_target_ref_skip_allele_count 0 --file_prefix Cas9 --verbosity 3 --conversion_nuc_from C --min_paired_end_reads_overlap 10 --fastq_r1 inputs/FANC.Cas9.fastq --needleman_wunsch_gap_open -20 --quantification_window_center -3 --conversion_nuc_to T --config_file None --trimmomatic_command None --prime_editing_pegRNA_scaffold_min_match_length 1 --flexiguide_seq None --min_single_bp_quality 0 --base_editor_output --fastp_command fastp --default_min_aln_score 60 --max_rows_alleles_around_cut_to_plot 50 --prime_editing_gap_open_penalty -50 --flexiguide_gap_extend_penalty -2 --needleman_wunsch_gap_extend -2 --place_report_in_output_folder --flexiguide_homology 80 --prime_editing_pegRNA_extension_quantification_window_size 5 --plot_window_size 20 --max_paired_end_reads_overlap None --debug --min_frequency_alleles_around_cut_to_plot 0.2 --flexiguide_gap_open_penalty -20 --prime_editing_gap_extend_penalty 0 --aln_seed_count 5 --amplicon_name Reference --aln_seed_min 2 --quantification_window_size 1 --min_bp_quality_or_N 0 --min_average_read_quality 0 --halt_on_plot_fail --needleman_wunsch_gap_incentive 1 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_len 10 --exclude_bp_from_left 15</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/mambaforge/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --min_single_bp_quality 0 --halt_on_plot_fail --amplicon_name Reference --quantification_window_size 1 --n_processes 1 --max_paired_end_reads_overlap None --flexiguide_gap_extend_penalty -2 --conversion_nuc_to T --exclude_bp_from_left 15 --min_frequency_alleles_around_cut_to_plot 0.2 --file_prefix Cas9 --fastp_command fastp --base_editor_output --fastq_r1 inputs/FANC.Cas9.fastq --aln_seed_count 5 --prime_editing_pegRNA_extension_quantification_window_size 5 --base_editor_target_ref_skip_allele_count 0 --needleman_wunsch_gap_incentive 1 --aln_seed_len 10 --flexiguide_seq None --min_paired_end_reads_overlap 10 --exclude_bp_from_right 15 --needleman_wunsch_aln_matrix_loc EDNAFULL --needleman_wunsch_gap_extend -2 --trimmomatic_command None --default_min_aln_score 60 --plot_window_size 20 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --min_average_read_quality 0 --prime_editing_pegRNA_scaffold_min_match_length 1 --max_rows_alleles_around_cut_to_plot 50 --flexiguide_homology 80 --flexiguide_gap_open_penalty -20 --prime_editing_gap_open_penalty -50 --aln_seed_min 2 --verbosity 3 --conversion_nuc_from C --prime_editing_gap_extend_penalty 0 --min_bp_quality_or_N 0 --place_report_in_output_folder --needleman_wunsch_gap_open -20 --debug --quantification_window_center -3 --guide_seq GGAATCCCTTCTGCAGCACC --config_file None --flash_command None</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
