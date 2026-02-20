@@ -4,7 +4,7 @@ import json
 import os
 from shutil import copyfile, copytree
 
-from diff import diff_dir
+from diff import diff_dir, TEXT_SUFFIXES, PDF_SUFFIXES
 
 
 def get_crispresso2_info_path(result_dir):
@@ -126,7 +126,12 @@ def add_test(args):
 
 
 def update_test(args):
-    if not diff_dir(args.actual, args.expected, prompt_to_update=True):
+    has_changes = diff_dir(
+        args.actual, args.expected,
+        suffixes=TEXT_SUFFIXES + PDF_SUFFIXES,
+        prompt_to_update=True,
+    )
+    if not has_changes:
         print('No changes to update!')
 
 

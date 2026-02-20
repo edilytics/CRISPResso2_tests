@@ -23,6 +23,15 @@ make all test
 # Run tests, skip HTML file comparisons
 make all test skip_html
 
+# Run tests with plot comparison (PDF drawing stream text diff)
+make all test diff_plots
+
+# Run tests with image comparison (PNG pixel RMSE, fallback for matplotlib version changes)
+make all test diff_images
+
+# Combine flags
+make all test skip_html diff_plots
+
 # Run a single test
 make basic
 make params
@@ -80,6 +89,8 @@ Makefile                   # Test orchestration
 ## Test Infrastructure Details
 
 - **File comparison** (`diff.py`) normalizes floats to 3 decimals, timestamps, file paths, and bowtie versions for stable comparisons
+- **Plot comparison** (`diff.py --diff_plots`) extracts drawing streams from PDF plots and diffs them as text, showing exact changes to labels, data values, and drawing coordinates. No extra dependencies (uses stdlib `zlib`).
+- **Image comparison** (`diff.py --diff_images`) fallback that compares PNG images using downscaled grayscale RMSE; tolerant of anti-aliasing/font differences for when matplotlib versions change. Requires Pillow and NumPy.
 - **Ignored files**: `*_RUNNING_LOG.txt`, `fastp_report.html`
 - **Performance tracking**: Tests report if runtime changes by >10% from baseline
 - **For better diffs**: `pip install ydiff` provides colorized side-by-side output

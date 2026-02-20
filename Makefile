@@ -1,5 +1,5 @@
 .PHONY: all install test test_cli_integration clean clean_cli_integration \
-	basic params batch pooled wgs compare print update syn-gen-test syn-gen-e2e syn-gen-all
+	basic params batch pooled wgs compare print update diff_plots diff_images syn-gen-test syn-gen-e2e syn-gen-all
 
 CRISPRESSO2_DIR ?= ../CRISPResso2
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*)
@@ -47,6 +47,24 @@ ifdef skip_html
   SKIP_HTML_FLAG := --skip_html
 endif
 
+# Allow diff_plots to work either as a variable or goal
+ifneq ($(filter diff_plots,$(MAKECMDGOALS)),)
+  DIFF_PLOTS_FLAG := --diff_plots
+  MAKECMDGOALS := $(filter-out diff_plots,$(MAKECMDGOALS))
+endif
+ifdef diff_plots
+  DIFF_PLOTS_FLAG := --diff_plots
+endif
+
+# Allow diff_images to work either as a variable or goal (PNG fallback)
+ifneq ($(filter diff_images,$(MAKECMDGOALS)),)
+  DIFF_IMAGES_FLAG := --diff_images
+  MAKECMDGOALS := $(filter-out diff_images,$(MAKECMDGOALS))
+endif
+ifdef diff_images
+  DIFF_IMAGES_FLAG := --diff_images
+endif
+
 define RUN
 if [ "$(filter print, $(MAKECMDGOALS))" != "" ]; then \
  $$cmd; \
@@ -54,7 +72,7 @@ else \
   output=`$$cmd 2>&1` || echo "$$output"; \
 fi && \
 if [ "$(filter test, $(MAKECMDGOALS))" != "" ]; then \
- python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@) $(SKIP_HTML_FLAG); \
+ python ../diff.py $(subst cli_integration_tests/,./,$@) --expected $(subst cli_integration_tests/,./expected_results/,$@) $(SKIP_HTML_FLAG) $(DIFF_PLOTS_FLAG) $(DIFF_IMAGES_FLAG); \
 fi && \
 if [ "$(filter update, $(MAKECMDGOALS))" != "" ]; then \
  python ../test_manager.py update $(subst cli_integration_tests/,./,$@) $(subst cli_integration_tests/,./expected_results/,$@); \
@@ -76,6 +94,15 @@ update:
 	@echo " ";
 
 update-all:
+	@echo " ";
+
+diff_plots:
+	@echo " ";
+
+diff_images:
+	@echo " ";
+
+skip_html:
 	@echo " ";
 
 install: .install_sentinel

@@ -5,11 +5,19 @@ import re
 import sys
 import subprocess
 import tempfile
+import zlib
 from datetime import timedelta
 from difflib import unified_diff
 from pathlib import Path
 from os.path import basename, join, dirname
 from shutil import copyfile
+
+try:
+    from PIL import Image
+    import numpy as np
+    IMAGE_DEPS_AVAILABLE = True
+except ImportError:
+    IMAGE_DEPS_AVAILABLE = False
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
@@ -28,6 +36,19 @@ IGNORE_FILES = frozenset([
     'fastp_report.html',
 ])
 WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
+
+TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
+PDF_SUFFIXES = ('.pdf',)
+
+# PDF stream detection patterns
+PDF_STREAM_REGEXP = re.compile(rb'stream\r?\n(.*?)endstream', re.DOTALL)
+PDF_DRAWING_REGEXP = re.compile(r'\b[mlhfcre]\b|BT|ET|Tj|TJ')
+PDF_FONT_KEYWORDS = ('GDEF', 'cmap', 'CIDInit')
+
+# PNG image comparison constants
+IMAGE_SUFFIXES = ('.png',)
+DEFAULT_IMAGE_THRESHOLD = 0.10  # RMSE threshold (0-1 scale); 0.10 = 10%
+IMAGE_THUMBNAIL_SIZE = (256, 256)  # Downscale target for comparison
 
 
 def which(program):
@@ -99,6 +120,248 @@ def diff(file_a, file_b):
         return list(unified_diff(lines_a, lines_b))
 
 
+def extract_pdf_drawing_streams(path):
+    """Extract drawing/content streams from a matplotlib-generated PDF.
+
+    Decompresses FlateDecode streams and returns only the drawing
+    command streams (coordinates, colors, text), skipping embedded
+    fonts and character maps.
+
+    Parameters
+    ----------
+    path : str or Path
+        Path to the PDF file.
+
+    Returns
+    -------
+    str
+        Concatenated drawing stream text.
+    """
+    with open(path, 'rb') as fh:
+        data = fh.read()
+    drawings = []
+    for m in PDF_STREAM_REGEXP.finditer(data):
+        try:
+            decompressed = zlib.decompress(m.group(1))
+            text = decompressed.decode('latin-1')
+        except Exception:
+            continue
+        # Keep only streams with drawing commands, skip font data
+        if PDF_DRAWING_REGEXP.search(text[:500]) and \
+                not any(kw in text for kw in PDF_FONT_KEYWORDS):
+            drawings.append(text)
+    return '\n'.join(drawings)
+
+
+def diff_pdf(file_a, file_b):
+    """Diff two PDF files by comparing their drawing streams.
+
+    Extracts the drawing/content streams (skipping fonts and metadata),
+    normalizes floats, and returns a unified diff.
+
+    Parameters
+    ----------
+    file_a : str or Path
+        Path to the first PDF (actual).
+    file_b : str or Path
+        Path to the second PDF (expected).
+
+    Returns
+    -------
+    list
+        Unified diff lines, empty if files are identical.
+    """
+    text_a = extract_pdf_drawing_streams(file_a)
+    text_b = extract_pdf_drawing_streams(file_b)
+    lines_a = [substitute_line(line).strip() + '\n' for line in text_a.splitlines()]
+    lines_b = [substitute_line(line).strip() + '\n' for line in text_b.splitlines()]
+    return list(unified_diff(lines_a, lines_b))
+
+
+def diff_image(file_a, file_b, threshold=DEFAULT_IMAGE_THRESHOLD):
+    """Compare two images using downscaled grayscale RMSE.
+
+    Downscales both images to a common thumbnail size and converts to
+    grayscale to smooth out anti-aliasing and font rendering differences
+    across platforms/matplotlib versions. Computes RMSE normalized to
+    [0, 1] as the primary similarity metric.
+
+    Parameters
+    ----------
+    file_a : str or Path
+        Path to the first image (actual).
+    file_b : str or Path
+        Path to the second image (expected).
+    threshold : float
+        RMSE threshold above which images are considered different.
+
+    Returns
+    -------
+    dict
+        Keys: 'is_different' (bool), 'rmse' (float), 'diff_percent' (float),
+        'error' (str or None), 'size_a' (tuple), 'size_b' (tuple).
+    """
+    result = {
+        'is_different': True,
+        'rmse': 1.0,
+        'diff_percent': 100.0,
+        'error': None,
+        'size_a': None,
+        'size_b': None,
+    }
+
+    try:
+        img_a = Image.open(file_a)
+        img_b = Image.open(file_b)
+    except Exception as e:
+        result['error'] = str(e)
+        return result
+
+    result['size_a'] = img_a.size
+    result['size_b'] = img_b.size
+
+    # Convert to grayscale
+    img_a = img_a.convert('L')
+    img_b = img_b.convert('L')
+
+    # Downscale using thumbnail (preserves aspect ratio)
+    img_a.thumbnail(IMAGE_THUMBNAIL_SIZE, Image.LANCZOS)
+    img_b.thumbnail(IMAGE_THUMBNAIL_SIZE, Image.LANCZOS)
+
+    # Resize to identical dimensions (thumbnail may produce slightly
+    # different sizes due to aspect ratio preservation)
+    common_size = (
+        min(img_a.width, img_b.width),
+        min(img_a.height, img_b.height),
+    )
+    if img_a.size != common_size:
+        img_a = img_a.resize(common_size, Image.LANCZOS)
+    if img_b.size != common_size:
+        img_b = img_b.resize(common_size, Image.LANCZOS)
+
+    arr_a = np.array(img_a, dtype=np.float64)
+    arr_b = np.array(img_b, dtype=np.float64)
+
+    # RMSE normalized to [0, 1]
+    rmse = np.sqrt(np.mean((arr_a - arr_b) ** 2)) / 255.0
+
+    # Percentage of pixels differing by more than 10% of the pixel range
+    diff_percent = float(np.mean(np.abs(arr_a - arr_b) > 25.5) * 100)
+
+    result['rmse'] = float(rmse)
+    result['diff_percent'] = diff_percent
+    result['is_different'] = rmse > threshold
+
+    return result
+
+
+def print_image_diff(file_a, file_b, result):
+    """Print a human-readable summary of an image comparison result."""
+    status = '\033[91mDIFFERENT\033[0m' if result['is_different'] else '\033[93mMINOR\033[0m'
+    print('  {status}  RMSE={rmse:.4f}  ({diff_pct:.1f}% pixels differ)  {file}'.format(
+        status=status,
+        rmse=result['rmse'],
+        diff_pct=result['diff_percent'],
+        file=file_a,
+    ))
+    if result['size_a'] != result['size_b']:
+        print('           Size mismatch: actual={0} expected={1}'.format(
+            result['size_a'], result['size_b'],
+        ))
+    if result['error']:
+        print('           Error: {0}'.format(result['error']))
+
+
+def diff_dir_images(actual, expected, threshold=DEFAULT_IMAGE_THRESHOLD,
+                    suffixes=IMAGE_SUFFIXES, prompt_to_update=False):
+    """Compare all PNG images in two directories using RMSE.
+
+    This is a fallback for when matplotlib versions change and PDF
+    stream comparison is too strict. Uses downscaled grayscale RMSE
+    to detect major visual differences while tolerating anti-aliasing
+    and font rendering changes.
+
+    Parameters
+    ----------
+    actual : str
+        Path to directory with actual results.
+    expected : str
+        Path to directory with expected results.
+    threshold : float
+        RMSE threshold for flagging differences.
+    suffixes : tuple
+        Image file extensions to compare.
+    prompt_to_update : bool
+        Whether to prompt user to update differing images.
+
+    Returns
+    -------
+    bool
+        True if any images differ significantly.
+    """
+    if not IMAGE_DEPS_AVAILABLE:
+        print('Pillow and/or NumPy not installed. Skipping image comparison.')
+        print('Install with: pip install Pillow numpy')
+        return False
+
+    files_actual = {
+        f.relative_to(actual): f
+        for f in Path(actual).glob('**/*')
+        if f.suffix in suffixes
+    }
+    files_expected = {
+        f.relative_to(expected): f
+        for f in Path(expected).glob('**/*')
+        if f.suffix in suffixes
+    }
+
+    if not files_actual and not files_expected:
+        return False
+
+    diff_exists = False
+    n_compared = 0
+    n_different = 0
+
+    for file_rel, file_path_actual in sorted(files_actual.items()):
+        if file_rel in files_expected:
+            n_compared += 1
+            result = diff_image(file_path_actual, files_expected[file_rel], threshold)
+            if result['rmse'] > 0.001:  # Skip completely identical images
+                if result['is_different']:
+                    n_different += 1
+                    diff_exists = True
+                    print_image_diff(file_path_actual, files_expected[file_rel], result)
+                    if prompt_to_update:
+                        update_file(str(file_path_actual), str(files_expected[file_rel]))
+                else:
+                    # Minor difference, just note it (don't fail)
+                    print_image_diff(file_path_actual, files_expected[file_rel], result)
+        else:
+            print('New image in Actual ({0}) not found in Expected ({1})'.format(
+                file_rel, expected,
+            ))
+            diff_exists = True
+            if prompt_to_update:
+                update_file(str(file_path_actual), str(join(expected, file_rel)))
+
+    for file_rel in sorted(files_expected.keys()):
+        if file_rel not in files_actual:
+            print('Missing image {0} from Actual ({1})'.format(file_rel, actual))
+            diff_exists = True
+            if prompt_to_update:
+                remove_file(str(join(expected, file_rel)))
+
+    # Summary
+    if n_compared > 0:
+        print('\nImage comparison summary: {compared} compared, {different} significantly different (threshold={threshold})'.format(
+            compared=n_compared,
+            different=n_different,
+            threshold=threshold,
+        ))
+
+    return diff_exists
+
+
 def print_diff(diff_results):
     if YDIFF_INSTALLED:
         with tempfile.NamedTemporaryFile(mode='w') as fh:
@@ -135,7 +398,7 @@ def remove_file(file_path):
     os.remove(file_path)
 
 
-def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam', '.vcf'), prompt_to_update=False):
+def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
     files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
@@ -143,7 +406,10 @@ def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam', '.vcf'), promp
         if basename(file_basename_actual) in IGNORE_FILES:
             continue
         if file_basename_actual in files_expected:
-            diff_results = diff(file_path_actual, files_expected[file_basename_actual])
+            if file_path_actual.suffix in PDF_SUFFIXES:
+                diff_results = diff_pdf(file_path_actual, files_expected[file_basename_actual])
+            else:
+                diff_results = diff(file_path_actual, files_expected[file_basename_actual])
             if diff_results:
                 print('Comparing {0} to {1}'.format(
                     file_path_actual, files_expected[file_basename_actual],
@@ -245,6 +511,30 @@ if __name__ == '__main__':
         action="store_true",
         help='Whether to skip comparisons of html files.'
     )
+    parser.add_argument(
+        '--diff_plots',
+        default=False,
+        action="store_true",
+        help='Whether to compare plot PDFs between actual and expected results.'
+        ' Extracts drawing streams from PDFs and diffs them as text.',
+    )
+    parser.add_argument(
+        '--diff_images',
+        default=False,
+        action="store_true",
+        help='Whether to compare plot images (PNG files) between actual and'
+        ' expected results using pixel RMSE. Useful as a fallback when'
+        ' matplotlib versions change and PDF streams differ too much.'
+        ' Requires Pillow and NumPy.',
+    )
+    parser.add_argument(
+        '--image_threshold',
+        default=DEFAULT_IMAGE_THRESHOLD,
+        type=float,
+        help='RMSE threshold (0-1) for image comparison. Images with RMSE above'
+        ' this are flagged as significantly different. Lower values are stricter.'
+        ' The default is `{0}`.'.format(DEFAULT_IMAGE_THRESHOLD),
+    )
 
     args = parser.parse_args()
 
@@ -256,10 +546,20 @@ if __name__ == '__main__':
     diff_running_times(
         args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    diff_suffixes=('.txt', '.html', '.sam', '.vcf')
+    diff_suffixes = ('.txt', '.html', '.sam', '.vcf')
     if args.skip_html:
         diff_suffixes = ('.txt', '.sam', '.vcf')
+    if args.diff_plots:
+        diff_suffixes = diff_suffixes + PDF_SUFFIXES
 
-    if diff_dir(args.actual, expected, suffixes=diff_suffixes):
+    has_diff = diff_dir(args.actual, expected, suffixes=diff_suffixes)
+
+    if args.diff_images:
+        has_image_diff = diff_dir_images(
+            args.actual, expected, threshold=args.image_threshold,
+        )
+        has_diff |= has_image_diff
+
+    if has_diff:
         sys.exit(1)
     sys.exit(0)
