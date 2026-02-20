@@ -25,6 +25,18 @@ HTML_SUFFIXES = ('.html',)
 
 def pytest_addoption(parser):
     parser.addoption(
+        '--test',
+        action='store_true',
+        default=False,
+        help='Enable diff checking against expected results.',
+    )
+    parser.addoption(
+        '--print',
+        action='store_true',
+        default=False,
+        help='Print command output (stdout/stderr) for each test.',
+    )
+    parser.addoption(
         '--with-coverage',
         action='store_true',
         default=False,
@@ -64,6 +76,11 @@ def cli_test_dir():
 
 
 @pytest.fixture(scope='session')
+def check_diffs(request):
+    return request.config.getoption('--test')
+
+
+@pytest.fixture(scope='session')
 def skip_html(request):
     return request.config.getoption('--skip-html')
 
@@ -71,6 +88,7 @@ def skip_html(request):
 @pytest.fixture(scope='session')
 def run_crispresso(request, cli_test_dir):
     with_coverage = request.config.getoption('--with-coverage')
+    print_output = request.config.getoption('--print')
 
     def _run(cmd):
         if with_coverage:
@@ -83,13 +101,21 @@ def run_crispresso(request, cli_test_dir):
                     f'coverage run --parallel-mode --rcfile={coveragerc}'
                     f' -m {module} -- {rest}'
                 )
-        result = subprocess.run(
-            cmd,
-            shell=True,
-            cwd=str(cli_test_dir),
-            capture_output=True,
-            text=True,
-        )
+        if print_output:
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                cwd=str(cli_test_dir),
+                text=True,
+            )
+        else:
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                cwd=str(cli_test_dir),
+                capture_output=True,
+                text=True,
+            )
         return result
 
     return _run

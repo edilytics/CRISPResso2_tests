@@ -490,18 +490,19 @@ def _make_params():
 
 
 @pytest.mark.parametrize('test_case', _make_params())
-def test_crispresso_cli(test_case, run_crispresso, assert_no_diff, cli_test_dir):
+def test_crispresso_cli(test_case, run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     result = run_crispresso(test_case.full_cmd)
     assert result.returncode == 0, (
         f'{test_case.id} command failed (exit code {result.returncode}):\n'
         f'{result.stderr}'
     )
-    actual = cli_test_dir / test_case.output_dir
-    assert_no_diff(actual)
+    if check_diffs:
+        actual = cli_test_dir / test_case.output_dir
+        assert_no_diff(actual)
 
 
 @pytest.mark.compare
-def test_compare(run_crispresso, assert_no_diff, cli_test_dir):
+def test_compare(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     """CRISPRessoCompare — requires batch output from test_crispresso_cli[batch]."""
     batch_dir = cli_test_dir / 'CRISPRessoBatch_on_FANC'
     if not batch_dir.exists():
@@ -515,11 +516,12 @@ def test_compare(run_crispresso, assert_no_diff, cli_test_dir):
         f'compare command failed (exit code {result.returncode}):\n'
         f'{result.stderr}'
     )
-    assert_no_diff(cli_test_dir / 'CRISPRessoCompare_on_Cas9_VS_Untreated')
+    if check_diffs:
+        assert_no_diff(cli_test_dir / 'CRISPRessoCompare_on_Cas9_VS_Untreated')
 
 
 @pytest.mark.aggregate
-def test_aggregate(run_crispresso, assert_no_diff, cli_test_dir):
+def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     """CRISPRessoAggregate — requires batch output from test_crispresso_cli[batch]."""
     batch_dir = cli_test_dir / 'CRISPRessoBatch_on_FANC'
     if not batch_dir.exists():
@@ -533,4 +535,5 @@ def test_aggregate(run_crispresso, assert_no_diff, cli_test_dir):
         f'aggregate command failed (exit code {result.returncode}):\n'
         f'{result.stderr}'
     )
-    assert_no_diff(cli_test_dir / 'CRISPRessoAggregate_on_aggregate')
+    if check_diffs:
+        assert_no_diff(cli_test_dir / 'CRISPRessoAggregate_on_aggregate')
