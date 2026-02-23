@@ -1,4 +1,4 @@
-.PHONY: all install test print update update-all skip_html diff_plots diff_images clean clean_cli_integration \
+.PHONY: all install test print update update-all skip_html diff_plots approx clean clean_cli_integration \
 	basic params batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
@@ -41,11 +41,11 @@ endif
 ifdef diff_plots
   PYTEST_FLAGS += --diff-plots
 endif
-ifneq ($(filter diff_images,$(MAKECMDGOALS)),)
-  PYTEST_FLAGS += --diff-images
+ifneq ($(filter approx,$(MAKECMDGOALS)),)
+  PYTEST_FLAGS += --approx
 endif
-ifdef diff_images
-  PYTEST_FLAGS += --diff-images
+ifdef approx
+  PYTEST_FLAGS += --approx
 endif
 
 # $(1): pytest node ID  (e.g. test_crispresso_cli[basic])
@@ -68,7 +68,7 @@ skip_html:
 
 diff_plots:
 	@:
-diff_images:
+approx:
 	@:
 
 # ── Top-level targets ───────────────────────────────────────────────

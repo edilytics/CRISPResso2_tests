@@ -49,6 +49,20 @@ def pytest_addoption(parser):
         help='Skip HTML file comparisons (useful for quick local iteration).',
     )
     parser.addoption(
+        '--diff-plots',
+        action='store_true',
+        default=False,
+        help='Compare plot PDFs by extracting drawing streams and diffing as text.'
+        ' Add --approx for fuzzy PNG comparison instead (for matplotlib version changes).',
+    )
+    parser.addoption(
+        '--approx',
+        action='store_true',
+        default=False,
+        help='Use approximate PNG image comparison instead of exact PDF stream diff.'
+        ' Only meaningful with --diff-plots. Requires Pillow and NumPy.',
+    )
+    parser.addoption(
         '--pro',
         action='store_true',
         default=False,
@@ -122,7 +136,17 @@ def run_crispresso(request, cli_test_dir):
 
 
 @pytest.fixture(scope='session')
-def assert_no_diff(pro_installed, skip_html, cli_test_dir):
+def diff_plots(request):
+    return request.config.getoption('--diff-plots')
+
+
+@pytest.fixture(scope='session')
+def approx(request):
+    return request.config.getoption('--approx')
+
+
+@pytest.fixture(scope='session')
+def assert_no_diff(pro_installed, skip_html, diff_plots, approx, cli_test_dir):
     expected_results = cli_test_dir / 'expected_results'
     expected_results_pro = cli_test_dir / 'expected_results_pro'
 
@@ -134,10 +158,15 @@ def assert_no_diff(pro_installed, skip_html, cli_test_dir):
         expected_data = expected_results / test_name
         if not expected_data.exists():
             pytest.skip(f'Expected results not found: {expected_data}')
+
+        data_suffixes = DATA_SUFFIXES
+        if diff_plots and not approx:
+            data_suffixes = data_suffixes + diff.PDF_SUFFIXES
+
         has_diff |= diff.diff_dir(
             str(actual_dir),
             str(expected_data),
-            suffixes=DATA_SUFFIXES,
+            suffixes=data_suffixes,
         )
 
         # HTML files
@@ -154,6 +183,13 @@ def assert_no_diff(pro_installed, skip_html, cli_test_dir):
                 str(actual_dir),
                 str(expected_html),
                 suffixes=HTML_SUFFIXES,
+            )
+
+        # Approximate PNG image comparison (fuzzy fallback)
+        if diff_plots and approx:
+            has_diff |= diff.diff_dir_images(
+                str(actual_dir),
+                str(expected_data),
             )
 
         assert not has_diff, (

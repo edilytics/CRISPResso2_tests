@@ -523,20 +523,19 @@ if __name__ == '__main__':
         ' Extracts drawing streams from PDFs and diffs them as text.',
     )
     parser.add_argument(
-        '--diff_images',
+        '--approx',
         default=False,
         action="store_true",
-        help='Whether to compare plot images (PNG files) between actual and'
-        ' expected results using pixel RMSE. Useful as a fallback when'
-        ' matplotlib versions change and PDF streams differ too much.'
-        ' Requires Pillow and NumPy.',
+        help='Use approximate PNG image comparison instead of exact PDF stream'
+        ' diff. Only meaningful with --diff_plots. Useful as a fallback when'
+        ' matplotlib versions change. Requires Pillow and NumPy.',
     )
     parser.add_argument(
         '--image_threshold',
         default=DEFAULT_IMAGE_THRESHOLD,
         type=float,
-        help='RMSE threshold (0-1) for image comparison. Images with RMSE above'
-        ' this are flagged as significantly different. Lower values are stricter.'
+        help='RMSE threshold (0-1) for --approx image comparison. Images with'
+        ' RMSE above this are flagged as significantly different.'
         ' The default is `{0}`.'.format(DEFAULT_IMAGE_THRESHOLD),
     )
 
@@ -553,12 +552,12 @@ if __name__ == '__main__':
     diff_suffixes = ('.txt', '.html', '.sam', '.vcf')
     if args.skip_html:
         diff_suffixes = ('.txt', '.sam', '.vcf')
-    if args.diff_plots:
+    if args.diff_plots and not args.approx:
         diff_suffixes = diff_suffixes + PDF_SUFFIXES
 
     has_diff = diff_dir(args.actual, expected, suffixes=diff_suffixes)
 
-    if args.diff_images:
+    if args.diff_plots and args.approx:
         has_image_diff = diff_dir_images(
             args.actual, expected, threshold=args.image_threshold,
         )
