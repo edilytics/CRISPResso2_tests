@@ -13,7 +13,7 @@ from os.path import basename, join, dirname
 from shutil import copyfile
 
 try:
-    from PIL import Image
+    from PIL import Image, ImageFilter
     import numpy as np
     IMAGE_DEPS_AVAILABLE = True
 except ImportError:
@@ -51,6 +51,7 @@ PDF_FONT_KEYWORDS = ('GDEF', 'cmap', 'CIDInit')
 IMAGE_SUFFIXES = ('.png',)
 DEFAULT_IMAGE_THRESHOLD = 0.10  # RMSE threshold (0-1 scale); 0.10 = 10%
 IMAGE_THUMBNAIL_SIZE = (256, 256)  # Downscale target for comparison
+IMAGE_BLUR_RADIUS = 1  # Gaussian blur to smooth anti-aliasing / font noise
 
 
 def which(program):
@@ -223,24 +224,24 @@ def diff_image(file_a, file_b, threshold=DEFAULT_IMAGE_THRESHOLD):
     result['size_a'] = img_a.size
     result['size_b'] = img_b.size
 
-    # Convert to grayscale
-    img_a = img_a.convert('L')
-    img_b = img_b.convert('L')
+    # Normalize to the same dimensions so that slight size differences
+    # (from font metrics / DPI across matplotlib versions) don't cause
+    # pixel-level misalignment after thumbnailing.
+    common_full = (
+        max(img_a.width, img_b.width),
+        max(img_a.height, img_b.height),
+    )
+    img_a = img_a.convert('L').resize(common_full, Image.LANCZOS)
+    img_b = img_b.convert('L').resize(common_full, Image.LANCZOS)
 
-    # Downscale using thumbnail (preserves aspect ratio)
+    # Downscale to thumbnail
     img_a.thumbnail(IMAGE_THUMBNAIL_SIZE, Image.LANCZOS)
     img_b.thumbnail(IMAGE_THUMBNAIL_SIZE, Image.LANCZOS)
 
-    # Resize to identical dimensions (thumbnail may produce slightly
-    # different sizes due to aspect ratio preservation)
-    common_size = (
-        min(img_a.width, img_b.width),
-        min(img_a.height, img_b.height),
-    )
-    if img_a.size != common_size:
-        img_a = img_a.resize(common_size, Image.LANCZOS)
-    if img_b.size != common_size:
-        img_b = img_b.resize(common_size, Image.LANCZOS)
+    # Light Gaussian blur to smooth out anti-aliasing and font-rendering
+    # noise that differs across platforms / matplotlib versions.
+    img_a = img_a.filter(ImageFilter.GaussianBlur(IMAGE_BLUR_RADIUS))
+    img_b = img_b.filter(ImageFilter.GaussianBlur(IMAGE_BLUR_RADIUS))
 
     arr_a = np.array(img_a, dtype=np.float64)
     arr_b = np.array(img_b, dtype=np.float64)
