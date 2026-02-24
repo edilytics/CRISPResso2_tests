@@ -192,5 +192,7 @@ cli_integration_tests/CRISPResso_on_vcf-base-edit-cbe*
 cli_integration_tests/CRISPResso_on_vcf-base-edit-abe*
 
 cli_integration_tests/CRISPResso_on_vcf-prime-edit-basic*
+
+cli_integration_tests/CRISPResso_on_pro-smoke-single-plot*
 # Git worktrees
 .worktrees/
