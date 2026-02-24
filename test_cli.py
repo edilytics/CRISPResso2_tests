@@ -1,4 +1,5 @@
 """CLI integration tests for CRISPResso2, migrated from the Makefile."""
+import re
 from dataclasses import dataclass, field
 from typing import List
 
@@ -537,3 +538,42 @@ def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     )
     if check_diffs:
         assert_no_diff(cli_test_dir / 'CRISPRessoAggregate_on_aggregate')
+
+
+@pytest.mark.pro_only
+def test_pro_smoke_single_plot(run_crispresso, cli_test_dir):
+    """Smoke test: --report_config disables all plots except read_barplot.
+
+    Verifies that the Pro report pipeline respects the config file by
+    checking that the generated HTML contains exactly one <img> tag,
+    and it's the read barplot.
+    """
+    cmd = ' '.join([
+        'CRISPResso',
+        '-r1 inputs/FANC.Cas9.fastq',
+        '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
+        '-g GGAATCCCTTCTGCAGCACC',
+        '-n pro-smoke-single-plot',
+        '--report_config inputs/smoke_single_plot_config.json',
+        '--use_matplotlib',
+    ] + COMMON_FLAGS)
+
+    result = run_crispresso(cmd)
+    assert result.returncode == 0, (
+        f'pro-smoke-single-plot command failed (exit code {result.returncode}):\n'
+        f'{result.stderr}'
+    )
+
+    # Read the generated report HTML
+    report_path = cli_test_dir / 'CRISPResso_on_pro-smoke-single-plot' / 'CRISPResso2_report.html'
+    assert report_path.exists(), f'Report not found at {report_path}'
+    html = report_path.read_text(encoding='utf-8')
+
+    # Find all <img src="..."> tags
+    img_tags = re.findall(r'<img\s+src="([^"]+)"', html)
+    assert len(img_tags) == 1, (
+        f'Expected exactly 1 <img> tag, found {len(img_tags)}: {img_tags}'
+    )
+    assert '1a.Read_barplot.png' in img_tags[0], (
+        f'Expected read barplot image, got: {img_tags[0]}'
+    )
