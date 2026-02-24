@@ -44,7 +44,6 @@ PDF_SUFFIXES = ('.pdf',)
 
 # PDF stream detection patterns
 PDF_STREAM_REGEXP = re.compile(rb'stream\r?\n(.*?)endstream', re.DOTALL)
-PDF_DRAWING_REGEXP = re.compile(r'\b[mlhfcre]\b|BT|ET|Tj|TJ')
 PDF_FONT_KEYWORDS = ('GDEF', 'cmap', 'CIDInit')
 
 # PNG image comparison constants
@@ -124,12 +123,14 @@ def diff(file_a, file_b):
         return list(unified_diff(lines_a, lines_b))
 
 
-def extract_pdf_drawing_streams(path):
-    """Extract drawing/content streams from a matplotlib-generated PDF.
+def extract_pdf_text(path):
+    """Extract human-readable text strings from a matplotlib-generated PDF.
 
-    Decompresses FlateDecode streams and returns only the drawing
-    command streams (coordinates, colors, text), skipping embedded
-    fonts and character maps.
+    Decompresses FlateDecode streams, finds text rendering commands
+    (Tj and TJ operators), and extracts the text content.  Normalizes
+    the inter-character spacing that matplotlib uses (``H e l l o`` →
+    ``Hello``) so that different PDF encodings of the same text produce
+    identical output.
 
     Parameters
     ----------
@@ -138,30 +139,45 @@ def extract_pdf_drawing_streams(path):
 
     Returns
     -------
-    str
-        Concatenated drawing stream text.
+    list of str
+        Ordered list of text strings found in the PDF.
     """
     with open(path, 'rb') as fh:
         data = fh.read()
-    drawings = []
+    texts = []
     for m in PDF_STREAM_REGEXP.finditer(data):
         try:
             decompressed = zlib.decompress(m.group(1))
-            text = decompressed.decode('latin-1')
+            stream = decompressed.decode('latin-1')
         except Exception:
             continue
-        # Keep only streams with drawing commands, skip font data
-        if PDF_DRAWING_REGEXP.search(text[:500]) and \
-                not any(kw in text for kw in PDF_FONT_KEYWORDS):
-            drawings.append(text)
-    return '\n'.join(drawings)
+        # Skip font / character-map streams
+        if any(kw in stream for kw in PDF_FONT_KEYWORDS):
+            continue
+        for line in stream.splitlines():
+            if 'Tj' not in line and 'TJ' not in line:
+                continue
+            # Extract all parenthesized strings on this line,
+            # handling escaped parens \( and \) inside strings.
+            parts = re.findall(r'\(((?:[^\\)]|\\.)*)\)', line)
+            raw = ''.join(parts)
+            # Strip null bytes from UTF-16 encoded text (decoded as
+            # latin-1, each char appears as \x00 + ASCII byte)
+            raw = raw.replace('\x00', '')
+            # Unescape PDF string escapes
+            raw = raw.replace('\\(', '(').replace('\\)', ')')
+            text = raw.strip()
+            if text:
+                texts.append(text)
+    return texts
 
 
 def diff_pdf(file_a, file_b):
-    """Diff two PDF files by comparing their drawing streams.
+    """Diff two PDF files by comparing their text content.
 
-    Extracts the drawing/content streams (skipping fonts and metadata),
-    normalizes floats, and returns a unified diff.
+    Extracts text strings from PDF drawing streams (axis labels, titles,
+    legend entries, data values) and diffs them.  Drawing coordinates are
+    ignored — use PNG RMSE comparison for visual layout differences.
 
     Parameters
     ----------
@@ -173,12 +189,12 @@ def diff_pdf(file_a, file_b):
     Returns
     -------
     list
-        Unified diff lines, empty if files are identical.
+        Unified diff lines, empty if text content is identical.
     """
-    text_a = extract_pdf_drawing_streams(file_a)
-    text_b = extract_pdf_drawing_streams(file_b)
-    lines_a = [substitute_line(line).strip() + '\n' for line in text_a.splitlines()]
-    lines_b = [substitute_line(line).strip() + '\n' for line in text_b.splitlines()]
+    texts_a = extract_pdf_text(file_a)
+    texts_b = extract_pdf_text(file_b)
+    lines_a = [t + '\n' for t in texts_a]
+    lines_b = [t + '\n' for t in texts_b]
     return list(unified_diff(lines_a, lines_b))
 
 
