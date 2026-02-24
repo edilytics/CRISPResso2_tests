@@ -382,6 +382,207 @@ def diff_dir_images(actual, expected, threshold=DEFAULT_IMAGE_THRESHOLD,
     return diff_exists
 
 
+def generate_plot_comparison_html(actual_dir, expected_dir):
+    """Generate an HTML page comparing plots with differences side-by-side.
+
+    For each plot that has a PDF text diff or any PNG pixel difference,
+    shows actual and expected PNGs side-by-side with the text diff below.
+
+    Parameters
+    ----------
+    actual_dir : str or Path
+        Directory with actual results.
+    expected_dir : str or Path
+        Directory with expected results.
+
+    Returns
+    -------
+    str or None
+        Path to the generated HTML file, or None if no differences found.
+    """
+    import base64
+    import platform
+
+    actual_dir = Path(actual_dir)
+    expected_dir = Path(expected_dir)
+
+    actual_pngs = {f.relative_to(actual_dir): f for f in actual_dir.glob('**/*.png')}
+    expected_pngs = {f.relative_to(expected_dir): f for f in expected_dir.glob('**/*.png')}
+    actual_pdfs = {f.relative_to(actual_dir): f for f in actual_dir.glob('**/*.pdf')}
+    expected_pdfs = {f.relative_to(expected_dir): f for f in expected_dir.glob('**/*.pdf')}
+
+    # Collect all unique plot stems (filename without extension).
+    # Use string manipulation because Path.with_suffix breaks on
+    # filenames with multiple dots like "4a.Combined_insertion...".
+    def _stem(rel):
+        s = str(rel)
+        return s[:s.rfind('.')] if '.' in s else s
+
+    stems = set()
+    for rel in list(actual_pngs) + list(expected_pngs) + list(actual_pdfs) + list(expected_pdfs):
+        stems.add(_stem(rel))
+
+    comparisons = []
+    for stem in sorted(stems):
+        png_rel = Path(stem + '.png')
+        pdf_rel = Path(stem + '.pdf')
+
+        pdf_diff_lines = []
+        significant = False
+
+        # PDF text diff
+        if pdf_rel in actual_pdfs and pdf_rel in expected_pdfs:
+            pdf_diff_lines = diff_pdf(actual_pdfs[pdf_rel], expected_pdfs[pdf_rel])
+            if pdf_diff_lines:
+                significant = True
+
+        # PNG pixel diff
+        image_result = None
+        if IMAGE_DEPS_AVAILABLE and png_rel in actual_pngs and png_rel in expected_pngs:
+            image_result = diff_image(actual_pngs[png_rel], expected_pngs[png_rel])
+            if image_result['is_different']:
+                significant = True
+
+        # Missing files
+        if png_rel in actual_pngs and png_rel not in expected_pngs:
+            significant = True
+        if png_rel not in actual_pngs and png_rel in expected_pngs:
+            significant = True
+
+        if not significant:
+            continue
+
+        def encode_png(path):
+            with open(path, 'rb') as f:
+                return base64.b64encode(f.read()).decode()
+
+        comparisons.append({
+            'name': str(stem),
+            'actual_png': encode_png(actual_pngs[png_rel]) if png_rel in actual_pngs else None,
+            'expected_png': encode_png(expected_pngs[png_rel]) if png_rel in expected_pngs else None,
+            'pdf_diff': pdf_diff_lines,
+            'image_result': image_result,
+        })
+
+    if not comparisons:
+        return None
+
+    # Build HTML
+    test_name = actual_dir.name
+    sections = []
+    for comp in comparisons:
+        # Images
+        if comp['actual_png']:
+            actual_img = '<img src="data:image/png;base64,{0}" />'.format(comp['actual_png'])
+        else:
+            actual_img = '<div class="missing">Not found</div>'
+        if comp['expected_png']:
+            expected_img = '<img src="data:image/png;base64,{0}" />'.format(comp['expected_png'])
+        else:
+            expected_img = '<div class="missing">Not found</div>'
+
+        # Stats
+        stats = ''
+        if comp['image_result']:
+            r = comp['image_result']
+            stats = 'RMSE={rmse:.4f} &middot; {pct:.1f}% pixels differ'.format(
+                rmse=r['rmse'], pct=r['diff_percent'],
+            )
+            if r['size_a'] != r['size_b']:
+                stats += ' &middot; size mismatch: {0} vs {1}'.format(r['size_a'], r['size_b'])
+
+        # PDF text diff
+        diff_html = ''
+        if comp['pdf_diff']:
+            diff_lines = []
+            for line in comp['pdf_diff']:
+                escaped = line.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').rstrip('\n')
+                if escaped.startswith('+') and not escaped.startswith('+++'):
+                    diff_lines.append('<span class="added">{0}</span>'.format(escaped))
+                elif escaped.startswith('-') and not escaped.startswith('---'):
+                    diff_lines.append('<span class="removed">{0}</span>'.format(escaped))
+                elif escaped.startswith('@@'):
+                    diff_lines.append('<span class="hunk">{0}</span>'.format(escaped))
+                else:
+                    diff_lines.append(escaped)
+            diff_html = '<div class="diff-block">{0}</div>'.format('\n'.join(diff_lines))
+
+        sections.append("""
+        <div class="comparison">
+            <h2>{name}</h2>
+            <div class="images">
+                <div class="image-panel">
+                    <h3>Actual</h3>
+                    {actual}
+                </div>
+                <div class="image-panel">
+                    <h3>Expected</h3>
+                    {expected}
+                </div>
+            </div>
+            {stats}
+            {diff}
+        </div>""".format(
+            name=comp['name'],
+            actual=actual_img,
+            expected=expected_img,
+            stats='<div class="stats">{0}</div>'.format(stats) if stats else '',
+            diff=diff_html,
+        ))
+
+    html = """<!DOCTYPE html>
+<html><head>
+<title>Plot Comparison: {test_name}</title>
+<style>
+    body {{ font-family: system-ui, -apple-system, sans-serif; margin: 20px; background: #f5f5f5; }}
+    h1 {{ color: #333; }}
+    .summary {{ color: #666; margin-bottom: 24px; }}
+    .comparison {{ background: white; margin: 20px 0; padding: 20px; border-radius: 8px;
+                   box-shadow: 0 1px 3px rgba(0,0,0,0.12); }}
+    .comparison h2 {{ margin-top: 0; color: #333; font-size: 16px; font-family: monospace;
+                      word-break: break-all; }}
+    .images {{ display: flex; gap: 20px; }}
+    .image-panel {{ flex: 1; min-width: 0; }}
+    .image-panel img {{ max-width: 100%; border: 1px solid #ddd; border-radius: 4px; }}
+    .image-panel h3 {{ margin: 0 0 8px; color: #666; font-size: 14px; }}
+    .diff-block {{ background: #1e1e1e; color: #d4d4d4; padding: 12px; border-radius: 4px;
+                   margin-top: 16px; font-family: monospace; font-size: 13px;
+                   white-space: pre-wrap; overflow-x: auto; line-height: 1.5; }}
+    .diff-block .added {{ color: #4ec9b0; }}
+    .diff-block .removed {{ color: #f44747; }}
+    .diff-block .hunk {{ color: #569cd6; }}
+    .stats {{ color: #888; font-size: 13px; margin-top: 12px; }}
+    .missing {{ color: #f44747; font-style: italic; padding: 40px; text-align: center;
+                border: 2px dashed #f44747; border-radius: 4px; }}
+</style>
+</head><body>
+    <h1>Plot Comparison: {test_name}</h1>
+    <p class="summary">{n} plot(s) with differences &middot; {actual_dir} vs {expected_dir}</p>
+    {sections}
+</body></html>""".format(
+        test_name=test_name,
+        n=len(comparisons),
+        actual_dir=actual_dir,
+        expected_dir=expected_dir,
+        sections='\n'.join(sections),
+    )
+
+    output_dir = Path(tempfile.mkdtemp())
+    output_path = output_dir / 'plot_comparison_{0}.html'.format(test_name)
+    with open(output_path, 'w') as f:
+        f.write(html)
+
+    print('\nPlot comparison: {0}'.format(output_path))
+
+    # Open in browser
+    if platform.system() == 'Darwin':
+        subprocess.Popen(['open', str(output_path)])
+    elif platform.system() == 'Linux':
+        subprocess.Popen(['xdg-open', str(output_path)])
+
+    return str(output_path)
+
+
 def print_diff(diff_results):
     if YDIFF_INSTALLED:
         with tempfile.NamedTemporaryFile(mode='w') as fh:

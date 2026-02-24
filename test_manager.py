@@ -5,7 +5,7 @@ import os
 import re
 from shutil import copyfile, copytree
 
-from diff import diff_dir, TEXT_SUFFIXES, PDF_SUFFIXES
+from diff import diff_dir, generate_plot_comparison_html, TEXT_SUFFIXES, PDF_SUFFIXES
 
 
 COMMON_FLAGS = {'--place_report_in_output_folder', '--halt_on_plot_fail', '--debug'}
@@ -238,6 +238,8 @@ def add_test(args):
 
 
 def update_test(args):
+    if args.diff_plots:
+        generate_plot_comparison_html(args.actual, args.expected)
     has_changes = diff_dir(
         args.actual, args.expected,
         suffixes=TEXT_SUFFIXES + PDF_SUFFIXES,
@@ -260,6 +262,8 @@ if __name__ == '__main__':
     parser_update.set_defaults(func=update_test)
     parser_update.add_argument('actual', help='Path to the result directory of the test to update')
     parser_update.add_argument('expected', help='Path to the expected result directory of the test to update')
+    parser_update.add_argument('--diff-plots', dest='diff_plots', action='store_true', default=False,
+                               help='Open a visual plot comparison in the browser before prompting for updates')
 
     args = parser.parse_args()
     args.func(args)
