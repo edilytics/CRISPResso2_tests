@@ -1,4 +1,4 @@
-.PHONY: all install test print update update-all skip_html clean clean_cli_integration \
+.PHONY: all install test print update update-all skip_html diff_plots clean clean_cli_integration \
 	basic params batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
@@ -35,10 +35,20 @@ ifdef skip_html
   PYTEST_FLAGS += --skip-html
 endif
 
+ifneq ($(filter diff_plots,$(MAKECMDGOALS)),)
+  PYTEST_FLAGS += --diff-plots
+  DIFF_PLOTS_FLAG := --diff-plots
+endif
+ifdef diff_plots
+  PYTEST_FLAGS += --diff-plots
+  DIFF_PLOTS_FLAG := --diff-plots
+endif
+
+
 # $(1): pytest node ID  (e.g. test_crispresso_cli[basic])
 # $(2): output dir name (e.g. CRISPResso_on_FANC.Cas9)
 define PYTEST_RUN
-pytest "test_cli.py::$(1)" $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && python test_manager.py update cli_integration_tests/$(2) cli_integration_tests/expected_results/$(2))$(if $(filter update-all,$(MAKECMDGOALS)), && yes | python test_manager.py update cli_integration_tests/$(2) cli_integration_tests/expected_results/$(2))
+pytest "test_cli.py::$(1)" $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && python test_manager.py update cli_integration_tests/$(2) cli_integration_tests/expected_results/$(2) $(DIFF_PLOTS_FLAG))$(if $(filter update-all,$(MAKECMDGOALS)), && yes | python test_manager.py update cli_integration_tests/$(2) cli_integration_tests/expected_results/$(2) $(DIFF_PLOTS_FLAG))
 endef
 
 # ── Goal-only targets (used as flags, not real builds) ───────────────
@@ -51,6 +61,9 @@ update:
 update-all:
 	@:
 skip_html:
+	@:
+
+diff_plots:
 	@:
 
 # ── Top-level targets ───────────────────────────────────────────────
