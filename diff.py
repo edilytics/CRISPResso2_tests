@@ -167,7 +167,7 @@ def diff_dir(actual, expected, suffixes=('.txt', '.html', '.sam', '.vcf'), promp
     for file_basename_expected in files_expected.keys():
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
-            if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+            if not WARNING_FILE_REGEXP.search(str(file_basename_expected)):
                 diff_exists |= True
             if prompt_to_update:
                 remove_file(join(expected, file_basename_expected))
