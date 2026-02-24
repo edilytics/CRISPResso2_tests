@@ -52,15 +52,9 @@ def pytest_addoption(parser):
         '--diff-plots',
         action='store_true',
         default=False,
-        help='Compare plot PDFs by extracting drawing streams and diffing as text.'
-        ' Add --approx for fuzzy PNG comparison instead (for matplotlib version changes).',
-    )
-    parser.addoption(
-        '--approx',
-        action='store_true',
-        default=False,
-        help='Use approximate PNG image comparison instead of exact PDF stream diff.'
-        ' Only meaningful with --diff-plots. Requires Pillow and NumPy.',
+        help='Compare plots between actual and expected results.'
+        ' PDFs are diffed as text (drawing streams); PNGs are compared'
+        ' using approximate RMSE (tolerant of rendering differences).',
     )
     parser.addoption(
         '--pro',
@@ -141,12 +135,7 @@ def diff_plots(request):
 
 
 @pytest.fixture(scope='session')
-def approx(request):
-    return request.config.getoption('--approx')
-
-
-@pytest.fixture(scope='session')
-def assert_no_diff(pro_installed, skip_html, diff_plots, approx, cli_test_dir):
+def assert_no_diff(pro_installed, skip_html, diff_plots, cli_test_dir):
     expected_results = cli_test_dir / 'expected_results'
     expected_results_pro = cli_test_dir / 'expected_results_pro'
 
@@ -160,7 +149,7 @@ def assert_no_diff(pro_installed, skip_html, diff_plots, approx, cli_test_dir):
             pytest.skip(f'Expected results not found: {expected_data}')
 
         data_suffixes = DATA_SUFFIXES
-        if diff_plots and not approx:
+        if diff_plots:
             data_suffixes = data_suffixes + diff.PDF_SUFFIXES
 
         has_diff |= diff.diff_dir(
@@ -185,8 +174,8 @@ def assert_no_diff(pro_installed, skip_html, diff_plots, approx, cli_test_dir):
                 suffixes=HTML_SUFFIXES,
             )
 
-        # Approximate PNG image comparison (fuzzy fallback)
-        if diff_plots and approx:
+        # Approximate PNG image comparison
+        if diff_plots:
             has_diff |= diff.diff_dir_images(
                 str(actual_dir),
                 str(expected_data),
