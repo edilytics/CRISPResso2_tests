@@ -507,9 +507,21 @@ def generate_plot_comparison_html(actual_dir, expected_dir):
                     diff_lines.append(escaped)
             diff_html = '<div class="diff-block">{0}</div>'.format('\n'.join(diff_lines))
 
+        # Diff overlay (only when both images exist)
+        overlay_html = ''
+        if comp['actual_png'] and comp['expected_png']:
+            overlay_html = """
+                <div class="image-panel overlay-panel" style="display:none">
+                    <h3>Diff overlay</h3>
+                    <div class="overlay-container">
+                        <img src="data:image/png;base64,{actual_b64}" />
+                        <img src="data:image/png;base64,{expected_b64}" class="overlay-img" />
+                    </div>
+                </div>""".format(actual_b64=comp['actual_png'], expected_b64=comp['expected_png'])
+
         sections.append("""
         <div class="comparison">
-            <h2>{name}</h2>
+            <h2>{name} {toggle}</h2>
             <div class="images">
                 <div class="image-panel">
                     <h3>Actual</h3>
@@ -519,13 +531,17 @@ def generate_plot_comparison_html(actual_dir, expected_dir):
                     <h3>Expected</h3>
                     {expected}
                 </div>
+                {overlay}
             </div>
             {stats}
             {diff}
         </div>""".format(
             name=comp['name'],
+            toggle='<button class="toggle-overlay" onclick="toggleOverlay(this)">Show diff</button>'
+                   if overlay_html else '',
             actual=actual_img,
             expected=expected_img,
+            overlay=overlay_html,
             stats='<div class="stats">{0}</div>'.format(stats) if stats else '',
             diff=diff_html,
         ))
@@ -554,7 +570,24 @@ def generate_plot_comparison_html(actual_dir, expected_dir):
     .stats {{ color: #888; font-size: 13px; margin-top: 12px; }}
     .missing {{ color: #f44747; font-style: italic; padding: 40px; text-align: center;
                 border: 2px dashed #f44747; border-radius: 4px; }}
+    .toggle-overlay {{ font-size: 12px; padding: 2px 10px; margin-left: 12px;
+                       cursor: pointer; border: 1px solid #ccc; border-radius: 4px;
+                       background: #f5f5f5; vertical-align: middle; }}
+    .toggle-overlay:hover {{ background: #e8e8e8; }}
+    .overlay-container {{ position: relative; }}
+    .overlay-container img:first-child {{ max-width: 100%; border: 1px solid #ddd; border-radius: 4px; }}
+    .overlay-img {{ position: absolute; top: 0; left: 0; max-width: 100%;
+                    mix-blend-mode: difference; }}
 </style>
+<script>
+function toggleOverlay(btn) {{
+    var comp = btn.closest('.comparison');
+    var panel = comp.querySelector('.overlay-panel');
+    var visible = panel.style.display !== 'none';
+    panel.style.display = visible ? 'none' : '';
+    btn.textContent = visible ? 'Show diff' : 'Hide diff';
+}}
+</script>
 </head><body>
     <h1>Plot Comparison: {test_name}</h1>
     <p class="summary">{n} plot(s) with differences &middot; {actual_dir} vs {expected_dir}</p>
