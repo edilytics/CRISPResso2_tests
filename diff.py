@@ -711,6 +711,9 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
                 update_file(file_path_actual, join(expected, file_basename_actual))
 
     for file_basename_expected in files_expected.keys():
+        fname = basename(file_basename_expected)
+        if fname in IGNORE_FILES or fname.endswith(IGNORE_SUFFIX):
+            continue
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
             if not WARNING_FILE_REGEXP.search(str(file_basename_expected)):

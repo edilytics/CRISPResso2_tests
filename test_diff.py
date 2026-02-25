@@ -384,15 +384,6 @@ class TestDiffDir:
 
     # --- Ignore files (expected side — BUG: not applied) ---
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason=(
-            "Bug: ignore filter (IGNORE_FILES / IGNORE_SUFFIX) is not applied "
-            "when checking for files missing from actual. If an ignored file "
-            "exists in expected but not in actual, it is incorrectly reported "
-            "as missing."
-        ),
-    )
     def test_ignore_running_log_only_in_expected(self, tmp_path, capsys):
         """Running log only in expected should NOT be flagged as missing."""
         actual = tmp_path / "actual"
@@ -407,13 +398,6 @@ class TestDiffDir:
             "cause diff_dir to return True"
         )
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason=(
-            "Bug: ignore suffix filter (_RUNNING_LOG.txt) is not applied "
-            "when checking for files missing from actual."
-        ),
-    )
     def test_ignore_suffix_only_in_expected(self, tmp_path, capsys):
         """File matching _RUNNING_LOG.txt suffix only in expected should NOT be flagged."""
         actual = tmp_path / "actual"
@@ -454,14 +438,6 @@ class TestDiffDir:
         result = diff_dir(str(actual), str(expected), suffixes=('.txt',))
         assert result is False
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason=(
-            "Bug: ignore filter not applied on expected side. "
-            "fastp_report.html in expected but missing from actual is "
-            "incorrectly flagged as a missing file."
-        ),
-    )
     def test_fastp_report_missing_from_actual_not_flagged(self, tmp_path, capsys):
         """fastp_report.html only in expected should NOT be flagged as missing."""
         actual = tmp_path / "actual"
