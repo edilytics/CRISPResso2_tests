@@ -52,6 +52,9 @@ DEFAULT_IMAGE_THRESHOLD = 0.10  # RMSE threshold (0-1 scale); 0.10 = 10%
 IMAGE_THUMBNAIL_SIZE = (256, 256)  # Downscale target for comparison
 IMAGE_BLUR_RADIUS = 1  # Gaussian blur to smooth anti-aliasing / font noise
 
+# PDF diff truncation
+PDF_DIFF_MAX_LINES = 100
+
 
 def which(program):
     def is_exe(fpath):
@@ -196,6 +199,30 @@ def diff_pdf(file_a, file_b):
     lines_a = [t + '\n' for t in texts_a]
     lines_b = [t + '\n' for t in texts_b]
     return list(unified_diff(lines_a, lines_b))
+
+
+def truncate_diff_lines(lines, max_lines=PDF_DIFF_MAX_LINES):
+    """Truncate a list of diff lines to a maximum number of lines.
+
+    Parameters
+    ----------
+    lines : list
+        Diff lines to potentially truncate.
+    max_lines : int
+        Maximum number of lines to keep.
+
+    Returns
+    -------
+    list
+        Original lines if within limit, otherwise first *max_lines* lines
+        plus a summary line indicating how many were omitted.
+    """
+    if len(lines) <= max_lines:
+        return lines
+    omitted = len(lines) - max_lines
+    return lines[:max_lines] + [
+        '... (truncated: {0} more lines omitted)\n'.format(omitted),
+    ]
 
 
 def diff_image(file_a, file_b, threshold=DEFAULT_IMAGE_THRESHOLD):
@@ -433,6 +460,7 @@ def generate_plot_comparison_html(actual_dir, expected_dir):
         # PDF text diff
         if pdf_rel in actual_pdfs and pdf_rel in expected_pdfs:
             pdf_diff_lines = diff_pdf(actual_pdfs[pdf_rel], expected_pdfs[pdf_rel])
+            pdf_diff_lines = truncate_diff_lines(pdf_diff_lines)
             if pdf_diff_lines:
                 significant = True
 
@@ -663,6 +691,7 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
         if file_basename_actual in files_expected:
             if file_path_actual.suffix in PDF_SUFFIXES:
                 diff_results = diff_pdf(file_path_actual, files_expected[file_basename_actual])
+                diff_results = truncate_diff_lines(diff_results)
             else:
                 diff_results = diff(file_path_actual, files_expected[file_basename_actual])
             if diff_results:
