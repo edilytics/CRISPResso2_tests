@@ -1,4 +1,4 @@
-.PHONY: all install test print update update-all skip_html diff_plots clean clean_cli_integration \
+.PHONY: all install test print update update-all skip_html diff-plots clean clean_cli_integration \
 	basic params batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
@@ -35,11 +35,11 @@ ifdef skip_html
   PYTEST_FLAGS += --skip-html
 endif
 
-ifneq ($(filter diff_plots,$(MAKECMDGOALS)),)
+ifneq ($(filter diff-plots,$(MAKECMDGOALS)),)
   PYTEST_FLAGS += --diff-plots
   DIFF_PLOTS_FLAG := --diff-plots
 endif
-ifdef diff_plots
+ifdef diff-plots
   PYTEST_FLAGS += --diff-plots
   DIFF_PLOTS_FLAG := --diff-plots
 endif
@@ -63,7 +63,7 @@ update-all:
 skip_html:
 	@:
 
-diff_plots:
+diff-plots:
 	@:
 
 # ── Top-level targets ───────────────────────────────────────────────

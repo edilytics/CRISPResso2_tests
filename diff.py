@@ -796,7 +796,7 @@ if __name__ == '__main__':
         help='Whether to skip comparisons of html files.'
     )
     parser.add_argument(
-        '--diff_plots',
+        '--diff-plots',
         default=False,
         action="store_true",
         help='Compare plots between actual and expected results.'

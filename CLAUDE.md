@@ -24,10 +24,10 @@ make all test
 make all test skip_html
 
 # Run tests with plot comparison (PDF text diff + PNG approximate RMSE)
-make all test diff_plots
+make all test diff-plots
 
 # Combine flags
-make all test skip_html diff_plots
+make all test skip_html diff-plots
 
 # Run a single test
 make basic
@@ -86,7 +86,7 @@ Makefile                   # Test orchestration
 ## Test Infrastructure Details
 
 - **File comparison** (`diff.py`) normalizes floats to 3 decimals, timestamps, file paths, and bowtie versions for stable comparisons
-- **Plot comparison** (`--diff-plots` / `make ... diff_plots`) compares plots in two ways: (1) extracts drawing streams from PDFs and diffs them as text, showing exact changes to labels, data values, and drawing coordinates; (2) compares PNGs using downscaled grayscale RMSE, tolerant of anti-aliasing/font rendering differences across matplotlib versions.
+- **Plot comparison** (`--diff-plots` / `make ... diff-plots`) compares plots in two ways: (1) extracts drawing streams from PDFs and diffs them as text, showing exact changes to labels, data values, and drawing coordinates; (2) compares PNGs using downscaled grayscale RMSE, tolerant of anti-aliasing/font rendering differences across matplotlib versions.
 - **Ignored files**: `*_RUNNING_LOG.txt`, `fastp_report.html`
 - **Performance tracking**: Tests report if runtime changes by >10% from baseline
 - **For better diffs**: `pip install ydiff` provides colorized side-by-side output
