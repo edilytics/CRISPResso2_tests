@@ -148,6 +148,16 @@ def extract_pdf_text(path):
     with open(path, 'rb') as fh:
         data = fh.read()
     texts = []
+    # Regex to match TJ/Tj operations that may span multiple lines.
+    # On Linux, matplotlib adds inter-character kerning values that make
+    # TJ arrays wrap across lines, e.g.:
+    #   [ (\x00P) 17.43 (\x00r) 21.95
+    #   (\x00edicted cleavage position) ]
+    #   TJ
+    # The \[...\]\s*TJ pattern captures the full array content.
+    tj_array_regexp = re.compile(r'\[(.*?)\]\s*TJ', re.DOTALL)
+    # Single-string Tj operator (always single-line)
+    tj_single_regexp = re.compile(r'\(((?:[^\\)]|\\.)*)\)\s*Tj')
     for m in PDF_STREAM_REGEXP.finditer(data):
         try:
             decompressed = zlib.decompress(m.group(1))
@@ -157,17 +167,20 @@ def extract_pdf_text(path):
         # Skip font / character-map streams
         if any(kw in stream for kw in PDF_FONT_KEYWORDS):
             continue
-        for line in stream.splitlines():
-            if 'Tj' not in line and 'TJ' not in line:
-                continue
-            # Extract all parenthesized strings on this line,
-            # handling escaped parens \( and \) inside strings.
-            parts = re.findall(r'\(((?:[^\\)]|\\.)*)\)', line)
+        # Extract text from TJ array operators (may span multiple lines)
+        for tj_match in tj_array_regexp.finditer(stream):
+            array_content = tj_match.group(1)
+            parts = re.findall(r'\(((?:[^\\)]|\\.)*)\)', array_content)
             raw = ''.join(parts)
-            # Strip null bytes from UTF-16 encoded text (decoded as
-            # latin-1, each char appears as \x00 + ASCII byte)
             raw = raw.replace('\x00', '')
-            # Unescape PDF string escapes
+            raw = raw.replace('\\(', '(').replace('\\)', ')')
+            text = raw.strip()
+            if text:
+                texts.append(text)
+        # Extract text from single-string Tj operators
+        for tj_match in tj_single_regexp.finditer(stream):
+            raw = tj_match.group(1)
+            raw = raw.replace('\x00', '')
             raw = raw.replace('\\(', '(').replace('\\)', ')')
             text = raw.strip()
             if text:
