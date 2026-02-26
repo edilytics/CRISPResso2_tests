@@ -212,18 +212,56 @@
 <center><div class="col-sm-10">
 	<div class="jumbotron" style="background:rgba(0,0,0,0.0); padding:0px" >
 		<div id='jumbotron_content' >
+			
+
+
+<style>
+.guardrail-toggle { transition: transform 0.2s ease; }
+details[open] > summary .guardrail-toggle { transform: rotate(180deg); }
+.guardrail-summary { list-style: none; }
+.guardrail-summary::-webkit-details-marker { display: none; }
+</style>
+<details style="margin-bottom: 10px; text-align: center; border-radius: 5px;">
+	<summary style="cursor: pointer; font-weight: bold; font-size: 1.1em; padding: 8px 10px; border-radius: 5px; list-style: none; display: flex; justify-content: center; align-items: center; background-color: #f8d7da; border: 2px solid #dc3545;">Guardrails — 2 out of 9 failed <i class="fas fa-chevron-down guardrail-toggle" style="margin-left: auto;"></i></summary>
+	<div style="padding: 10px; background-color: #ffffff;">
+	
+	<details open style="margin-left: 20px; margin-top: 5px; text-align: left;">
+		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #842029;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Failed Guardrails (2)</summary>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 100.</div>
+		
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 23, Substitutions outside window: 22.</div>
+		
+	</details>
+	
+	
+	<details style="margin-left: 20px; margin-top: 5px; text-align: left;">
+		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #0f5132;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Passed Guardrails (7)</summary>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Read alignment rate above threshold. 100.0% of reads aligned.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Sufficient ratio of modifications inside quantification window.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Acceptable rate of modifications at read ends.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Substitution rate within acceptable range.</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> All amplicon lengths above minimum threshold (50).</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> All guide lengths above minimum threshold (19).</div>
+		
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Amplicon lengths within acceptable range of read lengths.</div>
+		
+	</details>
+	
+	</div>
+</details>
+
 			<div class='card text-center mb-2'>
 				<div class='card-header'>
 					
 					<h5>vcf-insertions-only</h5>
 					
-					
-	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 100.</div>
-	
-		<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 23, Substitutions outside window: 22.</div>
-	
-
 					<h5>CRISPResso2 run information</h5>
 					<ul class="nav nav-tabs justify-content-center card-header-tabs" id="log-tab" role="tablist">
 						<li class="nav-item">
@@ -250,7 +288,7 @@
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-02-10 05:26:24</p>
+  <p><strong>Run completed:</strong> 2026-02-20 14:23:09</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
