@@ -97,7 +97,7 @@ cli_integration_tests/CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome* \
 cli_integration_tests/CRISPRessoCompare_on_Cas9_VS_Untreated* \
 cli_integration_tests/CRISPRessoPooled_on_prime.editing* \
 cli_integration_tests/CRISPRessoBatch_on_large_batch* \
-cli_integration_tests/CRISPResson_on_nhej_native_merge* \
+cli_integration_tests/CRISPResso_on_nhej_native_merge* \
 cli_integration_tests/CRISPResso_on_vcf-prime-edit-basic* \
 cli_integration_tests/CRISPResso_on_vcf-base-edit-abe* \
 cli_integration_tests/CRISPResso_on_vcf-base-edit-cbe* \
