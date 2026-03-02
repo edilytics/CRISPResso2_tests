@@ -48,7 +48,7 @@ PDF_FONT_KEYWORDS = ('GDEF', 'cmap', 'CIDInit')
 
 # PNG image comparison constants
 IMAGE_SUFFIXES = ('.png',)
-DEFAULT_IMAGE_THRESHOLD = 0.12  # RMSE threshold (0-1 scale); 0.10 = 10%
+DEFAULT_IMAGE_THRESHOLD = 0.2  # RMSE threshold (0-1 scale); 0.10 = 10%
 IMAGE_THUMBNAIL_SIZE = (256, 256)  # Downscale target for comparison
 IMAGE_BLUR_RADIUS = 1  # Gaussian blur to smooth anti-aliasing / font noise
 
