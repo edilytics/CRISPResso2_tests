@@ -69,7 +69,7 @@ diff_plots:
 # ── Top-level targets ───────────────────────────────────────────────
 install: .install_sentinel
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon vcf-base-edit-cbe vcf-base-edit-abe vcf-prime-edit-basic
+all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon vcf-base-edit-cbe vcf-base-edit-abe vcf-prime-edit-basic fastq-suppress-plots
 
 clean: clean_cli_integration
 	rm -f .install_sentinel
@@ -108,6 +108,7 @@ cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim* \
 cli_integration_tests/CRISPResso_on_prime_editor* \
 cli_integration_tests/CRISPRessoBatch_on_batch-failing* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
+cli_integration_tests/CRISPResso_on_fastq-suppress-plots* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
@@ -220,6 +221,9 @@ vcf-base-edit-abe: .install_sentinel
 vcf-prime-edit-basic: .install_sentinel
 	$(call PYTEST_RUN,test_crispresso_cli[vcf_prime_edit_basic],CRISPResso_on_vcf-prime-edit-basic)
 
+
+fastq-suppress-plots: .install_sentinel
+	$(call PYTEST_RUN,test_crispresso_cli[fastq_suppress_plots],CRISPResso_on_fastq-suppress-plots)
 # ── Non-pytest targets ──────────────────────────────────────────────
 nhej: .install_sentinel
 	cd cli_integration_tests && CRISPResso -r1 inputs/nhej.r1.fastq.gz -r2 inputs/nhej.r2.fastq.gz -a AATGTCCCCCAATGGGAAGTTCATCTGGCACTGCCCACAGGTGAGGAGGTCATGATCCCCTTCTGGAGCTCCCAACGGGCCGTGGTCTGGTTCATCATCTGTAAGAATGGCTTCAAGAGGCTCGGCTGTGGTT -n nhej --process_paired_fastq --place_report_in_output_folder --halt_on_plot_fail --debug

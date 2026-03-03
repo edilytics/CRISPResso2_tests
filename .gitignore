@@ -194,3 +194,5 @@ cli_integration_tests/CRISPResso_on_vcf-base-edit-abe*
 cli_integration_tests/CRISPResso_on_vcf-prime-edit-basic*
 # Git worktrees
 .worktrees/
+
+cli_integration_tests/CRISPResso_on_fastq-suppress-plots*
