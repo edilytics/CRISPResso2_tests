@@ -49,6 +49,14 @@ def pytest_addoption(parser):
         help='Skip HTML file comparisons (useful for quick local iteration).',
     )
     parser.addoption(
+        '--diff-plots',
+        action='store_true',
+        default=False,
+        help='Compare plots between actual and expected results.'
+        ' PDFs are diffed as text (drawing streams); PNGs are compared'
+        ' using approximate RMSE (tolerant of rendering differences).',
+    )
+    parser.addoption(
         '--pro',
         action='store_true',
         default=False,
@@ -122,7 +130,12 @@ def run_crispresso(request, cli_test_dir):
 
 
 @pytest.fixture(scope='session')
-def assert_no_diff(pro_installed, skip_html, cli_test_dir):
+def diff_plots(request):
+    return request.config.getoption('--diff-plots')
+
+
+@pytest.fixture(scope='session')
+def assert_no_diff(pro_installed, skip_html, diff_plots, cli_test_dir):
     expected_results = cli_test_dir / 'expected_results'
     expected_results_pro = cli_test_dir / 'expected_results_pro'
 
@@ -134,10 +147,15 @@ def assert_no_diff(pro_installed, skip_html, cli_test_dir):
         expected_data = expected_results / test_name
         if not expected_data.exists():
             pytest.skip(f'Expected results not found: {expected_data}')
+
+        data_suffixes = DATA_SUFFIXES
+        if diff_plots:
+            data_suffixes = data_suffixes + diff.PDF_SUFFIXES
+
         has_diff |= diff.diff_dir(
             str(actual_dir),
             str(expected_data),
-            suffixes=DATA_SUFFIXES,
+            suffixes=data_suffixes,
         )
 
         # HTML files
@@ -154,6 +172,13 @@ def assert_no_diff(pro_installed, skip_html, cli_test_dir):
                 str(actual_dir),
                 str(expected_html),
                 suffixes=HTML_SUFFIXES,
+            )
+
+        # Approximate PNG image comparison
+        if diff_plots:
+            has_diff |= diff.diff_dir_images(
+                str(actual_dir),
+                str(expected_data),
             )
 
         assert not has_diff, (
