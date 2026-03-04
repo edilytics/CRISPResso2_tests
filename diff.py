@@ -271,6 +271,30 @@ def truncate_diff_lines(lines, max_lines=PDF_DIFF_MAX_LINES):
     ]
 
 
+def truncate_diff_lines(lines, max_lines=PDF_DIFF_MAX_LINES):
+    """Truncate a list of diff lines to a maximum number of lines.
+
+    Parameters
+    ----------
+    lines : list
+        Diff lines to potentially truncate.
+    max_lines : int
+        Maximum number of lines to keep.
+
+    Returns
+    -------
+    list
+        Original lines if within limit, otherwise first *max_lines* lines
+        plus a summary line indicating how many were omitted.
+    """
+    if len(lines) <= max_lines:
+        return lines
+    omitted = len(lines) - max_lines
+    return lines[:max_lines] + [
+        '... (truncated: {0} more lines omitted)\n'.format(omitted),
+    ]
+
+
 def diff_image(file_a, file_b, threshold=DEFAULT_IMAGE_THRESHOLD):
     """Compare two images using downscaled grayscale RMSE.
 
@@ -779,6 +803,9 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
                 update_file(file_path_actual, join(expected, file_basename_actual))
 
     for file_basename_expected in files_expected.keys():
+        fname = basename(file_basename_expected)
+        if fname in IGNORE_FILES or fname.endswith(IGNORE_SUFFIX):
+            continue
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
             if not WARNING_FILE_REGEXP.search(str(file_basename_expected)):
