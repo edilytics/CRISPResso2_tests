@@ -1,4 +1,5 @@
 import argparse
+import gzip
 import json
 import os
 import re
@@ -39,7 +40,7 @@ IGNORE_FILES = frozenset([
 IGNORE_SUFFIX = '_RUNNING_LOG.txt'
 WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
 
-TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
+TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf', '.gz')
 PDF_SUFFIXES = ('.pdf',)
 
 # PDF stream detection patterns
@@ -125,11 +126,36 @@ def substitute_line(line):
     return line
 
 
+def _read_normalized_lines(fh):
+    """Read lines from a file handle, applying normalization.
+
+    Each line is passed through ``substitute_line`` (float rounding,
+    datetime replacement, path normalization), stripped, and terminated
+    with a single newline — producing stable lines suitable for diffing.
+
+    Parameters
+    ----------
+    fh : file-like
+        An open text-mode file handle.
+
+    Returns
+    -------
+    list of str
+        Normalized lines.
+    """
+    return [substitute_line(line).strip() + '\n' for line in fh]
+
+
+def _open_file(path):
+    """Open a text file, transparently decompressing .gz files."""
+    if str(path).endswith('.gz'):
+        return gzip.open(path, 'rt')
+    return open(path)
+
+
 def diff(file_a, file_b):
-    with open(file_a) as fh_a, open(file_b) as fh_b:
-        lines_a = [substitute_line(line).strip() + '\n' for line in fh_a]
-        lines_b = [substitute_line(line).strip() + '\n' for line in fh_b]
-        return list(unified_diff(lines_a, lines_b))
+    with _open_file(file_a) as fh_a, _open_file(file_b) as fh_b:
+        return list(unified_diff(_read_normalized_lines(fh_a), _read_normalized_lines(fh_b)))
 
 
 def extract_pdf_text(path):
@@ -917,9 +943,9 @@ if __name__ == '__main__':
     diff_running_times(
         args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    diff_suffixes = ('.txt', '.html', '.sam', '.vcf')
+    diff_suffixes = ('.txt', '.html', '.sam', '.vcf', '.gz')
     if args.skip_html:
-        diff_suffixes = ('.txt', '.sam', '.vcf')
+        diff_suffixes = ('.txt', '.sam', '.vcf', '.gz')
     if args.diff_plots:
         diff_suffixes = diff_suffixes + PDF_SUFFIXES
 

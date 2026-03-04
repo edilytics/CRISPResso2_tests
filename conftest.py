@@ -19,7 +19,7 @@ MODULE_MAP = {
     'CRISPRessoAggregate': 'CRISPResso2.CRISPRessoAggregateCORE',
 }
 
-DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
+DATA_SUFFIXES = ('.txt', '.sam', '.vcf', '.gz')
 HTML_SUFFIXES = ('.html',)
 
 

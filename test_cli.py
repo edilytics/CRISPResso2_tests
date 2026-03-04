@@ -468,6 +468,21 @@ TESTS = [
         output_dir='CRISPResso_on_vcf-prime-edit-basic',
         marks=['vcf'],
     ),
+    CLITestCase(
+        id='fastq_suppress_plots',
+        cmd=[
+            'CRISPResso',
+            '-r1 inputs/FANC.Cas9.fastq',
+            '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
+            '-g GGAATCCCTTCTGCAGCACC',
+            '--fastq_output',
+            '--suppress_plots',
+            '-n fastq-suppress-plots',
+        ],
+        output_dir='CRISPResso_on_fastq-suppress-plots',
+        marks=['crispresso'],
+    ),
+
 ]
 
 
