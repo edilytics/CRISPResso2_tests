@@ -35,7 +35,7 @@ TESTS = [
             '-g GGAATCCCTTCTGCAGCACC',
         ],
         output_dir='CRISPResso_on_FANC.Cas9',
-        marks=['crispresso'],
+        marks=['core'],
     ),
     CLITestCase(
         id='params',
@@ -61,7 +61,7 @@ TESTS = [
             '--base_editor_consider_changes_outside_qw',
         ],
         output_dir='CRISPResso_on_params',
-        marks=['crispresso'],
+        marks=['core'],
     ),
     CLITestCase(
         id='nhej_native_merge',
@@ -74,7 +74,7 @@ TESTS = [
             '--crispresso_merge',
         ],
         output_dir='CRISPResso_on_nhej_native_merge',
-        marks=['crispresso'],
+        marks=['core'],
     ),
     CLITestCase(
         id='prime_editor',
@@ -89,7 +89,7 @@ TESTS = [
             '--write_cleaned_report',
         ],
         output_dir='CRISPResso_on_prime_editor',
-        marks=['crispresso'],
+        marks=['editor'],
     ),
     CLITestCase(
         id='base_editor',
@@ -113,7 +113,7 @@ TESTS = [
             '-p max',
         ],
         output_dir='CRISPResso_on_base_editor',
-        marks=['crispresso'],
+        marks=['editor'],
     ),
     # ── Parallel / process variants ──────────────────────────────────
     CLITestCase(
@@ -127,7 +127,7 @@ TESTS = [
             '-n basic-parallel',
         ],
         output_dir='CRISPResso_on_basic-parallel',
-        marks=['crispresso'],
+        marks=['core'],
     ),
     # ── Asymmetric ───────────────────────────────────────────────────
     CLITestCase(
@@ -142,7 +142,7 @@ TESTS = [
             '-n asym_both',
         ],
         output_dir='CRISPResso_on_asym_both',
-        marks=['crispresso'],
+        marks=['asym'],
     ),
     CLITestCase(
         id='asym_left',
@@ -155,7 +155,7 @@ TESTS = [
             '-n asym_left',
         ],
         output_dir='CRISPResso_on_asym_left',
-        marks=['crispresso'],
+        marks=['asym'],
     ),
     CLITestCase(
         id='asym_right',
@@ -168,7 +168,7 @@ TESTS = [
             '-n asym_right',
         ],
         output_dir='CRISPResso_on_asym_right',
-        marks=['crispresso'],
+        marks=['asym'],
     ),
     # ── BAM input ────────────────────────────────────────────────────
     CLITestCase(
@@ -474,7 +474,9 @@ TESTS = [
 def _make_params():
     """Build pytest.param list with proper markers from CLITestCase instances."""
     mark_map = {
-        'crispresso': pytest.mark.crispresso,
+        'core': pytest.mark.core,
+        'editor': pytest.mark.editor,
+        'asym': pytest.mark.asym,
         'batch': pytest.mark.batch,
         'pooled': pytest.mark.pooled,
         'wgs': pytest.mark.wgs,
