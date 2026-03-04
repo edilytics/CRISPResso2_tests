@@ -484,9 +484,14 @@ def _make_params():
         'bam': pytest.mark.bam,
         'pro_only': pytest.mark.pro_only,
     }
+    # Tests in the batch_chain group must run on the same xdist worker
+    # (compare and aggregate depend on batch output).
+    batch_chain_ids = {'batch'}
     params = []
     for tc in TESTS:
         marks = [mark_map[m] for m in tc.marks if m in mark_map]
+        if tc.id in batch_chain_ids:
+            marks.append(pytest.mark.xdist_group('batch_chain'))
         params.append(pytest.param(tc, id=tc.id, marks=marks))
     return params
 
@@ -504,6 +509,7 @@ def test_crispresso_cli(test_case, run_crispresso, check_diffs, assert_no_diff, 
 
 
 @pytest.mark.compare
+@pytest.mark.xdist_group('batch_chain')
 def test_compare(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     """CRISPRessoCompare — requires batch output from test_crispresso_cli[batch]."""
     batch_dir = cli_test_dir / 'CRISPRessoBatch_on_FANC'
@@ -523,6 +529,7 @@ def test_compare(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
 
 
 @pytest.mark.aggregate
+@pytest.mark.xdist_group('batch_chain')
 def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     """CRISPRessoAggregate — requires batch output from test_crispresso_cli[batch]."""
     batch_dir = cli_test_dir / 'CRISPRessoBatch_on_FANC'

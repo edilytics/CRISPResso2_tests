@@ -283,7 +283,7 @@ syn-gen-all:
 
 # ── pytest convenience targets ───────────────────────────────────────
 pytest:
-	$(PIXI) pytest test_cli.py
+	$(PIXI) pytest test_cli.py -n auto --dist loadgroup
 
 pytest-coverage:
 	$(PIXI) pytest test_cli.py --with-coverage

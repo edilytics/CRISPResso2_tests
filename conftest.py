@@ -1,6 +1,8 @@
 import importlib.util
+import shutil
 import subprocess
 import sys
+
 from pathlib import Path
 
 import pytest
@@ -18,6 +20,8 @@ MODULE_MAP = {
     'CRISPRessoCompare': 'CRISPResso2.CRISPRessoCompareCORE',
     'CRISPRessoAggregate': 'CRISPResso2.CRISPRessoAggregateCORE',
 }
+
+
 
 DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
 HTML_SUFFIXES = ('.html',)
@@ -105,10 +109,18 @@ def run_crispresso(request, cli_test_dir):
             module = MODULE_MAP.get(tool)
             if module:
                 coveragerc = str(cli_test_dir.parent / '.coveragerc')
-                cmd = (
-                    f'coverage run --parallel-mode --rcfile={coveragerc}'
-                    f' -m {module} -- {rest}'
-                )
+                # Use the installed entry-point script so main() is invoked
+                entry_script = shutil.which(tool)
+                if entry_script:
+                    cmd = (
+                        f'coverage run --parallel-mode --rcfile={coveragerc}'
+                        f' {entry_script} {rest}'
+                    )
+                else:
+                    cmd = (
+                        f'coverage run --parallel-mode --rcfile={coveragerc}'
+                        f' -m {module} {rest}'
+                    )
         if print_output:
             result = subprocess.run(
                 cmd,
