@@ -7,6 +7,7 @@ don't cause false failures.
 Run with:
     pytest test_diff.py -v
 """
+import gzip
 import textwrap
 from pathlib import Path
 
@@ -39,6 +40,15 @@ def make_file(base, relpath, content=""):
     p = Path(base) / relpath
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(content)
+    return p
+
+
+def make_gz_file(base, relpath, content=""):
+    """Create a gzip-compressed file under *base* with the given content."""
+    p = Path(base) / relpath
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with gzip.open(str(p), 'wt') as fh:
+        fh.write(content)
     return p
 
 
@@ -846,3 +856,146 @@ class TestIgnoreConstants:
             assert f.endswith(IGNORE_SUFFIX) or f in special_cases, (
                 "{} doesn't match IGNORE_SUFFIX and isn't a known special case".format(f)
             )
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# diff — gzip file comparison (transparent decompression)
+# ═══════════════════════════════════════════════════════════════════════════
+
+class TestDiffGzip:
+    """Test that diff() transparently handles .gz files."""
+
+    def test_identical_gz_no_diff(self, tmp_path):
+        make_gz_file(tmp_path, "a.gz", "line1\nline2\n")
+        make_gz_file(tmp_path, "b.gz", "line1\nline2\n")
+        result = diff_text(tmp_path / "a.gz", tmp_path / "b.gz")
+        assert result == []
+
+    def test_different_gz_produces_diff(self, tmp_path):
+        make_gz_file(tmp_path, "a.gz", "line1\n")
+        make_gz_file(tmp_path, "b.gz", "line2\n")
+        result = diff_text(tmp_path / "a.gz", tmp_path / "b.gz")
+        assert len(result) > 0
+
+    def test_normalization_makes_gz_equal(self, tmp_path):
+        """Files differing only in float precision should produce no diff."""
+        make_gz_file(tmp_path, "a.gz", "score=3.14159265\n")
+        make_gz_file(tmp_path, "b.gz", "score=3.14160000\n")
+        result = diff_text(tmp_path / "a.gz", tmp_path / "b.gz")
+        assert result == [], "Float normalization should make these equal"
+
+    def test_fastq_content_identical(self, tmp_path):
+        """Typical FASTQ content should produce no diff when identical."""
+        fastq = "@read1 score=1.23456\nACGTACGT\n+\nIIIIIIII\n"
+        make_gz_file(tmp_path, "a.fastq.gz", fastq)
+        make_gz_file(tmp_path, "b.fastq.gz", fastq)
+        result = diff_text(tmp_path / "a.fastq.gz", tmp_path / "b.fastq.gz")
+        assert result == []
+
+    def test_fastq_content_different(self, tmp_path):
+        """Different FASTQ sequences should produce a diff."""
+        make_gz_file(tmp_path, "a.fastq.gz", "@read1\nACGT\n+\nIIII\n")
+        make_gz_file(tmp_path, "b.fastq.gz", "@read1\nTTTT\n+\nIIII\n")
+        result = diff_text(tmp_path / "a.fastq.gz", tmp_path / "b.fastq.gz")
+        assert len(result) > 0
+
+    def test_fastq_metadata_float_normalization(self, tmp_path):
+        """Float metadata on the + line should be normalized."""
+        make_gz_file(tmp_path, "a.fastq.gz", "@read1\nACGT\n+score=0.98765\nIIII\n")
+        make_gz_file(tmp_path, "b.fastq.gz", "@read1\nACGT\n+score=0.98770\nIIII\n")
+        result = diff_text(tmp_path / "a.fastq.gz", tmp_path / "b.fastq.gz")
+        assert result == [], "Float normalization on + line should make these equal"
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# diff_dir — .gz file handling
+# ═══════════════════════════════════════════════════════════════════════════
+
+class TestDiffDirGz:
+    """Test .gz file discovery and comparison within diff_dir."""
+
+    def test_identical_gz_no_diff(self, tmp_path):
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_gz_file(actual, "CRISPResso_output.fastq.gz", "@read1\nACGT\n+\nIIII\n")
+        make_gz_file(expected, "CRISPResso_output.fastq.gz", "@read1\nACGT\n+\nIIII\n")
+        assert diff_dir(str(actual), str(expected)) is False
+
+    def test_different_gz_detected(self, tmp_path):
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_gz_file(actual, "CRISPResso_output.fastq.gz", "@read1\nACGT\n+\nIIII\n")
+        make_gz_file(expected, "CRISPResso_output.fastq.gz", "@read1\nTTTT\n+\nIIII\n")
+        assert diff_dir(str(actual), str(expected)) is True
+
+    def test_new_gz_in_actual_detected(self, tmp_path, capsys):
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_gz_file(actual, "output.fastq.gz", "data\n")
+        expected.mkdir()
+        assert diff_dir(str(actual), str(expected)) is True
+        captured = capsys.readouterr()
+        assert "New file in Actual" in captured.out
+
+    def test_missing_gz_from_actual_detected(self, tmp_path, capsys):
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        actual.mkdir()
+        make_gz_file(expected, "output.fastq.gz", "data\n")
+        assert diff_dir(str(actual), str(expected)) is True
+        captured = capsys.readouterr()
+        assert "Missing file" in captured.out
+
+    def test_gz_in_subdirectory(self, tmp_path):
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_gz_file(actual, "sub/deep/output.fastq.gz", "data\n")
+        make_gz_file(expected, "sub/deep/output.fastq.gz", "data\n")
+        assert diff_dir(str(actual), str(expected)) is False
+
+    def test_gz_in_subdirectory_different(self, tmp_path):
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_gz_file(actual, "sub/output.fastq.gz", "actual\n")
+        make_gz_file(expected, "sub/output.fastq.gz", "expected\n")
+        assert diff_dir(str(actual), str(expected)) is True
+
+    def test_gz_normalization_applied(self, tmp_path):
+        """Float normalization should apply to .gz files within diff_dir."""
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_gz_file(actual, "output.fastq.gz", "score=0.123456789\n")
+        make_gz_file(expected, "output.fastq.gz", "score=0.123400000\n")
+        assert diff_dir(str(actual), str(expected)) is False
+
+    def test_gz_and_txt_both_compared(self, tmp_path):
+        """Both .txt and .gz files should be compared in the same diff_dir call."""
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_file(actual, "data.txt", "same\n")
+        make_file(expected, "data.txt", "same\n")
+        make_gz_file(actual, "output.fastq.gz", "same\n")
+        make_gz_file(expected, "output.fastq.gz", "same\n")
+        assert diff_dir(str(actual), str(expected)) is False
+
+    def test_gz_diff_with_txt_identical(self, tmp_path):
+        """A .gz difference should be detected even when .txt files are identical."""
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_file(actual, "data.txt", "same\n")
+        make_file(expected, "data.txt", "same\n")
+        make_gz_file(actual, "output.fastq.gz", "actual\n")
+        make_gz_file(expected, "output.fastq.gz", "expected\n")
+        assert diff_dir(str(actual), str(expected)) is True
+
+    def test_multiple_gz_files(self, tmp_path):
+        """Multiple .gz files should all be compared."""
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        make_gz_file(actual, "a.fastq.gz", "same\n")
+        make_gz_file(expected, "a.fastq.gz", "same\n")
+        make_gz_file(actual, "b.fastq.gz", "same\n")
+        make_gz_file(expected, "b.fastq.gz", "same\n")
+        make_gz_file(actual, "c.fastq.gz", "actual\n")
+        make_gz_file(expected, "c.fastq.gz", "expected\n")
+        assert diff_dir(str(actual), str(expected)) is True
