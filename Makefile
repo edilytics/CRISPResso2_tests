@@ -201,10 +201,10 @@ wgs: .install_sentinel
 	$(call PYTEST_RUN,test_crispresso_cli[wgs],CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome)
 
 # ── Compare / Aggregate (pytest-backed) ─────────────────────────────
-compare: .install_sentinel
+compare: .install_sentinel batch
 	$(call PYTEST_RUN,test_compare,CRISPRessoCompare_on_Cas9_VS_Untreated)
 
-aggregate: .install_sentinel
+aggregate: .install_sentinel batch
 	$(call PYTEST_RUN,test_aggregate,CRISPRessoAggregate_on_aggregate)
 
 # ── VCF (pytest-backed) ─────────────────────────────────────────────
