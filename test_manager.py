@@ -5,7 +5,7 @@ import os
 import re
 from shutil import copyfile, copytree
 
-from diff import diff_dir, generate_plot_comparison_html, TEXT_SUFFIXES, PDF_SUFFIXES
+from diff import diff_dir, generate_plot_comparison_html, TEXT_SUFFIXES, DATA_SUFFIXES, HTML_SUFFIXES, PDF_SUFFIXES
 
 
 COMMON_FLAGS = {'--place_report_in_output_folder', '--halt_on_plot_fail', '--debug'}
@@ -238,11 +238,21 @@ def add_test(args):
 
 
 def update_test(args):
-    if args.diff_plots:
+    if args.skip_html and args.html_only:
+        raise SystemExit('Cannot use --skip-html and --html-only together.')
+
+    if args.html_only:
+        suffixes = HTML_SUFFIXES
+    elif args.skip_html:
+        suffixes = DATA_SUFFIXES + PDF_SUFFIXES
+    else:
+        suffixes = TEXT_SUFFIXES + PDF_SUFFIXES
+
+    if args.diff_plots and not args.html_only:
         generate_plot_comparison_html(args.actual, args.expected)
     has_changes = diff_dir(
         args.actual, args.expected,
-        suffixes=TEXT_SUFFIXES + PDF_SUFFIXES,
+        suffixes=suffixes,
         prompt_to_update=True,
     )
     if not has_changes:
@@ -264,6 +274,10 @@ if __name__ == '__main__':
     parser_update.add_argument('expected', help='Path to the expected result directory of the test to update')
     parser_update.add_argument('--diff-plots', dest='diff_plots', action='store_true', default=False,
                                help='Open a visual plot comparison in the browser before prompting for updates')
+    parser_update.add_argument('--skip-html', dest='skip_html', action='store_true', default=False,
+                               help='Exclude HTML files from the update (data + plot files only)')
+    parser_update.add_argument('--html-only', dest='html_only', action='store_true', default=False,
+                               help='Update HTML files only (for Pro expected results)')
 
     args = parser.parse_args()
     args.func(args)

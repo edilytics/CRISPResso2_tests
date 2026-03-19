@@ -7,6 +7,8 @@ A repository for testing that is too large (or too private) to be kept in their 
 To run the integration tests for `CRISPResso2` make sure that the `CRISPRESSO2_DIR` variable in the `Makefile` is set to the correct directory where the `CRISPResso2` repository is (by default it is set to `../CRISPResso2`).
 Then to run only the integration tests you can issue `make all test` and it will run the tests and compare the output.
 
+To run integration tests with **CRISPRessoPro**, set `CRISPRESSOPRO_DIR` (default: `../CRISPRessoPro`) and append `PRO=1` to any make command. See [Running with CRISPRessoPro](#running-with-crispressopro) below.
+
 Furthermore, the running times of each integration test will be checked and if there is a difference > 10% in the two times, it will be reported.
 
 For improved diff output, run `pip install ydiff` and the diffs will be colorized and side by side.
@@ -77,6 +79,38 @@ make <test case> update-all
 ```
 
 This will automatically update the files for you, then you can review the changes in git. **Use this wisely!**
+
+### Running with CRISPRessoPro
+
+Append `PRO=1` to any make command to run tests with CRISPRessoPro installed. This uses the `test-pro` pixi environment (defined in `CRISPResso2/pixi.toml`), which includes all test dependencies plus CRISPRessoPro's dependencies (e.g., `kaleido`).
+
+When Pro is installed, HTML file diffs are compared against `expected_results_pro/` (since Pro generates different HTML reports), while data file diffs always use `expected_results/`.
+
+```shell
+# Install CRISPResso2 + CRISPRessoPro into the test-pro environment
+make install-pro
+
+# Run all tests with Pro
+make all-pro
+
+# Run all tests with Pro and check for differences
+make all-pro test
+
+# Run a single test with Pro
+make basic PRO=1 test
+
+# Update expected results for Pro
+# (data + plots → expected_results/, HTML → expected_results_pro/)
+make basic PRO=1 update
+
+# Auto-update Pro expected results
+make basic PRO=1 update-all
+
+# Clean only the Pro install sentinel
+make clean-pro
+```
+
+**Prerequisites:** The CRISPRessoPro repository must be checked out at `../CRISPRessoPro` (or set `CRISPRESSOPRO_DIR` in the Makefile or environment).
 
 ### How can I add a test?
 

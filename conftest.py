@@ -19,8 +19,8 @@ MODULE_MAP = {
     'CRISPRessoAggregate': 'CRISPResso2.CRISPRessoAggregateCORE',
 }
 
-DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
-HTML_SUFFIXES = ('.html',)
+DATA_SUFFIXES = diff.DATA_SUFFIXES
+HTML_SUFFIXES = diff.HTML_SUFFIXES
 
 
 def pytest_addoption(parser):
