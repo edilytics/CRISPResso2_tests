@@ -1,6 +1,6 @@
 .PHONY: all install test print update update-all skip_html diff-plots clean clean_cli_integration \
 	install-pro all-pro clean-pro \
-	basic params batch pooled wgs compare aggregate \
+	basic params params-deletions batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
 	basic-write-bam-out basic-write-bam-out-parallel \
@@ -136,7 +136,7 @@ all-pro:
 clean-pro:
 	rm -f .install_pro_sentinel
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon vcf-base-edit-cbe vcf-base-edit-abe vcf-prime-edit-basic
+all: clean basic params params-deletions prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon vcf-base-edit-cbe vcf-base-edit-abe vcf-prime-edit-basic
 
 clean: clean_cli_integration
 	rm -f .install_sentinel .install_pro_sentinel
@@ -186,6 +186,9 @@ basic: $(_SENTINEL)
 
 params: $(_SENTINEL)
 	$(call PYTEST_RUN,test_crispresso_cli[params],CRISPResso_on_params)
+
+params-deletions: $(_SENTINEL)
+	$(call PYTEST_RUN,test_crispresso_cli[params_deletions],CRISPResso_on_params-deletions)
 
 nhej_native_merge: $(_SENTINEL)
 	$(call PYTEST_RUN,test_crispresso_cli[nhej_native_merge],CRISPResso_on_nhej_native_merge)
@@ -287,6 +290,7 @@ vcf-base-edit-abe: $(_SENTINEL)
 
 vcf-prime-edit-basic: $(_SENTINEL)
 	$(call PYTEST_RUN,test_crispresso_cli[vcf_prime_edit_basic],CRISPResso_on_vcf-prime-edit-basic)
+
 
 # ── Non-pytest targets ──────────────────────────────────────────────
 nhej: $(_SENTINEL)
