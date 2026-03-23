@@ -1,0 +1,7 @@
+{
+    "plots": [
+        "indel_size_distribution",
+        "read_barplot",
+        "alignment_pie_chart"
+    ]
+}

@@ -544,9 +544,9 @@ def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
 
 @pytest.mark.pro_only
 def test_pro_smoke_single_plot(run_crispresso, cli_test_dir):
-    """Smoke test: --report_config disables all plots except read_barplot.
+    """Smoke test: config_file with plots key containing only read_barplot.
 
-    Verifies that the Pro report pipeline respects the config file by
+    Verifies that the Pro report pipeline respects the plots config by
     checking that the generated HTML contains exactly one <img> tag,
     and it's the read barplot.
     """
@@ -556,7 +556,7 @@ def test_pro_smoke_single_plot(run_crispresso, cli_test_dir):
         '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
         '-g GGAATCCCTTCTGCAGCACC',
         '-n pro-smoke-single-plot',
-        '--report_config inputs/smoke_single_plot_config.json',
+        '--config_file inputs/smoke_single_plot_config.json',
         '--use_matplotlib',
     ] + COMMON_FLAGS)
 
@@ -578,4 +578,83 @@ def test_pro_smoke_single_plot(run_crispresso, cli_test_dir):
     )
     assert '1a.Read_barplot.png' in img_tags[0], (
         f'Expected read barplot image, got: {img_tags[0]}'
+    )
+
+
+@pytest.mark.pro_only
+def test_pro_no_plots_key_shows_all_defaults(run_crispresso, cli_test_dir):
+    """Config file with no plots key shows all default plots.
+
+    A config_file containing only colors (no plots key) should produce
+    a report with all default plots present.
+    """
+    cmd = ' '.join([
+        'CRISPResso',
+        '-r1 inputs/FANC.Cas9.fastq',
+        '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
+        '-g GGAATCCCTTCTGCAGCACC',
+        '-n pro-no-plots-key',
+        '--config_file inputs/no_plots_key_config.json',
+        '--use_matplotlib',
+    ] + COMMON_FLAGS)
+
+    result = run_crispresso(cmd)
+    assert result.returncode == 0, (
+        f'pro-no-plots-key command failed (exit code {result.returncode}):\n'
+        f'{result.stderr}'
+    )
+
+    report_path = cli_test_dir / 'CRISPResso_on_pro-no-plots-key' / 'CRISPResso2_report.html'
+    assert report_path.exists(), f'Report not found at {report_path}'
+    html = report_path.read_text(encoding='utf-8')
+
+    # Should have multiple <img> tags (all default plots)
+    img_tags = re.findall(r'<img\s+src="([^"]+)"', html)
+    assert len(img_tags) > 5, (
+        f'Expected many default plots, found only {len(img_tags)} <img> tags'
+    )
+
+
+@pytest.mark.pro_only
+def test_pro_subset_plots_in_order(run_crispresso, cli_test_dir):
+    """Config file with a subset of plots shows only those, in order.
+
+    Verifies that exactly the listed plots appear in the report and
+    in the order specified.
+    """
+    cmd = ' '.join([
+        'CRISPResso',
+        '-r1 inputs/FANC.Cas9.fastq',
+        '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
+        '-g GGAATCCCTTCTGCAGCACC',
+        '-n pro-subset-plots',
+        '--config_file inputs/subset_plots_config.json',
+        '--use_matplotlib',
+    ] + COMMON_FLAGS)
+
+    result = run_crispresso(cmd)
+    assert result.returncode == 0, (
+        f'pro-subset-plots command failed (exit code {result.returncode}):\n'
+        f'{result.stderr}'
+    )
+
+    report_path = cli_test_dir / 'CRISPResso_on_pro-subset-plots' / 'CRISPResso2_report.html'
+    assert report_path.exists(), f'Report not found at {report_path}'
+    html = report_path.read_text(encoding='utf-8')
+
+    img_tags = re.findall(r'<img\s+src="([^"]+)"', html)
+    # Config specifies: indel_size_distribution, read_barplot, alignment_pie_chart
+    # (reverse of default order to verify ordering works)
+    assert len(img_tags) == 3, (
+        f'Expected exactly 3 <img> tags, found {len(img_tags)}: {img_tags}'
+    )
+
+    # Verify order: indel_size_distribution (3a) should come before read_barplot (1a)
+    img_str = ' '.join(img_tags)
+    pos_3a = img_str.find('3a.')
+    pos_1a = img_str.find('1a.')
+    pos_1b = img_str.find('1b.')
+    assert pos_3a < pos_1a < pos_1b, (
+        f'Expected indel_size_distribution before read_barplot before '
+        f'alignment_pie_chart, got: {img_tags}'
     )
