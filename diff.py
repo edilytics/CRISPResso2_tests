@@ -40,6 +40,8 @@ IGNORE_SUFFIX = '_RUNNING_LOG.txt'
 WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
 
 TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
+DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
+HTML_SUFFIXES = ('.html',)
 PDF_SUFFIXES = ('.pdf',)
 
 # PDF stream detection patterns

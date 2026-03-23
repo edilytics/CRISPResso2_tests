@@ -8,12 +8,17 @@ CRISPResso2_tests is the integration test suite for CRISPResso2, a bioinformatic
 
 ## Prerequisites
 
-Tests run inside the **pixi test environment** defined in the sibling `CRISPResso2` repository (`../CRISPResso2/pixi.toml`). You need:
+Tests run inside **pixi environments** defined in the sibling `CRISPResso2` repository (`../CRISPResso2/pixi.toml`). You need:
 
 1. **[pixi](https://pixi.sh)** installed and on your `PATH`
 2. The **CRISPResso2** repo checked out at `../CRISPResso2` (or set `CRISPRESSO2_DIR`)
+3. *(Pro only)* The **CRISPRessoPro** repo checked out at `../CRISPRessoPro` (or set `CRISPRESSOPRO_DIR`)
 
-The Makefile automatically activates the pixi environment — no manual `conda activate` or `pixi shell` needed. CRISPResso2 is installed (and re-installed when source changes) via the `.install_sentinel` mechanism.
+The Makefile automatically activates the pixi environment — no manual `conda activate` or `pixi shell` needed. CRISPResso2 is installed (and re-installed when source changes) via the `.install_sentinel` mechanism (`.install_pro_sentinel` for Pro).
+
+Two pixi environments are used:
+- **`test`** — CRISPResso2 only (default)
+- **`test-pro`** — CRISPResso2 + CRISPRessoPro (activated with `PRO=1`)
 
 You can also run from the CRISPResso2 repo:
 ```bash
@@ -29,6 +34,9 @@ ARGS="basic test" pixi run -e test integration
 ### Running Tests
 
 ```bash
+# Install CRISPResso2 (auto-runs when sources change)
+make install
+
 # Run all tests
 make all
 
@@ -62,6 +70,33 @@ make params update
 make params update-all
 ```
 
+### Running Tests with CRISPRessoPro
+
+Append `PRO=1` to any make command to run in the `test-pro` pixi environment with CRISPRessoPro installed. HTML diffs are compared against `expected_results_pro/` instead of `expected_results/`; data file diffs always use `expected_results/`.
+
+```bash
+# Install CRISPResso2 + CRISPRessoPro
+make install-pro
+
+# Run all tests with Pro
+make all-pro
+
+# Run all tests with Pro and compare output
+make all-pro test
+
+# Run a single test with Pro
+make basic PRO=1 test print
+
+# Update expected results for Pro (data→expected_results/, HTML→expected_results_pro/)
+make basic PRO=1 update
+
+# Auto-update Pro expected results
+make basic PRO=1 update-all
+
+# Clean Pro install sentinel
+make clean-pro
+```
+
 ### Web UI Testing (requires Docker + Chrome)
 
 ```bash
@@ -78,6 +113,12 @@ python test_manager.py add <actual CRISPResso results directory>
 
 ```bash
 python test_manager.py update <actual_dir> <expected_dir>
+
+# Skip HTML files (update data + plot files only)
+python test_manager.py update <actual_dir> <expected_dir> --skip-html
+
+# Update HTML files only (for Pro expected results)
+python test_manager.py update <actual_dir> <expected_dir> --html-only
 ```
 
 ## Architecture
@@ -85,7 +126,8 @@ python test_manager.py update <actual_dir> <expected_dir>
 ```
 cli_integration_tests/
 ├── inputs/                 # Test input files (fastq, bam, batch files)
-├── expected_results/       # Baseline expected outputs for regression testing
+├── expected_results/       # Baseline expected outputs (data + HTML for non-Pro)
+├── expected_results_pro/   # Pro HTML expected outputs (HTML only, used when PRO=1)
 └── CRISPResso_on_*/       # Actual test output directories (generated)
 
 web_tests/
@@ -109,7 +151,9 @@ Makefile                   # Test orchestration
 ## Configuration
 
 - **`CRISPRESSO2_DIR`** — path to the CRISPResso2 repo (default: `../CRISPResso2`). The Makefile reads `pixi.toml` from this location.
-- **Pixi auto-activation** — the Makefile checks `PIXI_ENVIRONMENT_NAME`. If not already inside pixi's `test` environment, every command is prefixed with `pixi run --manifest-path .../pixi.toml -e test --`. If already inside (e.g., via `pixi shell -e test`), commands run directly with zero overhead.
+- **`CRISPRESSOPRO_DIR`** — path to the CRISPRessoPro repo (default: `../CRISPRessoPro`). Only needed when using `PRO=1`.
+- **`PRO=1`** — append to any make command to use the `test-pro` pixi environment with CRISPRessoPro. Switches the install sentinel, pixi environment, and update flow (data→`expected_results/`, HTML→`expected_results_pro/`).
+- **Pixi auto-activation** — the Makefile checks `PIXI_ENVIRONMENT_NAME`. If not already inside the target pixi environment (`test` or `test-pro`), every command is prefixed with `pixi run --manifest-path .../pixi.toml -e <env> --`. If already inside (e.g., via `pixi shell -e test`), commands run directly with zero overhead.
 
 ## CRISPResso2 Tool Suite
 

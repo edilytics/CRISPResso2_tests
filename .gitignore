@@ -49,6 +49,7 @@ MANIFEST
 pip-log.txt
 pip-delete-this-directory.txt
 .install_sentinel
+.install_pro_sentinel
 
 # Unit test / coverage reports
 htmlcov/
