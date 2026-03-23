@@ -222,25 +222,23 @@ details[open] > summary .guardrail-toggle { transform: rotate(180deg); }
 .guardrail-summary::-webkit-details-marker { display: none; }
 </style>
 <details style="margin-bottom: 10px; text-align: center; border-radius: 5px;">
-	<summary style="cursor: pointer; font-weight: bold; font-size: 1.1em; padding: 8px 10px; border-radius: 5px; list-style: none; display: flex; justify-content: center; align-items: center; background-color: #f8d7da; border: 2px solid #dc3545;">Guardrails — 8 out of 11 failed <i class="fas fa-chevron-down guardrail-toggle" style="margin-left: auto;"></i></summary>
+	<summary style="cursor: pointer; font-weight: bold; font-size: 1.1em; padding: 8px 10px; border-radius: 5px; list-style: none; display: flex; justify-content: center; align-items: center; background-color: #f8d7da; border: 2px solid #dc3545;">Guardrails — 7 out of 10 failed <i class="fas fa-chevron-down guardrail-toggle" style="margin-left: auto;"></i></summary>
 	<div style="padding: 10px; background-color: #ffffff;">
 	
 	<details open style="margin-left: 20px; margin-top: 5px; text-align: left;">
-		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #842029;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Failed Guardrails (8)</summary>
+		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #842029;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Failed Guardrails (7)</summary>
 		
-			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 700.</div>
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 3.</div>
 		
-			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> <=90.0% of reads were aligned. Total reads: 700, Aligned reads: 75.</div>
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> <=90.0% of reads were aligned. Total reads: 3, Aligned reads: 2.</div>
 		
-			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 9.71%.</div>
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 66.67%.</div>
 		
-			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 1.0%.</div>
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 0.0%.</div>
 		
-			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 75, Irregular reads: 75.</div>
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> <=1.0% of modifications were inside of the quantification window. Total modifications: 5, Modifications in window: 0, Modifications outside window: 5.</div>
 		
-			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 49, Substitutions outside window: 43.</div>
-		
-			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 94, Substitutions: 49.</div>
+			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 2, Irregular reads: 2.</div>
 		
 			<div class="alert alert-danger"><strong>Guardrail Warning!</strong> Guide length <19: CCCACTGCAAGGCCC, Length: 15.</div>
 		
@@ -250,7 +248,7 @@ details[open] > summary .guardrail-toggle { transform: rotate(180deg); }
 	<details style="margin-left: 20px; margin-top: 5px; text-align: left;">
 		<summary class="guardrail-summary" style="cursor: pointer; font-weight: bold; color: #0f5132;"><i class="fas fa-chevron-down guardrail-toggle" style="margin-right: 5px;"></i>Passed Guardrails (3)</summary>
 		
-			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Sufficient ratio of modifications inside quantification window.</div>
+			<div class="alert alert-success"><strong>Guardrail Passed:</strong> Substitution rate within acceptable range.</div>
 		
 			<div class="alert alert-success"><strong>Guardrail Passed:</strong> All amplicon lengths above minimum threshold (50).</div>
 		
@@ -292,7 +290,7 @@ details[open] > summary .guardrail-toggle { transform: rotate(180deg); }
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-03-20 16:07:03</p>
+  <p><strong>Run completed:</strong> 2026-03-23 13:06:35</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
@@ -472,20 +470,6 @@ zip_output: False</pre></p>
 			</div> 
 
         		
-			
-			<div class='card text-center mb-2 breakinpage'>
-				<div class='card-header'>
-					<h5>Global frameshift analysis</h5>
-				</div>
-				<div class='card-body'>
-					<div id="fig_plot_5a" class="d-flex flex-column">
-    
-    <a href="5a.Global_frameshift_in-frame_mutations_pie_chart.pdf"><img src="5a.Global_frameshift_in-frame_mutations_pie_chart.png" width='40%'></a>
-        
-            <label class="labelpadding">Figure 5a: Frameshift analysis of coding sequence reads affected by modifications for all reads. Unmodified reference reads are excluded from this plot, and all HDR reads are included in this plot.</label>
-</div>
-				</div>
-			</div>
 			
 
 			
@@ -717,10 +701,6 @@ zip_output: False</pre></p>
   						  			</li>
 								 	
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#FANC_4f" role="tab" aria-controls="FANC_4f" aria-selected="false">HDR reads aligned to FANC</button>
-  						  			</li>
-									
   								</ul>
   							</div> 
   							<div class='card-body'>
@@ -774,14 +754,6 @@ zip_output: False</pre></p>
 									</div>
 									
 
-									
-									<div class="tab-pane fade" id="FANC_4f" role="tabpanel">
-										<div id="fig_plot_4f" class="d-flex flex-column">
-    
-    <a href="4f.FANC.Global_mutations_in_HDR_reads_with_reference_to_FANC.pdf"><img src="4f.FANC.Global_mutations_in_HDR_reads_with_reference_to_FANC.png" width='40%'></a>
-        <label class="labelpadding">Figure 4f: Positions of modifications in HDR reads with respect to the reference sequence (FANC). All modifications (including those outside the quantification window) are shown.</label>
-</div>
-									</div>
 									
   								</div>
   							</div> 
@@ -1114,44 +1086,7 @@ zip_output: False</pre></p>
       							<div class='card-body'>
 
 								
-									<div class='div_zoom_outer d-none d-md-block' style="height:100px;border:1px solid #DDDDDD;position:relative">
-										<div id="zoomview_nucs_HDR" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.HDR.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
-											<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
-												<img src="2a.HDR.Nucleotide_percentage_quilt.png" style='height:100%'>
-											</div>
-									</div>
-									<div style='position:relative;display:inline-block;width:95%'>
-										<a href="2a.HDR.Nucleotide_percentage_quilt.pdf">
-    									<div id='zoomlens_nucs_HDR' class="d-none d-lg-block" style='float: left;position: absolute;left: 0px;top: 0px;z-index: 1000;border: 1px solid #DDDDDD;height:100%;width:10%'></div>
-    										<img id='tozoom_nucs_HDR' src="2a.HDR.Nucleotide_percentage_quilt.png" width='100%' style='position:relative'></a>
-									</div>
-									<label class="labelpadding">
-										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
-											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
-									</label>
 								
-									<p class="m-0"><small>Data: <a href="HDR.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
-								
-								
-								
-  									
-									<div id="fig_plot_2b_0" class="d-flex flex-column">
-    <a href="2b.HDR.Nucleotide_percentage_quilt_around_hi.pdf"><img src="2b.HDR.Nucleotide_percentage_quilt_around_hi.png" width='100%'></a>
-        <label class="labelpadding">Figure 2b: Nucleotide distribution around the hi (GGAATCCCTTCTGCAGCACC).</label>
-            <p class="m-0"><small>Data: <a href="HDR.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
-</div>
-  									
-									<div id="fig_plot_2b_1" class="d-flex flex-column">
-    <a href="2b.HDR.Nucleotide_percentage_quilt_around_dear.pdf"><img src="2b.HDR.Nucleotide_percentage_quilt_around_dear.png" width='100%'></a>
-        <label class="labelpadding">Figure 2b: Nucleotide distribution around the dear (AGCCTTGCAGTGGGCGCGCTA).</label>
-            <p class="m-0"><small>Data: <a href="HDR.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
-</div>
-  									
-									<div id="fig_plot_2b_2" class="d-flex flex-column">
-    <a href="2b.HDR.Nucleotide_percentage_quilt_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="2b.HDR.Nucleotide_percentage_quilt_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
-        <label class="labelpadding">Figure 2b: Nucleotide distribution around the sgRNA CCCACTGAAGGCCC.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
-</div>
   									
 								
             		</div>
@@ -1164,40 +1099,13 @@ zip_output: False</pre></p>
 								
   								<ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#HDR_3a" role="tab" aria-controls="HDR_3a" aria-selected="true">Summary</button>
-  						  			</li>
-            								
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_3b" role="tab" aria-controls="HDR_3b" aria-selected="false">Indels</button>
-  						  			</li>
-            						
   								</ul>
   							</div>
   							<div class='card-body'>
 								<div class="tab-content" id="pills-tabContent">
 									
-  						  			<div class="tab-pane fade show active" id="HDR_3a" role="tabpanel">
-							  			<div id="fig_plot_3a" class="d-flex flex-column">
-    
-    <a href="3a.HDR.Indel_size_distribution.pdf"><img src="3a.HDR.Indel_size_distribution.png" width='40%'></a>
-        <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
-            <p class="m-0"><small>Data: <a href="HDR.Indel_histogram.txt">Indel histogram</a></small></p>
-</div>
-						  			</div>
-									
 
-									
-  						  			<div class="tab-pane fade" id="HDR_3b" role="tabpanel">
-							  			<div id="fig_plot_3b" class="d-flex flex-column">
-    <a href="3b.HDR.Insertion_deletion_substitutions_size_hist.pdf"><img src="3b.HDR.Insertion_deletion_substitutions_size_hist.png" width='100%'></a>
-        <label class="labelpadding">Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown).</label>
-            <p class="m-0"><small>Data: <a href="HDR.Insertion_histogram.txt">Insertions frequency</a></small></p>
-            <p class="m-0"><small>Data: <a href="HDR.Deletion_histogram.txt">Deletions Frequency</a></small></p>
-            <p class="m-0"><small>Data: <a href="HDR.Substitution_histogram.txt">Substitutions Frequency</a></small></p>
-</div>
-						  			</div>
 									
   								</div>
   							</div> 
@@ -1210,25 +1118,9 @@ zip_output: False</pre></p>
 								
   								<ul class="nav nav-tabs justify-content-center card-header-tabs" id="indel-characterization-tabs" role="tablist">
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_4a" role="tab" aria-controls="HDR_4a" aria-selected="true">All Modifications Combined</button>
-  						  			</li>
-            								
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#HDR_4b" role="tab" aria-controls="HDR_4b" aria-selected="false">All Modifications by Type</button>
-  						  			</li>
-            								
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_4c" role="tab" aria-controls="HDR_4c" aria-selected="false">Modifications in Quantification Window</button>
-  						  			</li>
-            								
 									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_4d" role="tab" aria-controls="HDR_4d" aria-selected="false">Indel Lengths</button>
-  						  			</li>
-            								
 									
 									
   								</ul>
@@ -1236,42 +1128,9 @@ zip_output: False</pre></p>
   							<div class='card-body'>
   								<div class="tab-content" id="pills-tabContent">
 									
-									<div class="tab-pane fade" id="HDR_4a" role="tabpanel">
-										<div id="fig_plot_4a" class="d-flex flex-column">
-    
-    <a href="4a.HDR.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.HDR.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
-        <label class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</label>
-</div>
-									</div>
 									
-									
-									<div class="tab-pane fade show active" id="HDR_4b" role="tabpanel">
-										<div id="fig_plot_4b" class="d-flex flex-column">
-    
-    <a href="4b.HDR.Insertion_deletion_substitution_locations.pdf"><img src="4b.HDR.Insertion_deletion_substitution_locations.png" width='40%'></a>
-        <label class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Modification_count_vectors.txt">Modification frequency</a></small></p>
-</div>
-									</div>
-									
-									
-									<div class="tab-pane fade" id="HDR_4c" role="tabpanel">
-										<div id="fig_plot_4c" class="d-flex flex-column">
-    
-    <a href="4c.HDR.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.HDR.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
-        <label class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></small></p>
-</div>
-									</div>
 									
 
-									
-									<div class="tab-pane fade" id="HDR_4d" role="tabpanel">
-										<div id="fig_plot_4d" class="d-flex flex-column">
-    <a href="4d.HDR.Position_dependent_average_indel_size.pdf"><img src="4d.HDR.Position_dependent_average_indel_size.png" width='100%'></a>
-        <label class="labelpadding">Figure 4d: Position dependent insertion size(left) and deletion size (right), including only modifications that overlap with the quantification window.</label>
-</div>
-									</div>
 									
 
 									
@@ -1283,329 +1142,17 @@ zip_output: False</pre></p>
 
 
 						
-						<div class='card text-center mb-2 breakinpage'>
-							<div class='card-header'>
-								
-  								<h5>Frameshift analysis for HDR</h5>
-								
-							</div>
-  							<div class='card-body'>
-								<div id="fig_plot_5" class="d-flex flex-column">
-    <a href="5.HDR.Frameshift_in-frame_mutations_pie_chart.pdf"><img src="5.HDR.Frameshift_in-frame_mutations_pie_chart.png" width='100%'></a>
-        <label class="labelpadding">Figure 5: Frameshift analysis of coding sequence reads affected by modifications (unmodified reads are excluded from this analysis).</label>
-</div>
-							</div>
-						</div>
+
 						
 
 						
-						<div class='card text-center mb-2 breakinpage'>
-							<div class='card-header'>
-								
-  								<h5>Frameshift mutagenesis profiles for HDR</h5>
-								
-							</div>
-  							<div class='card-body'>
-								<div id="fig_plot_6" class="d-flex flex-column">
-    <a href="6.HDR.Frameshift_in-frame_mutation_profiles.pdf"><img src="6.HDR.Frameshift_in-frame_mutation_profiles.png" width='100%'></a>
-        <label class="labelpadding">Figure 6: Frameshift and in-frame mutagenesis profiles indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 0 reads with no length modifications are not shown.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Indel_histogram.txt">Indel histogram for HDR</a></small></p>
-</div>
-							</div>
-						</div>
+
 						
 
 						
-						<div class='card text-center mb-2 breakinpage'>
-							<div class='card-header'>
-								
-  								<h5>Coding mutations for HDR</h5>
-								
-							</div>
-  							<div class='card-body'>
-								<div id="fig_plot_7" class="d-flex flex-column">
-    
-    <a href="7.HDR.Insertion_deletion_substitution_locations_noncoding.pdf"><img src="7.HDR.Insertion_deletion_substitution_locations_noncoding.png" width='40%'></a>
-        <label class="labelpadding">Figure 7: Reads with insertions, deletions, and substitutions mapped to reference amplicon position exclusively in noncoding region/s (that is, without mutations affecting coding sequences). The predicted cleavage site is indicated by a vertical dashed line. Only sequence positions directly adjacent to insertions or directly affected by deletions or substitutions are plotted.</label>
-</div>
-							</div>
-						</div>
 						
 
-						
-						<div class='card text-center mb-2 breakinpage'>
-							<div class='card-header'>
-								
-  								<h5>Splicing for HDR</h5>
-								
-							</div>
-  							<div class='card-body'>
-								<div id="fig_plot_8" class="d-flex flex-column">
-    
-    <a href="8.HDR.Potential_splice_sites_pie_chart.pdf"><img src="8.HDR.Potential_splice_sites_pie_chart.png" width='40%'></a>
-        <label class="labelpadding">Figure 8: Predicted impact on splice sites. Potential splice sites modified refers to reads in which the either of the two intronic positions adjacent to exon junctions are disrupted.</label>
-</div>
-							</div>
-						</div>
-						
-
-						
-						<div class='card text-center mb-2 breakinpage'>
-							<div class='card-header'>
-								
-  								<h5>Allele plots for HDR</h5>
-								
-							</div>
-							<div class='card-body'>
-								
-                  				<div class='mb-4'>
-					  				<div id="fig_plot_9_0" class="d-flex flex-column">
-    <a href="9.HDR.Alleles_frequency_table_around_hi.pdf"><img src="9.HDR.Alleles_frequency_table_around_hi.png" width='100%'></a>
-        <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Alleles_frequency_table_around_hi.txt">Allele frequency table</a></small></p>
-</div>
-                				</div>
-								
-                  				<div class='mb-4'>
-					  				<div id="fig_plot_9_1" class="d-flex flex-column">
-    <a href="9.HDR.Alleles_frequency_table_around_dear.pdf"><img src="9.HDR.Alleles_frequency_table_around_dear.png" width='100%'></a>
-        <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Alleles_frequency_table_around_dear.txt">Allele frequency table</a></small></p>
-</div>
-                				</div>
-								
-                  				<div class='mb-4'>
-					  				<div id="fig_plot_9_2" class="d-flex flex-column">
-    <a href="9.HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="9.HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
-        <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt">Allele frequency table</a></small></p>
-</div>
-                				</div>
-								
-							</div>
-						</div>
-						
-						
-						<div class='card text-center mb-2 breakinpage'>
-							<div class='card-header'>
-								
-  								<h5>Amino Acid plot for HDR</h5>
-								
-							</div>
-							<div class='card-body'>
-								
-                  				<div class='mb-4'>
-					  				<div id="fig_plot_9a_0" class="d-flex flex-column">
-    
-        
-        
-            
-            
-        <a href="9a.HDR.amino_acid_table_around_0.pdf"><img src="9a.HDR.amino_acid_table_around_0.png" width='52.5%'></a>
-        <label class="labelpadding">Figure 9a: Visualization of the distribution of identified amino acids based on the coding sequence 0 (GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT). The vertical dashed line indicates the predicted cleavage site.</label>
-            <p class="m-0"><small>Data: <a href="HDR.amino_acid_table_for_0.txt">Amino Acid table</a></small></p>
-</div>
-                				</div>
-								
-							</div>
-						</div>
-						
-
-						
-  						<div class='card text-center mb-2 breakinpage'>
-  							<div class='card-header'>
-								
-  								<h5>Base editing for HDR</h5>
-								
-  								<ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
-									
-  						  			<li class="nav-item">
-						  				<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#HDR_10a" role="tab" aria-controls="HDR_10a" aria-selected="true">Substitution Frequencies</button>
-  						  			</li>
-									
-									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10d" role="tab" aria-controls="HDR_10d" aria-selected="false">Nucleotide Frequencies</button>
-  						  			</li>
-									
-									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10e" role="tab" aria-controls="HDR_10e" aria-selected="false">Base Proportions</button>
-  						  			</li>
-            						
-									
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10f" role="tab" aria-controls="HDR_10f" aria-selected="false">Non-reference Bases</button>
-  						  			</li>
-            						
-                  
-  						  			<li class="nav-item">
-						  				<button class="nav-link" data-bs-toggle="tab" data-bs-target="#HDR_10h" role="tab" aria-controls="HDR_10h" aria-selected="false">Base Edit Quilt</button>
-  						  			</li>
-            						
-									
-  								</ul>
-							</div>
-							<div class='card-body'>
-								<div class="tab-content" id="pills-tabContent">
-					  				<div class="tab-pane fade show active" id="HDR_10a" role="tabpanel">
-                						<div class='mb-3'>
-											<div id="fig_plot_10a" class="d-flex flex-column">
-    <a href="10a.HDR.Substitution_frequencies_at_each_bp.pdf"><img src="10a.HDR.Substitution_frequencies_at_each_bp.png" width='70%'></a>
-        <label class="labelpadding">Figure 10a: Substitution frequencies across the amplicon.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Nucleotide_frequency_table.txt">Nucleotide frequencies</a></small></p>
-</div>
-                						</div>
-										<div class="mb-3">
-											<div id="fig_plot_10b" class="d-flex flex-column">
-    <a href="10b.HDR.Substitution_frequency_barplot.pdf"><img src="10b.HDR.Substitution_frequency_barplot.png" width='35%'></a>
-        <label class="labelpadding">Figure 10b: Substitution frequencies across the amplicon.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Nucleotide_frequency_table.txt">Nucleotide frequencies</a></small></p>
-</div>
-                                        </div>
-                                        
-                                        <div class="mb-3">
-											<div id="fig_plot_10c" class="d-flex flex-column">
-    <a href="10c.HDR.Substitution_frequency_barplot_in_quantification_window.pdf"><img src="10c.HDR.Substitution_frequency_barplot_in_quantification_window.png" width='35%'></a>
-        <label class="labelpadding">Figure 10c: Substitution frequencies in the quantification window</label>
-            <p class="m-0"><small>Data: <a href="HDR.Quantification_window_substitution_frequency_table.txt">Nucleotide frequencies in quantification window</a></small></p>
-</div>
-										</div>
-										
-									</div>
-
-									
-
-									
-									<div class="tab-pane fade" id="HDR_10d" role="tabpanel">
-										
-										<div class='mb-4'>
-											<div id="fig_plot_10d_0" class="d-flex flex-column">
-    <a href="10d.HDR.Log2_nucleotide_frequency_around_hi.pdf"><img src="10d.HDR.Log2_nucleotide_frequency_around_hi.png" width='100%'></a>
-        <label class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the hi (GGAATCCCTTCTGCAGCACC). The quantification window is outlined by the dotted box.</label>
-</div>
-										</div>
-										
-										<div class='mb-4'>
-											<div id="fig_plot_10d_1" class="d-flex flex-column">
-    <a href="10d.HDR.Log2_nucleotide_frequency_around_dear.pdf"><img src="10d.HDR.Log2_nucleotide_frequency_around_dear.png" width='100%'></a>
-        <label class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the dear (AGCCTTGCAGTGGGCGCGCTA). The quantification window is outlined by the dotted box.</label>
-</div>
-										</div>
-										
-										<div class='mb-4'>
-											<div id="fig_plot_10d_2" class="d-flex flex-column">
-    <a href="10d.HDR.Log2_nucleotide_frequency_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10d.HDR.Log2_nucleotide_frequency_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
-        <label class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the sgRNA CCCACTGAAGGCCC. The quantification window is outlined by the dotted box.</label>
-</div>
-										</div>
-										
-									</div>
-									
-									
-					  				<div class="tab-pane fade" id="HDR_10e" role="tabpanel">
-						  				
-										<div class='mb-4'>
-			  								<div id="fig_plot_10e_0" class="d-flex flex-column">
-    <a href="10e.HDR.Selected_conversion_at_Cs_around_hi.pdf"><img src="10e.HDR.Selected_conversion_at_Cs_around_hi.png" width='100%'></a>
-        <label class="labelpadding">Figure 10e: Proportion of each base at each nucleotide targeted by base editors in the plotting window around the hi (GGAATCCCTTCTGCAGCACC). The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_hi.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-  										</div>
-										
-										<div class='mb-4'>
-			  								<div id="fig_plot_10e_1" class="d-flex flex-column">
-    <a href="10e.HDR.Selected_conversion_at_Cs_around_dear.pdf"><img src="10e.HDR.Selected_conversion_at_Cs_around_dear.png" width='100%'></a>
-        <label class="labelpadding">Figure 10e: Proportion of each base at each nucleotide targeted by base editors in the plotting window around the dear (AGCCTTGCAGTGGGCGCGCTA). The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_dear.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-  										</div>
-										
-										<div class='mb-4'>
-			  								<div id="fig_plot_10e_2" class="d-flex flex-column">
-    <a href="10e.HDR.Selected_conversion_at_Cs_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10e.HDR.Selected_conversion_at_Cs_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
-        <label class="labelpadding">Figure 10e: Proportion of each base at each nucleotide targeted by base editors in the plotting window around the sgRNA CCCACTGAAGGCCC. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-  										</div>
-										
-              						</div>
-									
-									
-									<div class="tab-pane fade" id="HDR_10f" role="tabpanel">
-										
-                  						<div class='mb-4'>
-			  								<div id="fig_plot_10f_0" class="d-flex flex-column">
-    <a href="10f.HDR.Selected_conversion_no_ref_at_Cs_around_hi.pdf"><img src="10f.HDR.Selected_conversion_no_ref_at_Cs_around_hi.png" width='100%'></a>
-        <label class="labelpadding">Figure 10f: Non-reference base proportions. For target nucleotides in the plotting window, this plot shows the proportion of non-reference (non-C) bases as a percentage of all non-reference sequences. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_hi.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-                  						</div>
-										
-                  						<div class='mb-4'>
-			  								<div id="fig_plot_10f_1" class="d-flex flex-column">
-    <a href="10f.HDR.Selected_conversion_no_ref_at_Cs_around_dear.pdf"><img src="10f.HDR.Selected_conversion_no_ref_at_Cs_around_dear.png" width='100%'></a>
-        <label class="labelpadding">Figure 10f: Non-reference base proportions. For target nucleotides in the plotting window, this plot shows the proportion of non-reference (non-C) bases as a percentage of all non-reference sequences. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_dear.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-                  						</div>
-										
-                  						<div class='mb-4'>
-			  								<div id="fig_plot_10f_2" class="d-flex flex-column">
-    <a href="10f.HDR.Selected_conversion_no_ref_at_Cs_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10f.HDR.Selected_conversion_no_ref_at_Cs_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
-        <label class="labelpadding">Figure 10f: Non-reference base proportions. For target nucleotides in the plotting window, this plot shows the proportion of non-reference (non-C) bases as a percentage of all non-reference sequences. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-                  						</div>
-										
-										
-                  						<div class='mb-4'>
-			  								<div id="fig_plot_10g_0" class="d-flex flex-column">
-    <a href="10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_hi.pdf"><img src="10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_hi.png" width='100%'></a>
-        <label class="labelpadding">Figure 10g: Non-reference base counts. For target nucleotides in the plotting window, this plot shows the number of non-reference (non-C) bases. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_hi.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-                    					</div>
-										
-                  						<div class='mb-4'>
-			  								<div id="fig_plot_10g_1" class="d-flex flex-column">
-    <a href="10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_dear.pdf"><img src="10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_dear.png" width='100%'></a>
-        <label class="labelpadding">Figure 10g: Non-reference base counts. For target nucleotides in the plotting window, this plot shows the number of non-reference (non-C) bases. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_dear.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-                    					</div>
-										
-                  						<div class='mb-4'>
-			  								<div id="fig_plot_10g_2" class="d-flex flex-column">
-    <a href="10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
-        <label class="labelpadding">Figure 10g: Non-reference base counts. For target nucleotides in the plotting window, this plot shows the number of non-reference (non-C) bases. The number of each target base is annotated on the reference sequence at the bottom of the plot.</label>
-            <p class="m-0"><small>Data: <a href="HDR.Selected_nucleotide_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt">Nucleotide frequencies at Cs</a></small></p>
-</div>
-                    					</div>
-										
-									</div>
-                  
-									<div class="tab-pane fade" id="HDR_10h" role="tabpanel">
-                      <div class='mb-4'>
-                      <div id="fig_plot_10h" class="d-flex flex-column">
-    <a href="10h.HDR.base_edit_Cs_quilt.pdf"><img src="10h.HDR.base_edit_Cs_quilt.png" width='100%'></a>
-        <label class="labelpadding">Figure 10h: Quilt of target nucleotide: C across entire amplicon. The x-axis shows the corresponding position of the nucleotide in the reference amplicon (1-indexed). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences.</label>
-            <p class="m-0"><small>Data: <a href="HDR.base_edit_Cs_quilt.txt">Allele frequency table</a></small></p>
-</div>
-                      </div>
-									</div>
-									
-
-									
-									<div class="tab-pane fade" id="HDR_10i" role="tabpanel">
-                    
-									</div>
-									
-								</div>
-							
-							</div>
-						</div> 
-					 
+						 
 					</div>  <!--end amp tab -->
 				
 				</div>  <!-- end tab content -->
@@ -1744,25 +1291,6 @@ try {
 
 		
 	
-		
-		view = document.getElementById('zoomview_nucs_HDR');
-		img = document.getElementById('tozoom_nucs_HDR');
-		lens = document.getElementById('zoomlens_nucs_HDR')
-
-		img.viewObj = view
-		img.lensObj = lens
-		img.imgObj = img
-
-		lens.viewObj = view
-		lens.lensObj = lens
-		lens.imgObj = img
-
-		lens.addEventListener("mousemove", updateZoom, passiveSupported? { passive: true } : false);
-		img.addEventListener("mousemove", updateZoom, passiveSupported? { passive: true } : false);
-		/*and also for touch screens:*/
-		lens.addEventListener("touchmove", updateZoom, passiveSupported? { passive: true } : false);
-		img.addEventListener("touchmove", updateZoom, passiveSupported? { passive: true } : false);
-
 		
 	
 
