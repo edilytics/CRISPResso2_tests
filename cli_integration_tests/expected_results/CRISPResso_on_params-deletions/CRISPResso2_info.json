@@ -124,40 +124,40 @@
     "args_string": "allele_plot_pcts_only_for_assigned_reference: False\naln_seed_count: 5\naln_seed_len: 10\naln_seed_min: 2\namplicon_coordinates: \namplicon_min_alignment_score: \namplicon_name: FANC\namplicon_seq: CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG\nannotate_wildtype_allele: \nassign_ambiguous_alignments_to_first_reference: False\nauto: False\nbam_chr_loc: \nbam_input: \nbam_output: False\nbase_editor_consider_changes_outside_qw: True\nbase_editor_output: True\nbase_editor_target_ref_skip_allele_count: 0\nbowtie2_index: \ncoding_seq: GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT\ncoding_seq_name: \nconfig_file: None\nconversion_nuc_from: C\nconversion_nuc_to: T\ncrispresso1_mode: False\ncrispresso_merge: False\ndebug: True\ndefault_min_aln_score: 80\ndisable_guardrails: False\ndiscard_guide_positions_overhanging_amplicon_edge: False\ndiscard_indel_reads: False\ndisplay_name: \ndsODN: GCTAGATTTCCCAAGAAGA\ndump: True\nexclude_bp_from_left: 15\nexclude_bp_from_right: 15\nexpand_allele_plots_by_quantification: False\nexpand_ambiguous_alignments: False\nexpected_hdr_amplicon_seq: CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG\nfastp_command: fastp\nfastp_options_string: \nfastq_output: False\nfastq_r1: inputs/FANC.Cas9.deletions.fastq\nfastq_r2: \nfile_prefix: \nflash_command: None\nflexiguide_gap_extend_penalty: -2\nflexiguide_gap_open_penalty: -20\nflexiguide_homology: 80\nflexiguide_name: dear\nflexiguide_seq: AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC\nforce_merge_pairs: False\nguide_name: hi\nguide_seq: GGAATCCCTTCTGCAGCACC\nhalt_on_plot_fail: True\nignore_deletions: False\nignore_insertions: False\nignore_substitutions: False\nkeep_intermediate: False\nmax_paired_end_reads_overlap: None\nmax_rows_alleles_around_cut_to_plot: 50\nmin_average_read_quality: 30\nmin_bp_quality_or_N: 0\nmin_frequency_alleles_around_cut_to_plot: 0.2\nmin_paired_end_reads_overlap: 10\nmin_single_bp_quality: 0\nn_processes: max\nname: params-deletions\nneedleman_wunsch_aln_matrix_loc: EDNAFULL\nneedleman_wunsch_gap_extend: -2\nneedleman_wunsch_gap_incentive: 1\nneedleman_wunsch_gap_open: -20\nno_rerun: False\noutput_folder: \nplace_report_in_output_folder: True\nplot_histogram_outliers: False\nplot_window_size: 20\nprime_editing_gap_extend_penalty: 0\nprime_editing_gap_open_penalty: -50\nprime_editing_nicking_guide_seq: \nprime_editing_override_prime_edited_ref_seq: \nprime_editing_override_sequence_checks: False\nprime_editing_pegRNA_extension_quantification_window_size: 5\nprime_editing_pegRNA_extension_seq: \nprime_editing_pegRNA_scaffold_min_match_length: 1\nprime_editing_pegRNA_scaffold_seq: \nprime_editing_pegRNA_spacer_seq: \nquantification_window_center: -3\nquantification_window_coordinates: 20-30_45-50\nquantification_window_size: 1\nsamtools_exclude_flags: 0\nsave_also_png: False\nsplit_interleaved_input: False\nstringent_flash_merging: False\nsuppress_amplicon_name_truncation: False\nsuppress_plots: False\nsuppress_report: False\ntrim_sequences: False\ntrimmomatic_command: None\ntrimmomatic_options_string: \nuse_legacy_insertion_quantification: False\nuse_matplotlib: False\nvcf_output: False\nverbosity: 3\nwrite_cleaned_report: False\nwrite_detailed_allele_table: False\nzip_output: False",
     "start_time": {
       "_type": "datetime.datetime",
-      "value": "2026-03-20 16:06:54.626974"
+      "value": "2026-03-23 14:44:24.500655"
     },
-    "start_time_string": "2026-03-20 16:06:54",
+    "start_time_string": "2026-03-23 14:44:24",
     "allele_frequency_table_filename": "Alleles_frequency_table.txt",
     "allele_frequency_table_zip_filename": "Alleles_frequency_table.zip",
     "quant_of_editing_freq_filename": "CRISPResso_quantification_of_editing_frequency.txt",
     "alignment_stats": {
-      "N_TOT_READS": 700,
-      "N_CACHED_ALN": 6,
-      "N_CACHED_NOTALN": 612,
-      "N_COMPUTED_ALN": 69,
-      "N_COMPUTED_NOTALN": 13,
-      "N_GLOBAL_SUBS": 49,
-      "N_SUBS_OUTSIDE_WINDOW": 43,
-      "N_MODS_IN_WINDOW": 6,
-      "N_MODS_OUTSIDE_WINDOW": 88,
-      "N_READS_IRREGULAR_ENDS": 75,
+      "N_TOT_READS": 3,
+      "N_CACHED_ALN": 0,
+      "N_CACHED_NOTALN": 0,
+      "N_COMPUTED_ALN": 2,
+      "N_COMPUTED_NOTALN": 1,
+      "N_GLOBAL_SUBS": 0,
+      "N_SUBS_OUTSIDE_WINDOW": 0,
+      "N_MODS_IN_WINDOW": 0,
+      "N_MODS_OUTSIDE_WINDOW": 5,
+      "N_READS_IRREGULAR_ENDS": 2,
       "READ_LENGTH": 250
     },
     "mapping_stats_filename": "CRISPResso_mapping_statistics.txt",
     "end_time": {
       "_type": "datetime.datetime",
-      "value": "2026-03-20 16:07:03.882727"
+      "value": "2026-03-23 14:44:29.866479"
     },
-    "end_time_string": "2026-03-20 16:07:03",
+    "end_time_string": "2026-03-23 14:44:29",
     "running_time": {
       "_type": "datetime.timedelta",
       "value": {
         "days": 0,
-        "seconds": 9,
-        "microseconds": 255753
+        "seconds": 5,
+        "microseconds": 365824
       }
     },
-    "running_time_string": "0:00:09.255753",
+    "running_time_string": "0:00:05.365824",
     "report_location": "CRISPResso_on_params-deletions/CRISPResso2_report.html",
     "report_filename": "CRISPResso2_report.html"
   },
@@ -1350,7 +1350,7 @@
             0.0,
             0.0,
             0.0,
-            85.71428571428571,
+            0.0,
             0.0,
             0.0,
             0.0,
@@ -1801,7 +1801,7 @@
             0.0,
             0.0,
             0.0,
-            85.71428571428571,
+            0.0,
             0.0,
             0.0,
             0.0,
@@ -1968,16 +1968,16 @@
         }
       },
       "counts_total": {
-        "FANC": 68,
-        "HDR": 7
+        "FANC": 2,
+        "HDR": 0
       },
       "counts_modified": {
         "FANC": 0,
-        "HDR": 6
+        "HDR": 0
       },
       "counts_unmodified": {
-        "FANC": 68,
-        "HDR": 1
+        "FANC": 2,
+        "HDR": 0
       },
       "counts_discarded": {
         "FANC": 0,
@@ -1993,7 +1993,7 @@
       },
       "counts_substitution": {
         "FANC": 0,
-        "HDR": 6
+        "HDR": 0
       },
       "counts_only_insertion": {
         "FANC": 0,
@@ -2005,7 +2005,7 @@
       },
       "counts_only_substitution": {
         "FANC": 0,
-        "HDR": 6
+        "HDR": 0
       },
       "counts_insertion_and_deletion": {
         "FANC": 0,
@@ -2025,7 +2025,7 @@
       },
       "counts_modified_frameshift": {
         "FANC": 0,
-        "HDR": 7
+        "HDR": 0
       },
       "counts_modified_non_frameshift": {
         "FANC": 0,
@@ -2040,9 +2040,7 @@
         "HDR": 0
       },
       "class_counts": {
-        "FANC_UNMODIFIED": 68,
-        "HDR_MODIFIED": 6,
-        "HDR_UNMODIFIED": 1
+        "FANC_UNMODIFIED": 2
       }
     },
     "general_plots": {
@@ -2086,9 +2084,6 @@
           "Alleles_homology_scores.txt"
         ]
       ],
-      "plot_5a_root": "5a.Global_frameshift_in-frame_mutations_pie_chart",
-      "plot_5a_caption": "Figure 5a: Frameshift analysis of coding sequence reads affected by modifications for all reads. Unmodified reference reads are excluded from this plot, and all HDR reads are included in this plot.",
-      "plot_5a_data": [],
       "plot_6a_root": "6a.Global_frameshift_in-frame_mutation_profiles",
       "plot_6a_caption": "Figure 6a: Frameshift and in-frame mutagenesis profiles for all reads indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 0 reads with no length modifications are not shown.",
       "plot_6a_data": [
@@ -2733,7 +2728,7 @@
         "y_values_mut": {
           "_type": "np.ndarray",
           "value": [
-            68,
+            2,
             0,
             0,
             0,
@@ -2775,7 +2770,7 @@
         "y_values_ins": {
           "_type": "np.ndarray",
           "value": [
-            68,
+            2,
             0,
             0,
             0,
@@ -2817,7 +2812,7 @@
         "y_values_del": {
           "_type": "np.ndarray",
           "value": [
-            68,
+            2,
             0,
             0,
             0,
@@ -2874,7 +2869,7 @@
             0,
             0,
             0,
-            68,
+            2,
             0,
             0,
             0,
@@ -3267,10 +3262,7 @@
         ],
         "plot_10i_roots": [],
         "plot_10i_captions": [],
-        "plot_10i_datas": [],
-        "plot_4f_root": "4f.FANC.Global_mutations_in_HDR_reads_with_reference_to_FANC",
-        "plot_4f_caption": "Figure 4f: Positions of modifications in HDR reads with respect to the reference sequence (FANC). All modifications (including those outside the quantification window) are shown.",
-        "plot_4f_data": []
+        "plot_10i_datas": []
       },
       "HDR": {
         "name": "HDR",
@@ -3927,8 +3919,8 @@
         "y_values_mut": {
           "_type": "np.ndarray",
           "value": [
-            1,
-            6,
+            0,
+            0,
             0,
             0,
             0,
@@ -3969,7 +3961,7 @@
         "y_values_ins": {
           "_type": "np.ndarray",
           "value": [
-            7,
+            0,
             0,
             0,
             0,
@@ -4011,7 +4003,7 @@
         "y_values_del": {
           "_type": "np.ndarray",
           "value": [
-            7,
+            0,
             0,
             0,
             0,
@@ -4068,7 +4060,208 @@
             0,
             0,
             0,
-            7,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -4089,6 +4282,207 @@
         "hlengths": {
           "_type": "np.ndarray",
           "value": [
+            -216,
+            -215,
+            -214,
+            -213,
+            -212,
+            -211,
+            -210,
+            -209,
+            -208,
+            -207,
+            -206,
+            -205,
+            -204,
+            -203,
+            -202,
+            -201,
+            -200,
+            -199,
+            -198,
+            -197,
+            -196,
+            -195,
+            -194,
+            -193,
+            -192,
+            -191,
+            -190,
+            -189,
+            -188,
+            -187,
+            -186,
+            -185,
+            -184,
+            -183,
+            -182,
+            -181,
+            -180,
+            -179,
+            -178,
+            -177,
+            -176,
+            -175,
+            -174,
+            -173,
+            -172,
+            -171,
+            -170,
+            -169,
+            -168,
+            -167,
+            -166,
+            -165,
+            -164,
+            -163,
+            -162,
+            -161,
+            -160,
+            -159,
+            -158,
+            -157,
+            -156,
+            -155,
+            -154,
+            -153,
+            -152,
+            -151,
+            -150,
+            -149,
+            -148,
+            -147,
+            -146,
+            -145,
+            -144,
+            -143,
+            -142,
+            -141,
+            -140,
+            -139,
+            -138,
+            -137,
+            -136,
+            -135,
+            -134,
+            -133,
+            -132,
+            -131,
+            -130,
+            -129,
+            -128,
+            -127,
+            -126,
+            -125,
+            -124,
+            -123,
+            -122,
+            -121,
+            -120,
+            -119,
+            -118,
+            -117,
+            -116,
+            -115,
+            -114,
+            -113,
+            -112,
+            -111,
+            -110,
+            -109,
+            -108,
+            -107,
+            -106,
+            -105,
+            -104,
+            -103,
+            -102,
+            -101,
+            -100,
+            -99,
+            -98,
+            -97,
+            -96,
+            -95,
+            -94,
+            -93,
+            -92,
+            -91,
+            -90,
+            -89,
+            -88,
+            -87,
+            -86,
+            -85,
+            -84,
+            -83,
+            -82,
+            -81,
+            -80,
+            -79,
+            -78,
+            -77,
+            -76,
+            -75,
+            -74,
+            -73,
+            -72,
+            -71,
+            -70,
+            -69,
+            -68,
+            -67,
+            -66,
+            -65,
+            -64,
+            -63,
+            -62,
+            -61,
+            -60,
+            -59,
+            -58,
+            -57,
+            -56,
+            -55,
+            -54,
+            -53,
+            -52,
+            -51,
+            -50,
+            -49,
+            -48,
+            -47,
+            -46,
+            -45,
+            -44,
+            -43,
+            -42,
+            -41,
+            -40,
+            -39,
+            -38,
+            -37,
+            -36,
+            -35,
+            -34,
+            -33,
+            -32,
+            -31,
+            -30,
+            -29,
+            -28,
+            -27,
+            -26,
+            -25,
+            -24,
+            -23,
+            -22,
+            -21,
+            -20,
+            -19,
+            -18,
+            -17,
+            -16,
             -15,
             -14,
             -13,
@@ -4122,14 +4516,9 @@
             15
           ]
         },
-        "center_index": 15,
+        "center_index": 216,
         "ref_plot_name": "HDR.",
-        "allele_frequency_files": [
-          "HDR.base_edit_Cs_quilt.txt",
-          "HDR.Alleles_frequency_table_around_hi.txt",
-          "HDR.Alleles_frequency_table_around_dear.txt",
-          "HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt"
-        ],
+        "allele_frequency_files": [],
         "insertion_pct_vector_filename": "HDR.Effect_vector_insertion.txt",
         "deletion_pct_vector_filename": "HDR.Effect_vector_deletion.txt",
         "substitution_pct_vector_filename": "HDR.Effect_vector_substitution.txt",
@@ -4154,321 +4543,28 @@
         "deletion_histogram_filename": "HDR.Deletion_histogram.txt",
         "deletion_histogram_filename_caption": "A tab-separated text file that shows a histogram of the number of deletions in the HDR sequence in the quantification window. Deletions outside of the quantification window are not included. The del_size column shows the number of deletions, and the fq column shows the number of reads having that number of deletions.",
         "substitution_histogram_filename": "HDR.Substitution_histogram.txt",
-        "substitution_histogram_filename_caption": "A tab-separated text file that shows a histogram of the number of substitutions in the HDR sequence in the quantification window. Substitutions outside of the quantification window are not included. The sub_size column shows the number of substitutions, and the fq column shows the number of reads having that number of substitutions.",
-        "quant_window_nuc_freq_filename": "HDR.Quantification_window_nucleotide_frequency_table.txt",
-        "quant_window_nuc_pct_filename": "HDR.Quantification_window_nucleotide_percentage_table.txt",
-        "nuc_freq_filename": "HDR.Nucleotide_frequency_table.txt",
-        "nuc_pct_filename": "HDR.Nucleotide_percentage_table.txt",
-        "quant_window_sub_freq_filename": "HDR.Quantification_window_substitution_frequency_table.txt",
-        "sub_freq_table_filename": "HDR.Substitution_frequency_table.txt",
-        "plot_2a_root": "2a.HDR.Nucleotide_percentage_quilt",
-        "plot_2a_caption": "Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.",
-        "plot_2a_data": [
-          [
-            "Nucleotide frequency table",
-            "HDR.Nucleotide_frequency_table.txt"
-          ]
-        ],
-        "plot_2b_roots": [
-          "2b.HDR.Nucleotide_percentage_quilt_around_hi",
-          "2b.HDR.Nucleotide_percentage_quilt_around_dear",
-          "2b.HDR.Nucleotide_percentage_quilt_around_sgRNA_CCCACTGAAGGCCC"
-        ],
-        "plot_2b_captions": [
-          "Figure 2b: Nucleotide distribution around the hi (GGAATCCCTTCTGCAGCACC).",
-          "Figure 2b: Nucleotide distribution around the dear (AGCCTTGCAGTGGGCGCGCTA).",
-          "Figure 2b: Nucleotide distribution around the sgRNA CCCACTGAAGGCCC."
-        ],
-        "plot_2b_datas": [
-          [
-            [
-              "Nucleotide frequency in quantification window",
-              "HDR.Quantification_window_nucleotide_frequency_table.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequency in quantification window",
-              "HDR.Quantification_window_nucleotide_frequency_table.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequency in quantification window",
-              "HDR.Quantification_window_nucleotide_frequency_table.txt"
-            ]
-          ]
-        ],
-        "plot_3a_root": "3a.HDR.Indel_size_distribution",
-        "plot_3a_caption": "Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).",
-        "plot_3a_data": [
-          [
-            "Indel histogram",
-            "HDR.Indel_histogram.txt"
-          ]
-        ],
-        "plot_3b_root": "3b.HDR.Insertion_deletion_substitutions_size_hist",
-        "plot_3b_caption": "Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown).",
-        "plot_3b_data": [
-          [
-            "Insertions frequency",
-            "HDR.Insertion_histogram.txt"
-          ],
-          [
-            "Deletions Frequency",
-            "HDR.Deletion_histogram.txt"
-          ],
-          [
-            "Substitutions Frequency",
-            "HDR.Substitution_histogram.txt"
-          ]
-        ],
-        "plot_4a_root": "4a.HDR.Combined_insertion_deletion_substitution_locations",
-        "plot_4a_caption": "Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.",
-        "plot_4a_data": [],
-        "plot_4b_root": "4b.HDR.Insertion_deletion_substitution_locations",
-        "plot_4b_caption": "Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.",
-        "plot_4b_data": [
-          [
-            "Modification frequency",
-            "HDR.Modification_count_vectors.txt"
-          ]
-        ],
-        "plot_4c_root": "4c.HDR.Quantification_window_insertion_deletion_substitution_locations",
-        "plot_4c_caption": "Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.",
-        "plot_4c_data": [
-          [
-            "Modification frequency in quantification window",
-            "HDR.Quantification_window_modification_count_vectors.txt"
-          ]
-        ],
-        "plot_4d_root": "4d.HDR.Position_dependent_average_indel_size",
-        "plot_4d_caption": "Figure 4d: Position dependent insertion size(left) and deletion size (right), including only modifications that overlap with the quantification window.",
-        "plot_4d_data": [],
-        "plot_5_root": "5.HDR.Frameshift_in-frame_mutations_pie_chart",
-        "plot_5_caption": "Figure 5: Frameshift analysis of coding sequence reads affected by modifications (unmodified reads are excluded from this analysis).",
-        "plot_5_data": [],
-        "plot_6_root": "6.HDR.Frameshift_in-frame_mutation_profiles",
-        "plot_6_caption": "Figure 6: Frameshift and in-frame mutagenesis profiles indicating position affected by modification. The y axis shows the number of reads and percentage of all reads in that category (frameshifted (top) or in-frame (bottom)). 0 reads with no length modifications are not shown.",
-        "plot_6_data": [
-          [
-            "Indel histogram for HDR",
-            "HDR.Indel_histogram.txt"
-          ]
-        ],
-        "plot_7_root": "7.HDR.Insertion_deletion_substitution_locations_noncoding",
-        "plot_7_caption": "Figure 7: Reads with insertions, deletions, and substitutions mapped to reference amplicon position exclusively in noncoding region/s (that is, without mutations affecting coding sequences). The predicted cleavage site is indicated by a vertical dashed line. Only sequence positions directly adjacent to insertions or directly affected by deletions or substitutions are plotted.",
-        "plot_7_data": [],
-        "plot_8_root": "8.HDR.Potential_splice_sites_pie_chart",
-        "plot_8_caption": "Figure 8: Predicted impact on splice sites. Potential splice sites modified refers to reads in which the either of the two intronic positions adjacent to exon junctions are disrupted.",
-        "plot_8_data": [],
-        "plot_10a_root": "10a.HDR.Substitution_frequencies_at_each_bp",
-        "plot_10a_caption": "Figure 10a: Substitution frequencies across the amplicon.",
-        "plot_10a_data": [
-          [
-            "Nucleotide frequencies",
-            "HDR.Nucleotide_frequency_table.txt"
-          ]
-        ],
-        "plot_10b_root": "10b.HDR.Substitution_frequency_barplot",
-        "plot_10b_caption": "Figure 10b: Substitution frequencies across the amplicon.",
-        "plot_10b_data": [
-          [
-            "Nucleotide frequencies",
-            "HDR.Nucleotide_frequency_table.txt"
-          ]
-        ],
-        "plot_10c_root": "10c.HDR.Substitution_frequency_barplot_in_quantification_window",
-        "plot_10c_caption": "Figure 10c: Substitution frequencies in the quantification window",
-        "plot_10c_data": [
-          [
-            "Nucleotide frequencies in quantification window",
-            "HDR.Quantification_window_substitution_frequency_table.txt"
-          ]
-        ],
-        "plot_10h_root": "10h.HDR.base_edit_Cs_quilt",
-        "plot_10h_caption": "Figure 10h: Quilt of target nucleotide: C across entire amplicon. The x-axis shows the corresponding position of the nucleotide in the reference amplicon (1-indexed). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences.",
-        "plot_10h_data": [
-          [
-            "Allele frequency table",
-            "HDR.base_edit_Cs_quilt.txt"
-          ]
-        ],
-        "plot_9_roots": [
-          "9.HDR.Alleles_frequency_table_around_hi",
-          "9.HDR.Alleles_frequency_table_around_dear",
-          "9.HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC"
-        ],
-        "plot_9_captions": [
-          "Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.",
-          "Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.",
-          "Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site."
-        ],
-        "plot_9_datas": [
-          [
-            [
-              "Allele frequency table",
-              "HDR.Alleles_frequency_table_around_hi.txt"
-            ]
-          ],
-          [
-            [
-              "Allele frequency table",
-              "HDR.Alleles_frequency_table_around_dear.txt"
-            ]
-          ],
-          [
-            [
-              "Allele frequency table",
-              "HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt"
-            ]
-          ]
-        ],
-        "plot_9a_roots": [
-          "9a.HDR.amino_acid_table_around_0"
-        ],
-        "plot_9a_captions": [
-          "Figure 9a: Visualization of the distribution of identified amino acids based on the coding sequence 0 (GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT). The vertical dashed line indicates the predicted cleavage site."
-        ],
-        "plot_9a_datas": [
-          [
-            [
-              "Amino Acid table",
-              "HDR.amino_acid_table_for_0.txt"
-            ]
-          ]
-        ],
-        "plot_10d_roots": [
-          "10d.HDR.Log2_nucleotide_frequency_around_hi",
-          "10d.HDR.Log2_nucleotide_frequency_around_dear",
-          "10d.HDR.Log2_nucleotide_frequency_around_sgRNA_CCCACTGAAGGCCC"
-        ],
-        "plot_10d_captions": [
-          "Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the hi (GGAATCCCTTCTGCAGCACC). The quantification window is outlined by the dotted box.",
-          "Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the dear (AGCCTTGCAGTGGGCGCGCTA). The quantification window is outlined by the dotted box.",
-          "Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the sgRNA CCCACTGAAGGCCC. The quantification window is outlined by the dotted box."
-        ],
-        "plot_10d_datas": [
-          [],
-          [],
-          []
-        ],
-        "plot_10e_roots": [
-          "10e.HDR.Selected_conversion_at_Cs_around_hi",
-          "10e.HDR.Selected_conversion_at_Cs_around_dear",
-          "10e.HDR.Selected_conversion_at_Cs_around_sgRNA_CCCACTGAAGGCCC"
-        ],
-        "plot_10e_captions": [
-          "Figure 10e: Proportion of each base at each nucleotide targeted by base editors in the plotting window around the hi (GGAATCCCTTCTGCAGCACC). The number of each target base is annotated on the reference sequence at the bottom of the plot.",
-          "Figure 10e: Proportion of each base at each nucleotide targeted by base editors in the plotting window around the dear (AGCCTTGCAGTGGGCGCGCTA). The number of each target base is annotated on the reference sequence at the bottom of the plot.",
-          "Figure 10e: Proportion of each base at each nucleotide targeted by base editors in the plotting window around the sgRNA CCCACTGAAGGCCC. The number of each target base is annotated on the reference sequence at the bottom of the plot."
-        ],
-        "plot_10e_datas": [
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_hi.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_dear.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt"
-            ]
-          ]
-        ],
-        "plot_10f_roots": [
-          "10f.HDR.Selected_conversion_no_ref_at_Cs_around_hi",
-          "10f.HDR.Selected_conversion_no_ref_at_Cs_around_dear",
-          "10f.HDR.Selected_conversion_no_ref_at_Cs_around_sgRNA_CCCACTGAAGGCCC"
-        ],
-        "plot_10f_captions": [
-          "Figure 10f: Non-reference base proportions. For target nucleotides in the plotting window, this plot shows the proportion of non-reference (non-C) bases as a percentage of all non-reference sequences. The number of each target base is annotated on the reference sequence at the bottom of the plot.",
-          "Figure 10f: Non-reference base proportions. For target nucleotides in the plotting window, this plot shows the proportion of non-reference (non-C) bases as a percentage of all non-reference sequences. The number of each target base is annotated on the reference sequence at the bottom of the plot.",
-          "Figure 10f: Non-reference base proportions. For target nucleotides in the plotting window, this plot shows the proportion of non-reference (non-C) bases as a percentage of all non-reference sequences. The number of each target base is annotated on the reference sequence at the bottom of the plot."
-        ],
-        "plot_10f_datas": [
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_hi.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_dear.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt"
-            ]
-          ]
-        ],
-        "plot_10g_roots": [
-          "10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_hi",
-          "10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_dear",
-          "10g.HDR.Selected_conversion_no_ref_scaled_at_Cs_around_sgRNA_CCCACTGAAGGCCC"
-        ],
-        "plot_10g_captions": [
-          "Figure 10g: Non-reference base counts. For target nucleotides in the plotting window, this plot shows the number of non-reference (non-C) bases. The number of each target base is annotated on the reference sequence at the bottom of the plot.",
-          "Figure 10g: Non-reference base counts. For target nucleotides in the plotting window, this plot shows the number of non-reference (non-C) bases. The number of each target base is annotated on the reference sequence at the bottom of the plot.",
-          "Figure 10g: Non-reference base counts. For target nucleotides in the plotting window, this plot shows the number of non-reference (non-C) bases. The number of each target base is annotated on the reference sequence at the bottom of the plot."
-        ],
-        "plot_10g_datas": [
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_hi.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_dear.txt"
-            ]
-          ],
-          [
-            [
-              "Nucleotide frequencies at Cs",
-              "HDR.Selected_nucleotide_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt"
-            ]
-          ]
-        ],
-        "plot_10i_roots": [],
-        "plot_10i_captions": [],
-        "plot_10i_datas": []
+        "substitution_histogram_filename_caption": "A tab-separated text file that shows a histogram of the number of substitutions in the HDR sequence in the quantification window. Substitutions outside of the quantification window are not included. The sub_size column shows the number of substitutions, and the fq column shows the number of reads having that number of substitutions."
       }
     },
     "guardrails": {
-      "TotalReadsGuardrail": "Low number of total reads: <10000. Total reads: 700.",
-      "OverallReadsAlignedGuardrail": "<=90.0% of reads were aligned. Total reads: 700, Aligned reads: 75.",
-      "DisproportionateReadsAlignedGuardrail": "Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 1.0%.",
-      "HighRateOfModificationAtEndsGuardrail": ">=1.0% of reads have modifications at the start or end. Total reads: 75, Irregular reads: 75.",
-      "HighRateOfSubstitutionsOutsideWindowGuardrail": ">=0.2% of substitutions were outside of the quantification window. Total substitutions: 49, Substitutions outside window: 43.",
-      "HighRateOfSubstitutionsGuardrail": ">=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 94, Substitutions: 49.",
+      "TotalReadsGuardrail": "Low number of total reads: <10000. Total reads: 3.",
+      "OverallReadsAlignedGuardrail": "<=90.0% of reads were aligned. Total reads: 3, Aligned reads: 2.",
+      "DisproportionateReadsAlignedGuardrail": "Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 0.0%.",
+      "LowRatioOfModsInWindowToOutGuardrail": "<=1.0% of modifications were inside of the quantification window. Total modifications: 5, Modifications in window: 0, Modifications outside window: 5.",
+      "HighRateOfModificationAtEndsGuardrail": ">=1.0% of reads have modifications at the start or end. Total reads: 2, Irregular reads: 2.",
       "ShortSequenceGuardrail": "Guide length <19: CCCACTGCAAGGCCC, Length: 15."
     },
     "guardrails_failed_htmls": [
-      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 700.</div>",
-      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> <=90.0% of reads were aligned. Total reads: 700, Aligned reads: 75.</div>",
-      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 9.71%.</div>",
-      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 1.0%.</div>",
-      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 75, Irregular reads: 75.</div>",
-      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> >=0.2% of substitutions were outside of the quantification window. Total substitutions: 49, Substitutions outside window: 43.</div>",
-      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> >=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 94, Substitutions: 49.</div>",
+      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> Low number of total reads: <10000. Total reads: 3.</div>",
+      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> <=90.0% of reads were aligned. Total reads: 3, Aligned reads: 2.</div>",
+      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 66.67%.</div>",
+      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 0.0%.</div>",
+      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> <=1.0% of modifications were inside of the quantification window. Total modifications: 5, Modifications in window: 0, Modifications outside window: 5.</div>",
+      "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> >=1.0% of reads have modifications at the start or end. Total reads: 2, Irregular reads: 2.</div>",
       "<div class=\"alert alert-danger\"><strong>Guardrail Warning!</strong> Guide length <19: CCCACTGCAAGGCCC, Length: 15.</div>"
     ],
     "guardrails_passed_htmls": [
-      "<div class=\"alert alert-success\"><strong>Guardrail Passed:</strong> Sufficient ratio of modifications inside quantification window.</div>",
+      "<div class=\"alert alert-success\"><strong>Guardrail Passed:</strong> Substitution rate within acceptable range.</div>",
       "<div class=\"alert alert-success\"><strong>Guardrail Passed:</strong> All amplicon lengths above minimum threshold (50).</div>",
       "<div class=\"alert alert-success\"><strong>Guardrail Passed:</strong> Amplicon lengths within acceptable range of read lengths.</div>"
     ]

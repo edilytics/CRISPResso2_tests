@@ -20,10 +20,9 @@ Counting reads in input
 Filtering reads with average bp quality < 30 and single bp quality < 0 and replacing bases with quality < 0 with N ...
 Counting reads after preprocessing...
 Aligning sequences...
-Finished reading fastq file; 82 unique reads found of 700 total reads found 
-Spinning up 10 parallel processes to analyze unique reads...
-Finished processing unique reads, now generating statistics...
-Finished reads; N_TOT_READS: 700 N_COMPUTED_ALN: 69 N_CACHED_ALN: 6 N_COMPUTED_NOTALN: 13 N_CACHED_NOTALN: 612
+Finished reading fastq file; 3 unique reads found of 3 total reads found 
+Processing Reads; 0 Completed out of 3 Unique Reads
+Finished reads; N_TOT_READS: 3 N_COMPUTED_ALN: 2 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 1 N_CACHED_NOTALN: 0
 Done!
 Quantifying indels/substitutions...
 Done!
@@ -62,145 +61,74 @@ Plotting log2 nucleotide frequency for FANC
 Plotting conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
 Plotting non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
 Plotting scaled non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
 Plotting allele distribution around cut for FANC
 Plotting log2 nucleotide frequency for FANC
 Plotting conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
 Plotting non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
 Plotting scaled non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
 Plotting allele distribution around cut for FANC
 Plotting log2 nucleotide frequency for FANC
 Plotting conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
 Plotting non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
 Plotting scaled non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
 Plotting amino acids for FANC
 Done!
 Processing plots for amplicon HDR...
-Plotting nucleotide quilt across amplicon
-Plotting nucleotide distribuition around hi (GGAATCCCTTCTGCAGCACC) for HDR
-Plotting nucleotide distribuition around dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
-Plotting nucleotide distribuition around sgRNA CCCACTGAAGGCCC for HDR
-Plotting indel size distribution for HDR
-Plotting frequency deletions/insertions for HDR
-Plotting amplication modifications for HDR
-Plotting modification frequency for HDR
-Plotting quantification window locations for HDR
-Plotting position dependent indel for HDR
-Plotting global modifications with respect to reference
-Plotting frameshift analysis for HDR
-Plotting frameshift frequency for HDR
-Plotting non-coding mutation positions for HDR
-Plotting potential splice sites
-Plotting substitutions across reference for HDR
-Plotting substitution frequency barplot for HDR
-Plotting substitution frequency barplot in quantification window for HDR
-Plotting allele distribution around cut for HDR
-Plotting allele distribution around cut for HDR
-Plotting log2 nucleotide frequency for HDR
-Plotting conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
-Plotting non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
-Plotting scaled non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for HDR
-Plotting allele distribution around cut for HDR
-Plotting log2 nucleotide frequency for HDR
-Plotting conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
-Plotting non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
-Plotting scaled non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for HDR
-Plotting allele distribution around cut for HDR
-Plotting log2 nucleotide frequency for HDR
-Plotting conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
-Plotting non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
-Plotting scaled non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for HDR
-Plotting amino acids for HDR
-Done!
-Plotting global frameshift in-frame mutations pie chart
 Plotting global frameshift in-frame mutation profiles
 Plotting global potential splice sites pie chart
 Plot pool results:
-future: <Future at 0x132c02480 state=finished returned NoneType>
-future: <Future at 0x132c07890 state=finished returned NoneType>
-future: <Future at 0x132bf3560 state=finished returned NoneType>
-future: <Future at 0x132619a30 state=finished returned NoneType>
-future: <Future at 0x132b3be60 state=finished returned NoneType>
-future: <Future at 0x132bfb8f0 state=finished returned NoneType>
-future: <Future at 0x132bfbfe0 state=finished returned NoneType>
-future: <Future at 0x132b39ac0 state=finished returned NoneType>
-future: <Future at 0x132bf9670 state=finished returned NoneType>
-future: <Future at 0x132b39310 state=finished returned NoneType>
-future: <Future at 0x132b39580 state=finished returned NoneType>
-future: <Future at 0x132b385f0 state=finished returned NoneType>
-future: <Future at 0x132c1bbf0 state=finished returned NoneType>
-future: <Future at 0x132c1b5f0 state=finished returned NoneType>
-future: <Future at 0x132c1b3b0 state=finished returned NoneType>
-future: <Future at 0x123982f60 state=finished returned NoneType>
-future: <Future at 0x132bfb290 state=finished returned NoneType>
-future: <Future at 0x132bf0bc0 state=finished returned NoneType>
-future: <Future at 0x132b3bc20 state=finished returned NoneType>
-future: <Future at 0x132c0ec60 state=finished returned NoneType>
-future: <Future at 0x132c0f020 state=finished returned NoneType>
-future: <Future at 0x133034d10 state=finished returned NoneType>
-future: <Future at 0x132c012e0 state=finished returned NoneType>
-future: <Future at 0x1264d5100 state=finished returned NoneType>
-future: <Future at 0x132b38890 state=finished returned NoneType>
-future: <Future at 0x132c18da0 state=finished returned NoneType>
-future: <Future at 0x133036ea0 state=finished returned NoneType>
-future: <Future at 0x133164980 state=finished returned NoneType>
-future: <Future at 0x132c0f350 state=finished returned NoneType>
-future: <Future at 0x133037830 state=finished returned NoneType>
-future: <Future at 0x133164860 state=finished returned NoneType>
-future: <Future at 0x133165ac0 state=finished returned NoneType>
-future: <Future at 0x133164440 state=finished returned NoneType>
-future: <Future at 0x132c1bfe0 state=finished returned NoneType>
-future: <Future at 0x133035a60 state=finished returned NoneType>
-future: <Future at 0x132c1b560 state=finished returned NoneType>
-future: <Future at 0x133035280 state=finished returned NoneType>
-future: <Future at 0x133037680 state=finished returned NoneType>
-future: <Future at 0x132c18d10 state=finished returned NoneType>
-future: <Future at 0x133165640 state=finished returned NoneType>
-future: <Future at 0x133164080 state=finished returned NoneType>
-future: <Future at 0x132b398e0 state=finished returned NoneType>
-future: <Future at 0x132b3b770 state=finished returned NoneType>
-future: <Future at 0x132b3bc50 state=finished returned NoneType>
-future: <Future at 0x132b39340 state=finished returned NoneType>
-future: <Future at 0x132b39fa0 state=finished returned NoneType>
-future: <Future at 0x1331654c0 state=finished returned NoneType>
-future: <Future at 0x132c1bf80 state=finished returned NoneType>
-future: <Future at 0x132b39610 state=finished returned NoneType>
-future: <Future at 0x132c1a3f0 state=finished returned NoneType>
-future: <Future at 0x132c1b1d0 state=finished returned NoneType>
-future: <Future at 0x132c19c10 state=finished returned NoneType>
-future: <Future at 0x133166d50 state=finished returned NoneType>
-future: <Future at 0x132c1b830 state=finished returned NoneType>
-future: <Future at 0x1324f2b70 state=finished returned NoneType>
-future: <Future at 0x132b399d0 state=finished returned NoneType>
-future: <Future at 0x132c293d0 state=finished returned NoneType>
-future: <Future at 0x132c1baa0 state=finished returned NoneType>
-future: <Future at 0x132b39790 state=finished returned NoneType>
-future: <Future at 0x132b62060 state=finished returned NoneType>
-future: <Future at 0x133165100 state=finished returned NoneType>
-future: <Future at 0x132b38e60 state=finished returned NoneType>
-future: <Future at 0x133167320 state=finished returned NoneType>
-future: <Future at 0x132c19d90 state=finished returned NoneType>
-future: <Future at 0x133166f60 state=finished returned NoneType>
-future: <Future at 0x132c28320 state=finished returned NoneType>
-future: <Future at 0x132c28d70 state=finished returned NoneType>
-future: <Future at 0x132c29220 state=finished returned NoneType>
-future: <Future at 0x132bfb8c0 state=finished returned NoneType>
-future: <Future at 0x133165e20 state=finished returned NoneType>
-future: <Future at 0x1331659d0 state=finished returned NoneType>
-future: <Future at 0x133037860 state=finished returned NoneType>
-future: <Future at 0x133036030 state=finished returned NoneType>
-future: <Future at 0x1331667e0 state=finished returned NoneType>
-future: <Future at 0x132bfba70 state=finished returned NoneType>
-future: <Future at 0x132c28560 state=finished returned NoneType>
-future: <Future at 0x132408200 state=finished returned NoneType>
+future: <Future at 0x15367f890 state=finished returned NoneType>
+future: <Future at 0x15367ef60 state=finished returned NoneType>
+future: <Future at 0x153458a10 state=finished returned NoneType>
+future: <Future at 0x152cd4ce0 state=finished returned NoneType>
+future: <Future at 0x1536a4560 state=finished returned NoneType>
+future: <Future at 0x1536a5fa0 state=finished returned NoneType>
+future: <Future at 0x1536a7500 state=finished returned NoneType>
+future: <Future at 0x1536a6840 state=finished returned NoneType>
+future: <Future at 0x1536a61b0 state=finished returned NoneType>
+future: <Future at 0x1536a6d50 state=finished returned NoneType>
+future: <Future at 0x1536a6930 state=finished returned NoneType>
+future: <Future at 0x1536a7350 state=finished returned NoneType>
+future: <Future at 0x1536a79e0 state=finished returned NoneType>
+future: <Future at 0x15367e060 state=finished returned NoneType>
+future: <Future at 0x15367d670 state=finished returned NoneType>
+future: <Future at 0x152985d30 state=finished returned NoneType>
+future: <Future at 0x15367c6b0 state=finished returned NoneType>
+future: <Future at 0x153284b30 state=finished returned NoneType>
+future: <Future at 0x1535f6000 state=finished returned NoneType>
+future: <Future at 0x15367ebd0 state=finished returned NoneType>
+future: <Future at 0x15367c050 state=finished returned NoneType>
+future: <Future at 0x1532f2840 state=finished returned NoneType>
+future: <Future at 0x1532f30e0 state=finished returned NoneType>
+future: <Future at 0x15368fa40 state=finished returned NoneType>
+future: <Future at 0x152eb89b0 state=finished returned NoneType>
+future: <Future at 0x1536a5130 state=finished returned NoneType>
+future: <Future at 0x1536a62d0 state=finished returned NoneType>
+future: <Future at 0x1536a6210 state=finished returned NoneType>
+future: <Future at 0x15368c110 state=finished returned NoneType>
+future: <Future at 0x1536a6b10 state=finished returned NoneType>
+future: <Future at 0x153937c20 state=finished returned NoneType>
+future: <Future at 0x153937ce0 state=finished returned NoneType>
+future: <Future at 0x1536a74a0 state=finished returned NoneType>
+future: <Future at 0x144eb5df0 state=finished returned NoneType>
+future: <Future at 0x15367ec00 state=finished returned NoneType>
+future: <Future at 0x1536a6660 state=finished returned NoneType>
+future: <Future at 0x1532f0200 state=finished returned NoneType>
+future: <Future at 0x153958560 state=finished returned NoneType>
+future: <Future at 0x1536a44a0 state=finished returned NoneType>
+future: <Future at 0x152eb8ec0 state=finished returned NoneType>
+future: <Future at 0x144323260 state=finished returned NoneType>
 Done!
 Removing Intermediate files...
-Low number of total reads: <10000. Total reads: 700.
-<=90.0% of reads were aligned. Total reads: 700, Aligned reads: 75.
-Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 9.71%.
-Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 1.0%.
->=1.0% of reads have modifications at the start or end. Total reads: 75, Irregular reads: 75.
->=0.2% of substitutions were outside of the quantification window. Total substitutions: 49, Substitutions outside window: 43.
->=30.0% of modifications were substitutions. This could potentially indicate poor sequencing quality. Total modifications: 94, Substitutions: 49.
+Low number of total reads: <10000. Total reads: 3.
+<=90.0% of reads were aligned. Total reads: 3, Aligned reads: 2.
+Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 66.67%.
+Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 0.0%.
+<=1.0% of modifications were inside of the quantification window. Total modifications: 5, Modifications in window: 0, Modifications outside window: 5.
+>=1.0% of reads have modifications at the start or end. Total reads: 2, Irregular reads: 2.
 Guide length <19: CCCACTGCAAGGCCC, Length: 15.
                                                                                
                                         _                                      
