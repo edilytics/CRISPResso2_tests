@@ -56,12 +56,6 @@ def pytest_addoption(parser):
         ' PDFs are diffed as text (drawing streams); PNGs are compared'
         ' using approximate RMSE (tolerant of rendering differences).',
     )
-    parser.addoption(
-        '--pro',
-        action='store_true',
-        default=False,
-        help='Compare HTML against expected_results_pro/ (overrides auto-detection).',
-    )
 
 
 def pytest_collection_modifyitems(config, items):

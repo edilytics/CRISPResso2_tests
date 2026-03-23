@@ -97,6 +97,21 @@ make basic PRO=1 update-all
 make clean-pro
 ```
 
+Pro-only tests (tests that require CRISPRessoPro) auto-activate the `test-pro` environment — no `PRO=1` needed:
+
+```bash
+# Run all Pro-only tests
+make pro-tests
+
+# Run a single Pro-only test
+make pro-smoke-single-plot
+make pro-no-plots-key
+make pro-subset-plots
+
+# Compose with flags as usual
+make pro-smoke-single-plot print
+```
+
 ### Web UI Testing (requires Docker + Chrome)
 
 ```bash

@@ -1,5 +1,6 @@
 .PHONY: all install test print update update-all skip_html diff-plots clean clean_cli_integration \
 	install-pro all-pro clean-pro \
+	pro-tests pro-smoke-single-plot pro-no-plots-key pro-subset-plots \
 	basic params batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
@@ -32,6 +33,13 @@ ifneq ($(PIXI_ENVIRONMENT_NAME),$(_PIXI_ENV))
   PIXI := pixi run --manifest-path $(abspath $(CRISPRESSO2_DIR))/pixi.toml -e $(_PIXI_ENV) --
 else
   PIXI :=
+endif
+
+# Pro-only targets always use test-pro, regardless of PRO=1.
+ifneq ($(PIXI_ENVIRONMENT_NAME),test-pro)
+  PIXI_PRO := pixi run --manifest-path $(abspath $(CRISPRESSO2_DIR))/pixi.toml -e test-pro --
+else
+  PIXI_PRO :=
 endif
 
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*) \
@@ -136,6 +144,18 @@ all-pro:
 clean-pro:
 	rm -f .install_pro_sentinel
 
+# ── Pro-only tests (always use test-pro environment) ─────────────────
+pro-tests: pro-smoke-single-plot pro-no-plots-key pro-subset-plots
+
+pro-smoke-single-plot: .install_pro_sentinel
+	$(PIXI_PRO) pytest "test_cli.py::test_pro_smoke_single_plot" $(PYTEST_FLAGS)
+
+pro-no-plots-key: .install_pro_sentinel
+	$(PIXI_PRO) pytest "test_cli.py::test_pro_no_plots_key_shows_all_defaults" $(PYTEST_FLAGS)
+
+pro-subset-plots: .install_pro_sentinel
+	$(PIXI_PRO) pytest "test_cli.py::test_pro_subset_plots_in_order" $(PYTEST_FLAGS)
+
 all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon vcf-base-edit-cbe vcf-base-edit-abe vcf-prime-edit-basic
 
 clean: clean_cli_integration
@@ -177,6 +197,8 @@ cli_integration_tests/CRISPResso_on_prime_editor* \
 cli_integration_tests/CRISPRessoBatch_on_batch-failing* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
 cli_integration_tests/CRISPResso_on_pro-smoke-single-plot* \
+cli_integration_tests/CRISPResso_on_pro-no-plots-key* \
+cli_integration_tests/CRISPResso_on_pro-subset-plots* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
