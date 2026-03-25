@@ -18,6 +18,7 @@ class CLITestCase:
     cmd: List[str]
     output_dir: str
     marks: List[str] = field(default_factory=list)
+    xdist_group: str = ''
 
     @property
     def full_cmd(self) -> str:
@@ -275,6 +276,7 @@ TESTS = [
         ],
         output_dir='CRISPRessoBatch_on_FANC',
         marks=['batch'],
+        xdist_group='batch_deps',
     ),
     # ── Pooled ───────────────────────────────────────────────────────
     CLITestCase(
@@ -487,6 +489,8 @@ def _make_params():
     params = []
     for tc in TESTS:
         marks = [mark_map[m] for m in tc.marks if m in mark_map]
+        if tc.xdist_group:
+            marks.append(pytest.mark.xdist_group(tc.xdist_group))
         params.append(pytest.param(tc, id=tc.id, marks=marks))
     return params
 
@@ -504,6 +508,7 @@ def test_crispresso_cli(test_case, run_crispresso, check_diffs, assert_no_diff, 
 
 
 @pytest.mark.compare
+@pytest.mark.xdist_group('batch_deps')
 def test_compare(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     """CRISPRessoCompare — requires batch output from test_crispresso_cli[batch]."""
     batch_dir = cli_test_dir / 'CRISPRessoBatch_on_FANC'
@@ -523,6 +528,7 @@ def test_compare(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
 
 
 @pytest.mark.aggregate
+@pytest.mark.xdist_group('batch_deps')
 def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     """CRISPRessoAggregate — requires batch output from test_crispresso_cli[batch]."""
     batch_dir = cli_test_dir / 'CRISPRessoBatch_on_FANC'
