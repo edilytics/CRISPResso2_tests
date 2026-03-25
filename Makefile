@@ -156,7 +156,9 @@ pro-no-plots-key: .install_pro_sentinel
 pro-subset-plots: .install_pro_sentinel
 	$(PIXI_PRO) pytest "test_cli.py::test_pro_subset_plots_in_order" $(PYTEST_FLAGS)
 
-all: clean basic params prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon vcf-base-edit-cbe vcf-base-edit-abe vcf-prime-edit-basic
+JOBS ?= auto
+all: clean $(_SENTINEL)
+	$(PIXI) pytest test_cli.py -n $(JOBS) --dist loadgroup $(PYTEST_FLAGS)
 
 clean: clean_cli_integration
 	rm -f .install_sentinel .install_pro_sentinel
