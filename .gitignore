@@ -197,3 +197,5 @@ cli_integration_tests/CRISPResso_on_vcf-prime-edit-basic*
 cli_integration_tests/CRISPResso_on_pro-smoke-single-plot*
 # Git worktrees
 .worktrees/
+
+cli_integration_tests/CRISPResso_on_params-deletions*

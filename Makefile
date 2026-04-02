@@ -1,7 +1,7 @@
 .PHONY: all install test print update update-all skip_html diff-plots clean clean_cli_integration \
 	install-pro all-pro clean-pro \
 	pro-tests pro-smoke-single-plot pro-no-plots-key pro-subset-plots \
-	basic params batch pooled wgs compare aggregate \
+	basic params params-deletions batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
 	basic-write-bam-out basic-write-bam-out-parallel \
@@ -212,6 +212,9 @@ basic: $(_SENTINEL)
 params: $(_SENTINEL)
 	$(call PYTEST_RUN,test_crispresso_cli[params],CRISPResso_on_params)
 
+params-deletions: $(_SENTINEL)
+	$(call PYTEST_RUN,test_crispresso_cli[params_deletions],CRISPResso_on_params-deletions)
+
 nhej_native_merge: $(_SENTINEL)
 	$(call PYTEST_RUN,test_crispresso_cli[nhej_native_merge],CRISPResso_on_nhej_native_merge)
 
@@ -312,6 +315,7 @@ vcf-base-edit-abe: $(_SENTINEL)
 
 vcf-prime-edit-basic: $(_SENTINEL)
 	$(call PYTEST_RUN,test_crispresso_cli[vcf_prime_edit_basic],CRISPResso_on_vcf-prime-edit-basic)
+
 
 # ── Non-pytest targets ──────────────────────────────────────────────
 nhej: $(_SENTINEL)
