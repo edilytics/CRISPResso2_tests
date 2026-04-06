@@ -754,6 +754,7 @@ def update_file(actual, expected):
     update_input = input('[y/n]: ')
     if update_input.lower() == 'n':
         return
+    os.makedirs(dirname(expected), exist_ok=True)
     copyfile(actual, expected)
 
 
@@ -765,7 +766,31 @@ def remove_file(file_path):
     os.remove(file_path)
 
 
-def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
+def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False,
+             strict=False):
+    """Compare files in two directories.
+
+    Parameters
+    ----------
+    actual : str
+        Path to directory with actual results.
+    expected : str
+        Path to directory with expected results.
+    suffixes : tuple
+        File extensions to compare.
+    prompt_to_update : bool
+        Whether to prompt the user to update differing files.
+    strict : bool
+        When True, treat *all* diffs as failures — even for report HTML
+        files that are normally warning-only (``WARNING_FILE_REGEXP``).
+        Use this when comparing against a curated expected-results
+        baseline where any diff indicates a real change.
+
+    Returns
+    -------
+    bool
+        True if any files differ.
+    """
     files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
@@ -793,13 +818,13 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
                     file_path_actual, files_expected[file_basename_actual],
                 ))
                 print_diff(diff_results)
-                if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                if strict or not WARNING_FILE_REGEXP.search(str(file_path_actual)):
                     diff_exists |= True
                 if prompt_to_update:
                     update_file(file_path_actual, files_expected[file_basename_actual])
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
-            if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+            if strict or not WARNING_FILE_REGEXP.search(str(file_path_actual)):
                 diff_exists |= True
             if prompt_to_update:
                 update_file(file_path_actual, join(expected, file_basename_actual))
@@ -810,7 +835,7 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
             continue
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
-            if not WARNING_FILE_REGEXP.search(str(file_basename_expected)):
+            if strict or not WARNING_FILE_REGEXP.search(str(file_basename_expected)):
                 diff_exists |= True
             if prompt_to_update:
                 remove_file(join(expected, file_basename_expected))

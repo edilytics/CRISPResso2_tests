@@ -166,6 +166,7 @@ def assert_no_diff(pro_installed, skip_html, diff_plots, cli_test_dir):
                 str(actual_dir),
                 str(expected_html),
                 suffixes=HTML_SUFFIXES,
+                strict=True,
             )
 
         # Approximate PNG image comparison

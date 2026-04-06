@@ -117,6 +117,21 @@ define PYTEST_RUN
 $(PIXI) pytest "test_cli.py::$(1)" $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && $(call UPDATE_CMD,$(2)))$(if $(filter update-all,$(MAKECMDGOALS)), && $(call UPDATE_ALL_CMD,$(2)))
 endef
 
+# Pro-only update commands — always split: data→expected_results/, HTML→expected_results_pro/
+define UPDATE_CMD_PRO
+$(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+$(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
+endef
+define UPDATE_ALL_CMD_PRO
+yes | $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+yes | $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
+endef
+
+# Like PYTEST_RUN but uses PIXI_PRO and pro-only update commands.
+define PYTEST_RUN_PRO
+$(PIXI_PRO) pytest "test_cli.py::$(1)" $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && $(call UPDATE_CMD_PRO,$(2)))$(if $(filter update-all,$(MAKECMDGOALS)), && $(call UPDATE_ALL_CMD_PRO,$(2)))
+endef
+
 # ── Goal-only targets (used as flags, not real builds) ───────────────
 test:
 	@:
@@ -148,13 +163,13 @@ clean-pro:
 pro-tests: pro-smoke-single-plot pro-no-plots-key pro-subset-plots
 
 pro-smoke-single-plot: .install_pro_sentinel
-	$(PIXI_PRO) pytest "test_cli.py::test_pro_smoke_single_plot" $(PYTEST_FLAGS)
+	$(call PYTEST_RUN_PRO,test_pro_smoke_single_plot,CRISPResso_on_pro-smoke-single-plot)
 
 pro-no-plots-key: .install_pro_sentinel
-	$(PIXI_PRO) pytest "test_cli.py::test_pro_no_plots_key_shows_all_defaults" $(PYTEST_FLAGS)
+	$(call PYTEST_RUN_PRO,test_pro_no_plots_key_shows_all_defaults,CRISPResso_on_pro-no-plots-key)
 
 pro-subset-plots: .install_pro_sentinel
-	$(PIXI_PRO) pytest "test_cli.py::test_pro_subset_plots_in_order" $(PYTEST_FLAGS)
+	$(call PYTEST_RUN_PRO,test_pro_subset_plots_in_order,CRISPResso_on_pro-subset-plots)
 
 JOBS ?= auto
 all: clean $(_SENTINEL)
