@@ -769,12 +769,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-04-06 12:18:31</p>
+  <p><strong>Run completed:</strong> 2026-04-07 10:16:47</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --prime_editing_pegRNA_scaffold_min_match_length 1 --debug --n_processes 1 --base_editor_output --max_rows_alleles_around_cut_to_plot 50 --flexiguide_homology 80 --needleman_wunsch_gap_open -20 --conversion_nuc_to T --min_paired_end_reads_overlap 10 --quantification_window_size 1 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --min_single_bp_quality 0 --needleman_wunsch_gap_extend -2 --needleman_wunsch_aln_matrix_loc EDNAFULL --place_report_in_output_folder --flexiguide_seq None --flexiguide_gap_extend_penalty -2 --file_prefix Untreated --default_min_aln_score 60 --fastq_r1 inputs/FANC.Untreated.fastq --min_frequency_alleles_around_cut_to_plot 0.2 --flexiguide_gap_open_penalty -20 --fastp_command fastp --base_editor_target_ref_skip_allele_count 0 --config_file None --conversion_nuc_from C --flash_command None --prime_editing_gap_open_penalty -50 --exclude_bp_from_right 15 --plot_window_size 20 --needleman_wunsch_gap_incentive 1 --amplicon_name Reference --verbosity 3 --guide_seq GGAATCCCTTCTGCAGCACC --min_bp_quality_or_N 0 --quantification_window_center -3 --aln_seed_min 2 --prime_editing_gap_extend_penalty 0 --min_average_read_quality 0 --aln_seed_count 5 --trimmomatic_command None --aln_seed_len 10 --halt_on_plot_fail --max_paired_end_reads_overlap None --exclude_bp_from_left 15 --prime_editing_pegRNA_extension_quantification_window_size 5</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --amplicon_name Reference --plot_window_size 20 --halt_on_plot_fail --base_editor_output --min_frequency_alleles_around_cut_to_plot 0.2 --flexiguide_gap_extend_penalty -2 --needleman_wunsch_aln_matrix_loc EDNAFULL --exclude_bp_from_right 15 --min_bp_quality_or_N 0 --min_paired_end_reads_overlap 10 --aln_seed_len 10 --min_single_bp_quality 0 --debug --fastq_r1 inputs/FANC.Untreated.fastq --trimmomatic_command None --flash_command None --flexiguide_gap_open_penalty -20 --needleman_wunsch_gap_incentive 1 --prime_editing_gap_extend_penalty 0 --prime_editing_gap_open_penalty -50 --conversion_nuc_from C --prime_editing_pegRNA_scaffold_min_match_length 1 --default_min_aln_score 60 --quantification_window_size 1 --exclude_bp_from_left 15 --aln_seed_min 2 --prime_editing_pegRNA_extension_quantification_window_size 5 --quantification_window_center -3 --flexiguide_seq None --fastp_command fastp --place_report_in_output_folder --n_processes 1 --max_rows_alleles_around_cut_to_plot 50 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --config_file None --needleman_wunsch_gap_open -20 --file_prefix Untreated --base_editor_target_ref_skip_allele_count 0 --max_paired_end_reads_overlap None --verbosity 3 --flexiguide_homology 80 --conversion_nuc_to T --aln_seed_count 5 --min_average_read_quality 0 --needleman_wunsch_gap_extend -2 --guide_seq GGAATCCCTTCTGCAGCACC</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -1286,8 +1286,6 @@ zip_output: False</pre></p>
     <label class="labelpadding">Figure 10a: Substitution frequencies across the amplicon.</label>
     
     
-        <p class="m-0"><small>Data: <a href="Untreated.Nucleotide_frequency_table.txt">Nucleotide frequencies</a></small></p>
-    
 </div>
 
     
@@ -1338,8 +1336,6 @@ zip_output: False</pre></p>
     
     <label class="labelpadding">Figure 10h: Quilt of target nucleotide: C across entire amplicon. The x-axis shows the corresponding position of the nucleotide in the reference amplicon (1-indexed). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences.</label>
     
-    
-        <p class="m-0"><small>Data: <a href="Untreated.base_edit_Cs_quilt.txt">Allele frequency table</a></small></p>
     
 </div>
 
