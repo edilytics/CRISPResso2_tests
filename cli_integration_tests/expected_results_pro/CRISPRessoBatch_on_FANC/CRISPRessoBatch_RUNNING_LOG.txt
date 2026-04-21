@@ -1,0 +1,30 @@
+[Command used]:
+/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPRessoBatch -bs inputs/FANC.batch -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --base_editor_output --place_report_in_output_folder --halt_on_plot_fail --debug
+
+[Execution log]:
+Running CRISPResso with 1 processes
+Completed 1/2 runs
+Completed 2/2 runs
+Finished all batches
+Reporting summary for amplicon: "Reference"
+All guides are equal. Performing comparison of batches for amplicon 'Reference'
+Plotting nucleotide percentage quilt for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide conversion map for amplicon Reference, sgRNA GGAATCCCTTCTGCAGCACC
+Plotting nucleotide quilt for Reference
+Plotting nucleotide conversion map for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Plotting allele modification heatmap for Reference
+Plotting allele modification line plot for Reference
+Analysis Complete!
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
