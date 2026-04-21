@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CRISPResso2</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CRISPResso2: Analysis of genome editing outcomes from deep sequencing data">
+    <meta name="author" content="Kendell Clement and Luca Pinello">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Ranga:700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <style>
+      body {
+        font-family: 'Montserrat', sans-serif !important;
+      
+      }
+      @media (max-width:1015px)
+      {
+        #crispresso_h
+        {
+          font-size:5rem;
+          font-weight:300;
+          line-height:1.2;
+        }
+        #left_help_div
+        {
+          display:none
+        }
+        #top_help_div
+        {
+          display:block
+        }
+      }
+      @media (min-width:1015px)
+      {
+        #crispresso_h
+        {
+          font-size:8rem;
+          font-weight:300;
+          line-height:1.2;
+        }
+        #left_help_div
+        {
+          display:block
+        }
+        #top_help_div
+        {
+          display:none
+        }
+      }
+    </style>
+
+
+    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+    Remove this if you use the .htaccess -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+    
+    <link rel="shortcut icon" href="http://crispresso.com/static/favicon.ico" />
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  
+
+<script src="https://cdn.plot.ly/plotly-3.3.0.min.js" charset="utf-8"></script>
+
+<style>
+.nav-tabs.amp-header {
+  border-bottom:none !important;
+}
+
+.card-header.amp-header {
+  border-bottom:none !important;
+}
+.nav-tabs.amp-header .nav-link.active {
+  background-color:lightsteelblue;
+  border-bottom:lightsteelblue;
+}
+
+.tab-content.amp-body {
+  background-color:lightsteelblue;
+}
+
+@media print {
+   .tab-content > .tab-pane {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+		margin-bottom: 2em !important;
+		page-break-inside: avoid;
+  }
+  .nav-tabs {
+    display:none !important;
+    visibility:hidden !important;
+  }
+  .tab-content.amp-body {
+    background-color:transparent !important;
+  	border:None !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+	.jumbotron img {
+		width:100%
+	}
+}
+</style>
+
+
+
+  </head>
+
+  <body class="m-2">
+    
+        <div id="messages"></div>
+
+        <script>
+        function fetchAndUpdateMessage() {
+        fetch('https://crispresso.com/messages')
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+            })
+            .then(data => {
+            const messageDiv = document.getElementById('messages');
+            if (messageDiv) {
+                messageDiv.innerHTML = data;
+            }
+            })
+            .catch(error => {});
+        }
+
+        // Call the function
+        fetchAndUpdateMessage();
+        </script>
+
+    
+
+  
+  
+  <div class="container">
+      <div class="row pb-2">
+        <div class="col-sm-1"></div>
+        
+          <div class="col-sm-3 crispresso_cup"> <a href='https://crispresso.com'><img class='img-fluid' src="https://crispresso.com/static/imgs/CRISPResso_justcup.png" width="80%"></a>
+        
+          </div>
+        <div class="col-sm-7" >
+          <a href="https://crispresso.com" style="text-decoration:none !important; color:rgb(33, 37, 41)"><h1 id='crispresso_h' style="font-family:'Ranga', sans-serif">CRISPResso2 </h1></a>
+          <h3 style="margin-top: -0.5em;padding-right: 2em;">Analysis of genome editing outcomes from deep sequencing data</h3>
+        </div>
+        <div class="col-sm-1">
+        </div>
+      </div>
+
+
+    
+
+      <div id='top_help_div'>
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class='col-sm-10 pb-2 crispresso_body_div'>
+           
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+      </div>
+
+      
+<div class="row">
+<div class="col-sm-1"></div>
+<div class="col-sm-10">
+
+	<div class="jumbotron" style="background:rgba(0,0,0,0.0); padding:0px" >
+		<div id='jumbotron_content' >
+
+          
+            <div class='card text-center mb-2'>
+              <div class='card-header'>
+                <h5 id="CRISPResso2_Batch_Output">CRISPResso Batch Output</h5>
+              </div>
+              <div class='card-body p-0'>
+                <div class="list-group list-group-flush" style="max-height: 25vh; overflow-y: scroll;">
+              
+	      <a href="CRISPResso_on_Untreated/Untreated.CRISPResso2_report.html" class="list-group-item list-group-item-action" id="Untreated">Untreated</a>
+                
+	      <a href="CRISPResso_on_Cas9/Cas9.CRISPResso2_report.html" class="list-group-item list-group-item-action" id="Cas9">Cas9</a>
+                
+              </div>
+            </div>
+            </div>
+          
+
+          
+
+          
+            <div class='card text-center mb-2'>
+              <div class='card-header'>
+                <h5 id="nucleotide-header">Nucleotide percentages around guides</h5>
+              </div>
+              <div class='card-body'>
+                
+                  <h5>sgRNA: GGAATCCCTTCTGCAGCACC Amplicon: Reference</h5>
+                  <div id="fig_summary_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC">
+    
+        
+            <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
+            <script type="text/javascript">const Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "batches": [{"name": "Untreated", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}, {"name": "Cas9", "nuc_pct": [{"C": 0.99}, {"A": 0.98, "-": 0.02}, {"T": 0.98, "-": 0.02}, {"G": 0.97, "-": 0.03}, {"G": 0.97, "-": 0.03}, {"A": 0.97, "-": 0.03}, {"A": 0.97, "-": 0.03}, {"T": 0.97, "-": 0.03}, {"C": 0.97, "-": 0.03}, {"C": 0.95, "-": 0.04}, {"C": 0.95, "-": 0.05}, {"T": 0.95, "-": 0.05}, {"T": 0.94, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"T": 0.94, "-": 0.06}, {"G": 0.93, "-": 0.07}, {"C": 0.9, "-": 0.1}, {"A": 0.89, "-": 0.11}, {"G": 0.84, "-": 0.15}, {"A": 0.01, "C": 0.83, "-": 0.14, "Insertion": 0.03}, {"A": 0.8, "T": 0.01, "-": 0.19}, {"C": 0.84, "G": 0.01, "-": 0.14}, {"C": 0.87, "-": 0.13}, {"T": 0.86, "G": 0.01, "-": 0.12}, {"G": 0.89, "-": 0.11}, {"G": 0.91, "-": 0.08}, {"A": 0.92, "-": 0.07}, {"T": 0.94, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"A": 0.01, "G": 0.93, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"T": 0.95, "-": 0.04}, {"T": 0.96, "-": 0.03}, {"T": 0.97, "-": 0.03}, {"T": 0.97, "-": 0.02}, {"C": 0.97, "-": 0.02}, {"C": 0.98, "-": 0.01}, {"G": 0.98, "-": 0.01}, {"A": 0.98, "-": 0.01}, {"G": 0.98, "-": 0.01}]}], "sgRNAs": [{"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[19, 20]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}}</script>
+            
+    
+    <label class="labelpadding">Composition of each base around the guide GGAATCCCTTCTGCAGCACC for the amplicon Reference</label>
+    
+        <p class="m-0"><small>Data: <a href="Nucleotide_frequency_summary.txt">Nucleotide frequencies</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">Modification frequencies</a></small></p>
+    
+    <br>
+</div>
+                
+              </div>
+            </div>
+          
+
+          
+            <div class='card text-center mb-2'>
+              <div class='card-header'>
+                <h5 id="nucleotide-header-full-amplicon">Nucleotide percentages in the entire amplicon</h5>
+              </div>
+              <div class='card-body'>
+                
+                  <h5></h5>
+                  <div id="fig_summary_Nucleotide_percentage_quilt">
+    
+        
+            <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="Nucleotide_percentage_quilt"></div>
+            <script type="text/javascript">const Nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "Untreated", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 0.99}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 0.99}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.99}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 0.99}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}, {"name": "Cas9", "nuc_pct": [{"C": 0.99}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 0.99}, {"C": 0.99}, {"A": 0.98, "-": 0.02}, {"T": 0.98, "-": 0.02}, {"G": 0.97, "-": 0.03}, {"G": 0.97, "-": 0.03}, {"A": 0.97, "-": 0.03}, {"A": 0.97, "-": 0.03}, {"T": 0.97, "-": 0.03}, {"C": 0.97, "-": 0.03}, {"C": 0.95, "-": 0.04}, {"C": 0.95, "-": 0.05}, {"T": 0.95, "-": 0.05}, {"T": 0.94, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"T": 0.94, "-": 0.06}, {"G": 0.93, "-": 0.07}, {"C": 0.9, "-": 0.1}, {"A": 0.89, "-": 0.11}, {"G": 0.84, "-": 0.15}, {"A": 0.01, "C": 0.83, "-": 0.14, "Insertion": 0.03}, {"A": 0.8, "T": 0.01, "-": 0.19}, {"C": 0.84, "G": 0.01, "-": 0.14}, {"C": 0.87, "-": 0.13}, {"T": 0.86, "G": 0.01, "-": 0.12}, {"G": 0.89, "-": 0.11}, {"G": 0.91, "-": 0.08}, {"A": 0.92, "-": 0.07}, {"T": 0.94, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"A": 0.01, "G": 0.93, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"T": 0.95, "-": 0.04}, {"T": 0.96, "-": 0.03}, {"T": 0.97, "-": 0.03}, {"T": 0.97, "-": 0.02}, {"C": 0.97, "-": 0.02}, {"C": 0.98, "-": 0.01}, {"G": 0.98, "-": 0.01}, {"A": 0.98, "-": 0.01}, {"G": 0.98, "-": 0.01}, {"C": 0.98, "-": 0.01}, {"T": 0.99}, {"T": 1.0}, {"A": 0.01, "C": 0.98}, {"T": 0.98}, {"G": 0.98}, {"G": 1.0}, {"C": 0.99}, {"G": 0.99}, {"G": 0.98}, {"T": 0.99}, {"C": 0.99}, {"T": 0.99}, {"T": 0.01, "C": 0.98}, {"A": 1.0}, {"A": 0.99}, {"G": 0.99}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 0.99}, {"C": 0.99}, {"C": 0.99}, {"T": 0.99}, {"A": 0.99}, {"C": 1.0}, {"G": 1.0}, {"T": 0.99}, {"C": 1.0}, {"A": 0.99}, {"G": 0.99}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 0.99}, {"T": 0.99}, {"G": 0.99}, {"G": 0.99}, {"G": 0.98}, {"A": 0.99}, {"C": 0.99}, {"C": 0.99}, {"C": 1.0}, {"C": 1.0}, {"G": 0.99}, {"C": 0.99}, {"C": 0.98}, {"A": 0.98}, {"C": 0.99}, {"C": 1.0}, {"G": 1.0}, {"T": 0.99}, {"G": 0.99}, {"C": 0.99}, {"G": 1.0}, {"C": 1.0}, {"C": 0.99}, {"G": 0.99}, {"G": 0.98}, {"G": 0.98}, {"C": 0.99}, {"C": 0.99}, {"T": 0.99}, {"T": 1.0}, {"G": 0.99}, {"C": 0.99}, {"A": 0.99}, {"A": 0.01, "G": 0.98}, {"T": 0.99}, {"G": 0.99}, {"G": 0.99}, {"G": 0.98}, {"C": 1.0}, {"G": 0.99}, {"C": 0.99}, {"G": 1.0}, {"C": 1.0}, {"T": 0.99}, {"A": 0.97, "C": 0.02}, {"C": 0.99}, {"C": 0.99}, {"T": 0.99}, {"G": 0.98}, {"C": 0.99}, {"G": 0.98}, {"C": 0.99}, {"C": 0.99}, {"A": 0.98}, {"C": 0.99}, {"A": 0.98, "C": 0.01}, {"T": 0.99}, {"C": 0.99}, {"C": 0.99}, {"A": 0.99}, {"T": 0.99}, {"T": 0.01, "C": 0.98}, {"G": 0.98}, {"C": 0.02, "G": 0.98}, {"C": 0.99}, {"C": 0.01, "G": 0.98}, {"C": 0.99}, {"T": 0.99}, {"T": 0.98, "C": 0.01}, {"T": 0.99}, {"G": 0.98}, {"G": 0.98}, {"T": 0.96, "C": 0.02}, {"C": 0.99}, {"G": 0.98}, {"G": 0.99}]}], "sgRNAs": [{"interval": [75, 94], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[91, 92]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}}</script>
+            
+    
+    <label class="labelpadding">Composition of each base for the amplicon Reference</label>
+    
+        <p class="m-0"><small>Data: <a href="Nucleotide_frequency_summary.txt">Nucleotide frequencies</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">Modification frequencies</a></small></p>
+    
+    <br>
+</div>
+                
+              </div>
+            </div>
+          
+
+          
+            <div class='card text-center mb-2'>
+              <div class='card-header'>
+                <h5>Conversion of target bases around guides</h5>
+              </div>
+              <div class='card-body'>
+                
+                    <h5></h5>
+		            <div id="fig_summary_Nucleotide_conversion_map_around_sgRNA_GGAATCCCTTCTGCAGCACC">
+    
+        
+            <a href="Nucleotide_conversion_map_around_sgRNA_GGAATCCCTTCTGCAGCACC.pdf"><img src="Nucleotide_conversion_map_around_sgRNA_GGAATCCCTTCTGCAGCACC.png" width='70%'></a>
+        
+    
+    <label class="labelpadding">C->T conversion rates around the guide GGAATCCCTTCTGCAGCACC for the amplicon Reference</label>
+    
+        <p class="m-0"><small>Data: <a href="Nucleotide_frequency_summary_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide frequencies around sgRNA</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="Nucleotide_percentage_summary_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Nucleotide percentages around sgRNA</a></small></p>
+    
+    <br>
+</div>
+                
+              </div>
+            </div>
+          
+
+          
+            <div class='card text-center mb-2'>
+              <div class='card-header'>
+                <h5>Conversion of target bases in the entire amplicon</h5>
+              </div>
+              <div class='card-body'>
+                
+                    <h5></h5>
+		            <div id="fig_summary_Nucleotide_conversion_map">
+    
+        
+            <a href="Nucleotide_conversion_map.pdf"><img src="Nucleotide_conversion_map.png" width='100%'></a>
+        
+    
+    <label class="labelpadding">C->T conversion rates for the amplicon Reference</label>
+    
+        <p class="m-0"><small>Data: <a href="Nucleotide_frequency_summary.txt">Nucleotide frequencies</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">Modification frequencies</a></small></p>
+    
+    <br>
+</div>
+                
+              </div>
+            </div>
+          
+
+          
+
+          
+            
+              
+              
+              <div class="card text-center mb-2">
+                <div class="card-header">
+                    <h5>CRISPRessoBatch Insertions Across Samples for Reference</h5>
+                    <ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+
+                            <a class="nav-link active" data-bs-toggle="tab" id="insertions-heatmap-tab" data-bs-target="#CRISPRessoBatch_percentage_of_insertions_across_alleles_Reference_heatmap" role="tab" aria-controls="CRISPRessoBatch_percentage_of_insertions_across_alleles_Reference_heatmap" aria-selected="true">Heatmap</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" id="insertions-line-tab" data-bs-target="#CRISPRessoBatch_percentage_of_insertions_across_alleles_Reference_line" role="tab" aria-controls="CRISPRessoBatch_percentage_of_insertions_across_alleles_Reference_line" aria-selected="false">Line</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="allele-modification-insertions-tabs">
+                        <div class="tab-pane fade show active" id="CRISPRessoBatch_percentage_of_insertions_across_alleles_Reference_heatmap" role="tabpanel" aria-labelledby="insertions-heatmap-tab">
+                            <div>                            <div id="reference-allele-modification-heatmap-insertions" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("reference-allele-modification-heatmap-insertions")) {                    Plotly.newPlot(                        "reference-allele-modification-heatmap-insertions",                        [{"coloraxis":"coloraxis","name":"0","x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"y":["Untreated (1)","Cas9 (2)"],"z":[[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,8.0,8.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]],"type":"heatmap","xaxis":"x","yaxis":"y","hovertemplate":"Amplicon Nucleotide (Position): %{x}\u003cbr\u003eSample (Index): %{y}\u003cbr\u003eInsertions (%): %{z}\u003cextra\u003e\u003c\u002fextra\u003e"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Amplicon Nucleotide (Position)"},"gridcolor":"rgba(0, 0, 0, 0)"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"autorange":"reversed","title":{"text":"Sample (Index)"},"scaleanchor":"x","gridcolor":"rgba(0, 0, 0, 0)"},"coloraxis":{"colorbar":{"title":{"text":"Insertions (%)"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"margin":{"t":60},"shapes":[{"line":{"color":"Black"},"type":"rect","x0":75,"x1":94,"y0":-0.5,"y1":0.5},{"line":{"color":"Black"},"type":"rect","x0":75,"x1":94,"y0":0.5,"y1":1.5}],"autosize":true},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+                            <label class="labelpadding">Each row is a sample and each column is a position in the amplicon sequence. Each cell shows the percentage of insertions for the sample at that position relative to the amplicon. Guides for each sample are identified by a black rectangle.</label>
+                            
+                                <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">CRISPRessoBatch Modification Frequency Summary</a></small></p>
+                            
+                        </div>
+                        <div class="tab-pane fade" id="CRISPRessoBatch_percentage_of_insertions_across_alleles_Reference_line" role="tabpanel" aria-labelledby="insertions-line-tab">
+                            <div>                            <div id="reference-allele-modification-line-insertions" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("reference-allele-modification-line-insertions")) {                    Plotly.newPlot(                        "reference-allele-modification-line-insertions",                        [{"hovertemplate":"variable=Untreated (1)\u003cbr\u003eindex=%{x}\u003cbr\u003evalue=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Untreated (1)","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Untreated (1)","orientation":"v","showlegend":true,"x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"xaxis":"x","y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"variable=Cas9 (2)\u003cbr\u003eindex=%{x}\u003cbr\u003evalue=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Cas9 (2)","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Cas9 (2)","orientation":"v","showlegend":true,"x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"xaxis":"x","y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,8.0,8.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Amplicon Nucleotide (Position)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Insertions (%)"}},"legend":{"title":{"text":"Samples"},"tracegroupgap":0},"margin":{"t":60},"shapes":[{"fillcolor":"Gray","line":{"color":"gray"},"opacity":0.2,"type":"rect","x0":75,"x1":94,"y0":0,"y1":0.5}],"autosize":true,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+                            <label class="labelpadding">Each line is a sample that indicates the percentage of insertions for the sample at that position relative to the amplicon. Guides are shown by a grey rectangle.</label>
+                            
+                                <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">CRISPRessoBatch Modification Frequency Summary</a></small></p>
+                            
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <script type="application/javascript">
+
+               document.addEventListener("DOMContentLoaded", () => {
+                   $("#insertions-heatmap-tab").on("shown.bs.tab", (e) => {
+                       let plot = document.getElementById("allele-modification-heatmap-insertions");
+                       Plotly.Plots.resize(plot);
+                       window.dispatchEvent(new Event("resize"));
+                   });
+                   $("#insertions-line-tab").on("shown.bs.tab", (e) => {
+                       let plot = document.getElementById("allele-modification-line-insertions");
+                       Plotly.Plots.resize(plot);
+                       window.dispatchEvent(new Event("resize"));
+                   });
+               });
+              </script>
+            
+              
+              
+              <div class="card text-center mb-2">
+                <div class="card-header">
+                    <h5>CRISPRessoBatch Deletions Across Samples for Reference</h5>
+                    <ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+
+                            <a class="nav-link active" data-bs-toggle="tab" id="deletions-heatmap-tab" data-bs-target="#CRISPRessoBatch_percentage_of_deletions_across_alleles_Reference_heatmap" role="tab" aria-controls="CRISPRessoBatch_percentage_of_deletions_across_alleles_Reference_heatmap" aria-selected="true">Heatmap</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" id="deletions-line-tab" data-bs-target="#CRISPRessoBatch_percentage_of_deletions_across_alleles_Reference_line" role="tab" aria-controls="CRISPRessoBatch_percentage_of_deletions_across_alleles_Reference_line" aria-selected="false">Line</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="allele-modification-deletions-tabs">
+                        <div class="tab-pane fade show active" id="CRISPRessoBatch_percentage_of_deletions_across_alleles_Reference_heatmap" role="tabpanel" aria-labelledby="deletions-heatmap-tab">
+                            <div>                            <div id="reference-allele-modification-heatmap-deletions" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("reference-allele-modification-heatmap-deletions")) {                    Plotly.newPlot(                        "reference-allele-modification-heatmap-deletions",                        [{"coloraxis":"coloraxis","name":"0","x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"y":["Untreated (1)","Cas9 (2)"],"z":[[1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,2.0,4.0,5.0,6.0,6.0,6.0,7.0,7.0,8.0,10.0,12.0,12.0,13.0,13.0,15.0,17.0,23.0,25.0,35.0,34.0,44.0,33.0,30.0,29.0,25.0,19.0,16.0,15.0,13.0,13.0,13.0,9.0,8.0,6.0,5.0,5.0,3.0,3.0,3.0,3.0,3.0,2.0,1.0,1.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,2.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0]],"type":"heatmap","xaxis":"x","yaxis":"y","hovertemplate":"Amplicon Nucleotide (Position): %{x}\u003cbr\u003eSample (Index): %{y}\u003cbr\u003eDeletions (%): %{z}\u003cextra\u003e\u003c\u002fextra\u003e"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Amplicon Nucleotide (Position)"},"gridcolor":"rgba(0, 0, 0, 0)"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"autorange":"reversed","title":{"text":"Sample (Index)"},"scaleanchor":"x","gridcolor":"rgba(0, 0, 0, 0)"},"coloraxis":{"colorbar":{"title":{"text":"Deletions (%)"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"margin":{"t":60},"shapes":[{"line":{"color":"Black"},"type":"rect","x0":75,"x1":94,"y0":-0.5,"y1":0.5},{"line":{"color":"Black"},"type":"rect","x0":75,"x1":94,"y0":0.5,"y1":1.5}],"autosize":true},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+                            <label class="labelpadding">Each row is a sample and each column is a position in the amplicon sequence. Each cell shows the percentage of deletions for the sample at that position relative to the amplicon. Guides for each sample are identified by a black rectangle.</label>
+                            
+                                <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">CRISPRessoBatch Modification Frequency Summary</a></small></p>
+                            
+                        </div>
+                        <div class="tab-pane fade" id="CRISPRessoBatch_percentage_of_deletions_across_alleles_Reference_line" role="tabpanel" aria-labelledby="deletions-line-tab">
+                            <div>                            <div id="reference-allele-modification-line-deletions" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("reference-allele-modification-line-deletions")) {                    Plotly.newPlot(                        "reference-allele-modification-line-deletions",                        [{"hovertemplate":"variable=Untreated (1)\u003cbr\u003eindex=%{x}\u003cbr\u003evalue=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Untreated (1)","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Untreated (1)","orientation":"v","showlegend":true,"x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"xaxis":"x","y":[1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"variable=Cas9 (2)\u003cbr\u003eindex=%{x}\u003cbr\u003evalue=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Cas9 (2)","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Cas9 (2)","orientation":"v","showlegend":true,"x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"xaxis":"x","y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,2.0,4.0,5.0,6.0,6.0,6.0,7.0,7.0,8.0,10.0,12.0,12.0,13.0,13.0,15.0,17.0,23.0,25.0,35.0,34.0,44.0,33.0,30.0,29.0,25.0,19.0,16.0,15.0,13.0,13.0,13.0,9.0,8.0,6.0,5.0,5.0,3.0,3.0,3.0,3.0,3.0,2.0,1.0,1.0,2.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,2.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,1.0,1.0,2.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Amplicon Nucleotide (Position)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Deletions (%)"}},"legend":{"title":{"text":"Samples"},"tracegroupgap":0},"margin":{"t":60},"shapes":[{"fillcolor":"Gray","line":{"color":"gray"},"opacity":0.2,"type":"rect","x0":75,"x1":94,"y0":0,"y1":0.5}],"autosize":true,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+                            <label class="labelpadding">Each line is a sample that indicates the percentage of deletions for the sample at that position relative to the amplicon. Guides are shown by a grey rectangle.</label>
+                            
+                                <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">CRISPRessoBatch Modification Frequency Summary</a></small></p>
+                            
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <script type="application/javascript">
+
+               document.addEventListener("DOMContentLoaded", () => {
+                   $("#deletions-heatmap-tab").on("shown.bs.tab", (e) => {
+                       let plot = document.getElementById("allele-modification-heatmap-deletions");
+                       Plotly.Plots.resize(plot);
+                       window.dispatchEvent(new Event("resize"));
+                   });
+                   $("#deletions-line-tab").on("shown.bs.tab", (e) => {
+                       let plot = document.getElementById("allele-modification-line-deletions");
+                       Plotly.Plots.resize(plot);
+                       window.dispatchEvent(new Event("resize"));
+                   });
+               });
+              </script>
+            
+              
+              
+              <div class="card text-center mb-2">
+                <div class="card-header">
+                    <h5>CRISPRessoBatch Substitutions Across Samples for Reference</h5>
+                    <ul class="nav nav-tabs justify-content-center card-header-tabs" id="aln-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+
+                            <a class="nav-link active" data-bs-toggle="tab" id="substitutions-heatmap-tab" data-bs-target="#CRISPRessoBatch_percentage_of_substitutions_across_alleles_Reference_heatmap" role="tab" aria-controls="CRISPRessoBatch_percentage_of_substitutions_across_alleles_Reference_heatmap" aria-selected="true">Heatmap</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" data-bs-toggle="tab" id="substitutions-line-tab" data-bs-target="#CRISPRessoBatch_percentage_of_substitutions_across_alleles_Reference_line" role="tab" aria-controls="CRISPRessoBatch_percentage_of_substitutions_across_alleles_Reference_line" aria-selected="false">Line</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="allele-modification-substitutions-tabs">
+                        <div class="tab-pane fade show active" id="CRISPRessoBatch_percentage_of_substitutions_across_alleles_Reference_heatmap" role="tabpanel" aria-labelledby="substitutions-heatmap-tab">
+                            <div>                            <div id="reference-allele-modification-heatmap-substitutions" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("reference-allele-modification-heatmap-substitutions")) {                    Plotly.newPlot(                        "reference-allele-modification-heatmap-substitutions",                        [{"coloraxis":"coloraxis","name":"0","x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"y":["Untreated (1)","Cas9 (2)"],"z":[[0.0,0.0,0.0,1.0,0.0,0.0,2.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,3.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,2.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,1.0,0.0],[2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,2.0,6.0,4.0,5.0,0.0,3.0,0.0,1.0,2.0,0.0,2.0,3.0,1.0,2.0,2.0,0.0,2.0,1.0,1.0,1.0,1.0,1.0,2.0,1.0,0.0,3.0,2.0,2.0,0.0,1.0,1.0,3.0,2.0,1.0,2.0,4.0,1.0,2.0,2.0,1.0,1.0,1.0,0.0,2.0,2.0,1.0,0.0,1.0,0.0,1.0,2.0,1.0,2.0,2.0,1.0,1.0,1.0,2.0,2.0,3.0,3.0,5.0,2.0,2.0,2.0,0.0,1.0,2.0,2.0,4.0,4.0,2.0,1.0,0.0,2.0,3.0,2.0,1.0,1.0,2.0,3.0,5.0,4.0,2.0,2.0,3.0,1.0,1.0,2.0,2.0,5.0,3.0,3.0,2.0,5.0,1.0,2.0,3.0,1.0,1.0,2.0,6.0,1.0,2.0,1.0,3.0,1.0,2.0,1.0,1.0,3.0,1.0,4.0,2.0,1.0,2.0,2.0,1.0,3.0,3.0,4.0,2.0,3.0,1.0,1.0,3.0,2.0,3.0,3.0,8.0,1.0,3.0,2.0]],"type":"heatmap","xaxis":"x","yaxis":"y","hovertemplate":"Amplicon Nucleotide (Position): %{x}\u003cbr\u003eSample (Index): %{y}\u003cbr\u003eSubstitutions (%): %{z}\u003cextra\u003e\u003c\u002fextra\u003e"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Amplicon Nucleotide (Position)"},"gridcolor":"rgba(0, 0, 0, 0)"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"autorange":"reversed","title":{"text":"Sample (Index)"},"scaleanchor":"x","gridcolor":"rgba(0, 0, 0, 0)"},"coloraxis":{"colorbar":{"title":{"text":"Substitutions (%)"}},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"margin":{"t":60},"shapes":[{"line":{"color":"Black"},"type":"rect","x0":75,"x1":94,"y0":-0.5,"y1":0.5},{"line":{"color":"Black"},"type":"rect","x0":75,"x1":94,"y0":0.5,"y1":1.5}],"autosize":true},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+                            <label class="labelpadding">Each row is a sample and each column is a position in the amplicon sequence. Each cell shows the percentage of substitutions for the sample at that position relative to the amplicon. Guides for each sample are identified by a black rectangle.</label>
+                            
+                                <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">CRISPRessoBatch Modification Frequency Summary</a></small></p>
+                            
+                        </div>
+                        <div class="tab-pane fade" id="CRISPRessoBatch_percentage_of_substitutions_across_alleles_Reference_line" role="tabpanel" aria-labelledby="substitutions-line-tab">
+                            <div>                            <div id="reference-allele-modification-line-substitutions" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("reference-allele-modification-line-substitutions")) {                    Plotly.newPlot(                        "reference-allele-modification-line-substitutions",                        [{"hovertemplate":"variable=Untreated (1)\u003cbr\u003eindex=%{x}\u003cbr\u003evalue=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Untreated (1)","line":{"color":"#636efa","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Untreated (1)","orientation":"v","showlegend":true,"x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"xaxis":"x","y":[0.0,0.0,0.0,1.0,0.0,0.0,2.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,3.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,2.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,2.0,0.0,0.0,1.0,0.0],"yaxis":"y","type":"scatter"},{"hovertemplate":"variable=Cas9 (2)\u003cbr\u003eindex=%{x}\u003cbr\u003evalue=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Cas9 (2)","line":{"color":"#EF553B","dash":"solid"},"marker":{"symbol":"circle"},"mode":"lines","name":"Cas9 (2)","orientation":"v","showlegend":true,"x":["C (1)","G (2)","G (3)","A (4)","T (5)","G (6)","T (7)","T (8)","C (9)","C (10)","A (11)","A (12)","T (13)","C (14)","A (15)","G (16)","T (17)","A (18)","C (19)","G (20)","C (21)","A (22)","G (23)","A (24)","G (25)","A (26)","G (27)","T (28)","C (29)","G (30)","C (31)","C (32)","G (33)","T (34)","C (35)","T (36)","C (37)","C (38)","A (39)","A (40)","G (41)","G (42)","T (43)","G (44)","A (45)","A (46)","A (47)","G (48)","C (49)","G (50)","G (51)","A (52)","A (53)","G (54)","T (55)","A (56)","G (57)","G (58)","G (59)","C (60)","C (61)","T (62)","T (63)","C (64)","G (65)","C (66)","G (67)","C (68)","A (69)","C (70)","C (71)","T (72)","C (73)","A (74)","T (75)","G (76)","G (77)","A (78)","A (79)","T (80)","C (81)","C (82)","C (83)","T (84)","T (85)","C (86)","T (87)","G (88)","C (89)","A (90)","G (91)","C (92)","A (93)","C (94)","C (95)","T (96)","G (97)","G (98)","A (99)","T (100)","C (101)","G (102)","C (103)","T (104)","T (105)","T (106)","T (107)","C (108)","C (109)","G (110)","A (111)","G (112)","C (113)","T (114)","T (115)","C (116)","T (117)","G (118)","G (119)","C (120)","G (121)","G (122)","T (123)","C (124)","T (125)","C (126)","A (127)","A (128)","G (129)","C (130)","A (131)","C (132)","T (133)","A (134)","C (135)","C (136)","T (137)","A (138)","C (139)","G (140)","T (141)","C (142)","A (143)","G (144)","C (145)","A (146)","C (147)","C (148)","T (149)","G (150)","G (151)","G (152)","A (153)","C (154)","C (155)","C (156)","C (157)","G (158)","C (159)","C (160)","A (161)","C (162)","C (163)","G (164)","T (165)","G (166)","C (167)","G (168)","C (169)","C (170)","G (171)","G (172)","G (173)","C (174)","C (175)","T (176)","T (177)","G (178)","C (179)","A (180)","G (181)","T (182)","G (183)","G (184)","G (185)","C (186)","G (187)","C (188)","G (189)","C (190)","T (191)","A (192)","C (193)","C (194)","T (195)","G (196)","C (197)","G (198)","C (199)","C (200)","A (201)","C (202)","A (203)","T (204)","C (205)","C (206)","A (207)","T (208)","C (209)","G (210)","G (211)","C (212)","G (213)","C (214)","T (215)","T (216)","T (217)","G (218)","G (219)","T (220)","C (221)","G (222)","G (223)"],"xaxis":"x","y":[2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,2.0,6.0,4.0,5.0,0.0,3.0,0.0,1.0,2.0,0.0,2.0,3.0,1.0,2.0,2.0,0.0,2.0,1.0,1.0,1.0,1.0,1.0,2.0,1.0,0.0,3.0,2.0,2.0,0.0,1.0,1.0,3.0,2.0,1.0,2.0,4.0,1.0,2.0,2.0,1.0,1.0,1.0,0.0,2.0,2.0,1.0,0.0,1.0,0.0,1.0,2.0,1.0,2.0,2.0,1.0,1.0,1.0,2.0,2.0,3.0,3.0,5.0,2.0,2.0,2.0,0.0,1.0,2.0,2.0,4.0,4.0,2.0,1.0,0.0,2.0,3.0,2.0,1.0,1.0,2.0,3.0,5.0,4.0,2.0,2.0,3.0,1.0,1.0,2.0,2.0,5.0,3.0,3.0,2.0,5.0,1.0,2.0,3.0,1.0,1.0,2.0,6.0,1.0,2.0,1.0,3.0,1.0,2.0,1.0,1.0,3.0,1.0,4.0,2.0,1.0,2.0,2.0,1.0,3.0,3.0,4.0,2.0,3.0,1.0,1.0,3.0,2.0,3.0,3.0,8.0,1.0,3.0,2.0],"yaxis":"y","type":"scatter"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Amplicon Nucleotide (Position)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Substitutions (%)"}},"legend":{"title":{"text":"Samples"},"tracegroupgap":0},"margin":{"t":60},"shapes":[{"fillcolor":"Gray","line":{"color":"gray"},"opacity":0.2,"type":"rect","x0":75,"x1":94,"y0":0,"y1":0.5}],"autosize":true,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+                            <label class="labelpadding">Each line is a sample that indicates the percentage of substitutions for the sample at that position relative to the amplicon. Guides are shown by a grey rectangle.</label>
+                            
+                                <p class="m-0"><small>Data: <a href="MODIFICATION_FREQUENCY_SUMMARY.txt">CRISPRessoBatch Modification Frequency Summary</a></small></p>
+                            
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <script type="application/javascript">
+
+               document.addEventListener("DOMContentLoaded", () => {
+                   $("#substitutions-heatmap-tab").on("shown.bs.tab", (e) => {
+                       let plot = document.getElementById("allele-modification-heatmap-substitutions");
+                       Plotly.Plots.resize(plot);
+                       window.dispatchEvent(new Event("resize"));
+                   });
+                   $("#substitutions-line-tab").on("shown.bs.tab", (e) => {
+                       let plot = document.getElementById("allele-modification-line-substitutions");
+                       Plotly.Plots.resize(plot);
+                       window.dispatchEvent(new Event("resize"));
+                   });
+               });
+              </script>
+            
+          
+
+          </div>
+
+        </div>
+
+
+        <div align="center" class='p-3'>
+  
+  <button class='btn btn-primary hidden-print' onclick='window.print();'><i class="fas fa-print"></i> Print</button>
+</div>
+
+	</div>
+    <div class="col-sm-1"></div>
+</div>
+
+
+      
+      <div class="row">
+      <div class="col-sm-1"></div>
+      <footer class="col-sm-10 crispresso_body_div screen-only py-5">
+        <p class="text-center">
+      If you like CRISPResso2 please support us by citing it in your work: <br>
+          Clement K, Rees H, Canver MC, Gehrke JM, Farouni R, Hsu JY, Cole MA, Liu DR, Joung JK, Bauer DE, Pinello L.<br>
+          <a href="https://rdcu.be/boxVG" target="_blank">CRISPResso2 provides accurate and rapid genome editing sequence analysis. </a><br>
+          Nat Biotechnol. 2019 Mar; 37(3):224-226. doi: 10.1038/s41587-019-0032-3. PubMed PMID: 30809026.
+        </p>
+        <p class="text-center"><small> &copy; Copyright <a href="http://pinellolab.org">Kendell Clement and Luca Pinello</a></small></p>
+        <p class="text-center">
+          <small>
+        <a href="https://twitter.com/intent/tweet?text=CRISPResso2%20provides%20accurate%20and%20rapid%20genome%20editing%20sequence%20analysis%20%40kendellclement%20%40lucapinello%20%23CRISPR%20%23CRISPResso2"
+          class="twitter-share-button" data-via="kendellclement" data-size="large" data-count="none" data-hashtags="CRISPR" data-url="http://crispresso2.pinellolab.org">Tweet about CRISPresso2!</a>
+        </small>
+        </p>
+
+      </footer>
+      <div class="col-sm-1"></div>
+    </div>
+    
+    </div>
+    
+
+  <script src="https://unpkg.com/d3@5"></script>
+  <style>
+  .qw {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23D9D9D9FF' stroke-width='4' stroke-dasharray='6%2c14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  }
+</style>
+
+<script type="text/javascript">
+  const buildNucleotideQuilt = (data, slug) => {
+    return new Promise((resolve, reject) => {
+      try {
+        if (data.custom_colors == null) {
+          color = {
+            "A": "#7FC97F",
+            "T": "#BEAED4",
+            "C": "#FDC086",
+            "G": "#FFFF99",
+            "N": "#C8C8C8",
+            "-": "#000000",
+            "Insertion": "#C18172",
+            "sgRNA": "#D9D9D9",
+          };
+        } else {
+          color = {
+            "A": data.custom_colors["A"],
+            "T": data.custom_colors["T"],
+            "C": data.custom_colors["C"],
+            "G": data.custom_colors["G"],
+            "N": data.custom_colors["N"],
+            "-": data.custom_colors["-"],
+            "Insertion": data.custom_colors["Insertion"],
+            "sgRNA": "#D9D9D9",
+          };
+        }
+
+        const seqLength = data["reference"].length,
+          tableCellHeight = 10,
+          tableCellWidth = 10,
+          batchCellHeight = 30,
+          batchPadding = tableCellHeight / 5,
+          numGuides = data.hasOwnProperty("sgRNAs") ? data["sgRNAs"].length : 0,
+          numGuideRows = data.hasOwnProperty("sgRNAs") ? Math.max(...data["sgRNAs"].map(d => d["row"])) + 1 : 0,
+          numBatches = data["batches"].length,
+          minPlotPct = 0.01,
+          shadeReference = true;
+
+          const guidePadding = tableCellHeight / 2,
+          guideHeight = numGuides > 0 ? (guidePadding * 2) + (numGuideRows * tableCellHeight) : 0,
+          batchHeight = (numBatches * batchCellHeight) + (tableCellHeight * 2),
+          quiltHeight = batchHeight + guideHeight + (guidePadding * 2)
+
+        const quiltSvg = d3.select(`#${slug}`)
+          .append("svg")
+          .attr("viewBox", `0 0 ${(seqLength * tableCellWidth) + 50} ${quiltHeight}`)
+          .style("user-select", "none")
+          .style("width", "88%")
+          .style("height", `${((2300 / seqLength) * numBatches) + 150}px`)
+
+        const quiltGroup = quiltSvg.append("g");
+
+        const y = d3.scaleLinear()
+          .domain([0, 1])
+          .range([batchCellHeight - batchPadding, 0]);
+
+        const stackGen = d3.stack()
+          .keys(["A", "C", "G", "T", "-", "Insertion"])
+          .order(d3.stackOrderNone)
+          .offset(d3.stackOffsetNone);
+
+        const tooltip = d3.select("body")
+          .append("div")
+          .style("position", "absolute")
+          .style("z-index", "10")
+          .style("visibility", "hidden")
+          .style("background-color", "#FFFFFF")
+          .style("border", "solid")
+          .style("border-width", "1px")
+          .style("border-radius", "5px")
+          .style("padding", "10px")
+          .style("opacity", "0.9");
+
+        const innerTooltip = tooltip.append("div")
+          .attr("class", "text-center")
+          .style("display", "grid")
+          .style("grid-template-columns", "1fr 1fr")
+          .style("column-gap", "10px");
+
+        const defaultTooltipData = Object.keys(color)
+          .filter(d => d !== "sgRNA" && d !== "Deletion" && d !== "Substitution")
+          .reduce((o, key) => ({ ...o, [key]: "0%" }), {});
+
+          const tooltipMouseover = function (d) {
+          let sampleName = d3.select(this.parentNode.parentNode).datum().name
+          let key = d3.select(this.parentNode).datum().key,
+            tooltipData = { "Sample:": sampleName, "Index:": d[2], ...defaultTooltipData, ...d.data };
+            let tooltipHtml = Object.entries(tooltipData)
+            .map(([key, value]) => {
+              if (typeof value === 'number' && key != "Index:") {
+                value = (value * 100).toPrecision(3) + '%';
+              }
+              var keyStyle = '';
+              var valueStyle =''
+              if (color.hasOwnProperty(key)) {
+                keyStyle = `background-color: ${color[key]}; `;
+                if (key == '-') {
+                  keyStyle += 'color: white';
+                }
+              }
+              if (key == "Index:"){
+                var indexStyle = `
+                  display: flex;
+                  flex-direction: column;
+                  position: relative;
+                  border-bottom: 1px solid black;
+                  margin-bottom: 5px;
+                `;
+                return `
+                  <div style="${indexStyle}">
+                    ${key}
+                  </div>
+                  <div style="${indexStyle}">${value}<div style="position: absolute; left: -10px; bottom: -1px; width: 10px; height: 1px; background-color: black;"></div></div>
+                `;
+              } else{
+                return `<div style="${keyStyle}">${key}</div> <div style="${valueStyle}">${value}</div>`;
+              }
+            });
+          tooltip.style("left", `${window.event.pageX + 10}px`)
+            .style("top", `${window.event.pageY + 10}px`)
+            .style("visibility", "visible");
+          innerTooltip.html(tooltipHtml.join(""));
+        };
+
+        const tooltipMouseleave = d => tooltip.style("visibility", "hidden");
+
+        const batchGroup = quiltGroup.selectAll(`.${slug}_batch`)
+          .data(data["batches"], d => d.name)
+          .join(
+            enter => {
+              let root = enter.append("g");
+              root.attr("transform", (d, i) => `translate(0,${(batchCellHeight * i) + batchPadding})`);
+
+              root.append("text")
+                .attr("x", (seqLength * tableCellWidth) + 2)
+                .attr("dy", batchCellHeight / 2)
+                .style("font-family", "Arial")
+                .style("font-size", "7pt")
+                .style("fill", "#262626")
+                .text(d => d.name)
+                .append("svg:title")
+                .text(d => d.name);
+
+              root.append("rect")
+                .attr("width", tableCellWidth * seqLength)
+                .attr("height", batchCellHeight - batchPadding)
+                .attr("stroke", "#000000")
+                .attr("stroke-width", "0.5")
+                .attr("fill", "none");
+
+              return root;
+            },
+          )
+          .selectAll(".batch_cells")
+          .data(d => stackGen(Object.keys(d.nuc_pct).map(key => d.nuc_pct[key])))
+          .join(
+            enter => {
+              let root = enter.append("g")
+                .attr("fill", d => color[d["key"]]);
+              return root;
+            }
+          )
+          .selectAll("rect")
+          .data(d => d.map((e, i) => { e.push(i); return e }).filter(e => !(isNaN(e[0]) || isNaN(e[1]))))
+          .join(
+            enter => {
+              let root = enter.append("rect")
+                .attr("x", function (d) {
+                  if (this.parentNode.__data__.key == "Insertion") {
+                    return (d[2] * tableCellWidth) + (0.75 * tableCellWidth);
+                  } else {
+                    return d[2] * tableCellWidth;
+                  }
+                })
+                .attr("y", function (d) {
+                  if (this.parentNode.__data__.key == "Insertion") {
+                    return batchCellHeight + (y(d[1]) - y(d[0])) - 2;
+                  } else {
+                    return y(d[1]);
+                  }
+                })
+                .attr("height", d => y(d[0]) - y(d[1]))
+                .attr("width", function (d) {
+                  if (this.parentNode.__data__.key == "Insertion") {
+                    return tableCellWidth / 2;
+                  } else {
+                    return tableCellWidth;
+                  }
+                });
+              if (shadeReference) {
+                root.style("opacity", function (d, i) {
+                  return this.parentNode.__data__.key == data["reference"][d[2]] ? 0.25 : 1;
+                });
+              }
+              return root;
+            }
+          )
+          .on("mouseover", tooltipMouseover)
+          .on("mouseleave", tooltipMouseleave);
+
+          const guides = quiltGroup.selectAll(`.${slug}_guide`)
+          .data(data["sgRNAs"].filter(d => d["interval"][1] > 0), d => d)
+          .join(
+            enter => {
+              let root = enter.append("g");
+              root.attr("transform", (d, i) => `translate(${(d["interval"][0] * tableCellWidth)},${(d["row"] * tableCellHeight) + batchHeight + guidePadding})`);
+              let rect = root.append("rect")
+              .attr("width", (d, i) => {
+                let sgRNAWidth = Math.abs(d["interval"][1] - d["interval"][0]) + 1;
+                if (seqLength < (sgRNAWidth + d["interval"][0])) {
+                  sgRNAWidth = Math.abs(seqLength - d["interval"][0]);
+                  //This checks the location and length of the sgrna block and shortens it if it goes past the end of the graph
+                }
+                  return sgRNAWidth * tableCellWidth;
+              })
+                .attr("height", tableCellHeight)
+                .attr("stroke", "#FFFFFF")
+                .style("fill", "#D9D9D9");
+              rect.append("svg:title")
+                .text(d => d["sequence"]);
+              root.append("text")
+                .attr("dx", "0.2em")
+                .attr("dy", "1em")
+                .attr("text-anchor", "start")
+                .style("font-size", "6pt")
+                .text(d => d.hasOwnProperty("name") ? d["name"] : "sgRNA");
+              return root;
+            }
+          );
+
+        const referenceGroup = quiltGroup.append("g")
+          .attr("transform", `translate(0, ${batchHeight})`);
+        referenceGroup.selectAll(".reference")
+          .data(d => data["reference"])
+          .join(enter => {
+            let root = enter.append("g");
+            root.append("rect")
+              .attr("fill", d => color[d])
+              .attr("width", tableCellWidth)
+              .attr("height", tableCellHeight)
+              .attr("x", (d, i) => i * tableCellWidth)
+              .attr("y", -10)
+              .style("opacity", "0.9");
+            root.append("text")
+              .attr("x", (d, i) => (i * tableCellWidth) + (tableCellWidth / 2))
+              .attr("text-anchor", "middle")
+              .attr("dy", "-0.2em")
+              .style("font-size", "6pt")
+              .style("font-family", "Arial")
+              .style("stroke-width", "0.3pt")
+              .style("fill", "#262626")
+              .text(d => d);
+            return root;
+          });
+        referenceGroup.append("text")
+          .attr("x", (seqLength * tableCellWidth) + 2)
+          .attr("dy", "-0.2em")
+          .style("font-family", "Arial")
+          .style("font-size", "7pt")
+          .style("fill", "#262626")
+          .text("Reference");
+
+        const quantificationWindowGroup = quiltGroup.append("g");
+
+        const generateQuantificationWindowPolylinePoints = (quantificationRange) => {
+          if(quantificationRange[1] < 0 || quantificationRange[0] > seqLength) {
+            return ""
+          }
+          let leftPosition = Math.max(quantificationRange[0] * tableCellWidth, 0),
+              rightPosition = Math.min((quantificationRange[1] + 1) * tableCellWidth, seqLength * tableCellWidth),
+              lowerPosition = quiltHeight + (guidePadding * 2) - 2
+          if(quantificationRange[0] < 0) {
+            return `${leftPosition},0 ${rightPosition},0 ${rightPosition},${lowerPosition} ${leftPosition},${lowerPosition}`
+          }
+          else if(quantificationRange[1] > seqLength) {
+            return `${rightPosition},0 ${leftPosition},0 ${leftPosition},${lowerPosition} ${rightPosition},${lowerPosition}`
+          }
+          else {
+            return `${leftPosition},0 ${rightPosition},0 ${rightPosition},${lowerPosition} ${leftPosition},${lowerPosition} ${leftPosition},0`
+          }
+        }
+
+        // plot quantification windows where at least one end of the range is visible
+        quantificationWindowGroup.selectAll(".quantificationWindow")
+          .data(d => data["quantification_windows"].filter(d => d[0] > 0 || d[1] < seqLength))
+          .join(enter => {
+            let root = enter.append("polyline")
+              .attr("points", d => generateQuantificationWindowPolylinePoints(d))
+              .style("stroke", "#D9D9D9")
+              .style("stroke-dasharray", "4,4")
+              .style("stroke-width", "0.7pt")
+              .style("fill", "none");
+            return root;
+          });
+
+        // plot quantification windows that span the entire viewport
+        quantificationWindowGroup.selectAll(".quantificationWindow")
+          .data(d => data["quantification_windows"].filter(d => d[0] < 0 && d[1] > seqLength))
+          .join(enter => {
+            enter.append("line")
+                 .attr("x1", 0)
+                 .attr("x2", seqLength * tableCellWidth)
+                 .attr("y1", 0)
+                 .attr("y2", 0)
+                 .style("stroke", "#D9D9D9")
+                 .style("stroke-dasharray", "4,4")
+                 .style("stroke-width", "0.7pt")
+
+            enter.append("line")
+                 .attr("x1", 0)
+                 .attr("x2", seqLength * tableCellWidth)
+                 .attr("y1", quiltHeight - (guidePadding * 2) - 2)
+                 .attr("y2", quiltHeight - (guidePadding * 2) - 2)
+                 .style("stroke", "#D9D9D9")
+                 .style("stroke-dasharray", "4,4")
+                 .style("stroke-width", "0.7pt")
+
+            return enter
+        });
+
+        const legendGroup = d3.select(`#${slug}`).append("div"),
+          legendData = Object.keys(color);
+        legendData.push("Quantification Window");
+
+        legendGroup.style("width", "12%").style("position", "sticky").style("top", "0").classed("d-flex", true).classed("align-items-center", true).classed("flex-column", true);
+        legendGroup.append("h5")
+          .text("Legend");
+
+        legendGroup.selectAll(".legend")
+          .attr("class", "text-center")
+          .style("display", "grid")
+          .style("grid-template-columns", "1fr 1fr")
+          .style("column-gap", "10px")
+          .data(legendData.filter(d => d !== "Deletion" && d !== "Substitution"))
+          .join(enter => enter.append("div")
+            .style("background-color", d => color.hasOwnProperty(d) ? color[d] : "white")
+            .style("color", d => d === '-' ? "white" : "black")
+            .style("font-size", "0.7rem")
+            .style("width", "75%")
+            .classed("qw", d => d === "Quantification Window")
+            .text(d => d)
+          );
+
+
+        const zoom = d3.zoom()
+          .scaleExtent([0.5, 20]) // Adjust the scale extent as needed
+          .on("zoom", function () {
+            const transform = d3.event.transform;
+            if (transform) {
+              quiltGroup.attr("transform", transform);
+            } else {
+              console.warn("Zoom event transform is undefined");
+            }
+          });
+
+        quiltSvg.call(zoom);
+
+        // Function to reset the zoom level
+        function resetZoom() {
+          quiltSvg.transition().duration(750).call(zoom.transform, d3.zoomIdentity);
+        }
+
+        legendGroup.append("button")
+          .text("Reset Zoom")
+          .on("click", resetZoom)
+          .style("display", "block")
+          .style("width", "75%")
+          .style("margin-top", "10px")
+          .style("border", "1px solid black")
+          .style("padding", "5px 10px")
+          .style("background-color", "#f0f0f0")
+          .style("color", "#333")
+          .style("font-size", "0.7rem")
+          .style("border-radius", "4px");
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+
+
+    var topQuilt = document.getElementById('nucleotide-header');
+    var bottomQuilt = document.getElementById('nucleotide-header-full-amplicon');
+    if (topQuilt) {
+      topQuilt.innerHTML = "Loading Graph...";
+    }
+
+    if (bottomQuilt) {
+      bottomQuilt.innerHTML = "Loading Graph...";
+    }
+    setTimeout(async () => {
+      
+      await buildNucleotideQuilt(Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC, "Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC")
+      
+      await buildNucleotideQuilt(Nucleotide_percentage_quilt, "Nucleotide_percentage_quilt")
+      
+      if (topQuilt) {
+        topQuilt.innerHTML = "Nucleotide percentages around guides";
+      }
+      if (bottomQuilt) {
+        bottomQuilt.innerHTML = "Nucleotide percentages in the entire amplicon";
+      }
+    }, 100); // Delay of 100 ms to allow javascript to rerender loading message to dom before rendering D3 plot
+
+</script>
+
+
+  </body>
+
+</html>

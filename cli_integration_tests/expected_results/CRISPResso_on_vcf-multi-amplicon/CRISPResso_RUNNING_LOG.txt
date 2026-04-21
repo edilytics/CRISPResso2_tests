@@ -1,0 +1,72 @@
+CRISPResso version 2.3.3
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/vcf_multi_amplicon.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG,TACGGGTATTACCCGCGTTTAGTGGCTAGCGACTCGTGGACTTGCTGTACTGTCTACGGGCGTCAACTTGATAATCCCAAAAAAGCTTGGCCCCGCACAACTCGTTGAGCAATTCTTAAAAAGATGGTGTACGTCCCTCATACTTCGTATTCAATAAACCCGGTTAGACCATTGGGTGCGTGATGCTGCATTGCCTTGCA -an AMP1,AMP2 -g GGAATCCCTTCTGCAGCACC,CCCCGCACAACTCGTTGAGC --vcf_output --amplicon_coordinates chr1:1000,chr2:5000 -n vcf-multi-amplicon --place_report_in_output_folder --debug
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Using cut points from AMP1 as template for other references
+Reference 'AMP2' has cut points defined: [106]. Not inferring.
+Reference 'AMP2' has sgRNA_intervals defined: [(90, 109)]. Not inferring.
+Counting reads in input
+Counting reads after preprocessing...
+Aligning sequences...
+Finished reading fastq file; 43 unique reads found of 100 total reads found 
+Processing Reads; 0 Completed out of 43 Unique Reads
+Finished reads; N_TOT_READS: 100 N_COMPUTED_ALN: 43 N_CACHED_ALN: 57 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Plotting alleles homology histogram
+Begin processing plots for amplicon AMP1
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GGAATCCCTTCTGCAGCACC for AMP1
+Plotting indel size distribution for AMP1
+Plotting frequency deletions/insertions for AMP1
+Plotting amplication modifications for AMP1
+Plotting modification frequency for AMP1
+Plotting quantification window locations for AMP1
+Plotting position dependent indel for AMP1
+Plotting allele distribution around cut for AMP1
+Done!
+Begin processing plots for amplicon AMP2
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA CCCCGCACAACTCGTTGAGC for AMP2
+Plotting indel size distribution for AMP2
+Plotting frequency deletions/insertions for AMP2
+Plotting amplication modifications for AMP2
+Plotting modification frequency for AMP2
+Plotting quantification window locations for AMP2
+Plotting position dependent indel for AMP2
+Plotting allele distribution around cut for AMP2
+Done!
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 100.
+ Disproportionate percentages of reads were aligned to amplicon: AMP1, Percent of aligned reads aligned to this amplicon: 50.0%.
+ Disproportionate percentages of reads were aligned to amplicon: AMP2, Percent of aligned reads aligned to this amplicon: 50.0%.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 21, Substitutions outside window: 21.
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
+Analysis Complete!

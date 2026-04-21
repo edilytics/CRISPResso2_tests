@@ -1,0 +1,52 @@
+CRISPResso version 2.3.3
+[Command used]:
+/Users/cole/mambaforge/envs/crispresso/bin/CRISPResso -r1 inputs/vcf_deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --vcf_output --amplicon_coordinates FANC:1 -n vcf-deletions-only --place_report_in_output_folder --debug
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Counting reads in input
+Counting reads after preprocessing...
+Aligning sequences...
+Finished reading fastq file; 47 unique reads found of 100 total reads found 
+Processing Reads; 0 Completed out of 47 Unique Reads
+Finished reads; N_TOT_READS: 100 N_COMPUTED_ALN: 47 N_CACHED_ALN: 53 N_COMPUTED_NOTALN: 0 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Plotting alleles homology histogram
+Begin processing plots for amplicon Reference
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around sgRNA GGAATCCCTTCTGCAGCACC for Reference
+Plotting indel size distribution for Reference
+Plotting frequency deletions/insertions for Reference
+Plotting amplication modifications for Reference
+Plotting modification frequency for Reference
+Plotting quantification window locations for Reference
+Plotting position dependent indel for Reference
+Plotting allele distribution around cut for Reference
+Done!
+Done!
+Removing Intermediate files...
+ Low number of total reads: <10000. Total reads: 100.
+ >=0.2% of substitutions were outside of the quantification window. Total substitutions: 17, Substitutions outside window: 17.
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
+Analysis Complete!

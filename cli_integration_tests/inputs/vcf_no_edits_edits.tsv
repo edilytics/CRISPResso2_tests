@@ -1,0 +1,101 @@
+read_name	edit_type	edit_position	edit_size	original_seq	edited_seq	seq_error_count	seq_error_positions	seq_error_original	seq_error_new
+read_0	none					1	123	C	G
+read_1	none					0			
+read_2	none					0			
+read_3	none					0			
+read_4	none					0			
+read_5	none					0			
+read_6	none					0			
+read_7	none					0			
+read_8	none					0			
+read_9	none					0			
+read_10	none					0			
+read_11	none					0			
+read_12	none					0			
+read_13	none					0			
+read_14	none					0			
+read_15	none					0			
+read_16	none					0			
+read_17	none					0			
+read_18	none					0			
+read_19	none					0			
+read_20	none					1	110	A	C
+read_21	none					0			
+read_22	none					0			
+read_23	none					2	74,98	T,A	A,T
+read_24	none					0			
+read_25	none					0			
+read_26	none					0			
+read_27	none					0			
+read_28	none					0			
+read_29	none					0			
+read_30	none					0			
+read_31	none					0			
+read_32	none					1	8	C	G
+read_33	none					0			
+read_34	none					0			
+read_35	none					0			
+read_36	none					0			
+read_37	none					0			
+read_38	none					1	85	C	T
+read_39	none					0			
+read_40	none					0			
+read_41	none					0			
+read_42	none					0			
+read_43	none					1	74	T	C
+read_44	none					0			
+read_45	none					0			
+read_46	none					0			
+read_47	none					1	191	A	C
+read_48	none					1	204	C	A
+read_49	none					0			
+read_50	none					0			
+read_51	none					0			
+read_52	none					1	115	C	G
+read_53	none					1	18	C	G
+read_54	none					0			
+read_55	none					0			
+read_56	none					0			
+read_57	none					0			
+read_58	none					0			
+read_59	none					0			
+read_60	none					0			
+read_61	none					0			
+read_62	none					1	23	A	C
+read_63	none					0			
+read_64	none					0			
+read_65	none					0			
+read_66	none					0			
+read_67	none					1	131	C	A
+read_68	none					1	91	C	T
+read_69	none					0			
+read_70	none					0			
+read_71	none					0			
+read_72	none					2	47,82	G,C	T,A
+read_73	none					0			
+read_74	none					0			
+read_75	none					1	165	G	A
+read_76	none					0			
+read_77	none					0			
+read_78	none					0			
+read_79	none					0			
+read_80	none					0			
+read_81	none					0			
+read_82	none					2	47,189	G,C	A,T
+read_83	none					0			
+read_84	none					0			
+read_85	none					0			
+read_86	none					0			
+read_87	none					0			
+read_88	none					0			
+read_89	none					0			
+read_90	none					0			
+read_91	none					0			
+read_92	none					1	221	G	C
+read_93	none					0			
+read_94	none					0			
+read_95	none					1	169	C	G
+read_96	none					0			
+read_97	none					0			
+read_98	none					0			
+read_99	none					1	71	T	C

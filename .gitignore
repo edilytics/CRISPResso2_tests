@@ -48,6 +48,8 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+.install_sentinel
+.install_pro_sentinel
 
 # Unit test / coverage reports
 htmlcov/
@@ -175,3 +177,23 @@ cli_integration_tests/CRISPResso_on_asym_right*
 cli_integration_tests/CRISPResso_on_base_editor*
 
 cli_integration_tests/CRISPResso_on_nhej_native_merge*
+
+cli_integration_tests/CRISPResso_on_vcf-basic*
+
+cli_integration_tests/CRISPResso_on_vcf-deletions-only*
+
+cli_integration_tests/CRISPResso_on_vcf-insertions-only*
+
+cli_integration_tests/CRISPResso_on_vcf-no-edits*
+
+cli_integration_tests/CRISPResso_on_vcf-multi-amplicon*
+
+cli_integration_tests/CRISPResso_on_vcf-base-edit-cbe*
+
+cli_integration_tests/CRISPResso_on_vcf-base-edit-abe*
+
+cli_integration_tests/CRISPResso_on_vcf-prime-edit-basic*
+# Git worktrees
+.worktrees/
+
+cli_integration_tests/CRISPResso_on_params-deletions*

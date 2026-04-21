@@ -1,0 +1,142 @@
+CRISPResso version 2.3.4
+[Command used]:
+/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -r1 inputs/FANC.Cas9.deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params-deletions --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --base_editor_consider_changes_outside_qw --place_report_in_output_folder --halt_on_plot_fail --debug
+
+[Execution log]:
+CRISPRessoPro not installed
+Computing quantification windows
+Added 2 guides with flexible matching
+	Original flexiguides: ['AGCCTTGCAGTGGGCGCGCTA', 'CCCACTGAAGGCCC']
+	Found guides: ['GGCCTTGCAGTGGGCGCGCTA', 'CCCACTGCAAGGCCC']
+	Mismatch locations: [[0], [7]]
+Added 2 guides with flexible matching
+	Original flexiguides: ['AGCCTTGCAGTGGGCGCGCTA', 'CCCACTGAAGGCCC']
+	Found guides: ['GGCCTTGCAGTGGGCGCGCTA', 'CCCACTGCAAGGCCC']
+	Mismatch locations: [[0], [7]]
+Using cut points from FANC as template for other references
+Reference 'HDR' has NO cut points or sgRNA intervals idxs defined. Inferring from 'FANC'.
+Reference 'HDR' has NO exon_positions defined. Inferring from 'FANC'.
+Counting reads in input
+Filtering reads with average bp quality < 30 and single bp quality < 0 and replacing bases with quality < 0 with N ...
+Counting reads after preprocessing...
+Aligning sequences...
+Finished reading fastq file; 3 unique reads found of 3 total reads found 
+Processing Reads; 0 Completed out of 3 Unique Reads
+Finished reads; N_TOT_READS: 3 N_COMPUTED_ALN: 2 N_CACHED_ALN: 0 N_COMPUTED_NOTALN: 1 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Writing file for alleles with dsODN
+Dumping all the processed data...
+Making Plots...
+Plotting read bar plot
+Plotting read class pie chart and bar plot
+Plotting dsODN pie chart
+Plotting alleles homology histogram
+Processing plots for amplicon FANC...
+Plotting nucleotide quilt across amplicon
+Plotting nucleotide distribuition around hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting nucleotide distribuition around dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting nucleotide distribuition around sgRNA CCCACTGAAGGCCC for FANC
+Plotting indel size distribution for FANC
+Plotting frequency deletions/insertions for FANC
+Plotting amplication modifications for FANC
+Plotting modification frequency for FANC
+Plotting quantification window locations for FANC
+Plotting position dependent indel for FANC
+Plotting global modifications with respect to reference
+Plotting HDR nucleotide quilt
+Plotting frameshift frequency for FANC
+Plotting non-coding mutation positions for FANC
+Plotting potential splice sites
+Plotting substitutions across reference for FANC
+Plotting substitution frequency barplot for FANC
+Plotting substitution frequency barplot in quantification window for FANC
+Plotting allele distribution around cut for FANC
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Plotting scaled non-reference conversion at Cs around the hi (GGAATCCCTTCTGCAGCACC) for FANC
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Plotting scaled non-reference conversion at Cs around the dear (AGCCTTGCAGTGGGCGCGCTA) for FANC
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
+Plotting allele distribution around cut for FANC
+Plotting log2 nucleotide frequency for FANC
+Plotting conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Plotting non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Plotting scaled non-reference conversion at Cs around the sgRNA CCCACTGAAGGCCC for FANC
+Target reference sequence not found in allele table (all reads were equal to the reference sequence)
+Plotting amino acids for FANC
+Done!
+Processing plots for amplicon HDR...
+Plotting global frameshift in-frame mutation profiles
+Plotting global potential splice sites pie chart
+Plot pool results:
+future: <Future at 0x15367f890 state=finished returned NoneType>
+future: <Future at 0x15367ef60 state=finished returned NoneType>
+future: <Future at 0x153458a10 state=finished returned NoneType>
+future: <Future at 0x152cd4ce0 state=finished returned NoneType>
+future: <Future at 0x1536a4560 state=finished returned NoneType>
+future: <Future at 0x1536a5fa0 state=finished returned NoneType>
+future: <Future at 0x1536a7500 state=finished returned NoneType>
+future: <Future at 0x1536a6840 state=finished returned NoneType>
+future: <Future at 0x1536a61b0 state=finished returned NoneType>
+future: <Future at 0x1536a6d50 state=finished returned NoneType>
+future: <Future at 0x1536a6930 state=finished returned NoneType>
+future: <Future at 0x1536a7350 state=finished returned NoneType>
+future: <Future at 0x1536a79e0 state=finished returned NoneType>
+future: <Future at 0x15367e060 state=finished returned NoneType>
+future: <Future at 0x15367d670 state=finished returned NoneType>
+future: <Future at 0x152985d30 state=finished returned NoneType>
+future: <Future at 0x15367c6b0 state=finished returned NoneType>
+future: <Future at 0x153284b30 state=finished returned NoneType>
+future: <Future at 0x1535f6000 state=finished returned NoneType>
+future: <Future at 0x15367ebd0 state=finished returned NoneType>
+future: <Future at 0x15367c050 state=finished returned NoneType>
+future: <Future at 0x1532f2840 state=finished returned NoneType>
+future: <Future at 0x1532f30e0 state=finished returned NoneType>
+future: <Future at 0x15368fa40 state=finished returned NoneType>
+future: <Future at 0x152eb89b0 state=finished returned NoneType>
+future: <Future at 0x1536a5130 state=finished returned NoneType>
+future: <Future at 0x1536a62d0 state=finished returned NoneType>
+future: <Future at 0x1536a6210 state=finished returned NoneType>
+future: <Future at 0x15368c110 state=finished returned NoneType>
+future: <Future at 0x1536a6b10 state=finished returned NoneType>
+future: <Future at 0x153937c20 state=finished returned NoneType>
+future: <Future at 0x153937ce0 state=finished returned NoneType>
+future: <Future at 0x1536a74a0 state=finished returned NoneType>
+future: <Future at 0x144eb5df0 state=finished returned NoneType>
+future: <Future at 0x15367ec00 state=finished returned NoneType>
+future: <Future at 0x1536a6660 state=finished returned NoneType>
+future: <Future at 0x1532f0200 state=finished returned NoneType>
+future: <Future at 0x153958560 state=finished returned NoneType>
+future: <Future at 0x1536a44a0 state=finished returned NoneType>
+future: <Future at 0x152eb8ec0 state=finished returned NoneType>
+future: <Future at 0x144323260 state=finished returned NoneType>
+Done!
+Removing Intermediate files...
+Low number of total reads: <10000. Total reads: 3.
+<=90.0% of reads were aligned. Total reads: 3, Aligned reads: 2.
+Disproportionate percentages of reads were aligned to amplicon: FANC, Percent of aligned reads aligned to this amplicon: 66.67%.
+Disproportionate percentages of reads were aligned to amplicon: HDR, Percent of aligned reads aligned to this amplicon: 0.0%.
+<=1.0% of modifications were inside of the quantification window. Total modifications: 5, Modifications in window: 0, Modifications outside window: 5.
+>=1.0% of reads have modifications at the start or end. Total reads: 2, Irregular reads: 2.
+Guide length <19: CCCACTGCAAGGCCC, Length: 15.
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
+Analysis Complete!
