@@ -31,14 +31,7 @@ SAM_HEADER_BOWTIE_VERSION_REGEXP = re.compile(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:
 SAM_HEADER_REGEXP = re.compile(r'@HD\tVN:.*')
 IGNORE_FILES_REGEXP = re.compile(r'.*CRISPResso.*_RUNNING_LOG.txt')
 WARNING_FILE_REGEXP = re.compile(r'((CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?)|fastp)_report.html')
-IGNORE_FILES = frozenset([
-    'CRISPResso_RUNNING_LOG.txt',
-    'CRISPRessoBatch_RUNNING_LOG.txt',
-    'CRISPRessoPooled_RUNNING_LOG.txt',
-    'CRISPRessoWGS_RUNNING_LOG.txt',
-    'CRISPRessoCompare_RUNNING_LOG.txt',
-    'fastp_report.html',
-])
+
 IGNORE_SUFFIX = '_RUNNING_LOG.txt'
 TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
 DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
@@ -806,7 +799,7 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
 
     for file_basename_expected in files_expected.keys():
         fname = basename(file_basename_expected)
-        if fname in IGNORE_FILES or fname.endswith(IGNORE_SUFFIX):
+        if IGNORE_FILES_REGEXP.match(fname) or fname.endswith(IGNORE_SUFFIX):
             continue
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
