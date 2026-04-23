@@ -14,7 +14,7 @@ import pytest
 
 import diff
 from diff import (
-    IGNORE_FILES,
+    IGNORE_FILES_REGEXP,
     IGNORE_SUFFIX,
     WARNING_FILE_REGEXP,
     diff as diff_text,
@@ -349,10 +349,19 @@ class TestDiffDir:
         expected = tmp_path / "expected"
         make_file(actual, "data.txt", "same\n")
         make_file(expected, "data.txt", "same\n")
-        for log_file in IGNORE_FILES:
-            if log_file.endswith('.txt'):
-                make_file(actual, log_file, "actual\n")
-                make_file(expected, log_file, "expected\n")
+        log_files = [
+            "CRISPResso_RUNNING_LOG.txt",
+            "CRISPRessoBatch_RUNNING_LOG.txt",
+            "CRISPRessoPooled_RUNNING_LOG.txt",
+            "CRISPRessoWGS_RUNNING_LOG.txt",
+            "CRISPRessoCompare_RUNNING_LOG.txt",
+        ]
+        for log_file in log_files:
+            # diff_dir ignores RUNNING_LOG files on the *actual* side only when
+            # they match IGNORE_FILES_REGEXP.
+            assert IGNORE_FILES_REGEXP.match(log_file)
+            make_file(actual, log_file, "actual\n")
+            make_file(expected, log_file, "expected\n")
 
         result = diff_dir(str(actual), str(expected))
         assert result is False
@@ -450,7 +459,7 @@ class TestDiffDir:
 
         result = diff_dir(str(actual), str(expected), suffixes=('.txt', '.html'))
         assert result is False, (
-            "fastp_report.html is in IGNORE_FILES — its absence from actual "
+            "fastp_report.html matches WARNING_FILE_REGEXP — its absence from actual "
             "should not cause a failure"
         )
 
@@ -818,13 +827,13 @@ class TestWarningFileRegexp:
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-# IGNORE_FILES / IGNORE_SUFFIX — constant validation
+# IGNORE_FILES_REGEXP / IGNORE_SUFFIX — constant validation
 # ═══════════════════════════════════════════════════════════════════════════
 
 class TestIgnoreConstants:
-    """Validate the ignore constants contain the expected entries."""
+    """Validate ignore patterns for RUNNING_LOG files."""
 
-    def test_all_running_logs_in_ignore_files(self):
+    def test_running_logs_match_ignore_files_regexp(self):
         expected_logs = [
             'CRISPResso_RUNNING_LOG.txt',
             'CRISPRessoBatch_RUNNING_LOG.txt',
@@ -833,19 +842,12 @@ class TestIgnoreConstants:
             'CRISPRessoCompare_RUNNING_LOG.txt',
         ]
         for log in expected_logs:
-            assert log in IGNORE_FILES, "{} should be in IGNORE_FILES".format(log)
+            assert IGNORE_FILES_REGEXP.match(log), (
+                "{} should match IGNORE_FILES_REGEXP".format(log)
+            )
 
-    def test_fastp_in_ignore_files(self):
-        assert 'fastp_report.html' in IGNORE_FILES
+    def test_non_crispresso_running_log_does_not_match_regexp(self):
+        assert not IGNORE_FILES_REGEXP.match('CustomTool_RUNNING_LOG.txt')
 
     def test_ignore_suffix(self):
         assert IGNORE_SUFFIX == '_RUNNING_LOG.txt'
-
-    def test_all_ignore_files_match_suffix_or_are_special(self):
-        """Every entry in IGNORE_FILES should either match IGNORE_SUFFIX or be
-        a known special case (fastp_report.html)."""
-        special_cases = {'fastp_report.html'}
-        for f in IGNORE_FILES:
-            assert f.endswith(IGNORE_SUFFIX) or f in special_cases, (
-                "{} doesn't match IGNORE_SUFFIX and isn't a known special case".format(f)
-            )
