@@ -19,7 +19,7 @@ CRISPRESSOPRO_DIR ?= ../CRISPRessoPro
 .DEFAULT_GOAL := all
 
 # ── Pixi environment auto-activation ────────────────────────────────
-# When PRO=1 is set, use the test-pro environment (CRISPResso2 + CRISPRessoPro).
+# When PRO=1 is set, use the test-pro environment (CRISPResso2 + CRISPRessoPro + test deps).
 # Otherwise, use the test environment (CRISPResso2 only).
 # If already inside the target pixi environment, run commands directly.
 ifdef PRO

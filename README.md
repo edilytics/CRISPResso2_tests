@@ -84,6 +84,14 @@ This will automatically update the files for you, then you can review the change
 
 Append `PRO=1` to any make command to run tests with CRISPRessoPro installed. This uses the `test-pro` pixi environment (defined in `CRISPResso2/pixi.toml`), which includes all test dependencies plus CRISPRessoPro's dependencies (e.g., `kaleido`).
 
+If you only need to run Pro code without test tooling, use CRISPResso2's `pro` runtime lane directly:
+
+```bash
+cd ../CRISPResso2
+pixi install -e pro
+pixi run -e pro install-pro
+```
+
 When Pro is installed, HTML file diffs are compared against `expected_results_pro/` (since Pro generates different HTML reports), while data file diffs always use `expected_results/`.
 
 ```shell
