@@ -24,7 +24,7 @@ CRISPRESSOPRO_DIR ?= ../CRISPRessoPro
 # Otherwise, use the test environment (CRISPResso2 only).
 # If already inside the target pixi environment, run commands directly.
 ifdef PRO
-  _PIXI_ENV := pro
+  _PIXI_ENV := test-pro
 else
   _PIXI_ENV := test
 endif
