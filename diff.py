@@ -23,22 +23,16 @@ except ImportError:
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
 DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
 COMMAND_HTML_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
-COMMAND_LOG_REGEXP = re.compile(r'[\S]*/CRISPResso.*')
+COMMAND_LOG_REGEXP = re.compile(r'<p><strong>Command used:</strong> </p><pre class="pre-scrollable"> *CRISPResso')
+C2_ENV_PATH_REGEXP = re.compile(r'@PG\tID:crispresso2\tPN:crispresso2\tVN:\d+\.\d+\.\d+\tCL:"(.+)"')
 OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPResso[\S]*')
 PLOTLY_PATH_REGEXP = re.compile(r'/\S+/cli_integration_tests/')
 SAM_HEADER_BOWTIE_VERSION_REGEXP = re.compile(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:.*')
 SAM_HEADER_REGEXP = re.compile(r'@HD\tVN:.*')
-IGNORE_FILES = frozenset([
-    'CRISPResso_RUNNING_LOG.txt',
-    'CRISPRessoBatch_RUNNING_LOG.txt',
-    'CRISPRessoPooled_RUNNING_LOG.txt',
-    'CRISPRessoWGS_RUNNING_LOG.txt',
-    'CRISPRessoCompare_RUNNING_LOG.txt',
-    'fastp_report.html',
-])
-IGNORE_SUFFIX = '_RUNNING_LOG.txt'
-WARNING_FILE_REGEXP = re.compile(r'CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?_report.html')
+IGNORE_FILES_REGEXP = re.compile(r'.*CRISPResso.*_RUNNING_LOG.txt')
+WARNING_FILE_REGEXP = re.compile(r'((CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?)|fastp)_report.html')
 
+IGNORE_SUFFIX = '_RUNNING_LOG.txt'
 TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
 DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
 HTML_SUFFIXES = ('.html',)
@@ -120,7 +114,7 @@ def substitute_line(line):
     line = DATETIME_REGEXP.sub('2024-01-11 12:34:56', line)
     line = COMMAND_HTML_REGEXP.sub('<p>Command used: <command></p>', line)
     line = COMMAND_LOG_REGEXP.sub('CRISPResso <parameters>', line)
-    line = PLOTLY_PATH_REGEXP.sub('CRISPResso2_tests/cli_integration_tests/', line)
+    line = C2_ENV_PATH_REGEXP.sub('@PG CRISPResso <parameters>', line)
     line = OUTPUT_REGEXP.sub('CRISPResso2_tests/cli_integration_tests/CRISPResso', line)
     line = SAM_HEADER_BOWTIE_VERSION_REGEXP.sub(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:2.5.4\tCL:bowtie2-align-s <parameters>', line)
     line = SAM_HEADER_REGEXP.sub(r'@HD\tVN:1.0\tSO:unsorted', line)
@@ -770,8 +764,7 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
     for file_basename_actual, file_path_actual in files_actual.items():
-        fname = basename(file_basename_actual)
-        if fname in IGNORE_FILES or fname.endswith(IGNORE_SUFFIX):
+        if IGNORE_FILES_REGEXP.match(basename(file_basename_actual)):
             continue
         if file_basename_actual in files_expected:
             if file_path_actual.suffix in PDF_SUFFIXES:
@@ -806,7 +799,7 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
 
     for file_basename_expected in files_expected.keys():
         fname = basename(file_basename_expected)
-        if fname in IGNORE_FILES or fname.endswith(IGNORE_SUFFIX):
+        if IGNORE_FILES_REGEXP.match(fname) or fname.endswith(IGNORE_SUFFIX):
             continue
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
