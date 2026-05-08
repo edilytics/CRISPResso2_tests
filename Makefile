@@ -171,9 +171,8 @@ pro-no-plots-key: .install_pro_sentinel
 pro-subset-plots: .install_pro_sentinel
 	$(call PYTEST_RUN_PRO,test_pro_subset_plots_in_order,CRISPResso_on_pro-subset-plots)
 
-JOBS ?= auto
 all: clean $(_SENTINEL)
-	$(PIXI) pytest test_cli.py -n $(JOBS) --dist loadgroup $(PYTEST_FLAGS)
+	$(PIXI) pytest test_cli.py -n auto --dist loadgroup $(PYTEST_FLAGS)
 
 clean: clean_cli_integration
 	rm -f .install_sentinel .install_pro_sentinel
