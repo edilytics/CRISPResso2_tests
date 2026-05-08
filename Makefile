@@ -136,7 +136,8 @@ all-pro:
 clean-pro:
 	rm -f .install_pro_sentinel
 
-all: clean basic params params-deletions prime-editor batch pooled wgs compare pooled-paired-sim pooled-mixed-mode pooled-mixed-mode-genome-demux aggregate bam bam-out bam-out-genome basic-parallel bam-single bam-out-parallel basic-write-bam-out basic-write-bam-out-parallel asym-both asym-left asym-right nhej_native_merge base_editor vcf-basic vcf-deletions-only vcf-insertions-only vcf-no-edits vcf-multi-amplicon vcf-base-edit-cbe vcf-base-edit-abe vcf-prime-edit-basic
+all: clean $(_SENTINEL)
+	$(PIXI) pytest test_cli.py -n auto --dist loadgroup $(PYTEST_FLAGS)
 
 clean: clean_cli_integration
 	rm -f .install_sentinel .install_pro_sentinel
