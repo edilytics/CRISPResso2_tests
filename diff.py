@@ -21,7 +21,7 @@ except ImportError:
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
-DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
+DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}')
 COMMAND_HTML_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
 COMMAND_LOG_REGEXP = re.compile(r'<p><strong>Command used:</strong> </p><pre class="pre-scrollable"> *CRISPResso')
 C2_ENV_PATH_REGEXP = re.compile(r'@PG\tID:crispresso2\tPN:crispresso2\tVN:\d+\.\d+\.\d+\tCL:"(.+)"')

@@ -86,6 +86,10 @@ class TestSubstituteLine:
         result = substitute_line("start=2023-01-01 00:00:00 end=2025-12-31 23:59:59")
         assert result == "start=2024-01-11 12:34:56 end=2024-01-11 12:34:56"
 
+    def test_datetime_multiple_spaces_between_date_and_time(self):
+        result = substitute_line("run at 2026-05-13      15:18:56")
+        assert result == "run at 2024-01-11 12:34:56"
+
     def test_command_html_with_strong(self):
         line = "<p><strong>Command used: CRISPResso -r1 foo.fastq -a ATCG</strong></p>"
         assert substitute_line(line) == "<p>Command used: <command></p>"
@@ -175,6 +179,12 @@ class TestDiff:
         make_file(tmp_path, "b.txt", "run at 2024-01-01 00:00:00\n")
         result = diff_text(tmp_path / "a.txt", tmp_path / "b.txt")
         assert result == [], "Datetime normalization should make these equal"
+
+    def test_datetime_normalization_with_variable_whitespace_makes_files_equal(self, tmp_path):
+        make_file(tmp_path, "a.txt", "run at 2026-05-13      15:18:56\n")
+        make_file(tmp_path, "b.txt", "run at 2026-05-13 15:18:30\n")
+        result = diff_text(tmp_path / "a.txt", tmp_path / "b.txt")
+        assert result == [], "Datetime normalization should handle variable whitespace"
 
     def test_real_content_difference_detected(self, tmp_path):
         """Different non-normalizable content must produce a diff."""
