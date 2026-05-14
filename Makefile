@@ -1,5 +1,6 @@
 .PHONY: all install test print update update-all skip_html diff-plots clean clean_cli_integration \
 	install-pro all-pro clean-pro \
+	pro-tests pro-smoke-single-plot pro-no-plots-key pro-subset-plots \
 	basic params params-deletions batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
@@ -23,7 +24,7 @@ CRISPRESSOPRO_DIR ?= ../CRISPRessoPro
 # Otherwise, use the test environment (CRISPResso2 only).
 # If already inside the target pixi environment, run commands directly.
 ifdef PRO
-  _PIXI_ENV := pro
+  _PIXI_ENV := test-pro
 else
   _PIXI_ENV := test
 endif
