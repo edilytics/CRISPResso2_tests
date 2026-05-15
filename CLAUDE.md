@@ -66,8 +66,14 @@ make basic print
 # Update expected results interactively
 make params update
 
+# Update expected results for the full pytest integration suite
+make all update
+
 # Auto-update expected results (review in git afterward)
 make params update-all
+
+# Auto-update expected results for the full suite
+make all update-all
 ```
 
 ### Running Tests with CRISPRessoPro
@@ -90,8 +96,14 @@ make basic PRO=1 test print
 # Update expected results for Pro (data→expected_results/, HTML→expected_results_pro/)
 make basic PRO=1 update
 
+# Update expected results for the full suite with Pro
+make all PRO=1 update
+
 # Auto-update Pro expected results
 make basic PRO=1 update-all
+
+# Auto-update the full suite with Pro
+make all PRO=1 update-all
 
 # Clean Pro install sentinel
 make clean-pro

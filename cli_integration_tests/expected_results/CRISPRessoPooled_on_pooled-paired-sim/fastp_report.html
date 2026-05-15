@@ -1,4 +1,4 @@
-<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8" /><title>fastp report at 2025-11-13      10:35:02 </title><script src='https://opengene.org/plotly-1.2.0.min.js'></script>
+<html><head><meta http-equiv="content-type" content="text/html;charset=utf-8" /><title>fastp report at 2026-05-15      14:06:15 </title><script src='https://opengene.org/plotly-1.2.0.min.js'></script>
 
 <script type='text/javascript'>
     window.Plotly || document.write('<script src="https://cdn.plot.ly/plotly-1.2.0.min.js"><\/script>')
@@ -15,7 +15,7 @@
 </script>
 <style type="text/css">
 td {border:1px solid #dddddd;padding:5px;font-size:12px;}
-table {border:1px solid #999999;padding:2x;border-collapse:collapse; width:800px}
+table {border:1px solid #999999;padding:2x;border-collapse:collapse;width:100%}
 .col1 {width:240px; font-weight:bold;}
 .adapter_col {width:500px; font-size:10px;}
 img {padding:30px;}
@@ -24,7 +24,7 @@ img {padding:30px;}
 a:visited {color: #999999}
 .alignleft {text-align:left;}
 .alignright {text-align:right;}
-.figure {width:800px;height:600px;}
+.figure {width:680px;height:600px;}
 .header {color:#ffffff;padding:1px;height:20px;background:#000000;}
 .section_title {color:#ffffff;font-size:20px;padding:5px;text-align:left;background:#663355; margin-top:10px;}
 .section_table {width:100%;}
@@ -46,7 +46,7 @@ a:visited {color: #999999}
 <div class='subsection_title' onclick=showOrHide('general')>General</div>
 <div id='general'>
 <table class='summary_table'>
-<tr><td class='col1'>fastp version:</td><td class='col2'>0.26.0 (<a href='https://github.com/OpenGene/fastp'>https://github.com/OpenGene/fastp</a>)</td></tr>
+<tr><td class='col1'>fastp version:</td><td class='col2'>1.1.0 (<a href='https://github.com/OpenGene/fastp'>https://github.com/OpenGene/fastp</a>)</td></tr>
 <tr><td class='col1'>sequencing:</td><td class='col2'>paired end (261 cycles + 261 cycles)</td></tr>
 <tr><td class='col1'>mean length before filtering:</td><td class='col2'>261bp, 261bp</td></tr>
 <tr><td class='col1'>duplication rate:</td><td class='col2'>0.000000%</td></tr>
@@ -60,6 +60,7 @@ a:visited {color: #999999}
 <tr><td class='col1'>total bases:</td><td class='col2'>52.200000 K</td></tr>
 <tr><td class='col1'>Q20 bases:</td><td class='col2'>52.200000 K (100.000000%)</td></tr>
 <tr><td class='col1'>Q30 bases:</td><td class='col2'>52.200000 K (100.000000%)</td></tr>
+<tr><td class='col1'>Q40 bases:</td><td class='col2'>0 (0.000000%)</td></tr>
 <tr><td class='col1'>GC content:</td><td class='col2'>61.088123%</td></tr>
 </table>
 </div>
@@ -70,6 +71,7 @@ a:visited {color: #999999}
 <tr><td class='col1'>total bases:</td><td class='col2'>22.300000 K</td></tr>
 <tr><td class='col1'>Q20 bases:</td><td class='col2'>22.300000 K (100.000000%)</td></tr>
 <tr><td class='col1'>Q30 bases:</td><td class='col2'>22.300000 K (100.000000%)</td></tr>
+<tr><td class='col1'>Q40 bases:</td><td class='col2'>0 (0.000000%)</td></tr>
 <tr><td class='col1'>GC content:</td><td class='col2'>62.780269%</td></tr>
 </table>
 </div>
@@ -82,6 +84,7 @@ a:visited {color: #999999}
 <tr><td class='col1'>reads with low quality:</td><td class='col2'>0 (0.000000%)</td></tr>
 <tr><td class='col1'>reads with too many N:</td><td class='col2'>0 (0.000000%)</td></tr>
 <tr><td class='col1'>reads too short:</td><td class='col2'>0 (0.000000%)</td></tr>
+<tr><td class='col1'>reads with adapter dimer:</td><td class='col2'>0 (0.000000%)</td></tr>
 </table>
 </div>
 </div>
@@ -89,6 +92,7 @@ a:visited {color: #999999}
 <div class='section_div'>
 <div class='section_title' onclick=showOrHide('adapters')><a name='summary'>Adapters</a></div>
 <div id='adapters'>
+<table> <tr> <td>
 <div class='subsection_title' onclick=showOrHide('read1_adapters')>Adapter or bad ligation of read1</div>
 <div id='read1_adapters'>
 <table class='summary_table'>
@@ -192,6 +196,7 @@ a:visited {color: #999999}
 <tr><td class='adapter_col'>AGATCGGAAGAGCACACGTCTGAACTCCAGTCATTTTG</td><td class='col2'>1</td></tr>
 </table>
 </div>
+</td><td>
 <div class='subsection_title' onclick=showOrHide('read2_adapters')>Adapter or bad ligation of read2</div>
 <div id='read2_adapters'>
 <table class='summary_table'>
@@ -295,6 +300,7 @@ a:visited {color: #999999}
 <tr><td class='adapter_col'>AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTTTTTT</td><td class='col2'>1</td></tr>
 </table>
 </div>
+</td></tr></table>
 </div>
 </div>
 <div class='section_div'>
@@ -370,6 +376,46 @@ var layout={title:'', xaxis:{title:'position'}, yaxis:{title:'quality'}};
 Plotly.newPlot('plot_Before_filtering__read2__quality', data, layout);
 </script>
 </td><td>
+</td></tr>
+<tr style='height:20px;background:#999999;'></tr>
+<tr><td>
+<div class='figure' style='height:400' id='plot_Before_filtering__quality_score_histogram'></div>
+<script language='javascript'>
+ var hist1 = {
+ x: [39],
+ y: [26100],
+name: 'read1',
+type: 'bar',
+};
+ var hist2 = {
+ x: [39],
+ y: [26100],
+name: 'read2',
+type: 'bar',
+};
+var data = [hist1, hist2];
+var layout = {barmode: 'group', title: 'Before filtering: quality score histogram',xaxis:{title:'base quality score'}, yaxis:{title:'base count'}}; 
+Plotly.newPlot('plot_Before_filtering__quality_score_histogram', data, layout); 
+</script>
+</td><td>
+<div class='figure' style='height:400' id='plot_After_filtering__quality_score_histogram'></div>
+<script language='javascript'>
+ var hist1 = {
+ x: [39],
+ y: [22300],
+name: 'read1',
+type: 'bar',
+};
+ var hist2 = {
+ x: [],
+ y: [],
+name: 'read2',
+type: 'bar',
+};
+var data = [hist1, hist2];
+var layout = {barmode: 'group', title: 'After filtering: quality score histogram',xaxis:{title:'base quality score'}, yaxis:{title:'base count'}}; 
+Plotly.newPlot('plot_After_filtering__quality_score_histogram', data, layout); 
+</script>
 </td></tr>
 <tr style='height:20px;background:#999999;'></tr>
 <tr><td>
@@ -3725,4 +3771,4 @@ Plotly.newPlot('plot_Before_filtering__read2__base_contents', data, layout);
 </div>
 
 </div>
-<div id='footer'> <p>fastp -i inputs/simulated.trim_reqd.r1.fq -I inputs/simulated.trim_reqd.r2.fq --merge --merged_out CRISPRessoPooled_on_pooled-paired-sim/out.extendedFrags.fastq.gz --unpaired1 CRISPRessoPooled_on_pooled-paired-sim/out.notCombined_1.fastq.gz --unpaired2 CRISPRessoPooled_on_pooled-paired-sim/out.notCombined_2.fastq.gz --overlap_len_require 10 --thread 1 --json CRISPRessoPooled_on_pooled-paired-sim/fastp_report.json --html CRISPRessoPooled_on_pooled-paired-sim/fastp_report.html --detect_adapter_for_pe </p>fastp 0.26.0, at 2025-11-13      10:35:02 </div></body></html>
+<div id='footer'> <p>fastp -i inputs/simulated.trim_reqd.r1.fq -I inputs/simulated.trim_reqd.r2.fq --merge --merged_out CRISPRessoPooled_on_pooled-paired-sim/out.extendedFrags.fastq.gz --unpaired1 CRISPRessoPooled_on_pooled-paired-sim/out.notCombined_1.fastq.gz --unpaired2 CRISPRessoPooled_on_pooled-paired-sim/out.notCombined_2.fastq.gz --overlap_len_require 10 --thread 1 --json CRISPRessoPooled_on_pooled-paired-sim/fastp_report.json --html CRISPRessoPooled_on_pooled-paired-sim/fastp_report.html --detect_adapter_for_pe </p>fastp 1.1.0, at 2026-05-15      14:06:15 </div></body></html>

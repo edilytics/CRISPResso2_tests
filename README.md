@@ -72,10 +72,18 @@ make <test case> update
 
 The above will prompt you to confirm if you want each change.
 
+To update expected results for the full pytest integration suite, run:
+
+``` shell
+make all update
+```
+
 If you are very confident in each change, you can use `update-all`:
 
 ``` shell
 make <test case> update-all
+# or for the full suite
+make all update-all
 ```
 
 This will automatically update the files for you, then you can review the changes in git. **Use this wisely!**
@@ -103,8 +111,14 @@ make basic PRO=1 test
 # (data + plots → expected_results/, HTML → expected_results_pro/)
 make basic PRO=1 update
 
+# Update expected results for the full suite with Pro
+make all PRO=1 update
+
 # Auto-update Pro expected results
 make basic PRO=1 update-all
+
+# Auto-update the full suite with Pro
+make all PRO=1 update-all
 
 # Clean only the Pro install sentinel
 make clean-pro

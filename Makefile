@@ -111,6 +111,63 @@ yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integ
 endef
 endif
 
+# All output dirs produced by "pytest test_cli.py" (make all)
+ALL_OUTPUT_DIRS := \
+	CRISPResso_on_FANC.Cas9 \
+	CRISPResso_on_params \
+	CRISPResso_on_params-deletions \
+	CRISPResso_on_nhej_native_merge \
+	CRISPResso_on_prime_editor \
+	CRISPResso_on_base_editor \
+	CRISPResso_on_basic-parallel \
+	CRISPResso_on_asym_both \
+	CRISPResso_on_asym_left \
+	CRISPResso_on_asym_right \
+	CRISPResso_on_bam \
+	CRISPResso_on_bam-single \
+	CRISPResso_on_bam-out \
+	CRISPResso_on_bam-out-genome \
+	CRISPResso_on_bam-out-parallel \
+	CRISPResso_on_basic-write-bam-out \
+	CRISPResso_on_basic-write-bam-out-parallel \
+	CRISPRessoBatch_on_FANC \
+	CRISPRessoPooled_on_Both.Cas9 \
+	CRISPRessoPooled_on_pooled-paired-sim \
+	CRISPRessoPooled_on_pooled-mixed-mode \
+	CRISPRessoPooled_on_pooled-mixed-mode-genome-demux \
+	CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+	CRISPRessoCompare_on_Cas9_VS_Untreated \
+	CRISPRessoAggregate_on_aggregate \
+	CRISPResso_on_vcf-basic \
+	CRISPResso_on_vcf-deletions-only \
+	CRISPResso_on_vcf-insertions-only \
+	CRISPResso_on_vcf-no-edits \
+	CRISPResso_on_vcf-multi-amplicon \
+	CRISPResso_on_vcf-base-edit-cbe \
+	CRISPResso_on_vcf-base-edit-abe \
+	CRISPResso_on_vcf-prime-edit-basic \
+	CRISPResso_on_pro-smoke-single-plot \
+	CRISPResso_on_pro-no-plots-key \
+	CRISPResso_on_pro-subset-plots
+
+# Update one output dir only if it exists.
+# $(1): output dir name (e.g. CRISPResso_on_FANC.Cas9)
+define UPDATE_IF_EXISTS_CMD
+if [ -d "cli_integration_tests/$(1)" ]; then \
+	$(call UPDATE_CMD,$(1)); \
+else \
+	echo "Skipping missing output dir: cli_integration_tests/$(1)"; \
+fi
+endef
+
+define UPDATE_ALL_IF_EXISTS_CMD
+if [ -d "cli_integration_tests/$(1)" ]; then \
+	$(call UPDATE_ALL_CMD,$(1)); \
+else \
+	echo "Skipping missing output dir: cli_integration_tests/$(1)"; \
+fi
+endef
+
 # $(1): pytest node ID  (e.g. test_crispresso_cli[basic])
 # $(2): output dir name (e.g. CRISPResso_on_FANC.Cas9)
 define PYTEST_RUN
@@ -172,7 +229,7 @@ pro-subset-plots: .install_pro_sentinel
 	$(call PYTEST_RUN_PRO,test_pro_subset_plots_in_order,CRISPResso_on_pro-subset-plots)
 
 all: clean $(_SENTINEL)
-	$(PIXI) pytest test_cli.py -n auto --dist loadgroup $(PYTEST_FLAGS)
+	$(PIXI) pytest test_cli.py -n auto --dist loadgroup $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && $(foreach d,$(ALL_OUTPUT_DIRS),$(call UPDATE_IF_EXISTS_CMD,$(d)) && ) true)$(if $(filter update-all,$(MAKECMDGOALS)), && $(foreach d,$(ALL_OUTPUT_DIRS),$(call UPDATE_ALL_IF_EXISTS_CMD,$(d)) && ) true)
 
 clean: clean_cli_integration
 	rm -f .install_sentinel .install_pro_sentinel
