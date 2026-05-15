@@ -469,7 +469,7 @@ class TestDiffDir:
 
         result = diff_dir(str(actual), str(expected), suffixes=('.txt', '.html'))
         assert result is False, (
-            "fastp_report.html matches WARNING_FILE_REGEXP — its absence from actual "
+            "fastp_report.html is ignored — its absence from actual "
             "should not cause a failure"
         )
 
@@ -816,7 +816,6 @@ class TestWarningFileRegexp:
         "CRISPResso2WGS_report.html",
         "CRISPResso2Compare_report.html",
         "CRISPResso2Aggregate_report.html",
-        "fastp_report.html",
     ])
     def test_matches_known_warning_files(self, filename):
         assert WARNING_FILE_REGEXP.search(filename), (
@@ -828,6 +827,7 @@ class TestWarningFileRegexp:
         "CRISPResso_report.html",      # Missing the "2"
         "CRISPResso2_report.txt",       # Wrong extension
         "data.txt",
+        "fastp_report.html",            # Ignored now, not warning-only
         "fastp_report.txt",             # Wrong extension
     ])
     def test_does_not_match_non_warning_files(self, filename):
@@ -841,23 +841,24 @@ class TestWarningFileRegexp:
 # ═══════════════════════════════════════════════════════════════════════════
 
 class TestIgnoreConstants:
-    """Validate ignore patterns for RUNNING_LOG files."""
+    """Validate ignore patterns for RUNNING_LOG files + fastp report."""
 
     def test_running_logs_match_ignore_files_regexp(self):
-        expected_logs = [
+        expected_ignored = [
             'CRISPResso_RUNNING_LOG.txt',
             'CRISPRessoBatch_RUNNING_LOG.txt',
             'CRISPRessoPooled_RUNNING_LOG.txt',
             'CRISPRessoWGS_RUNNING_LOG.txt',
             'CRISPRessoCompare_RUNNING_LOG.txt',
+            'fastp_report.html',
         ]
-        for log in expected_logs:
-            assert IGNORE_FILES_REGEXP.match(log), (
-                "{} should match IGNORE_FILES_REGEXP".format(log)
+        for name in expected_ignored:
+            assert IGNORE_FILES_REGEXP.match(name), (
+                "{} should match IGNORE_FILES_REGEXP".format(name)
             )
 
     def test_non_crispresso_running_log_does_not_match_regexp(self):
         assert not IGNORE_FILES_REGEXP.match('CustomTool_RUNNING_LOG.txt')
 
     def test_ignore_suffix(self):
-        assert IGNORE_SUFFIX == '_RUNNING_LOG.txt'
+        assert IGNORE_SUFFIX == ('_RUNNING_LOG.txt', 'fastp_report.html')

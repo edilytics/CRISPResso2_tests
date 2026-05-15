@@ -29,10 +29,14 @@ OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPR
 PLOTLY_PATH_REGEXP = re.compile(r'/\S+/cli_integration_tests/')
 SAM_HEADER_BOWTIE_VERSION_REGEXP = re.compile(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:.*')
 SAM_HEADER_REGEXP = re.compile(r'@HD\tVN:.*')
-IGNORE_FILES_REGEXP = re.compile(r'.*CRISPResso.*_RUNNING_LOG.txt')
-WARNING_FILE_REGEXP = re.compile(r'((CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?)|fastp)_report.html')
+IGNORE_FILES_REGEXP = re.compile(
+    r'(.*CRISPResso.*_RUNNING_LOG\.txt|fastp_report\.html)$'
+)
+WARNING_FILE_REGEXP = re.compile(
+    r'(CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?)_report\.html'
+)
 
-IGNORE_SUFFIX = '_RUNNING_LOG.txt'
+IGNORE_SUFFIX = ('_RUNNING_LOG.txt', 'fastp_report.html')
 TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
 DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
 HTML_SUFFIXES = ('.html',)
