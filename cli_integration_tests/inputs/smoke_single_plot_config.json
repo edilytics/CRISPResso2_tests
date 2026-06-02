@@ -1,3 +1,24 @@
 {
-  "plots": [{"ids": ["read_barplot"], "tab": {"name": "Alignment statistics", "tab_group": "run_info"}}]
+    "plots": [
+        {
+            "section_name": "Alignment",
+            "content": [
+                {
+                    "type": "tab_group",
+                    "name": "run_info",
+                    "tabs": [
+                        {
+                            "name": "Alignment statistics",
+                            "figures": [
+                                {
+                                    "type": "figure",
+                                    "id": "read_barplot"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }
