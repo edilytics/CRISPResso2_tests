@@ -1205,9 +1205,17 @@ details[open] > summary .guardrail-toggle {
     }
     setTimeout(async () => {
       
-      await buildNucleotideQuilt(Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC, "Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC")
+      if (document.getElementById("Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC") && typeof Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC !== "undefined") {
+        await buildNucleotideQuilt(Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC, "Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC")
+      } else {
+        console.warn("Skipping missing nucleotide quilt payload or container: Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC")
+      }
       
-      await buildNucleotideQuilt(Nucleotide_percentage_quilt, "Nucleotide_percentage_quilt")
+      if (document.getElementById("Nucleotide_percentage_quilt") && typeof Nucleotide_percentage_quilt !== "undefined") {
+        await buildNucleotideQuilt(Nucleotide_percentage_quilt, "Nucleotide_percentage_quilt")
+      } else {
+        console.warn("Skipping missing nucleotide quilt payload or container: Nucleotide_percentage_quilt")
+      }
       
       if (topQuilt) {
         topQuilt.innerHTML = "Nucleotide percentages around guides";
