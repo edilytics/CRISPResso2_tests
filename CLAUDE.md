@@ -170,7 +170,7 @@ Makefile                   # Test orchestration
 ## Test Infrastructure Details
 
 - **File comparison** (`diff.py`) normalizes floats to 3 decimals, timestamps, file paths, and bowtie versions for stable comparisons
-- **Plot comparison** (`--diff-plots` / `make ... diff-plots`) compares plots in two ways: (1) extracts drawing streams from PDFs and diffs them as text, showing exact changes to labels, data values, and drawing coordinates; (2) compares PNGs using downscaled grayscale RMSE, tolerant of anti-aliasing/font rendering differences across matplotlib versions.
+- **Plot comparison** (`--diff-plots` / `make ... diff-plots`) compares plots in two ways for regular CRISPResso runs: (1) extracts drawing streams from PDFs and diffs them as text, showing exact changes to labels, data values, and drawing coordinates; (2) compares PNGs using downscaled grayscale RMSE, tolerant of anti-aliasing/font rendering differences across matplotlib versions. Pro runs compare data against `expected_results/` and HTML against `expected_results_pro/`; they do not compare or update plots from the regular baseline.
 - **Ignored files**: `*_RUNNING_LOG.txt`, `fastp_report.html`
 - **Performance tracking**: Tests report if runtime changes by >10% from baseline
 - **Better diffs**: `ydiff` is included in the pixi test environment for colorized side-by-side output
@@ -179,7 +179,7 @@ Makefile                   # Test orchestration
 
 - **`CRISPRESSO2_DIR`** — path to the CRISPResso2 repo (default: `../CRISPResso2`). The Makefile reads `pixi.toml` from this location.
 - **`CRISPRESSOPRO_DIR`** — path to the CRISPRessoPro repo (default: `../CRISPRessoPro`). Only needed when using `PRO=1`.
-- **`PRO=1`** — append to any make command to use the `test-pro` pixi environment with CRISPRessoPro. Switches the install sentinel, pixi environment, and update flow (data→`expected_results/`, HTML→`expected_results_pro/`).
+- **`PRO=1`** — append to any make command to use the `test-pro` pixi environment with CRISPRessoPro. Switches the install sentinel, pixi environment, and update flow (data only→`expected_results/`, HTML→`expected_results_pro/`; plot files are left untouched).
 - **Pixi auto-activation** — the Makefile checks `PIXI_ENVIRONMENT_NAME`. If not already inside the target pixi environment (`test` or `test-pro`), every command is prefixed with `pixi run --manifest-path .../pixi.toml -e <env> --`. If already inside (e.g., via `pixi shell -e test`), commands run directly with zero overhead.
 
 ## CRISPResso2 Tool Suite

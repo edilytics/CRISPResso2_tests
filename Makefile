@@ -64,6 +64,8 @@ else
 endif
 
 # ── Pytest flags built from make goals ───────────────────────────────
+FORWARDED_FLAG_GOALS := $(filter test print update update-all skip_html diff-plots,$(MAKECMDGOALS))
+
 PYTEST_FLAGS :=
 ifneq ($(filter test,$(MAKECMDGOALS)),)
   PYTEST_FLAGS += --test
@@ -91,15 +93,15 @@ endif
 # ── Update command (Pro-aware) ────────────────────────────────────────
 # $(1): output dir name (e.g. CRISPResso_on_FANC.Cas9)
 # Non-Pro: update data + HTML + plots → expected_results/
-# Pro:     update data + plots → expected_results/ (skip HTML),
+# Pro:     update data only → expected_results/ (no HTML or plots),
 #          update HTML → expected_results_pro/
 ifdef PRO
 define UPDATE_CMD
-$(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+$(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
 $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
 endef
 define UPDATE_ALL_CMD
-yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
 yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
 endef
 else
@@ -176,11 +178,11 @@ endef
 
 # Pro-only update commands — always split: data→expected_results/, HTML→expected_results_pro/
 define UPDATE_CMD_PRO
-$(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+$(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
 $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
 endef
 define UPDATE_ALL_CMD_PRO
-yes | $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+yes | $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
 yes | $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
 endef
 
@@ -211,7 +213,7 @@ install-pro:
 	$(MAKE) install PRO=1
 
 all-pro:
-	$(MAKE) all PRO=1
+	$(MAKE) all PRO=1 $(FORWARDED_FLAG_GOALS)
 
 clean-pro:
 	rm -f .install_pro_sentinel
