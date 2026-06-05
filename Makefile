@@ -53,8 +53,8 @@ CRISPRESSOPRO_SOURCES := $(wildcard $(CRISPRESSOPRO_DIR)/CRISPRessoPro/*.py)
 	@touch $@
 
 .install_pro_sentinel: $(CRISPRESSO2_SOURCES) $(CRISPRESSOPRO_SOURCES)
-	$(PIXI) pip install -e $(CRISPRESSO2_DIR)
-	$(PIXI) pip install -e $(CRISPRESSOPRO_DIR)
+	$(PIXI_PRO) pip install -e $(CRISPRESSO2_DIR)
+	$(PIXI_PRO) pip install -e $(CRISPRESSOPRO_DIR)
 	@touch $@
 
 ifdef PRO
