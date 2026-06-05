@@ -5,7 +5,7 @@ import os
 import re
 from shutil import copyfile, copytree
 
-from diff import diff_dir, generate_plot_comparison_html, TEXT_SUFFIXES, DATA_SUFFIXES, HTML_SUFFIXES, PDF_SUFFIXES
+from diff import diff_dir, diff_dir_images, generate_plot_comparison_html, TEXT_SUFFIXES, DATA_SUFFIXES, HTML_SUFFIXES, PDF_SUFFIXES
 
 
 COMMON_FLAGS = {'--place_report_in_output_folder', '--halt_on_plot_fail', '--debug'}
@@ -263,6 +263,11 @@ def update_test(args):
         suffixes=suffixes,
         prompt_to_update=True,
     )
+    if args.diff_plots and not args.html_only and not args.data_only:
+        has_changes |= diff_dir_images(
+            args.actual, args.expected,
+            prompt_to_update=True,
+        )
     if not has_changes:
         print('No changes to update!')
 
