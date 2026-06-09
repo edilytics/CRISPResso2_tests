@@ -271,30 +271,6 @@ def truncate_diff_lines(lines, max_lines=PDF_DIFF_MAX_LINES):
     ]
 
 
-def truncate_diff_lines(lines, max_lines=PDF_DIFF_MAX_LINES):
-    """Truncate a list of diff lines to a maximum number of lines.
-
-    Parameters
-    ----------
-    lines : list
-        Diff lines to potentially truncate.
-    max_lines : int
-        Maximum number of lines to keep.
-
-    Returns
-    -------
-    list
-        Original lines if within limit, otherwise first *max_lines* lines
-        plus a summary line indicating how many were omitted.
-    """
-    if len(lines) <= max_lines:
-        return lines
-    omitted = len(lines) - max_lines
-    return lines[:max_lines] + [
-        '... (truncated: {0} more lines omitted)\n'.format(omitted),
-    ]
-
-
 def diff_image(file_a, file_b, threshold=DEFAULT_IMAGE_THRESHOLD):
     """Compare two images using downscaled grayscale RMSE.
 

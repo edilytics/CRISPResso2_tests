@@ -8,11 +8,13 @@ Run with:
     pytest test_diff.py -v
 """
 import textwrap
+from argparse import Namespace
 from pathlib import Path
 
 import pytest
 
 import diff
+import test_manager
 from diff import (
     IGNORE_FILES_REGEXP,
     IGNORE_SUFFIX,
@@ -49,6 +51,19 @@ def make_png(base, relpath, color='white', size=(10, 10)):
     img = Image.new('RGB', size, color=color)
     img.save(str(p))
     return p
+
+
+def update_args(**overrides):
+    args = {
+        'actual': 'actual',
+        'expected': 'expected',
+        'skip_html': False,
+        'html_only': False,
+        'data_only': False,
+        'diff_plots': False,
+    }
+    args.update(overrides)
+    return Namespace(**args)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -757,6 +772,56 @@ class TestDiffDirImagesDepsUnavailable:
         assert result is False
         captured = capsys.readouterr()
         assert "not installed" in captured.out
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# test_manager update flow — plot update routing
+# ═══════════════════════════════════════════════════════════════════════════
+
+class TestUpdatePlotFlow:
+    """Test that update mode routes both PDF and PNG plot updates."""
+
+    def test_diff_plots_update_prompts_for_significant_png_updates(self, monkeypatch):
+        calls = {'image_updates': []}
+
+        def fake_generate_plot_comparison_html(actual, expected):
+            pass
+
+        def fake_diff_dir(actual, expected, suffixes, prompt_to_update):
+            return False
+
+        def fake_diff_dir_images(actual, expected, prompt_to_update):
+            calls['image_updates'].append((actual, expected, prompt_to_update))
+            return True
+
+        monkeypatch.setattr(
+            test_manager,
+            'generate_plot_comparison_html',
+            fake_generate_plot_comparison_html,
+        )
+        monkeypatch.setattr(test_manager, 'diff_dir', fake_diff_dir)
+        monkeypatch.setattr(test_manager, 'diff_dir_images', fake_diff_dir_images)
+
+        test_manager.update_test(update_args(diff_plots=True))
+
+        assert calls['image_updates'] == [('actual', 'expected', True)]
+
+    def test_data_only_diff_plots_update_skips_png_updates(self, monkeypatch):
+        calls = {'image_updates': 0}
+
+        def fake_diff_dir(actual, expected, suffixes, prompt_to_update):
+            return False
+
+        def fake_diff_dir_images(actual, expected, prompt_to_update):
+            calls['image_updates'] += 1
+            return True
+
+        monkeypatch.setattr(test_manager, 'diff_dir', fake_diff_dir)
+        monkeypatch.setattr(test_manager, 'diff_dir_images', fake_diff_dir_images)
+
+        test_manager.update_test(update_args(diff_plots=True, data_only=True))
+
+        assert calls['image_updates'] == 0
 
 
 # ═══════════════════════════════════════════════════════════════════════════
