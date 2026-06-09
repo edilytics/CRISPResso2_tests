@@ -5,7 +5,6 @@
             "content": [
                 {
                     "type": "tab_group",
-                    "name": "run_info",
                     "tabs": [
                         {
                             "name": "Alignment statistics",
