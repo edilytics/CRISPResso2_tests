@@ -575,7 +575,7 @@ def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
 
 @pytest.mark.pro_only
 def test_pro_smoke_single_plot(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
-    """Smoke test: config_file with plots key containing only read_barplot."""
+    """Smoke test: config_file with figures key containing only read_barplot."""
     cmd = ' '.join([
         'CRISPResso',
         '-r1 inputs/FANC.Cas9.fastq',
@@ -597,7 +597,7 @@ def test_pro_smoke_single_plot(run_crispresso, check_diffs, assert_no_diff, cli_
 
 @pytest.mark.pro_only
 def test_pro_no_plots_key_shows_all_defaults(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
-    """Config file with no plots key shows all default plots."""
+    """Config file with no figures key shows all default plots."""
     cmd = ' '.join([
         'CRISPResso',
         '-r1 inputs/FANC.Cas9.fastq',
@@ -619,7 +619,7 @@ def test_pro_no_plots_key_shows_all_defaults(run_crispresso, check_diffs, assert
 
 @pytest.mark.pro_only
 def test_pro_subset_plots_in_order(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
-    """Config file with a subset of plots shows only those, in order."""
+    """Config file with a subset of figures shows only those, in order."""
     cmd = ' '.join([
         'CRISPResso',
         '-r1 inputs/FANC.Cas9.fastq',
