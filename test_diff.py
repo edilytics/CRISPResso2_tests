@@ -8,11 +8,13 @@ Run with:
     pytest test_diff.py -v
 """
 import textwrap
+from argparse import Namespace
 from pathlib import Path
 
 import pytest
 
 import diff
+import test_manager
 from diff import (
     IGNORE_FILES_REGEXP,
     IGNORE_SUFFIX,
@@ -51,6 +53,19 @@ def make_png(base, relpath, color='white', size=(10, 10)):
     return p
 
 
+def update_args(**overrides):
+    args = {
+        'actual': 'actual',
+        'expected': 'expected',
+        'skip_html': False,
+        'html_only': False,
+        'data_only': False,
+        'diff_plots': False,
+    }
+    args.update(overrides)
+    return Namespace(**args)
+
+
 # ═══════════════════════════════════════════════════════════════════════════
 # substitute_line — normalization regex tests
 # ═══════════════════════════════════════════════════════════════════════════
@@ -85,6 +100,10 @@ class TestSubstituteLine:
     def test_datetime_multiple(self):
         result = substitute_line("start=2023-01-01 00:00:00 end=2025-12-31 23:59:59")
         assert result == "start=2024-01-11 12:34:56 end=2024-01-11 12:34:56"
+
+    def test_datetime_multiple_spaces_between_date_and_time(self):
+        result = substitute_line("run at 2026-05-13      15:18:56")
+        assert result == "run at 2024-01-11 12:34:56"
 
     def test_command_html_with_strong(self):
         line = "<p><strong>Command used: CRISPResso -r1 foo.fastq -a ATCG</strong></p>"
@@ -175,6 +194,12 @@ class TestDiff:
         make_file(tmp_path, "b.txt", "run at 2024-01-01 00:00:00\n")
         result = diff_text(tmp_path / "a.txt", tmp_path / "b.txt")
         assert result == [], "Datetime normalization should make these equal"
+
+    def test_datetime_normalization_with_variable_whitespace_makes_files_equal(self, tmp_path):
+        make_file(tmp_path, "a.txt", "run at 2026-05-13      15:18:56\n")
+        make_file(tmp_path, "b.txt", "run at 2026-05-13 15:18:30\n")
+        result = diff_text(tmp_path / "a.txt", tmp_path / "b.txt")
+        assert result == [], "Datetime normalization should handle variable whitespace"
 
     def test_real_content_difference_detected(self, tmp_path):
         """Different non-normalizable content must produce a diff."""
@@ -459,7 +484,7 @@ class TestDiffDir:
 
         result = diff_dir(str(actual), str(expected), suffixes=('.txt', '.html'))
         assert result is False, (
-            "fastp_report.html matches WARNING_FILE_REGEXP — its absence from actual "
+            "fastp_report.html is ignored — its absence from actual "
             "should not cause a failure"
         )
 
@@ -750,6 +775,56 @@ class TestDiffDirImagesDepsUnavailable:
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# test_manager update flow — plot update routing
+# ═══════════════════════════════════════════════════════════════════════════
+
+class TestUpdatePlotFlow:
+    """Test that update mode routes both PDF and PNG plot updates."""
+
+    def test_diff_plots_update_prompts_for_significant_png_updates(self, monkeypatch):
+        calls = {'image_updates': []}
+
+        def fake_generate_plot_comparison_html(actual, expected):
+            pass
+
+        def fake_diff_dir(actual, expected, suffixes, prompt_to_update):
+            return False
+
+        def fake_diff_dir_images(actual, expected, prompt_to_update):
+            calls['image_updates'].append((actual, expected, prompt_to_update))
+            return True
+
+        monkeypatch.setattr(
+            test_manager,
+            'generate_plot_comparison_html',
+            fake_generate_plot_comparison_html,
+        )
+        monkeypatch.setattr(test_manager, 'diff_dir', fake_diff_dir)
+        monkeypatch.setattr(test_manager, 'diff_dir_images', fake_diff_dir_images)
+
+        test_manager.update_test(update_args(diff_plots=True))
+
+        assert calls['image_updates'] == [('actual', 'expected', True)]
+
+    def test_data_only_diff_plots_update_skips_png_updates(self, monkeypatch):
+        calls = {'image_updates': 0}
+
+        def fake_diff_dir(actual, expected, suffixes, prompt_to_update):
+            return False
+
+        def fake_diff_dir_images(actual, expected, prompt_to_update):
+            calls['image_updates'] += 1
+            return True
+
+        monkeypatch.setattr(test_manager, 'diff_dir', fake_diff_dir)
+        monkeypatch.setattr(test_manager, 'diff_dir_images', fake_diff_dir_images)
+
+        test_manager.update_test(update_args(diff_plots=True, data_only=True))
+
+        assert calls['image_updates'] == 0
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 # truncate_diff_lines — utility
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -806,7 +881,6 @@ class TestWarningFileRegexp:
         "CRISPResso2WGS_report.html",
         "CRISPResso2Compare_report.html",
         "CRISPResso2Aggregate_report.html",
-        "fastp_report.html",
     ])
     def test_matches_known_warning_files(self, filename):
         assert WARNING_FILE_REGEXP.search(filename), (
@@ -818,6 +892,7 @@ class TestWarningFileRegexp:
         "CRISPResso_report.html",      # Missing the "2"
         "CRISPResso2_report.txt",       # Wrong extension
         "data.txt",
+        "fastp_report.html",            # Ignored now, not warning-only
         "fastp_report.txt",             # Wrong extension
     ])
     def test_does_not_match_non_warning_files(self, filename):
@@ -831,23 +906,24 @@ class TestWarningFileRegexp:
 # ═══════════════════════════════════════════════════════════════════════════
 
 class TestIgnoreConstants:
-    """Validate ignore patterns for RUNNING_LOG files."""
+    """Validate ignore patterns for RUNNING_LOG files + fastp report."""
 
     def test_running_logs_match_ignore_files_regexp(self):
-        expected_logs = [
+        expected_ignored = [
             'CRISPResso_RUNNING_LOG.txt',
             'CRISPRessoBatch_RUNNING_LOG.txt',
             'CRISPRessoPooled_RUNNING_LOG.txt',
             'CRISPRessoWGS_RUNNING_LOG.txt',
             'CRISPRessoCompare_RUNNING_LOG.txt',
+            'fastp_report.html',
         ]
-        for log in expected_logs:
-            assert IGNORE_FILES_REGEXP.match(log), (
-                "{} should match IGNORE_FILES_REGEXP".format(log)
+        for name in expected_ignored:
+            assert IGNORE_FILES_REGEXP.match(name), (
+                "{} should match IGNORE_FILES_REGEXP".format(name)
             )
 
     def test_non_crispresso_running_log_does_not_match_regexp(self):
         assert not IGNORE_FILES_REGEXP.match('CustomTool_RUNNING_LOG.txt')
 
     def test_ignore_suffix(self):
-        assert IGNORE_SUFFIX == '_RUNNING_LOG.txt'
+        assert IGNORE_SUFFIX == ('_RUNNING_LOG.txt', 'fastp_report.html')

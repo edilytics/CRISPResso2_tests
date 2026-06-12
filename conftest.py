@@ -23,6 +23,16 @@ DATA_SUFFIXES = diff.DATA_SUFFIXES
 HTML_SUFFIXES = diff.HTML_SUFFIXES
 
 
+def data_suffixes_for_mode(pro_installed, diff_plots):
+    if diff_plots and not pro_installed:
+        return DATA_SUFFIXES + diff.PDF_SUFFIXES
+    return DATA_SUFFIXES
+
+
+def compare_plot_images_for_mode(pro_installed, diff_plots):
+    return diff_plots and not pro_installed
+
+
 def pytest_addoption(parser):
     parser.addoption(
         '--test',
@@ -55,12 +65,6 @@ def pytest_addoption(parser):
         help='Compare plots between actual and expected results.'
         ' PDFs are diffed as text (drawing streams); PNGs are compared'
         ' using approximate RMSE (tolerant of rendering differences).',
-    )
-    parser.addoption(
-        '--pro',
-        action='store_true',
-        default=False,
-        help='Compare HTML against expected_results_pro/ (overrides auto-detection).',
     )
 
 
@@ -148,9 +152,7 @@ def assert_no_diff(pro_installed, skip_html, diff_plots, cli_test_dir):
         if not expected_data.exists():
             pytest.skip(f'Expected results not found: {expected_data}')
 
-        data_suffixes = DATA_SUFFIXES
-        if diff_plots:
-            data_suffixes = data_suffixes + diff.PDF_SUFFIXES
+        data_suffixes = data_suffixes_for_mode(pro_installed, diff_plots)
 
         has_diff |= diff.diff_dir(
             str(actual_dir),
@@ -172,10 +174,12 @@ def assert_no_diff(pro_installed, skip_html, diff_plots, cli_test_dir):
                 str(actual_dir),
                 str(expected_html),
                 suffixes=HTML_SUFFIXES,
+                strict=True,
             )
 
-        # Approximate PNG image comparison
-        if diff_plots:
+        # Approximate PNG image comparison. In Pro mode, expected_results/
+        # is the non-Pro data baseline and must not be used for plot diffs.
+        if compare_plot_images_for_mode(pro_installed, diff_plots):
             has_diff |= diff.diff_dir_images(
                 str(actual_dir),
                 str(expected_data),

@@ -1,0 +1,7 @@
+{
+    "colors": {
+        "Deletion": "#d32f2f",
+        "Insertion": "#1976d2",
+        "Substitution": "#388e3c"
+    }
+}

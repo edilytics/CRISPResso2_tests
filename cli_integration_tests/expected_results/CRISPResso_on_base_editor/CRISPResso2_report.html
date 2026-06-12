@@ -680,6 +680,7 @@ details[open] > summary .guardrail-toggle {
 </details>
 
 			
+			
 			<h2 class="cr-run-name cr-section-heading">base_editor</h2>
 			
 			<div class='card text-center mb-2'>
@@ -710,12 +711,12 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-04-03 11:13:54</p>
+  <p><strong>Run completed:</strong> 2026-06-09 11:43:00</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -955,6 +956,7 @@ zip_output: False</pre></p>
             <p class="cr-data-link">Data: <a href="FANC.Reads_from_all_amplicons_nucleotide_percent_table.txt">Nucleotide percentage table for all reads aligned to FANC</a></p>
             <p class="cr-data-link">Data: <a href="FANC.Reads_from_all_amplicons_modification_percent_table.txt">Modification percentage table for all reads aligned to FANC</a></p>
             <p class="cr-data-link">Data: <a href="FANC.Nucleotide_frequency_table.txt">Nucleotide frequency table for FANC</a></p>
+            <p class="cr-data-link">Data: <a href="HDR.Nucleotide_frequency_table.txt">Nucleotide frequency table for HDR</a></p>
 </div>
 				</div>
 			</div>
@@ -1092,7 +1094,7 @@ zip_output: False</pre></p>
   						  			<div class="tab-pane fade" id="FANC_3b" role="tabpanel">
 							  			<div id="fig_plot_3b" class="d-flex flex-column">
     <a href="3b.FANC.Insertion_deletion_substitutions_size_hist.pdf"><img src="3b.FANC.Insertion_deletion_substitutions_size_hist.png" width='100%'></a>
-        <figcaption class="labelpadding">Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown).</figcaption>
+        <figcaption class="labelpadding">Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown). Note that histograms are clipped to show 99% of the data. To show all data, run using the parameter '--plot_histogram_outliers'.  (Insertion maximum 22 not shown)</figcaption>
             <p class="cr-data-link">Data: <a href="FANC.Insertion_histogram.txt">Insertions frequency</a></p>
             <p class="cr-data-link">Data: <a href="FANC.Deletion_histogram.txt">Deletions Frequency</a></p>
             <p class="cr-data-link">Data: <a href="FANC.Substitution_histogram.txt">Substitutions Frequency</a></p>
@@ -1149,6 +1151,7 @@ zip_output: False</pre></p>
     
     <a href="4a.FANC.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.FANC.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</figcaption>
+            <p class="cr-data-link">Data: <a href="FANC.Effect_vector_combined.txt">Combined modification frequency</a></p>
 </div>
 									</div>
 									
@@ -1158,7 +1161,7 @@ zip_output: False</pre></p>
     
     <a href="4b.FANC.Insertion_deletion_substitution_locations.pdf"><img src="4b.FANC.Insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</figcaption>
-            <p class="cr-data-link">Data: <a href="HDR.Modification_count_vectors.txt">Modification frequency</a></p>
+            <p class="cr-data-link">Data: <a href="FANC.Modification_count_vectors.txt">Modification frequency</a></p>
 </div>
 									</div>
 									
@@ -1168,7 +1171,7 @@ zip_output: False</pre></p>
     
     <a href="4c.FANC.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.FANC.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</figcaption>
-            <p class="cr-data-link">Data: <a href="HDR.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></p>
+            <p class="cr-data-link">Data: <a href="FANC.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></p>
 </div>
 									</div>
 									
@@ -1217,6 +1220,7 @@ zip_output: False</pre></p>
 								<div id="fig_plot_5" class="d-flex flex-column">
     <a href="5.FANC.Frameshift_in-frame_mutations_pie_chart.pdf"><img src="5.FANC.Frameshift_in-frame_mutations_pie_chart.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 5: Frameshift analysis of coding sequence reads affected by modifications (unmodified reads are excluded from this analysis).</figcaption>
+            <p class="cr-data-link">Data: <a href="FANC.Frameshift_analysis.txt">Frameshift analysis</a></p>
 </div>
 							</div>
 						</div>
@@ -1411,6 +1415,7 @@ zip_output: False</pre></p>
 											<div id="fig_plot_10d_0" class="d-flex flex-column">
     <a href="10d.FANC.Log2_nucleotide_frequency_around_hi.pdf"><img src="10d.FANC.Log2_nucleotide_frequency_around_hi.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the hi (GGAATCCCTTCTGCAGCACC). The quantification window is outlined by the dotted box.</figcaption>
+            <p class="cr-data-link">Data: <a href="FANC.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequencies in quantification window</a></p>
 </div>
 										</div>
 										
@@ -1418,6 +1423,7 @@ zip_output: False</pre></p>
 											<div id="fig_plot_10d_1" class="d-flex flex-column">
     <a href="10d.FANC.Log2_nucleotide_frequency_around_dear.pdf"><img src="10d.FANC.Log2_nucleotide_frequency_around_dear.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the dear (AGCCTTGCAGTGGGCGCGCTA). The quantification window is outlined by the dotted box.</figcaption>
+            <p class="cr-data-link">Data: <a href="FANC.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequencies in quantification window</a></p>
 </div>
 										</div>
 										
@@ -1425,6 +1431,7 @@ zip_output: False</pre></p>
 											<div id="fig_plot_10d_2" class="d-flex flex-column">
     <a href="10d.FANC.Log2_nucleotide_frequency_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10d.FANC.Log2_nucleotide_frequency_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the sgRNA CCCACTGAAGGCCC. The quantification window is outlined by the dotted box.</figcaption>
+            <p class="cr-data-link">Data: <a href="FANC.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequencies in quantification window</a></p>
 </div>
 										</div>
 										
@@ -1685,6 +1692,7 @@ zip_output: False</pre></p>
     
     <a href="4a.HDR.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.HDR.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</figcaption>
+            <p class="cr-data-link">Data: <a href="HDR.Effect_vector_combined.txt">Combined modification frequency</a></p>
 </div>
 									</div>
 									
@@ -1737,6 +1745,7 @@ zip_output: False</pre></p>
 								<div id="fig_plot_5" class="d-flex flex-column">
     <a href="5.HDR.Frameshift_in-frame_mutations_pie_chart.pdf"><img src="5.HDR.Frameshift_in-frame_mutations_pie_chart.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 5: Frameshift analysis of coding sequence reads affected by modifications (unmodified reads are excluded from this analysis).</figcaption>
+            <p class="cr-data-link">Data: <a href="HDR.Frameshift_analysis.txt">Frameshift analysis</a></p>
 </div>
 							</div>
 						</div>
@@ -1927,6 +1936,7 @@ zip_output: False</pre></p>
 											<div id="fig_plot_10d_0" class="d-flex flex-column">
     <a href="10d.HDR.Log2_nucleotide_frequency_around_hi.pdf"><img src="10d.HDR.Log2_nucleotide_frequency_around_hi.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the hi (GGAATCCCTTCTGCAGCACC). The quantification window is outlined by the dotted box.</figcaption>
+            <p class="cr-data-link">Data: <a href="HDR.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequencies in quantification window</a></p>
 </div>
 										</div>
 										
@@ -1934,6 +1944,7 @@ zip_output: False</pre></p>
 											<div id="fig_plot_10d_1" class="d-flex flex-column">
     <a href="10d.HDR.Log2_nucleotide_frequency_around_dear.pdf"><img src="10d.HDR.Log2_nucleotide_frequency_around_dear.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the dear (AGCCTTGCAGTGGGCGCGCTA). The quantification window is outlined by the dotted box.</figcaption>
+            <p class="cr-data-link">Data: <a href="HDR.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequencies in quantification window</a></p>
 </div>
 										</div>
 										
@@ -1941,6 +1952,7 @@ zip_output: False</pre></p>
 											<div id="fig_plot_10d_2" class="d-flex flex-column">
     <a href="10d.HDR.Log2_nucleotide_frequency_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="10d.HDR.Log2_nucleotide_frequency_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
         <figcaption class="labelpadding">Figure 10d: Log2 nucleotide frequencies for each position in the plotting window around the sgRNA CCCACTGAAGGCCC. The quantification window is outlined by the dotted box.</figcaption>
+            <p class="cr-data-link">Data: <a href="HDR.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequencies in quantification window</a></p>
 </div>
 										</div>
 										
@@ -2099,6 +2111,7 @@ zip_output: False</pre></p>
     </div>
     
 <script>
+
 function updateZoom(e) {
   /*prevent any other actions that may occur when moving over the image:*/
 //  e.preventDefault();
@@ -2215,6 +2228,7 @@ try {
 
 		
 	
+  
 </script>
 
 

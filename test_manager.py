@@ -5,7 +5,7 @@ import os
 import re
 from shutil import copyfile, copytree
 
-from diff import diff_dir, generate_plot_comparison_html, TEXT_SUFFIXES, DATA_SUFFIXES, HTML_SUFFIXES, PDF_SUFFIXES
+from diff import diff_dir, diff_dir_images, generate_plot_comparison_html, TEXT_SUFFIXES, DATA_SUFFIXES, HTML_SUFFIXES, PDF_SUFFIXES
 
 
 COMMON_FLAGS = {'--place_report_in_output_folder', '--halt_on_plot_fail', '--debug'}
@@ -237,24 +237,37 @@ def add_test(args):
     print('And test with the command `make {0} test`'.format(run_name))
 
 
-def update_test(args):
-    if args.skip_html and args.html_only:
-        raise SystemExit('Cannot use --skip-html and --html-only together.')
+def get_update_suffixes(args):
+    exclusive_flags = [args.skip_html, args.html_only, args.data_only]
+    if sum(bool(flag) for flag in exclusive_flags) > 1:
+        raise SystemExit(
+            'Use only one of --skip-html, --html-only, or --data-only.'
+        )
 
     if args.html_only:
-        suffixes = HTML_SUFFIXES
-    elif args.skip_html:
-        suffixes = DATA_SUFFIXES + PDF_SUFFIXES
-    else:
-        suffixes = TEXT_SUFFIXES + PDF_SUFFIXES
+        return HTML_SUFFIXES
+    if args.data_only:
+        return DATA_SUFFIXES
+    if args.skip_html:
+        return DATA_SUFFIXES + PDF_SUFFIXES
+    return TEXT_SUFFIXES + PDF_SUFFIXES
 
-    if args.diff_plots and not args.html_only:
+
+def update_test(args):
+    suffixes = get_update_suffixes(args)
+
+    if args.diff_plots and not args.html_only and not args.data_only:
         generate_plot_comparison_html(args.actual, args.expected)
     has_changes = diff_dir(
         args.actual, args.expected,
         suffixes=suffixes,
         prompt_to_update=True,
     )
+    if args.diff_plots and not args.html_only and not args.data_only:
+        has_changes |= diff_dir_images(
+            args.actual, args.expected,
+            prompt_to_update=True,
+        )
     if not has_changes:
         print('No changes to update!')
 
@@ -278,6 +291,8 @@ if __name__ == '__main__':
                                help='Exclude HTML files from the update (data + plot files only)')
     parser_update.add_argument('--html-only', dest='html_only', action='store_true', default=False,
                                help='Update HTML files only (for Pro expected results)')
+    parser_update.add_argument('--data-only', dest='data_only', action='store_true', default=False,
+                               help='Update data files only; excludes HTML and plot files (for Pro data expected results)')
 
     args = parser.parse_args()
     args.func(args)

@@ -680,6 +680,7 @@ details[open] > summary .guardrail-toggle {
 </details>
 
 			
+			
 			<h2 class="cr-run-name cr-section-heading">vcf-prime-edit-basic</h2>
 			
 			<div class='card text-center mb-2'>
@@ -710,12 +711,12 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-04-03 11:15:31</p>
+  <p><strong>Run completed:</strong> 2026-05-15 14:07:04</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -r1 inputs/vcf_prime_edit_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_spacer_seq GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_extension_seq ATCTGGATCGGCTGCAGAAGGGA --vcf_output --amplicon_coordinates FANC:1,FANC_PE:1 -n vcf-prime-edit-basic --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -r1 inputs/vcf_prime_edit_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_spacer_seq GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_extension_seq ATCTGGATCGGCTGCAGAAGGGA --vcf_output --amplicon_coordinates FANC:1,FANC_PE:1 -n vcf-prime-edit-basic --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -1122,6 +1123,7 @@ zip_output: False</pre></p>
     
     <a href="4a.Reference.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.Reference.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</figcaption>
+            <p class="cr-data-link">Data: <a href="Reference.Effect_vector_combined.txt">Combined modification frequency</a></p>
 </div>
 									</div>
 									
@@ -1131,7 +1133,7 @@ zip_output: False</pre></p>
     
     <a href="4b.Reference.Insertion_deletion_substitution_locations.pdf"><img src="4b.Reference.Insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4b: Frequency of insertions, deletions, and substitutions across the entire amplicon, including modifications outside of the quantification window.</figcaption>
-            <p class="cr-data-link">Data: <a href="Prime-edited.Modification_count_vectors.txt">Modification frequency</a></p>
+            <p class="cr-data-link">Data: <a href="Reference.Modification_count_vectors.txt">Modification frequency</a></p>
 </div>
 									</div>
 									
@@ -1141,7 +1143,7 @@ zip_output: False</pre></p>
     
     <a href="4c.Reference.Quantification_window_insertion_deletion_substitution_locations.pdf"><img src="4c.Reference.Quantification_window_insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4c: Frequency of insertions, deletions, and substitutions across the entire amplicon, considering only modifications that overlap with the quantification window.</figcaption>
-            <p class="cr-data-link">Data: <a href="Prime-edited.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></p>
+            <p class="cr-data-link">Data: <a href="Reference.Quantification_window_modification_count_vectors.txt">Modification frequency in quantification window</a></p>
 </div>
 									</div>
 									
@@ -1347,6 +1349,7 @@ zip_output: False</pre></p>
     
     <a href="4a.Prime-edited.Combined_insertion_deletion_substitution_locations.pdf"><img src="4a.Prime-edited.Combined_insertion_deletion_substitution_locations.png" width='40%'></a>
         <figcaption class="labelpadding">Figure 4a: Combined frequency of any modification across the amplicon. Modifications outside of the quantification window are also shown.</figcaption>
+            <p class="cr-data-link">Data: <a href="Prime-edited.Effect_vector_combined.txt">Combined modification frequency</a></p>
 </div>
 									</div>
 									
@@ -1476,6 +1479,7 @@ zip_output: False</pre></p>
     </div>
     
 <script>
+
 function updateZoom(e) {
   /*prevent any other actions that may occur when moving over the image:*/
 //  e.preventDefault();
@@ -1592,6 +1596,7 @@ try {
 
 		
 	
+  
 </script>
 
 

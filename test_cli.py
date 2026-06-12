@@ -571,3 +571,69 @@ def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     )
     if check_diffs:
         assert_no_diff(cli_test_dir / 'CRISPRessoAggregate_on_aggregate')
+
+
+@pytest.mark.pro_only
+def test_pro_smoke_single_plot(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
+    """Smoke test: config_file with figures key containing only read_barplot."""
+    cmd = ' '.join([
+        'CRISPResso',
+        '-r1 inputs/FANC.Cas9.fastq',
+        '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
+        '-g GGAATCCCTTCTGCAGCACC',
+        '-n pro-smoke-single-plot',
+        '--config_file inputs/smoke_single_plot_config.json',
+    ] + COMMON_FLAGS)
+
+    result = run_crispresso(cmd)
+    assert result.returncode == 0, (
+        f'pro-smoke-single-plot command failed (exit code {result.returncode}):\n'
+        f'{result.stderr}'
+    )
+
+    if check_diffs:
+        assert_no_diff(cli_test_dir / 'CRISPResso_on_pro-smoke-single-plot')
+
+
+@pytest.mark.pro_only
+def test_pro_no_plots_key_shows_all_defaults(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
+    """Config file with no figures key shows all default plots."""
+    cmd = ' '.join([
+        'CRISPResso',
+        '-r1 inputs/FANC.Cas9.fastq',
+        '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
+        '-g GGAATCCCTTCTGCAGCACC',
+        '-n pro-no-plots-key',
+        '--config_file inputs/no_plots_key_config.json',
+    ] + COMMON_FLAGS)
+
+    result = run_crispresso(cmd)
+    assert result.returncode == 0, (
+        f'pro-no-plots-key command failed (exit code {result.returncode}):\n'
+        f'{result.stderr}'
+    )
+
+    if check_diffs:
+        assert_no_diff(cli_test_dir / 'CRISPResso_on_pro-no-plots-key')
+
+
+@pytest.mark.pro_only
+def test_pro_subset_plots_in_order(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
+    """Config file with a subset of figures shows only those, in order."""
+    cmd = ' '.join([
+        'CRISPResso',
+        '-r1 inputs/FANC.Cas9.fastq',
+        '-a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG',
+        '-g GGAATCCCTTCTGCAGCACC',
+        '-n pro-subset-plots',
+        '--config_file inputs/subset_plots_config.json',
+    ] + COMMON_FLAGS)
+
+    result = run_crispresso(cmd)
+    assert result.returncode == 0, (
+        f'pro-subset-plots command failed (exit code {result.returncode}):\n'
+        f'{result.stderr}'
+    )
+
+    if check_diffs:
+        assert_no_diff(cli_test_dir / 'CRISPResso_on_pro-subset-plots')

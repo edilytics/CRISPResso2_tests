@@ -21,7 +21,7 @@ except ImportError:
 
 
 FLOAT_REGEXP = re.compile(r'\d+\.\d+')
-DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}')
+DATETIME_REGEXP = re.compile(r'\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}')
 COMMAND_HTML_REGEXP = re.compile(r'<p>(<strong>)?Command used:.*')
 COMMAND_LOG_REGEXP = re.compile(r'<p><strong>Command used:</strong> </p><pre class="pre-scrollable"> *CRISPResso')
 C2_ENV_PATH_REGEXP = re.compile(r'@PG\tID:crispresso2\tPN:crispresso2\tVN:\d+\.\d+\.\d+\tCL:"(.+)"')
@@ -29,10 +29,14 @@ OUTPUT_REGEXP = re.compile(r'[\S]*/CRISPResso2[\S]*/cli_integration_tests/CRISPR
 PLOTLY_PATH_REGEXP = re.compile(r'/\S+/cli_integration_tests/')
 SAM_HEADER_BOWTIE_VERSION_REGEXP = re.compile(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:.*')
 SAM_HEADER_REGEXP = re.compile(r'@HD\tVN:.*')
-IGNORE_FILES_REGEXP = re.compile(r'.*CRISPResso.*_RUNNING_LOG.txt')
-WARNING_FILE_REGEXP = re.compile(r'((CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?)|fastp)_report.html')
+IGNORE_FILES_REGEXP = re.compile(
+    r'(.*CRISPResso.*_RUNNING_LOG\.txt|fastp_report\.html)$'
+)
+WARNING_FILE_REGEXP = re.compile(
+    r'(CRISPResso2(Aggregate|Batch|Pooled|WGS|Compare)?)_report\.html'
+)
 
-IGNORE_SUFFIX = '_RUNNING_LOG.txt'
+IGNORE_SUFFIX = ('_RUNNING_LOG.txt', 'fastp_report.html')
 TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
 DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
 HTML_SUFFIXES = ('.html',)
@@ -241,30 +245,6 @@ def diff_pdf(file_a, file_b):
     tick_diff = full_diff if (full_diff and not sig_diff) else []
 
     return sig_diff, tick_diff
-
-
-def truncate_diff_lines(lines, max_lines=PDF_DIFF_MAX_LINES):
-    """Truncate a list of diff lines to a maximum number of lines.
-
-    Parameters
-    ----------
-    lines : list
-        Diff lines to potentially truncate.
-    max_lines : int
-        Maximum number of lines to keep.
-
-    Returns
-    -------
-    list
-        Original lines if within limit, otherwise first *max_lines* lines
-        plus a summary line indicating how many were omitted.
-    """
-    if len(lines) <= max_lines:
-        return lines
-    omitted = len(lines) - max_lines
-    return lines[:max_lines] + [
-        '... (truncated: {0} more lines omitted)\n'.format(omitted),
-    ]
 
 
 def truncate_diff_lines(lines, max_lines=PDF_DIFF_MAX_LINES):
@@ -748,6 +728,7 @@ def update_file(actual, expected):
     update_input = input('[y/n]: ')
     if update_input.lower() == 'n':
         return
+    os.makedirs(dirname(expected), exist_ok=True)
     copyfile(actual, expected)
 
 
@@ -759,7 +740,31 @@ def remove_file(file_path):
     os.remove(file_path)
 
 
-def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
+def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False,
+             strict=False):
+    """Compare files in two directories.
+
+    Parameters
+    ----------
+    actual : str
+        Path to directory with actual results.
+    expected : str
+        Path to directory with expected results.
+    suffixes : tuple
+        File extensions to compare.
+    prompt_to_update : bool
+        Whether to prompt the user to update differing files.
+    strict : bool
+        When True, treat *all* diffs as failures — even for report HTML
+        files that are normally warning-only (``WARNING_FILE_REGEXP``).
+        Use this when comparing against a curated expected-results
+        baseline where any diff indicates a real change.
+
+    Returns
+    -------
+    bool
+        True if any files differ.
+    """
     files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
     files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
     diff_exists = False
@@ -786,13 +791,13 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
                     file_path_actual, files_expected[file_basename_actual],
                 ))
                 print_diff(diff_results)
-                if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+                if strict or not WARNING_FILE_REGEXP.search(str(file_path_actual)):
                     diff_exists |= True
                 if prompt_to_update:
                     update_file(file_path_actual, files_expected[file_basename_actual])
         else:
             print('New file in Actual ({0}) not found in Expected ({1})'.format(file_basename_actual, expected))
-            if not WARNING_FILE_REGEXP.search(str(file_path_actual)):
+            if strict or not WARNING_FILE_REGEXP.search(str(file_path_actual)):
                 diff_exists |= True
             if prompt_to_update:
                 update_file(file_path_actual, join(expected, file_basename_actual))
@@ -803,7 +808,7 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False):
             continue
         if file_basename_expected not in files_actual:
             print('Missing file {0} from Actual ({1})'.format(file_basename_expected, actual))
-            if not WARNING_FILE_REGEXP.search(str(file_basename_expected)):
+            if strict or not WARNING_FILE_REGEXP.search(str(file_basename_expected)):
                 diff_exists |= True
             if prompt_to_update:
                 remove_file(join(expected, file_basename_expected))

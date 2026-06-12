@@ -72,10 +72,18 @@ make <test case> update
 
 The above will prompt you to confirm if you want each change.
 
+To update expected results for the full pytest integration suite, run:
+
+``` shell
+make all update
+```
+
 If you are very confident in each change, you can use `update-all`:
 
 ``` shell
 make <test case> update-all
+# or for the full suite
+make all update-all
 ```
 
 This will automatically update the files for you, then you can review the changes in git. **Use this wisely!**
@@ -84,7 +92,7 @@ This will automatically update the files for you, then you can review the change
 
 Append `PRO=1` to any make command to run tests with CRISPRessoPro installed. This uses the `test-pro` pixi environment (defined in `CRISPResso2/pixi.toml`), which includes all test dependencies plus CRISPRessoPro's dependencies (e.g., `kaleido`).
 
-When Pro is installed, HTML file diffs are compared against `expected_results_pro/` (since Pro generates different HTML reports), while data file diffs always use `expected_results/`.
+When Pro is installed, HTML file diffs are compared against `expected_results_pro/` (since Pro generates different HTML reports), while data file diffs always use `expected_results/`. Pro plot files are not compared or updated from the regular `expected_results/` baseline.
 
 ```shell
 # Install CRISPResso2 + CRISPRessoPro into the test-pro environment
@@ -100,11 +108,17 @@ make all-pro test
 make basic PRO=1 test
 
 # Update expected results for Pro
-# (data + plots → expected_results/, HTML → expected_results_pro/)
+# (data only → expected_results/, HTML → expected_results_pro/; plots are left untouched)
 make basic PRO=1 update
+
+# Update expected results for the full suite with Pro
+make all PRO=1 update
 
 # Auto-update Pro expected results
 make basic PRO=1 update-all
+
+# Auto-update the full suite with Pro
+make all PRO=1 update-all
 
 # Clean only the Pro install sentinel
 make clean-pro

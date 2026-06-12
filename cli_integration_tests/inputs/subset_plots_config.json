@@ -1,0 +1,21 @@
+{
+    "figures": [
+        {
+            "section_name": "Alignment",
+            "content": [
+                {
+                    "type": "figure",
+                    "id": "indel_size_distribution"
+                },
+                {
+                    "type": "figure",
+                    "id": "read_barplot"
+                },
+                {
+                    "type": "figure",
+                    "id": "alignment_pie_chart"
+                }
+            ]
+        }
+    ]
+}

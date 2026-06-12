@@ -1,5 +1,6 @@
 .PHONY: all install test print update update-all skip_html diff-plots clean clean_cli_integration \
 	install-pro all-pro clean-pro \
+	pro-tests pro-smoke-single-plot pro-no-plots-key pro-subset-plots \
 	basic params params-deletions batch pooled wgs compare aggregate \
 	prime-editor nhej nhej_native_merge base_editor \
 	basic-parallel bam bam-single bam-out bam-out-genome bam-out-parallel \
@@ -23,7 +24,7 @@ CRISPRESSOPRO_DIR ?= ../CRISPRessoPro
 # Otherwise, use the test environment (CRISPResso2 only).
 # If already inside the target pixi environment, run commands directly.
 ifdef PRO
-  _PIXI_ENV := pro
+  _PIXI_ENV := test-pro
 else
   _PIXI_ENV := test
 endif
@@ -32,6 +33,13 @@ ifneq ($(PIXI_ENVIRONMENT_NAME),$(_PIXI_ENV))
   PIXI := pixi run --manifest-path $(abspath $(CRISPRESSO2_DIR))/pixi.toml -e $(_PIXI_ENV) --
 else
   PIXI :=
+endif
+
+# Pro-only targets always use test-pro, regardless of PRO=1.
+ifneq ($(PIXI_ENVIRONMENT_NAME),test-pro)
+  PIXI_PRO := pixi run --manifest-path $(abspath $(CRISPRESSO2_DIR))/pixi.toml -e test-pro --
+else
+  PIXI_PRO :=
 endif
 
 CRISPRESSO2_SOURCES := $(wildcard $(CRISPRESSO2_DIR)/CRISPResso2/*.py*) \
@@ -45,8 +53,8 @@ CRISPRESSOPRO_SOURCES := $(wildcard $(CRISPRESSOPRO_DIR)/CRISPRessoPro/*.py)
 	@touch $@
 
 .install_pro_sentinel: $(CRISPRESSO2_SOURCES) $(CRISPRESSOPRO_SOURCES)
-	$(PIXI) pip install -e $(CRISPRESSO2_DIR)
-	$(PIXI) pip install -e $(CRISPRESSOPRO_DIR)
+	$(PIXI_PRO) pip install -e $(CRISPRESSO2_DIR)
+	$(PIXI_PRO) pip install -e $(CRISPRESSOPRO_DIR)
 	@touch $@
 
 ifdef PRO
@@ -56,6 +64,8 @@ else
 endif
 
 # ── Pytest flags built from make goals ───────────────────────────────
+FORWARDED_FLAG_GOALS := $(filter test print update update-all skip_html diff-plots,$(MAKECMDGOALS))
+
 PYTEST_FLAGS :=
 ifneq ($(filter test,$(MAKECMDGOALS)),)
   PYTEST_FLAGS += --test
@@ -83,15 +93,15 @@ endif
 # ── Update command (Pro-aware) ────────────────────────────────────────
 # $(1): output dir name (e.g. CRISPResso_on_FANC.Cas9)
 # Non-Pro: update data + HTML + plots → expected_results/
-# Pro:     update data + plots → expected_results/ (skip HTML),
+# Pro:     update data only → expected_results/ (no HTML or plots),
 #          update HTML → expected_results_pro/
 ifdef PRO
 define UPDATE_CMD
-$(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+$(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
 $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
 endef
 define UPDATE_ALL_CMD
-yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --skip-html $(DIFF_PLOTS_FLAG) && \
+yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
 yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
 endef
 else
@@ -103,10 +113,82 @@ yes | $(PIXI) python test_manager.py update cli_integration_tests/$(1) cli_integ
 endef
 endif
 
+# All output dirs produced by "pytest test_cli.py" (make all)
+ALL_OUTPUT_DIRS := \
+	CRISPResso_on_FANC.Cas9 \
+	CRISPResso_on_params \
+	CRISPResso_on_params-deletions \
+	CRISPResso_on_nhej_native_merge \
+	CRISPResso_on_prime_editor \
+	CRISPResso_on_base_editor \
+	CRISPResso_on_basic-parallel \
+	CRISPResso_on_asym_both \
+	CRISPResso_on_asym_left \
+	CRISPResso_on_asym_right \
+	CRISPResso_on_bam \
+	CRISPResso_on_bam-single \
+	CRISPResso_on_bam-out \
+	CRISPResso_on_bam-out-genome \
+	CRISPResso_on_bam-out-parallel \
+	CRISPResso_on_basic-write-bam-out \
+	CRISPResso_on_basic-write-bam-out-parallel \
+	CRISPRessoBatch_on_FANC \
+	CRISPRessoPooled_on_Both.Cas9 \
+	CRISPRessoPooled_on_pooled-paired-sim \
+	CRISPRessoPooled_on_pooled-mixed-mode \
+	CRISPRessoPooled_on_pooled-mixed-mode-genome-demux \
+	CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome \
+	CRISPRessoCompare_on_Cas9_VS_Untreated \
+	CRISPRessoAggregate_on_aggregate \
+	CRISPResso_on_vcf-basic \
+	CRISPResso_on_vcf-deletions-only \
+	CRISPResso_on_vcf-insertions-only \
+	CRISPResso_on_vcf-no-edits \
+	CRISPResso_on_vcf-multi-amplicon \
+	CRISPResso_on_vcf-base-edit-cbe \
+	CRISPResso_on_vcf-base-edit-abe \
+	CRISPResso_on_vcf-prime-edit-basic \
+	CRISPResso_on_pro-smoke-single-plot \
+	CRISPResso_on_pro-no-plots-key \
+	CRISPResso_on_pro-subset-plots
+
+# Update one output dir only if it exists.
+# $(1): output dir name (e.g. CRISPResso_on_FANC.Cas9)
+define UPDATE_IF_EXISTS_CMD
+if [ -d "cli_integration_tests/$(1)" ]; then \
+	$(call UPDATE_CMD,$(1)); \
+else \
+	echo "Skipping missing output dir: cli_integration_tests/$(1)"; \
+fi
+endef
+
+define UPDATE_ALL_IF_EXISTS_CMD
+if [ -d "cli_integration_tests/$(1)" ]; then \
+	$(call UPDATE_ALL_CMD,$(1)); \
+else \
+	echo "Skipping missing output dir: cli_integration_tests/$(1)"; \
+fi
+endef
+
 # $(1): pytest node ID  (e.g. test_crispresso_cli[basic])
 # $(2): output dir name (e.g. CRISPResso_on_FANC.Cas9)
 define PYTEST_RUN
 $(PIXI) pytest "test_cli.py::$(1)" $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && $(call UPDATE_CMD,$(2)))$(if $(filter update-all,$(MAKECMDGOALS)), && $(call UPDATE_ALL_CMD,$(2)))
+endef
+
+# Pro-only update commands — always split: data→expected_results/, HTML→expected_results_pro/
+define UPDATE_CMD_PRO
+$(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
+$(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
+endef
+define UPDATE_ALL_CMD_PRO
+yes | $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results/$(1) --data-only && \
+yes | $(PIXI_PRO) python test_manager.py update cli_integration_tests/$(1) cli_integration_tests/expected_results_pro/$(1) --html-only
+endef
+
+# Like PYTEST_RUN but uses PIXI_PRO and pro-only update commands.
+define PYTEST_RUN_PRO
+$(PIXI_PRO) pytest "test_cli.py::$(1)" $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && $(call UPDATE_CMD_PRO,$(2)))$(if $(filter update-all,$(MAKECMDGOALS)), && $(call UPDATE_ALL_CMD_PRO,$(2)))
 endef
 
 # ── Goal-only targets (used as flags, not real builds) ───────────────
@@ -131,13 +213,25 @@ install-pro:
 	$(MAKE) install PRO=1
 
 all-pro:
-	$(MAKE) all PRO=1
+	$(MAKE) all PRO=1 $(FORWARDED_FLAG_GOALS)
 
 clean-pro:
 	rm -f .install_pro_sentinel
 
+# ── Pro-only tests (always use test-pro environment) ─────────────────
+pro-tests: pro-smoke-single-plot pro-no-plots-key pro-subset-plots
+
+pro-smoke-single-plot: .install_pro_sentinel
+	$(call PYTEST_RUN_PRO,test_pro_smoke_single_plot,CRISPResso_on_pro-smoke-single-plot)
+
+pro-no-plots-key: .install_pro_sentinel
+	$(call PYTEST_RUN_PRO,test_pro_no_plots_key_shows_all_defaults,CRISPResso_on_pro-no-plots-key)
+
+pro-subset-plots: .install_pro_sentinel
+	$(call PYTEST_RUN_PRO,test_pro_subset_plots_in_order,CRISPResso_on_pro-subset-plots)
+
 all: clean $(_SENTINEL)
-	$(PIXI) pytest test_cli.py -n auto --dist loadgroup $(PYTEST_FLAGS)
+	$(PIXI) pytest test_cli.py -n auto --dist loadgroup $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && $(foreach d,$(ALL_OUTPUT_DIRS),$(call UPDATE_IF_EXISTS_CMD,$(d)) && ) true)$(if $(filter update-all,$(MAKECMDGOALS)), && $(foreach d,$(ALL_OUTPUT_DIRS),$(call UPDATE_ALL_IF_EXISTS_CMD,$(d)) && ) true)
 
 clean: clean_cli_integration
 	rm -f .install_sentinel .install_pro_sentinel
@@ -177,6 +271,9 @@ cli_integration_tests/CRISPRessoPooled_on_pooled-paired-sim* \
 cli_integration_tests/CRISPResso_on_prime_editor* \
 cli_integration_tests/CRISPRessoBatch_on_batch-failing* \
 cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
+cli_integration_tests/CRISPResso_on_pro-smoke-single-plot* \
+cli_integration_tests/CRISPResso_on_pro-no-plots-key* \
+cli_integration_tests/CRISPResso_on_pro-subset-plots* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
@@ -300,16 +397,16 @@ nhej: $(_SENTINEL)
 code-tests: params params-big-code params-multi-code params-medium params-multiple-codes params-small
 
 params-big-code: $(_SENTINEL)
-	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCG --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params-big-code --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
+	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCG --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params-big-code --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
 
 params-multi-code: $(_SENTINEL)
-	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT,ATGTTCCAATCAGTACGCAGAGAGTCG,ACCTGCGCCACATCCATCGGCGCTTTGGT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_multi_code --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
+	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT,ATGTTCCAATCAGTACGCAGAGAGTCG,ACCTGCGCCACATCCATCGGCGCTTTGGT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_multi_code --base_editor_out -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
 
 params-medium: $(_SENTINEL)
-	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAA --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_medium --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
+	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAA --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_medium --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
 
 params-small: $(_SENTINEL)
-	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCC --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_small --base_edit -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
+	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCC --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_small --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
 
 params-multiple-codes: $(_SENTINEL)
 	cd cli_integration_tests && $(PIXI) CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGC,TGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAA --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params_multiple_codes --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --debug
