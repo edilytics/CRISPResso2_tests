@@ -618,6 +618,48 @@ def test_pro_no_plots_key_shows_all_defaults(run_crispresso, check_diffs, assert
 
 
 @pytest.mark.pro_only
+def test_pro_global_only_config_hides_amplicon_tabs(
+        run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
+    """A figures config with only global-scoped plots hides the per-amplicon tab UI.
+
+    Regression test: when a custom ``figures`` config contains no
+    amplicon-scoped (or coding/sgRNA-scoped) plot, the report previously
+    still rendered the "Amplicons" card with one empty tab per amplicon.
+    The multi-amplicon run here has two amplicons, so the tab UI would
+    render if the bug were present.
+    """
+    # Two amplicons (FANC + HEK3) so the multi-amplicon tab UI would render.
+    fanc = (
+        'CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCA'
+        'CCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCT'
+        'ACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATC'
+        'CATCGGCGCTTTGGTCGG'
+    )
+    hek3 = (
+        'GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTT'
+        'TTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAA'
+        'AGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAG'
+        'CTCCTGCACCGGGATACTGGTTGACAAG'
+    )
+    cmd = ' '.join([
+        'CRISPResso',
+        '-r1 inputs/Both.Cas9.fastq',
+        f'-a {fanc},{hek3}',
+        '-n pro-global-only-multi-amplicon',
+        '--config_file inputs/smoke_single_plot_config.json',
+    ] + COMMON_FLAGS)
+
+    result = run_crispresso(cmd)
+    assert result.returncode == 0, (
+        f'pro-global-only-multi-amplicon command failed '
+        f'(exit code {result.returncode}):\n{result.stderr}'
+    )
+
+    if check_diffs:
+        assert_no_diff(cli_test_dir / 'CRISPResso_on_pro-global-only-multi-amplicon')
+
+
+@pytest.mark.pro_only
 def test_pro_subset_plots_in_order(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
     """Config file with a subset of figures shows only those, in order."""
     cmd = ' '.join([

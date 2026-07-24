@@ -150,7 +150,8 @@ ALL_OUTPUT_DIRS := \
 	CRISPResso_on_vcf-prime-edit-basic \
 	CRISPResso_on_pro-smoke-single-plot \
 	CRISPResso_on_pro-no-plots-key \
-	CRISPResso_on_pro-subset-plots
+	CRISPResso_on_pro-subset-plots \
+	CRISPResso_on_pro-global-only-multi-amplicon
 
 # Update one output dir only if it exists.
 # $(1): output dir name (e.g. CRISPResso_on_FANC.Cas9)
@@ -219,7 +220,7 @@ clean-pro:
 	rm -f .install_pro_sentinel
 
 # ── Pro-only tests (always use test-pro environment) ─────────────────
-pro-tests: pro-smoke-single-plot pro-no-plots-key pro-subset-plots
+pro-tests: pro-smoke-single-plot pro-no-plots-key pro-subset-plots pro-global-only-multi-amplicon
 
 pro-smoke-single-plot: .install_pro_sentinel
 	$(call PYTEST_RUN_PRO,test_pro_smoke_single_plot,CRISPResso_on_pro-smoke-single-plot)
@@ -229,6 +230,9 @@ pro-no-plots-key: .install_pro_sentinel
 
 pro-subset-plots: .install_pro_sentinel
 	$(call PYTEST_RUN_PRO,test_pro_subset_plots_in_order,CRISPResso_on_pro-subset-plots)
+
+pro-global-only-multi-amplicon: .install_pro_sentinel
+	$(call PYTEST_RUN_PRO,test_pro_global_only_config_hides_amplicon_tabs,CRISPResso_on_pro-global-only-multi-amplicon)
 
 all: clean $(_SENTINEL)
 	$(PIXI) pytest test_cli.py -n auto --dist loadgroup $(PYTEST_FLAGS)$(if $(filter update,$(MAKECMDGOALS)), && $(foreach d,$(ALL_OUTPUT_DIRS),$(call UPDATE_IF_EXISTS_CMD,$(d)) && ) true)$(if $(filter update-all,$(MAKECMDGOALS)), && $(foreach d,$(ALL_OUTPUT_DIRS),$(call UPDATE_ALL_IF_EXISTS_CMD,$(d)) && ) true)
@@ -274,6 +278,7 @@ cli_integration_tests/CRISPRessoPooled_on_pooled-mixed-mode* \
 cli_integration_tests/CRISPResso_on_pro-smoke-single-plot* \
 cli_integration_tests/CRISPResso_on_pro-no-plots-key* \
 cli_integration_tests/CRISPResso_on_pro-subset-plots* \
+cli_integration_tests/CRISPResso_on_pro-global-only-multi-amplicon* \
 web_tests/stress_test_log.txt \
 web_tests/UI_docker_log.txt \
 web_tests/UI_selenium_log.txt
