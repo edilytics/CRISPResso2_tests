@@ -232,12 +232,16 @@ def diff_pdf(file_a, file_b):
         [t + '\n' for t in texts_b],
     ))
 
-    # Filtered diff (significant — excludes numeric-only tick labels)
+    # Filtered diff (significant — excludes numeric-only tick labels).
+    # Order-insensitive: matplotlib's PDF backend emits pie autopct/label text
+    # in a font/version-dependent order (identical content, permuted sequence),
+    # so a pure reorder must not count as significant. Compare sorted multisets
+    # — genuinely added/removed/changed text still differs.
     filtered_a = [t for t in texts_a if not NUMERIC_TICK_REGEXP.match(t)]
     filtered_b = [t for t in texts_b if not NUMERIC_TICK_REGEXP.match(t)]
     sig_diff = list(unified_diff(
-        [t + '\n' for t in filtered_a],
-        [t + '\n' for t in filtered_b],
+        sorted(t + '\n' for t in filtered_a),
+        sorted(t + '\n' for t in filtered_b),
     ))
 
     # tick_diff is the full diff only when the significant diff is clean
