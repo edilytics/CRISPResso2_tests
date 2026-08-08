@@ -801,12 +801,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-08-05 14:06:26</p>
+  <p><strong>Run completed:</strong> 2026-08-07 17:52:34</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/micromamba/envs/c2/bin/CRISPResso -o /mnt/c/Users/Snic9/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --fastp_command fastp --verbosity 3 --plot_window_size 20 --aln_seed_min 2 --exclude_bp_from_left 15 --file_prefix Cas9 --base_editor_target_ref_skip_allele_count 0 --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_open -20 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --aln_seed_count 5 --default_min_aln_score 60 --aln_seed_len 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --flexiguide_gap_extend_penalty -2 --flexiguide_gap_open_penalty -20 --place_report_in_output_folder --quantification_window_center -3 --conversion_nuc_to T --min_paired_end_reads_overlap 10 --halt_on_plot_fail --flexiguide_homology 80 --prime_editing_gap_open_penalty -50 --prime_editing_pegRNA_extension_quantification_window_size 5 --quantification_window_size 1 --debug --max_rows_alleles_around_cut_to_plot 50 --config_json None --base_editor_output --needleman_wunsch_gap_incentive 1 --config_file None --n_processes 1 --exclude_bp_from_right 15 --needleman_wunsch_gap_extend -2 --flexiguide_seq None --conversion_nuc_from C --guide_seq GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_scaffold_min_match_length 1 --max_paired_end_reads_overlap None --trimmomatic_command None --fastq_r1 inputs/FANC.Cas9.fastq --flash_command None --min_average_read_quality 0 --amplicon_name Reference --min_single_bp_quality 0 --min_frequency_alleles_around_cut_to_plot 0.2 --min_bp_quality_or_N 0</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/mnt/c/Users/Snic9/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -o /mnt/c/Users/Snic9/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --prime_editing_pegRNA_extension_quantification_window_size 5 --default_min_aln_score 60 --conversion_nuc_from C --fastq_r1 inputs/FANC.Cas9.fastq --flexiguide_gap_open_penalty -20 --plot_window_size 20 --min_single_bp_quality 0 --fastp_command fastp --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --needleman_wunsch_gap_extend -2 --quantification_window_center -3 --needleman_wunsch_gap_open -20 --debug --prime_editing_gap_extend_penalty 0 --exclude_bp_from_right 15 --file_prefix Cas9 --verbosity 3 --base_editor_target_ref_skip_allele_count 0 --min_bp_quality_or_N 0 --place_report_in_output_folder --conversion_nuc_to T --guide_seq GGAATCCCTTCTGCAGCACC --flash_command None --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_min 2 --n_processes 1 --config_file None --base_editor_output --min_paired_end_reads_overlap 10 --prime_editing_gap_open_penalty -50 --needleman_wunsch_gap_incentive 1 --exclude_bp_from_left 15 --flexiguide_gap_extend_penalty -2 --prime_editing_pegRNA_scaffold_min_match_length 1 --quantification_window_size 1 --config_json None --trimmomatic_command None --aln_seed_len 10 --amplicon_name Reference --flexiguide_homology 80 --max_rows_alleles_around_cut_to_plot 50 --halt_on_plot_fail --aln_seed_count 5 --min_average_read_quality 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --flexiguide_seq None --max_paired_end_reads_overlap None</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -2202,24 +2202,37 @@ zip_output: False</pre></p>
     font-variant-numeric: tabular-nums;
     margin-bottom: 4px;
   }
+  /* plot column + legend column pinned to the right */
+  .allele-viz .allele-shell { display: flex; align-items: flex-start; gap: 12px; }
+  .allele-viz .allele-main { flex: 1 1 auto; min-width: 0; }
+  /* Legend mirrors figure 2b's (partials/batch_d3.html): the caption sits
+     inside its own color chip, stacked vertically and sticky beside the table. */
   .allele-viz .allele-legend {
+    flex: 0 0 auto;
+    width: 12%;
+    min-width: 96px;
+    position: sticky;
+    top: 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    font-size: 0.7rem;
-    color: var(--allele-ink-2);
-    margin-bottom: 6px;
+    gap: 3px;
   }
-  .allele-viz .allele-legend-item { display: inline-flex; align-items: center; gap: 4px; }
-  .allele-viz .allele-legend-swatch {
-    width: 14px;
-    height: 12px;
-    display: inline-block;
-    font-size: 0.6rem;
-    line-height: 12px;
+  .allele-viz .allele-legend-title { font-size: 0.9rem; margin: 0 0 4px; }
+  .allele-viz .allele-legend-chip {
+    width: 75%;
     text-align: center;
+    font-size: 0.7rem;
+    line-height: 1.35;
   }
+  /* 2b marks the quantification window with a dashed outline rather than a fill;
+     scoped here so it does not depend on batch_d3.html being on the page. */
+  .allele-viz .allele-legend-chip--qw {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23D9D9D9FF' stroke-width='4' stroke-dasharray='6%2c14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  }
+  /* center the table when the container is wider than it is */
+  .allele-viz .allele-head > svg,
+  .allele-viz .allele-plot { margin-left: auto; margin-right: auto; }
   .allele-viz .allele-head { overflow: hidden; }
   .allele-viz .allele-body { overflow: auto; max-height: 60vh; }
   .allele-viz .allele-empty,
@@ -2452,11 +2465,14 @@ if (typeof module !== 'undefined' && module.exports) {
     const headH = tickH + guideH + ROW_PITCH + 2;
 
     // ---- chrome ----------------------------------------------------------
-    const controls = root.append("div").attr("class", "allele-controls");
-    const status = root.append("div").attr("class", "allele-status").text("Loading alleles…");
-    const legend = root.append("div").attr("class", "allele-legend");
-    const head = root.append("div").attr("class", "allele-head");
-    const body = root.append("div").attr("class", "allele-body");
+    const shell = root.append("div").attr("class", "allele-shell");
+    const main = shell.append("div").attr("class", "allele-main");
+    const controls = main.append("div").attr("class", "allele-controls");
+    const status = main.append("div").attr("class", "allele-status").text("Loading alleles…");
+    const head = main.append("div").attr("class", "allele-head");
+    const body = main.append("div").attr("class", "allele-body");
+    const legend = shell.append("div").attr("class", "allele-legend");
+    // tooltip stays on root: it is positioned against that box, not the shell
     const tooltip = root.append("div").attr("class", "allele-tooltip");
     const tipHead = tooltip.append("div").attr("class", "allele-tip-value");
     const tipBody = tooltip.append("div");
@@ -2542,30 +2558,29 @@ if (typeof module !== 'undefined' && module.exports) {
     });
 
     // ---- legend ----------------------------------------------------------
+    // Each caption rides inside its own color chip, as figure 2b does. For a
+    // base the caption is just the letter; the rest spell the class out.
     const legendItems = ["A", "C", "G", "T", "N"].map((base) => ({
-      label: base, fill: baseColor(base), text: base,
+      label: base, fill: baseColor(base),
     }));
-    legendItems.push({ label: "Deletion", fill: color["-"], text: "-" });
-    legendItems.push({ label: "Insertion", fill: color["Insertion"], text: "▲" });
-    legendItems.push({ label: "Matches reference", fill: "#C8C8C8", text: "", faded: true });
+    legendItems.push({ label: "Deletion", fill: color["-"] });
+    legendItems.push({ label: "Insertion", fill: color["Insertion"] });
+    // The grid washes matched bases out; a pre-blended tint keeps the caption
+    // readable where a low opacity would have faded the text with it.
+    legendItems.push({ label: "Matches reference", fill: "#f0f0ee", muted: true });
     if (quantWindows.length > 0) {
-      legendItems.push({ label: "Quantification window", outline: true, text: "" });
+      legendItems.push({ label: "Quantification Window", qw: true });
     }
 
+    legend.append("h5").attr("class", "allele-legend-title").text("Legend");
     legendItems.forEach((item) => {
-      const wrap = legend.append("div").attr("class", "allele-legend-item");
-      const swatch = wrap.append("span")
-        .attr("class", "allele-legend-swatch")
-        .text(item.text);
-      if (item.outline) {
-        swatch.style("background-color", "transparent")
-          .style("border", "1px dashed #8a8880");
-      } else {
-        swatch.style("background-color", item.fill)
-          .style("opacity", item.faded ? 0.18 : 1)
-          .style("color", item.text ? inkOn(item.fill) : null);
-      }
-      wrap.append("span").text(item.label);
+      const chip = legend.append("div")
+        .attr("class", "allele-legend-chip")
+        .classed("allele-legend-chip--qw", !!item.qw)
+        .text(item.label);
+      if (item.qw) return;
+      chip.style("background-color", item.fill)
+        .style("color", item.muted ? "var(--allele-ink-2)" : inkOn(item.fill));
     });
 
     // ---- header: position ruler, sgRNA band, reference row ---------------
@@ -2693,7 +2708,7 @@ if (typeof module !== 'undefined' && module.exports) {
       head.node().scrollLeft = body.node().scrollLeft;
     }, { passive: true });
 
-    const emptyState = root.append("div")
+    const emptyState = main.append("div")
       .attr("class", "allele-empty")
       .style("display", "none")
       .text("No alleles match your search.");
@@ -2863,7 +2878,6 @@ if (typeof module !== 'undefined' && module.exports) {
     
   }, 100); // let the browser paint the loading state before the first D3 render
 </script>
-
 
 
       
