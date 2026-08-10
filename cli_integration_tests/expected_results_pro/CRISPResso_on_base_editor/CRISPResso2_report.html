@@ -805,12 +805,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-06-09 16:44:18</p>
+  <p><strong>Run completed:</strong> 2026-08-07 17:50:25</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/mnt/c/Users/Snic9/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -q 30 --default_min_aln_score 80 -an FANC -n base_editor --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -1738,14 +1738,15 @@ zip_output: False</pre></p>
       
         
   
-<div id="fig_allele_table_around_cut_FANC_sg0" class="d-flex flex-column align-items-center mb-3">
+
+<div id="fig_allele_table_around_cut_FANC_sg0" class="d-flex flex-column align-items-center mb-3 w-100">
     
-        <a href="9.FANC.Alleles_frequency_table_around_hi.pdf">
-            <img src="9.FANC.Alleles_frequency_table_around_hi.png" width="100%">
-        </a>
+        
+        <div class="w-100" id="allele_table_9_FANC_Alleles_frequency_table_around_hi"></div>
+        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_hi = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 20, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA72UPQ6DMAyF79LZRoQUSkfLgy/grWLo0E6d+nP/moBQh0BUEQUYIiv2p/fCy+VyYFIRImVmVVZhss/WVlQWq1mVheQAf2x1nYdTX/kT1OF9Pz+3AWIwRNwL68FXfQs+kO7XxyuKMhDu1tVAXZ07OG6jxn6TlQXVpFGxASsojG6dUTW4KMqMUwldZO0oSqq2EJ5GpFWN1s9bjVAd+6DJralCzHJWM6rbNDArqk2iOBcqEasgq4SokOBcotL/OpHlOJd/bhul4xCRMILn2lqsIs8PqmkSrGlAicOSKc0ZUD6Nor0X0+KgS6IYS+RqbFcuRNJy9i33U8ZYDV98zrLmXQgAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": "hi"}, {"interval": [99, 119], "name": "dear"}, {"interval": [98, 112], "name": ""}], "quantification_windows": [[19, 20], [100, 101], [116, 117]]};</script>
     
     
-    <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
     
     
         <p class="m-0"><small>Data: <a href="FANC.Alleles_frequency_table_around_hi.txt">Allele frequency table</a></small></p>
@@ -1755,14 +1756,15 @@ zip_output: False</pre></p>
       
         
   
-<div id="fig_allele_table_around_cut_FANC_sg1" class="d-flex flex-column align-items-center mb-3">
+
+<div id="fig_allele_table_around_cut_FANC_sg1" class="d-flex flex-column align-items-center mb-3 w-100">
     
-        <a href="9.FANC.Alleles_frequency_table_around_dear.pdf">
-            <img src="9.FANC.Alleles_frequency_table_around_dear.png" width="100%">
-        </a>
+        
+        <div class="w-100" id="allele_table_9_FANC_Alleles_frequency_table_around_dear"></div>
+        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_dear = {"plot_type": "allele_table", "reference": "CGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATC", "total_alleles": 15, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA72TuwrDMAxF/yWzMPWjdjoKDfoBbSFDh3bq1Mf/1zaldGhIU2whDMLYHK7u1TQNxMxEIkzIUvpSgvmqNISEQuUMsOGpjR7SaHyCXa379XGaoRMsgS8kX0nn4+XWD+XBmhAqyGqhrJYqpzfAvQIqyzGHCGERhe3inlFh1Mj6m+Rc9wS+WHGjV/Q/6scVFiWvqJFXKxvMX/6TNBclLUPx6dT8BKcTWA1GBgAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-94, -75], "name": "hi"}, {"interval": [2, 22], "name": "dear"}, {"interval": [1, 15], "name": ""}], "quantification_windows": [[-78, -77], [3, 4], [19, 20]]};</script>
     
     
-    <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
     
     
         <p class="m-0"><small>Data: <a href="FANC.Alleles_frequency_table_around_dear.txt">Allele frequency table</a></small></p>
@@ -1772,14 +1774,15 @@ zip_output: False</pre></p>
       
         
   
-<div id="fig_allele_table_around_cut_FANC_sg2" class="d-flex flex-column align-items-center mb-3">
+
+<div id="fig_allele_table_around_cut_FANC_sg2" class="d-flex flex-column align-items-center mb-3 w-100">
     
-        <a href="9.FANC.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.pdf">
-            <img src="9.FANC.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.png" width="100%">
-        </a>
+        
+        <div class="w-100" id="allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC"></div>
+        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC = {"plot_type": "allele_table", "reference": "CCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTAC", "total_alleles": 13, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA4uOVnIGAndnZ0cgGeIOYrm7A4kQINsRKOAOEnJ3DnF0VtIhQamhmYmOuYWehamOARiWFJWmxurQyDILHWOQTcZgm9ISc4ppZ5WxjqGeiQnYIkN6WWVIL18Z0S8ATelgFdA7epZmOiZEW+VIfnIHWmViQY+0DrfJyIjmKRBqlxk5ceVMprdITOzu9ImrEErCD7lcigUAIGDW8nEFAAA=", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-78, -59], "name": "hi"}, {"interval": [18, 38], "name": "dear"}, {"interval": [17, 31], "name": ""}], "quantification_windows": [[-62, -61], [19, 20], [35, 36]]};</script>
     
     
-    <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
     
     
         <p class="m-0"><small>Data: <a href="FANC.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt">Allele frequency table</a></small></p>
@@ -2717,14 +2720,15 @@ zip_output: False</pre></p>
       
         
   
-<div id="fig_allele_table_around_cut_HDR_sg0" class="d-flex flex-column align-items-center mb-3">
+
+<div id="fig_allele_table_around_cut_HDR_sg0" class="d-flex flex-column align-items-center mb-3 w-100">
     
-        <a href="9.HDR.Alleles_frequency_table_around_hi.pdf">
-            <img src="9.HDR.Alleles_frequency_table_around_hi.png" width="100%">
-        </a>
+        
+        <div class="w-100" id="allele_table_9_HDR_Alleles_frequency_table_around_hi"></div>
+        <script type="text/javascript">const allele_table_9_HDR_Alleles_frequency_table_around_hi = {"plot_type": "allele_table", "reference": "GCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTT", "total_alleles": 11, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA72TPQ7CMAyF79LZqRqIEIyWB1/AW9WBASYmfu6PkxZIoU3aIjVZouRZn/3s1HXBxIREQijMiEJ6FvJn0RfRRcTIVMColNCYvnQLtnQOqrDv18epgWFSwPSCRZKkb+kGqvKwCxwL5+PlNop6xcd1ZVDGr7c0QqWLGs50WVEJEobs/muUVZLbQ9uqvH0fO+YX1aGm2xfcX4UU+5cfiUg6m8TsryeRlOJhS0k+eJ0+xeOXI3UfqpX+kponEyGoQpEEAAA=", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": "hi"}, {"interval": [110, 130], "name": "dear"}, {"interval": [109, 123], "name": ""}], "quantification_windows": [[19, 20], [111, 112], [127, 128]]};</script>
     
     
-    <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
     
     
         <p class="m-0"><small>Data: <a href="HDR.Alleles_frequency_table_around_hi.txt">Allele frequency table</a></small></p>
@@ -2734,14 +2738,15 @@ zip_output: False</pre></p>
       
         
   
-<div id="fig_allele_table_around_cut_HDR_sg1" class="d-flex flex-column align-items-center mb-3">
+
+<div id="fig_allele_table_around_cut_HDR_sg1" class="d-flex flex-column align-items-center mb-3 w-100">
     
-        <a href="9.HDR.Alleles_frequency_table_around_dear.pdf">
-            <img src="9.HDR.Alleles_frequency_table_around_dear.png" width="100%">
-        </a>
+        
+        <div class="w-100" id="allele_table_9_HDR_Alleles_frequency_table_around_dear"></div>
+        <script type="text/javascript">const allele_table_9_HDR_Alleles_frequency_table_around_dear = {"plot_type": "allele_table", "reference": "GGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "total_alleles": 4, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA4uOVnJ3dwbBEEdn5xAQw9nR2THEGYTBMiEhIe7uILaSDglKDY10TPXMzXUMwLCkqDQ1VodGVhnpGOhZmoHtMdRJS8wppp1VhkCrTCx0TMCWYVjlTAOrkMIvFgCGlemurAEAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-105, -86], "name": "hi"}, {"interval": [2, 22], "name": "dear"}, {"interval": [1, 15], "name": ""}], "quantification_windows": [[-89, -88], [3, 4], [19, 20]]};</script>
     
     
-    <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
     
     
         <p class="m-0"><small>Data: <a href="HDR.Alleles_frequency_table_around_dear.txt">Allele frequency table</a></small></p>
@@ -2751,14 +2756,15 @@ zip_output: False</pre></p>
       
         
   
-<div id="fig_allele_table_around_cut_HDR_sg2" class="d-flex flex-column align-items-center mb-3">
+
+<div id="fig_allele_table_around_cut_HDR_sg2" class="d-flex flex-column align-items-center mb-3 w-100">
     
-        <a href="9.HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.pdf">
-            <img src="9.HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.png" width="100%">
-        </a>
+        
+        <div class="w-100" id="allele_table_9_HDR_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC"></div>
+        <script type="text/javascript">const allele_table_9_HDR_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC = {"plot_type": "allele_table", "reference": "GCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCA", "total_alleles": 6, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA4uOVnJ3dnZ3BxIhIe7Oju4hIDYIhjgChUAMZ0dnxxAgqaRDglJDQx1TPSNLHQMwLCkqTY3VgVjlTHWrdAz0TCzA9hjqpCXmFMOtch/6VpmALSNolTOVfIUaVTDtzjQIP6hNsQDjujQDgQIAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-89, -70], "name": "hi"}, {"interval": [18, 38], "name": "dear"}, {"interval": [17, 31], "name": ""}], "quantification_windows": [[-73, -72], [19, 20], [35, 36]]};</script>
     
     
-    <label class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</label>
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
     
     
         <p class="m-0"><small>Data: <a href="HDR.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt">Allele frequency table</a></small></p>
@@ -3666,7 +3672,773 @@ zip_output: False</pre></p>
     }, 100); // Delay of 100 ms to allow javascript to rerender loading message to dom before rendering D3 plot
 
 </script>
+<style>
+  /* Scoped to the widget so nothing here leaks into the rest of the report. */
+  .allele-viz {
+    /* chart roles -- resolved once here so the body is written against roles */
+    --allele-surface: #fcfcfb;
+    --allele-ink: #0b0b0b;
+    --allele-ink-2: #52514e;
+    --allele-muted: #898781;
+    --allele-hairline: #e1e0d9;
+    --allele-accent: #2a78d6;   /* single-hue magnitude bar */
+    position: relative;   /* the tooltip is positioned against this box */
+    text-align: left;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--allele-ink);
+    background: var(--allele-surface);
+    padding: 8px 4px 4px 4px;
+  }
+  .allele-viz .allele-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .allele-viz .allele-search {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+    min-width: 260px;
+    color: var(--allele-ink);
+    background: var(--allele-surface);
+    border: 1px solid var(--allele-hairline);
+    border-radius: 4px;
+  }
+  .allele-viz .allele-search:focus { outline: 2px solid var(--allele-accent); outline-offset: 1px; }
+  .allele-viz .allele-classes { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .allele-viz .allele-classes label {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--allele-ink-2);
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .allele-viz .allele-clear {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    color: var(--allele-ink-2);
+    background: var(--allele-surface);
+    border: 1px solid var(--allele-hairline);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .allele-viz .allele-status {
+    font-size: 0.75rem;
+    color: var(--allele-ink-2);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 4px;
+  }
+  /* plot column + legend column pinned to the right */
+  .allele-viz .allele-shell { display: flex; align-items: flex-start; gap: 12px; }
+  .allele-viz .allele-main { flex: 1 1 auto; min-width: 0; }
+  /* Legend mirrors figure 2b's (partials/batch_d3.html): the caption sits
+     inside its own color chip, stacked vertically and sticky beside the table. */
+  .allele-viz .allele-legend {
+    flex: 0 0 auto;
+    width: 12%;
+    min-width: 96px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .allele-viz .allele-legend-title { font-size: 0.9rem; margin: 0 0 4px; }
+  .allele-viz .allele-legend-chip {
+    width: 75%;
+    text-align: center;
+    font-size: 0.7rem;
+    line-height: 1.35;
+  }
+  /* 2b marks the quantification window with a dashed outline rather than a fill;
+     scoped here so it does not depend on batch_d3.html being on the page. */
+  .allele-viz .allele-legend-chip--qw {
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23D9D9D9FF' stroke-width='4' stroke-dasharray='6%2c14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  }
+  /* center the table when the container is wider than it is */
+  .allele-viz .allele-head > svg,
+  .allele-viz .allele-plot { margin-left: auto; margin-right: auto; }
+  .allele-viz .allele-head { overflow: hidden; }
+  .allele-viz .allele-body { overflow: auto; max-height: 60vh; }
+  .allele-viz .allele-empty,
+  .allele-viz .allele-error {
+    font-size: 0.8rem;
+    color: var(--allele-ink-2);
+    padding: 12px 4px;
+  }
+  .allele-viz .allele-error { color: #d03b3b; }
+  /* the sequence grid is one <canvas>: 200 rows x N nucleotides is tens of
+     thousands of marks, and rebuilding that many SVG nodes per keystroke is
+     what made filtering feel slow. The numeric columns stay SVG so their
+     tabular figures keep aligning and stay vector for print. */
+  .allele-viz .allele-plot { position: relative; }
+  .allele-viz .allele-canvas { position: absolute; left: 0; top: 0; }
+  .allele-viz .allele-cols {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;  /* the plot div owns hit-testing, via x/y math */
+  }
+  .allele-viz .allele-row-hover {
+    position: absolute;
+    left: 0;
+    background: rgba(11, 11, 11, 0.06);
+    pointer-events: none;
+    display: none;
+  }
+  .allele-viz .allele-tooltip {
+    position: absolute;
+    z-index: 10;
+    visibility: hidden;
+    pointer-events: none;
+    background: #fcfcfb;
+    border: 1px solid rgba(11, 11, 11, 0.10);
+    border-radius: 5px;
+    padding: 6px 8px;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 0.72rem;
+    color: #52514e;
+    box-shadow: 0 1px 4px rgba(11, 11, 11, 0.12);
+  }
+  .allele-viz .allele-tooltip .allele-tip-value {
+    color: #0b0b0b;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+</style>
 
+<script type="text/javascript">
+/* Pure search/filter helpers for the D3 allele frequency table.
+ *
+ * No D3, no DOM: this file is inlined into the report by allele_d3.html and
+ * required directly by allele_search_filter.test.js under node.
+ */
+
+var ALLELE_EDIT_CLASSES = ['insertion', 'deletion', 'substitution', 'unedited'];
+
+function ungapSequence(seq) {
+  return (seq || '').replace(/-/g, '');
+}
+
+/* Case-insensitive substring search against BOTH the gapped aligned sequence
+ * and its ungapped form, so a plain motif still matches across a deletion. */
+function alleleMatchesQuery(allele, query) {
+  if (query == null) return true;
+  var q = String(query).trim().toUpperCase();
+  if (q === '') return true;
+
+  var gapped = (allele.aligned_sequence || '').toUpperCase();
+  if (gapped.indexOf(q) !== -1) return true;
+
+  // ungapped_sequence is precomputed by decodeAlleles; recompute only as a fallback
+  var ungapped = allele.ungapped_sequence != null
+    ? allele.ungapped_sequence
+    : ungapSequence(allele.aligned_sequence);
+  return ungapped.toUpperCase().indexOf(q) !== -1;
+}
+
+/* OR within the selected classes; an empty selection filters nothing. */
+function alleleMatchesEditClasses(allele, editClasses) {
+  if (!editClasses) return true;
+  var selected = editClasses instanceof Set ? editClasses : new Set(editClasses);
+  if (selected.size === 0) return true;
+
+  if (selected.has('insertion') && allele.n_inserted > 0) return true;
+  if (selected.has('deletion') && allele.n_deleted > 0) return true;
+  if (selected.has('substitution') && allele.n_mutated > 0) return true;
+  if (selected.has('unedited') && !!allele.unedited) return true;
+  return false;
+}
+
+function filterAlleles(alleles, query, editClasses) {
+  return (alleles || []).filter(function (allele) {
+    return alleleMatchesQuery(allele, query) && alleleMatchesEditClasses(allele, editClasses);
+  });
+}
+
+function _base64ToBytes(b64) {
+  var binary = atob(b64);
+  var bytes = new Uint8Array(binary.length);
+  for (var i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return bytes;
+}
+
+/* base64 -> gzip -> row arrays -> objects keyed by payload.schema.
+ * Requires DecompressionStream (Chrome 80+, Firefox 113+, Safari 16.4+). */
+async function decodeAlleles(payload) {
+  var schema = payload.schema;
+  var stream = new DecompressionStream('gzip');
+  var writer = stream.writable.getWriter();
+  var swallow = function () { /* the read side below surfaces the real error */ };
+  writer.write(_base64ToBytes(payload.alleles_b64gz)).catch(swallow);
+  writer.close().catch(swallow);
+  var rows = JSON.parse(await new Response(stream.readable).text());
+
+  return rows.map(function (row) {
+    var allele = {};
+    for (var i = 0; i < schema.length; i++) {
+      allele[schema[i]] = row[i];
+    }
+    // precomputed once here -- doing this per keystroke is the one real hot spot
+    allele.ungapped_sequence = ungapSequence(allele.aligned_sequence);
+    return allele;
+  });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    ALLELE_EDIT_CLASSES: ALLELE_EDIT_CLASSES,
+    ungapSequence: ungapSequence,
+    alleleMatchesQuery: alleleMatchesQuery,
+    alleleMatchesEditClasses: alleleMatchesEditClasses,
+    filterAlleles: filterAlleles,
+    decodeAlleles: decodeAlleles,
+  };
+}
+
+  /* Searchable allele frequency table.
+   *
+   * Every piece of state lives in this closure, keyed to one slug, so multiple
+   * sgRNA windows on one report never share a search box or a filter set.
+   */
+  const buildAlleleTable = async (data, slug) => {
+    const K = 200;                 // rows rendered per filter pass
+    const DEBOUNCE_MS = 40;        // input -> re-render; enough to coalesce a fast typist's burst,
+                                   // low enough to feel live now the redraw is ~20ms, not ~190ms
+    const CELL_W = 10;
+    const CELL_H = 13;
+    const ROW_PITCH = 15;          // 2px surface gap between rows
+    const BAR_W = 64;
+    const BAR_H = 7;
+
+    const container = document.getElementById(slug);
+    if (!container) return;
+
+    const root = d3.select(container).classed("allele-viz", true);
+    root.html("");
+
+    // ---- palette ---------------------------------------------------------
+    // Nucleotide hues are domain-fixed (CRISPResso convention, overridable via
+    // --custom_colors) so the table matches every other figure in the report.
+    // They fail the categorical lightness/chroma checks, so identity never rests
+    // on hue alone: every edited cell carries its base letter and the legend and
+    // numeric columns are always on screen.
+    const fallbackColors = {
+      "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99",
+      "N": "#C8C8C8", "-": "#1E1E1E", "Insertion": "#008000",
+    };
+    const custom = data.custom_colors || {};
+    const color = {};
+    Object.keys(fallbackColors).forEach((key) => {
+      color[key] = custom[key] || fallbackColors[key];
+    });
+    const baseColor = (base) => color[base] || color["N"];
+
+    const inkOn = (hex) => {
+      const rgb = [1, 3, 5].map((i) => parseInt(hex.substr(i, 2), 16) / 255)
+        .map((c) => (c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)));
+      const lum = (0.2126 * rgb[0]) + (0.7152 * rgb[1]) + (0.0722 * rgb[2]);
+      return lum < 0.4 ? "#ffffff" : "#0b0b0b";
+    };
+
+    // The "matches reference" wash was fill-opacity 0.15. On canvas, per-mark
+    // alpha means a globalAlpha flip per cell -- a state change on every one of
+    // tens of thousands of marks. Pre-blending against the opaque surface gives
+    // a pixel-identical result with one cached fillStyle per base instead.
+    const SURFACE = (getComputedStyle(root.node())
+      .getPropertyValue("--allele-surface") || "").trim() || "#fcfcfb";
+    const mix = (hex, onto, t) => {
+      const parse = (h) => [1, 3, 5].map((i) => parseInt(h.substr(i, 2), 16));
+      const fg = parse(hex);
+      const bg = parse(onto);
+      return "#" + fg.map((v, i) => Math.round((v * t) + (bg[i] * (1 - t)))
+        .toString(16).padStart(2, "0")).join("");
+    };
+    const fadedCache = {};
+    const fadedColor = (base) => {
+      const hex = baseColor(base);
+      if (!(hex in fadedCache)) fadedCache[hex] = mix(hex, SURFACE, 0.15);
+      return fadedCache[hex];
+    };
+    const inkCache = {};
+    const inkOnCached = (hex) => {
+      if (!(hex in inkCache)) inkCache[hex] = inkOn(hex);
+      return inkCache[hex];
+    };
+
+    // ---- geometry --------------------------------------------------------
+    const reference = data.reference || "";
+    const seqLength = reference.length;
+    const seqW = seqLength * CELL_W;
+    const barX = seqW + 16;
+    const pctX = barX + BAR_W + 8;
+    const readsX = pctX + 68;      // right edge of the #Reads column
+    const totalW = readsX + 8;
+
+    const sgRNAs = (data.sgRNAs || []).filter(
+      (d) => d.interval && d.interval[1] >= 0 && d.interval[0] < seqLength,
+    );
+    // keep windows with at least one end inside the plotted slice; the draw
+    // below clamps the far edge so a window running off-window still reads
+    const quantWindows = (data.quantification_windows || []).filter(
+      (d) => d && d.length === 2 && d[1] >= 0 && d[0] < seqLength,
+    );
+    const tickH = 12;
+    const guideH = sgRNAs.length > 0 ? 12 : 0;
+    const headH = tickH + guideH + ROW_PITCH + 2;
+
+    // ---- chrome ----------------------------------------------------------
+    const shell = root.append("div").attr("class", "allele-shell");
+    const main = shell.append("div").attr("class", "allele-main");
+    const controls = main.append("div").attr("class", "allele-controls");
+    const status = main.append("div").attr("class", "allele-status").text("Loading alleles…");
+    const head = main.append("div").attr("class", "allele-head");
+    const body = main.append("div").attr("class", "allele-body");
+    const legend = shell.append("div").attr("class", "allele-legend");
+    // tooltip stays on root: it is positioned against that box, not the shell
+    const tooltip = root.append("div").attr("class", "allele-tooltip");
+    const tipHead = tooltip.append("div").attr("class", "allele-tip-value");
+    const tipBody = tooltip.append("div");
+
+    let alleles;
+    try {
+      alleles = await decodeAlleles(data);
+    } catch (err) {
+      console.error("Allele table decode failed for " + slug, err);
+      status.remove();
+      legend.remove();
+      head.remove();
+      body.remove();
+      root.append("div")
+        .attr("class", "allele-error")
+        .text(
+          "This allele table could not be decoded. It needs a browser with gzip "
+          + "DecompressionStream support (Chrome 80+, Firefox 113+, Safari 16.4+). "
+          + "The allele frequency data is still available in the linked data file below.",
+        );
+      controls.remove();
+      return;
+    }
+
+    // stable magnitude scale: the bar does not rescale when the filter changes
+    const maxPct = d3.max(alleles, (d) => d.pct) || 1;
+    const pctScale = d3.scaleLinear().domain([0, maxPct]).range([0, BAR_W]);
+
+    // ---- controls --------------------------------------------------------
+    const searchId = slug + "_query";
+    controls.append("label")
+      .attr("for", searchId)
+      .style("font-size", "0.75rem")
+      .style("font-weight", "400")
+      .style("margin", "0")
+      .style("color", "var(--allele-ink-2)")
+      .text("Search sequence");
+    const search = controls.append("input")
+      .attr("class", "allele-search")
+      .attr("type", "search")
+      .attr("id", searchId)
+      .attr("placeholder", "e.g. CTGCAGCACC");
+
+    const classBox = controls.append("div").attr("class", "allele-classes");
+    const classLabels = {
+      insertion: "Insertions", deletion: "Deletions",
+      substitution: "Substitutions", unedited: "Unedited",
+    };
+    const selectedClasses = new Set();
+    ALLELE_EDIT_CLASSES.forEach((cls) => {
+      const boxId = slug + "_class_" + cls;
+      const label = classBox.append("label").attr("for", boxId);
+      label.append("input")
+        .attr("type", "checkbox")
+        .attr("id", boxId)
+        .attr("value", cls)
+        .on("change", function () {
+          if (this.checked) {
+            selectedClasses.add(cls);
+          } else {
+            selectedClasses.delete(cls);
+          }
+          render();
+        });
+      label.append("span").text(classLabels[cls]);
+    });
+
+    controls.append("button")
+      .attr("class", "allele-clear")
+      .attr("type", "button")
+      .text("Clear")
+      .on("click", () => {
+        search.property("value", "");
+        selectedClasses.clear();
+        classBox.selectAll("input").property("checked", false);
+        render();
+      });
+
+    let debounceTimer = null;
+    search.on("input", () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(render, DEBOUNCE_MS);
+    });
+
+    // ---- legend ----------------------------------------------------------
+    // Each caption rides inside its own color chip, as figure 2b does. For a
+    // base the caption is just the letter; the rest spell the class out.
+    const legendItems = ["A", "C", "G", "T", "N"].map((base) => ({
+      label: base, fill: baseColor(base),
+    }));
+    legendItems.push({ label: "Deletion", fill: color["-"] });
+    legendItems.push({ label: "Insertion", fill: color["Insertion"] });
+    // The grid washes matched bases out; a pre-blended tint keeps the caption
+    // readable where a low opacity would have faded the text with it.
+    legendItems.push({ label: "Matches reference", fill: "#f0f0ee", muted: true });
+    if (quantWindows.length > 0) {
+      legendItems.push({ label: "Quantification Window", qw: true });
+    }
+
+    legend.append("h5").attr("class", "allele-legend-title").text("Legend");
+    legendItems.forEach((item) => {
+      const chip = legend.append("div")
+        .attr("class", "allele-legend-chip")
+        .classed("allele-legend-chip--qw", !!item.qw)
+        .text(item.label);
+      if (item.qw) return;
+      chip.style("background-color", item.fill)
+        .style("color", item.muted ? "var(--allele-ink-2)" : inkOn(item.fill));
+    });
+
+    // ---- header: position ruler, sgRNA band, reference row ---------------
+    const headSvg = head.append("svg")
+      .attr("width", totalW)
+      .attr("height", headH)
+      .style("display", "block")
+      .style("user-select", "none");
+
+    // position ruler -- carries the values a tooltip would otherwise gate
+    const tickStep = seqLength > 120 ? 20 : 10;
+    for (let i = 0; i < seqLength; i += tickStep) {
+      headSvg.append("text")
+        .attr("x", (i * CELL_W) + (CELL_W / 2))
+        .attr("y", 9)
+        .attr("text-anchor", "middle")
+        .style("font-size", "7px")
+        .style("font-variant-numeric", "tabular-nums")
+        .style("fill", "var(--allele-muted)")
+        .text(i + 1);
+    }
+    headSvg.append("text")
+      .attr("x", barX)
+      .attr("y", 9)
+      .style("font-size", "9px")
+      .style("fill", "var(--allele-muted)")
+      .text("%Reads");
+    headSvg.append("text")
+      .attr("x", readsX)
+      .attr("y", 9)
+      .attr("text-anchor", "end")
+      .style("font-size", "9px")
+      .style("fill", "var(--allele-muted)")
+      .text("#Reads");
+
+    if (sgRNAs.length > 0) {
+      const guides = headSvg.append("g").attr("transform", "translate(0," + tickH + ")");
+      sgRNAs.forEach((guide) => {
+        const start = Math.max(guide.interval[0], 0);
+        const end = Math.min(guide.interval[1], seqLength - 1);
+        const width = Math.max((end - start + 1) * CELL_W, CELL_W);
+        const guideGroup = guides.append("g");
+        guideGroup.append("rect")
+          .attr("x", start * CELL_W)
+          .attr("y", 0)
+          .attr("width", width)
+          .attr("height", 10)
+          .style("fill", "#D9D9D9");
+        guideGroup.append("text")
+          .attr("x", (start * CELL_W) + 3)
+          .attr("y", 8)
+          .style("font-size", "7px")
+          .style("fill", "var(--allele-ink-2)")
+          .text(guide.name ? guide.name : "sgRNA");
+      });
+    }
+
+    // reference row -- fully inked, and sticky above the scrolling rows, so a
+    // de-emphasized cell below is always readable against it
+    const refRow = headSvg.append("g")
+      .attr("transform", "translate(0," + (tickH + guideH) + ")");
+    for (let i = 0; i < seqLength; i++) {
+      const base = reference[i];
+      refRow.append("rect")
+        .attr("x", i * CELL_W)
+        .attr("y", 0)
+        .attr("width", CELL_W)
+        .attr("height", CELL_H)
+        .style("fill", baseColor(base));
+      refRow.append("text")
+        .attr("x", (i * CELL_W) + (CELL_W / 2))
+        .attr("y", CELL_H - 3)
+        .attr("text-anchor", "middle")
+        .style("font-family", "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace")
+        .style("font-size", "8px")
+        .style("fill", inkOn(baseColor(base)))
+        .text(base);
+    }
+    refRow.append("text")
+      .attr("x", barX)
+      .attr("y", CELL_H - 3)
+      .style("font-size", "8px")
+      .style("fill", "var(--allele-ink-2)")
+      .text("Reference");
+
+    /* Quantification window: bracket the columns it covers, drawn last so it
+       sits above the ruler, the guide band and the reference row. It lives in
+       the header because the header is built once and stays put while the rows
+       scroll -- the window applies to every row, so marking the columns is
+       enough, and it costs nothing on the filter path. */
+    headSvg.selectAll("rect.allele-qw")
+      .data(quantWindows)
+      .enter()
+      .append("rect")
+      .attr("class", "allele-qw")
+      .attr("x", (d) => Math.max(d[0], 0) * CELL_W)
+      .attr("y", 0.5)
+      .attr("width", (d) => (
+        (Math.min(d[1], seqLength - 1) - Math.max(d[0], 0) + 1) * CELL_W
+      ))
+      .attr("height", headH - 1)
+      .style("fill", "none")
+      .style("stroke", "#8a8880")
+      .style("stroke-dasharray", "4,3")
+      .style("stroke-width", 1);
+
+    // ---- body ------------------------------------------------------------
+    // canvas for the nucleotide grid, SVG for the numeric columns on top of it
+    const plot = body.append("div")
+      .attr("class", "allele-plot")
+      .style("width", totalW + "px");
+    const canvas = plot.append("canvas").attr("class", "allele-canvas").node();
+    const ctx = canvas.getContext("2d");
+    const colsSvg = plot.append("svg")
+      .attr("class", "allele-cols")
+      .attr("width", totalW)
+      .style("user-select", "none");
+    const rowHover = plot.append("div")
+      .attr("class", "allele-row-hover")
+      .style("width", totalW + "px")
+      .style("height", ROW_PITCH + "px");
+
+    // keep the sticky reference row aligned with the horizontally scrolled rows
+    body.node().addEventListener("scroll", () => {
+      head.node().scrollLeft = body.node().scrollLeft;
+    }, { passive: true });
+
+    const emptyState = main.append("div")
+      .attr("class", "allele-empty")
+      .style("display", "none")
+      .text("No alleles match your search.");
+
+    let shown = [];  // rows currently painted; hit-testing reads this
+
+    const showTip = function (allele, index, evt) {
+      const base = allele.aligned_sequence[index];
+      const refBase = (allele.reference_sequence || "")[index];
+      tipHead.text(allele.pct.toFixed(2) + "% · " + allele.reads.toLocaleString() + " reads");
+      tipBody.text(
+        "Position " + (index + 1) + " · allele " + base + " / reference "
+        + (refBase === undefined ? "?" : refBase)
+        + " · " + allele.n_inserted + "I " + allele.n_deleted + "D " + allele.n_mutated + "S",
+      );
+      const bounds = container.getBoundingClientRect();
+      tooltip
+        .style("left", (evt.clientX - bounds.left + 12) + "px")
+        .style("top", (evt.clientY - bounds.top + 12) + "px")
+        .style("visibility", "visible");
+    };
+    const hideTip = () => tooltip.style("visibility", "hidden");
+
+    /* The nucleotide grid: 200 rows x N bases. Painted, not appended -- the
+       whole point of the canvas. Marks are grouped into three passes so
+       fillStyle changes stay proportional to distinct colors, not to cells. */
+    const LETTER_FONT = '8px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    const paintGrid = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const cssH = Math.max(shown.length * ROW_PITCH, 1);
+      canvas.style.width = seqW + "px";
+      canvas.style.height = cssH + "px";
+      canvas.width = Math.round(seqW * dpr);
+      canvas.height = Math.round(cssH * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, seqW, cssH);
+      ctx.textBaseline = "alphabetic";
+
+      for (let r = 0; r < shown.length; r++) {
+        const allele = shown[r];
+        const seq = allele.aligned_sequence || "";
+        const ref = allele.reference_sequence || "";
+        const y = r * ROW_PITCH;
+
+        // 1. every cell; agreement with this allele's own reference recedes to
+        //    a wash so edits are the only loud thing in the row
+        for (let i = 0; i < seq.length; i++) {
+          const base = seq[i];
+          ctx.fillStyle = base === ref[i] ? fadedColor(base) : baseColor(base);
+          ctx.fillRect(i * CELL_W, y, CELL_W, CELL_H);
+        }
+
+        // 2. letters only where the allele differs -- matching bases are read
+        //    off the sticky reference row
+        ctx.font = LETTER_FONT;
+        ctx.textAlign = "center";
+        for (let i = 0; i < seq.length; i++) {
+          if (seq[i] === ref[i]) continue;
+          ctx.fillStyle = inkOnCached(baseColor(seq[i]));
+          ctx.fillText(seq[i], (i * CELL_W) + (CELL_W / 2), y + CELL_H - 3);
+        }
+
+        // 3. insertions carry a second channel: a rule in the insertion color
+        ctx.fillStyle = color["Insertion"];
+        for (let i = 0; i < seq.length; i++) {
+          if (ref[i] === "-" && seq[i] !== "-") {
+            ctx.fillRect(i * CELL_W, y + CELL_H - 2, CELL_W, 2);
+          }
+        }
+      }
+    };
+
+    /* The %Reads bar and the two numeric columns stay SVG: only 3 marks per
+       row, and they keep tabular figures and vector text for print. A keyed
+       update join reuses these nodes across renders instead of rebuilding. */
+    const paintColumns = () => {
+      colsSvg.attr("height", Math.max(shown.length * ROW_PITCH, 1));
+
+      const rows = colsSvg.selectAll("g.allele-row").data(shown);
+      rows.exit().remove();
+      const entered = rows.enter().append("g").attr("class", "allele-row");
+      entered.append("rect").attr("class", "allele-bar")
+        .attr("y", (CELL_H - BAR_H) / 2)
+        .attr("height", BAR_H)
+        .style("fill", "var(--allele-accent)");
+      entered.append("text").attr("class", "allele-pct")
+        .attr("y", CELL_H - 3)
+        .style("font-size", "9px")
+        .style("font-variant-numeric", "tabular-nums")
+        .style("fill", "var(--allele-ink)");
+      entered.append("text").attr("class", "allele-reads")
+        .attr("y", CELL_H - 3)
+        .attr("text-anchor", "end")
+        .style("font-size", "9px")
+        .style("font-variant-numeric", "tabular-nums")
+        .style("fill", "var(--allele-ink-2)");
+
+      const merged = entered.merge(rows)
+        .attr("transform", (d, i) => "translate(0," + (i * ROW_PITCH) + ")");
+
+      // magnitude: one hue, grown from a single baseline, rounded data-end
+      merged.select("rect.allele-bar")
+        .attr("x", barX)
+        .attr("width", (d) => Math.max(pctScale(d.pct), 1))
+        .attr("rx", (d) => (Math.max(pctScale(d.pct), 1) > 8 ? 2 : 0));
+      merged.select("text.allele-pct")
+        .attr("x", pctX)
+        .text((d) => d.pct.toFixed(2) + "%");
+      merged.select("text.allele-reads")
+        .attr("x", readsX)
+        .text((d) => d.reads.toLocaleString());
+    };
+
+    const render = () => {
+      const query = search.property("value");
+      const matches = filterAlleles(alleles, query, selectedClasses)
+        .slice()
+        .sort((a, b) => b.pct - a.pct);
+      shown = matches.slice(0, K);
+
+      status.text(matches.length > K
+        ? "Showing top " + K.toLocaleString() + " of " + matches.length.toLocaleString() + " matches."
+        : "Showing " + matches.length.toLocaleString() + " allele" + (matches.length === 1 ? "" : "s") + ".");
+      emptyState.style("display", matches.length === 0 ? "block" : "none");
+
+      hideTip();
+      rowHover.style("display", "none");
+      plot.style("height", Math.max(shown.length * ROW_PITCH, 1) + "px");
+      paintGrid();
+      paintColumns();
+    };
+
+    // one listener for the whole plot: row comes from y, column from x
+    plot.node().addEventListener("mousemove", (evt) => {
+      const bounds = plot.node().getBoundingClientRect();
+      const rowIndex = Math.floor((evt.clientY - bounds.top) / ROW_PITCH);
+      if (rowIndex < 0 || rowIndex >= shown.length) {
+        hideTip();
+        rowHover.style("display", "none");
+        return;
+      }
+      rowHover.style("display", "block").style("top", ((rowIndex * ROW_PITCH) - 1) + "px");
+
+      const allele = shown[rowIndex];
+      const index = Math.floor((evt.clientX - bounds.left) / CELL_W);
+      if (index < 0 || index >= (allele.aligned_sequence || "").length) {
+        hideTip();
+        return;
+      }
+      showTip(allele, index, evt);
+    });
+    plot.node().addEventListener("mouseleave", () => {
+      hideTip();
+      rowHover.style("display", "none");
+    });
+
+    render();
+  };
+
+  setTimeout(async () => {
+    
+    if (document.getElementById("allele_table_9_FANC_Alleles_frequency_table_around_hi") && typeof allele_table_9_FANC_Alleles_frequency_table_around_hi !== "undefined") {
+      await buildAlleleTable(allele_table_9_FANC_Alleles_frequency_table_around_hi, "allele_table_9_FANC_Alleles_frequency_table_around_hi")
+    } else {
+      console.warn("Skipping missing allele table payload or container: allele_table_9_FANC_Alleles_frequency_table_around_hi")
+    }
+    
+    if (document.getElementById("allele_table_9_FANC_Alleles_frequency_table_around_dear") && typeof allele_table_9_FANC_Alleles_frequency_table_around_dear !== "undefined") {
+      await buildAlleleTable(allele_table_9_FANC_Alleles_frequency_table_around_dear, "allele_table_9_FANC_Alleles_frequency_table_around_dear")
+    } else {
+      console.warn("Skipping missing allele table payload or container: allele_table_9_FANC_Alleles_frequency_table_around_dear")
+    }
+    
+    if (document.getElementById("allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC") && typeof allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC !== "undefined") {
+      await buildAlleleTable(allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC, "allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC")
+    } else {
+      console.warn("Skipping missing allele table payload or container: allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC")
+    }
+    
+    if (document.getElementById("allele_table_9_HDR_Alleles_frequency_table_around_hi") && typeof allele_table_9_HDR_Alleles_frequency_table_around_hi !== "undefined") {
+      await buildAlleleTable(allele_table_9_HDR_Alleles_frequency_table_around_hi, "allele_table_9_HDR_Alleles_frequency_table_around_hi")
+    } else {
+      console.warn("Skipping missing allele table payload or container: allele_table_9_HDR_Alleles_frequency_table_around_hi")
+    }
+    
+    if (document.getElementById("allele_table_9_HDR_Alleles_frequency_table_around_dear") && typeof allele_table_9_HDR_Alleles_frequency_table_around_dear !== "undefined") {
+      await buildAlleleTable(allele_table_9_HDR_Alleles_frequency_table_around_dear, "allele_table_9_HDR_Alleles_frequency_table_around_dear")
+    } else {
+      console.warn("Skipping missing allele table payload or container: allele_table_9_HDR_Alleles_frequency_table_around_dear")
+    }
+    
+    if (document.getElementById("allele_table_9_HDR_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC") && typeof allele_table_9_HDR_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC !== "undefined") {
+      await buildAlleleTable(allele_table_9_HDR_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC, "allele_table_9_HDR_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC")
+    } else {
+      console.warn("Skipping missing allele table payload or container: allele_table_9_HDR_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC")
+    }
+    
+  }, 100); // let the browser paint the loading state before the first D3 render
+</script>
 
 
       
