@@ -203,3 +203,6 @@ cli_integration_tests/CRISPResso_on_pro-subset-plots*
 .worktrees/
 
 cli_integration_tests/CRISPResso_on_params-deletions*
+
+# benchmark framework
+benchmark/

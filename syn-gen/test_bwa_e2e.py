@@ -96,6 +96,37 @@ class TestNHEJVerification:
             + "\n".join(f"  {f.read_name}: {f.mismatches}" for f in result.failures[:5])
         )
 
+    def test_nhej_large_deletions(self, temp_dir, bwa_available):
+        """Verify large deletions are correctly detected by BWA."""
+        output_prefix = os.path.join(temp_dir, "nhej_large_del")
+
+        generate_synthetic_data(
+            amplicon=TEST_AMPLICON,
+            guide=TEST_GUIDE,
+            num_reads=50,
+            edit_rate=1.0,
+            error_rate=0.0,
+            output_prefix=output_prefix,
+            seed=42,
+            quiet=True,
+            mode='nhej',
+            deletion_weight=1.0,
+            deletion_min_size=100,
+            deletion_max_size=150,
+        )
+
+        result = verify_reads_with_bwa(
+            amplicon=TEST_AMPLICON,
+            fastq_path=f"{output_prefix}.fastq",
+            edits_tsv_path=f"{output_prefix}_edits.tsv",
+            temp_dir=temp_dir,
+        )
+
+        assert result.all_passed, (
+            f"Failed {result.failed_reads}/{result.total_reads} reads:\n"
+            + "\n".join(f"  {f.read_name}: {f.mismatches}" for f in result.failures[:5])
+        )
+
 
 class TestBaseEditingVerification:
     """BWA verification tests for base editing."""

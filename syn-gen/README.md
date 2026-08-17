@@ -46,7 +46,12 @@ python syn_gen.py \
 | `-g, --guide` | required* | Guide/sgRNA sequence without PAM (*required if amplicon provided) |
 | `--amplicon-name` | AMPLICON | Name for output files (VCF CHROM field) |
 | `-n, --num-reads` | 10000 | Number of reads to generate |
-| `-e, --edit-rate` | 0.3 | Fraction of reads with NHEJ edits (0.0-1.0) |
+| `-e, --edit-rate` | 0.3 | Fraction of reads with edits (0.0-1.0) |
+| `--deletion-weight` | 0.75 | Probability of deletion vs insertion in NHEJ mode |
+| `--deletion-min-size` | 1 | Minimum deletion size in NHEJ mode |
+| `--deletion-max-size` | 50 | Maximum deletion size in NHEJ mode |
+| `--insertion-min-size` | 1 | Minimum insertion size in NHEJ mode |
+| `--insertion-max-size` | 10 | Maximum insertion size in NHEJ mode |
 | `--error-rate` | 0.001 | Per-base sequencing error rate |
 | `--read-length` | full | Read length (default: full amplicon) |
 | `--cleavage-offset` | -3 | Cut site offset from 3' end of guide |
@@ -83,10 +88,27 @@ FANC    87   .   AGCA  A    .     PASS    AF=0.150  GT      .
 ## Edit Distribution
 
 NHEJ edits follow a realistic distribution:
-- **75% deletions**, 25% insertions
-- Deletion sizes: geometric distribution (mode 1-3bp, up to 50bp)
-- Insertion sizes: geometric distribution (mode 1bp, up to 10bp)
+- **75% deletions**, 25% insertions by default
+- Deletion sizes: shifted geometric distribution (default 1-50bp, configurable with `--deletion-min-size/--deletion-max-size`)
+- Insertion sizes: shifted geometric distribution (default 1-10bp, configurable with `--insertion-min-size/--insertion-max-size`)
 - Position: centered at cut site ±2bp jitter
+
+### Large deletion example
+
+For long-read simulations with 100-1000bp deletions:
+
+```bash
+python syn_gen.py \
+    --amplicon <LONG_AMPLICON> \
+    --guide <GUIDE> \
+    --num-reads 1000 \
+    --edit-rate 0.5 \
+    --deletion-weight 1.0 \
+    --deletion-min-size 100 \
+    --deletion-max-size 1000 \
+    --seed 42 \
+    --output-prefix long_read_large_del
+```
 
 ## Testing
 

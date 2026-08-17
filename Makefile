@@ -13,7 +13,10 @@
 	params-big-code params-multi-code params-medium params-small params-multiple-codes \
 	code-tests stress web_ui \
 	syn-gen-test syn-gen-e2e syn-gen-all \
-	pytest pytest-coverage pytest-test coverage-report coverage-clean
+	pytest pytest-coverage pytest-test coverage-report coverage-clean \
+	benchmark-list benchmark-smoke benchmark-smoke-frozen benchmark-generate \
+	benchmark-run benchmark-compare benchmark-report benchmark-sweep \
+	benchmark-threshold benchmark-replay-failures
 
 CRISPRESSO2_DIR ?= ../CRISPResso2
 CRISPRESSOPRO_DIR ?= ../CRISPRessoPro
@@ -456,3 +459,34 @@ coverage-report:
 coverage-clean:
 	$(PIXI) coverage erase
 	rm -rf htmlcov/
+
+# ── benchmark framework ───────────────────────────────────────────────
+benchmark-list:
+	$(PIXI) python benchmark/benchmark.py list
+
+benchmark-smoke:
+	$(PIXI) python benchmark/benchmark.py execute --tier smoke
+
+benchmark-smoke-frozen:
+	$(PIXI) python benchmark/benchmark.py execute --tier smoke --use-frozen-output
+
+benchmark-generate:
+	$(PIXI) python benchmark/benchmark.py generate $(if $(SCENARIO),--scenario $(SCENARIO),) $(if $(TIER),--tier $(TIER),) $(if $(FAMILY),--family $(FAMILY),)
+
+benchmark-run:
+	$(PIXI) python benchmark/benchmark.py run $(if $(SCENARIO),--scenario $(SCENARIO),) $(if $(TIER),--tier $(TIER),) $(if $(FAMILY),--family $(FAMILY),) $(if $(FROZEN),--use-frozen-output,)
+
+benchmark-compare:
+	$(PIXI) python benchmark/benchmark.py compare $(if $(SCENARIO),--scenario $(SCENARIO),) $(if $(TIER),--tier $(TIER),) $(if $(FAMILY),--family $(FAMILY),) $(if $(FROZEN),--use-frozen-output,)
+
+benchmark-report:
+	$(PIXI) python benchmark/benchmark.py report $(if $(RUN_ID),--run-id $(RUN_ID),)
+
+benchmark-sweep:
+	$(PIXI) python benchmark/benchmark.py sweep --family $(FAMILY) $(if $(RUN_ID),--run-id $(RUN_ID),)
+
+benchmark-threshold:
+	$(PIXI) python benchmark/benchmark.py threshold-search --family $(FAMILY) $(if $(RUN_ID),--run-id $(RUN_ID),)
+
+benchmark-replay-failures:
+	$(PIXI) python benchmark/benchmark.py replay-failures $(if $(RUN_ID),--source-run-id $(RUN_ID),) $(if $(FROZEN),--use-frozen-output,)

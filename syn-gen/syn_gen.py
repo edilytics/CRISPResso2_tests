@@ -205,26 +205,26 @@ def calculate_cut_site(
 # Edit Generation
 # =============================================================================
 
-def sample_deletion_size(max_size: int = 50) -> int:
+def sample_deletion_size(min_size: int = 1, max_size: int = 50) -> int:
     """
     Sample deletion size from realistic distribution.
 
-    Uses geometric distribution with p=0.2 (mean ~5, mode 1).
+    Uses a shifted geometric distribution with p=0.2 (mode at min_size).
     """
-    # Geometric distribution: mode at 1, long tail
-    size = 1
+    size = min_size
     while random.random() > 0.2 and size < max_size:
         size += 1
     return size
 
 
-def sample_insertion_size(max_size: int = 10) -> int:
+def sample_insertion_size(min_size: int = 1, max_size: int = 10) -> int:
     """
     Sample insertion size from realistic distribution.
 
     Insertions are typically small (1-3bp).
+    Uses a shifted geometric distribution with p=0.5 (mode at min_size).
     """
-    size = 1
+    size = min_size
     while random.random() > 0.5 and size < max_size:
         size += 1
     return size
@@ -233,7 +233,11 @@ def sample_insertion_size(max_size: int = 10) -> int:
 def generate_edit(
     cut_site: int,
     amplicon: str,
-    deletion_weight: float = 0.75
+    deletion_weight: float = 0.75,
+    deletion_min_size: int = 1,
+    deletion_max_size: int = 50,
+    insertion_min_size: int = 1,
+    insertion_max_size: int = 10,
 ) -> Edit:
     """
     Generate a realistic NHEJ edit at the cut site.
@@ -242,6 +246,10 @@ def generate_edit(
         cut_site: Position of cut site in amplicon
         amplicon: Reference amplicon sequence
         deletion_weight: Probability of deletion vs insertion (default 0.75)
+        deletion_min_size: Minimum deletion size to sample
+        deletion_max_size: Maximum deletion size to sample
+        insertion_min_size: Minimum insertion size to sample
+        insertion_max_size: Maximum insertion size to sample
 
     Returns:
         Edit object describing the edit
@@ -251,8 +259,12 @@ def generate_edit(
     position = max(0, min(cut_site + jitter, len(amplicon) - 1))
 
     if random.random() < deletion_weight:
-        # Generate deletion
-        size = sample_deletion_size()
+        # Generate deletion. Clip to available reference sequence if the sampled
+        # deletion extends beyond the amplicon end.
+        size = sample_deletion_size(
+            min_size=deletion_min_size,
+            max_size=deletion_max_size,
+        )
         end_pos = min(position + size, len(amplicon))
         actual_size = end_pos - position
 
@@ -265,7 +277,10 @@ def generate_edit(
         )
     else:
         # Generate insertion
-        size = sample_insertion_size()
+        size = sample_insertion_size(
+            min_size=insertion_min_size,
+            max_size=insertion_max_size,
+        )
         inserted_seq = generate_random_sequence(size)
 
         return Edit.single(
@@ -942,6 +957,10 @@ def generate_synthetic_data(
     seed: Optional[int] = None,
     cleavage_offset: int = -3,
     deletion_weight: float = 0.75,
+    deletion_min_size: int = 1,
+    deletion_max_size: int = 50,
+    insertion_min_size: int = 1,
+    insertion_max_size: int = 10,
     quiet: bool = False,
     # Mode and base editing parameters
     mode: str = 'nhej',
@@ -963,6 +982,11 @@ def generate_synthetic_data(
 
     Args:
         mode: Editing mode - 'nhej' (deletions/insertions), 'base-edit' (CBE/ABE), or 'prime-edit'
+        deletion_weight: Probability of deletion vs insertion in NHEJ mode
+        deletion_min_size: Minimum deletion size to sample in NHEJ mode
+        deletion_max_size: Maximum deletion size to sample in NHEJ mode
+        insertion_min_size: Minimum insertion size to sample in NHEJ mode
+        insertion_max_size: Maximum insertion size to sample in NHEJ mode
         base_editor: Type of base editor ('CBE' or 'ABE') for base-edit mode
         window_center: Center of activity window (position from PAM-distal end)
         window_sigma: Spread of activity window (std dev)
@@ -1032,7 +1056,15 @@ def generate_synthetic_data(
                     edit = left_align_edit(amplicon, edit)
 
             else:
-                edit = generate_edit(cut_site, amplicon)
+                edit = generate_edit(
+                    cut_site,
+                    amplicon,
+                    deletion_weight=deletion_weight,
+                    deletion_min_size=deletion_min_size,
+                    deletion_max_size=deletion_max_size,
+                    insertion_min_size=insertion_min_size,
+                    insertion_max_size=insertion_max_size,
+                )
                 edit = left_align_edit(amplicon, edit)
 
             seq = edit.apply(amplicon)
@@ -1112,6 +1144,8 @@ def generate_synthetic_data(
             else:
                 print(f'  - Deletions:   {deletion_count} ({100 * deletion_count / edited_count:.2f}% of edits)')
                 print(f'  - Insertions:  {insertion_count} ({100 * insertion_count / edited_count:.2f}% of edits)')
+                print(f'  - Del size:    {deletion_min_size}-{deletion_max_size} bp configured')
+                print(f'  - Ins size:    {insertion_min_size}-{insertion_max_size} bp configured')
         print()
         print('Output files:')
         print(f'  FASTQ:   {fastq_path}')
@@ -1136,7 +1170,12 @@ def validate_inputs(
     amplicon: str,
     guide: str,
     edit_rate: float,
-    error_rate: float
+    error_rate: float,
+    deletion_weight: float = 0.75,
+    deletion_min_size: int = 1,
+    deletion_max_size: int = 50,
+    insertion_min_size: int = 1,
+    insertion_max_size: int = 10,
 ) -> None:
     """Validate all inputs before generation."""
     validate_sequence(amplicon, 'Amplicon', 'ACGTN')
@@ -1147,6 +1186,23 @@ def validate_inputs(
 
     if not 0.0 <= error_rate <= 1.0:
         raise ValueError(f"error_rate must be between 0 and 1, got {error_rate}")
+
+    if not 0.0 <= deletion_weight <= 1.0:
+        raise ValueError(f"deletion_weight must be between 0 and 1, got {deletion_weight}")
+
+    if deletion_min_size < 1:
+        raise ValueError(f"deletion_min_size must be >= 1, got {deletion_min_size}")
+    if deletion_max_size < deletion_min_size:
+        raise ValueError(
+            f"deletion_max_size must be >= deletion_min_size, got {deletion_max_size} < {deletion_min_size}"
+        )
+
+    if insertion_min_size < 1:
+        raise ValueError(f"insertion_min_size must be >= 1, got {insertion_min_size}")
+    if insertion_max_size < insertion_min_size:
+        raise ValueError(
+            f"insertion_max_size must be >= insertion_min_size, got {insertion_max_size} < {insertion_min_size}"
+        )
 
     if len(guide) < 10:
         warnings.warn(f"Guide length {len(guide)} is unusually short (typical: 17-23bp)")
@@ -1204,13 +1260,37 @@ def create_parser() -> argparse.ArgumentParser:
         '-e', '--edit-rate',
         type=float,
         default=0.3,
-        help='Fraction of reads with NHEJ edits (0.0-1.0)'
+        help='Fraction of reads with edits (0.0-1.0)'
     )
     gen_group.add_argument(
         '--deletion-weight',
         type=float,
         default=0.75,
         help='Probability of deletion vs insertion for edits (0.0=insertions only, 1.0=deletions only)'
+    )
+    gen_group.add_argument(
+        '--deletion-min-size',
+        type=int,
+        default=1,
+        help='Minimum deletion size to sample in NHEJ mode'
+    )
+    gen_group.add_argument(
+        '--deletion-max-size',
+        type=int,
+        default=50,
+        help='Maximum deletion size to sample in NHEJ mode'
+    )
+    gen_group.add_argument(
+        '--insertion-min-size',
+        type=int,
+        default=1,
+        help='Minimum insertion size to sample in NHEJ mode'
+    )
+    gen_group.add_argument(
+        '--insertion-max-size',
+        type=int,
+        default=10,
+        help='Maximum insertion size to sample in NHEJ mode'
     )
     gen_group.add_argument(
         '--error-rate',
@@ -1375,7 +1455,17 @@ def main() -> int:
 
     # Validate inputs
     try:
-        validate_inputs(amplicon, guide, args.edit_rate, args.error_rate)
+        validate_inputs(
+            amplicon,
+            guide,
+            args.edit_rate,
+            args.error_rate,
+            deletion_weight=args.deletion_weight,
+            deletion_min_size=args.deletion_min_size,
+            deletion_max_size=args.deletion_max_size,
+            insertion_min_size=args.insertion_min_size,
+            insertion_max_size=args.insertion_max_size,
+        )
     except ValueError as e:
         print(f'Error: {e}', file=sys.stderr)
         return 1
@@ -1394,6 +1484,10 @@ def main() -> int:
             seed=args.seed,
             cleavage_offset=args.cleavage_offset,
             deletion_weight=args.deletion_weight,
+            deletion_min_size=args.deletion_min_size,
+            deletion_max_size=args.deletion_max_size,
+            insertion_min_size=args.insertion_min_size,
+            insertion_max_size=args.insertion_max_size,
             quiet=args.quiet,
             # Mode and base editing parameters
             mode=args.mode,

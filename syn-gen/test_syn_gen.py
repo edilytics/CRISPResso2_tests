@@ -269,6 +269,18 @@ class TestAggregateEditsToVariants:
         assert len(variants) == 1
         assert abs(variants[0].af - 2/3) < 0.001
 
+    def test_large_deletion_vcf_representation(self):
+        amplicon = 'A' * 300
+        edit = Edit.single('deletion', 100, 120, amplicon[100:220], '')
+        reads = [EditedRead(FastqRead('r1', '', ''), edit)]
+
+        variants = aggregate_edits_to_variants(reads, amplicon, 'TEST')
+
+        assert len(variants) == 1
+        assert variants[0].pos == 100
+        assert len(variants[0].ref) == 121
+        assert variants[0].alt == 'A'
+
 
 class TestValidateInputs:
     def test_valid_inputs(self):
@@ -294,6 +306,18 @@ class TestValidateInputs:
     def test_error_rate_too_high(self):
         with pytest.raises(ValueError, match='error_rate must be between'):
             validate_inputs('ACGT', 'ACGT', 0.5, 2.0)
+
+    def test_invalid_deletion_weight(self):
+        with pytest.raises(ValueError, match='deletion_weight must be between'):
+            validate_inputs('ACGT', 'ACGT', 0.5, 0.001, deletion_weight=1.5)
+
+    def test_invalid_deletion_size_range(self):
+        with pytest.raises(ValueError, match='deletion_max_size must be >= deletion_min_size'):
+            validate_inputs('ACGT', 'ACGT', 0.5, 0.001, deletion_min_size=100, deletion_max_size=10)
+
+    def test_invalid_insertion_size_range(self):
+        with pytest.raises(ValueError, match='insertion_max_size must be >= insertion_min_size'):
+            validate_inputs('ACGT', 'ACGT', 0.5, 0.001, insertion_min_size=5, insertion_max_size=2)
 
 
 class TestGenerateSyntheticData:
@@ -388,6 +412,42 @@ class TestGenerateSyntheticData:
 
             assert stats['edited_reads'] == 100
             assert stats['unedited_reads'] == 0
+
+    def test_large_deletion_parameters_generate_long_deletions(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            prefix = os.path.join(tmpdir, 'long_del')
+            amplicon = ('ACGT' * 400) + 'GGAATCCCTTCTGCAGCACC' + ('TGCA' * 400)
+            guide = 'GGAATCCCTTCTGCAGCACC'
+
+            stats = generate_synthetic_data(
+                amplicon=amplicon,
+                guide=guide,
+                num_reads=50,
+                edit_rate=1.0,
+                error_rate=0.0,
+                output_prefix=prefix,
+                seed=42,
+                quiet=True,
+                deletion_weight=1.0,
+                deletion_min_size=100,
+                deletion_max_size=200,
+            )
+
+            assert stats['deletions'] == 50
+            assert stats['insertions'] == 0
+
+            with open(f'{prefix}_edits.tsv') as f:
+                lines = f.readlines()[1:]
+
+            sizes = []
+            for line in lines:
+                parts = line.strip().split('\t')
+                assert parts[1] == 'deletion'
+                sizes.append(int(parts[3]))
+
+            assert sizes
+            assert min(sizes) >= 100
+            assert max(sizes) <= 200
 
 
 # =============================================================================
@@ -653,6 +713,14 @@ class TestSampleEditSizeProperties:
 
     @given(st.randoms())
     @settings(max_examples=200)
+    def test_deletion_size_respects_minimum(self, _):
+        """Deletion size respects minimum bound."""
+        min_size = 100
+        size = sample_deletion_size(min_size=min_size, max_size=200)
+        assert size >= min_size
+
+    @given(st.randoms())
+    @settings(max_examples=200)
     def test_insertion_size_positive(self, _):
         """Insertion size is always positive."""
         size = sample_insertion_size()
@@ -665,6 +733,14 @@ class TestSampleEditSizeProperties:
         max_size = 10
         size = sample_insertion_size(max_size=max_size)
         assert size <= max_size
+
+    @given(st.randoms())
+    @settings(max_examples=200)
+    def test_insertion_size_respects_minimum(self, _):
+        """Insertion size respects minimum bound."""
+        min_size = 4
+        size = sample_insertion_size(min_size=min_size, max_size=10)
+        assert size >= min_size
 
 
 class TestGenerateEditProperties:
@@ -732,6 +808,23 @@ class TestGenerateEditProperties:
         assert edit.original_seq == ['']
         assert len(edit.edited_seq[0]) == edit.size[0]
         assert set(edit.edited_seq[0]).issubset({'A', 'C', 'G', 'T'})
+
+    def test_large_deletion_respects_configured_bounds(self):
+        """Large deletions can be requested explicitly."""
+        amplicon = 'ACGT' * 400
+        cut_site = 200
+
+        edit = generate_edit(
+            cut_site,
+            amplicon,
+            deletion_weight=1.0,
+            deletion_min_size=100,
+            deletion_max_size=200,
+        )
+
+        assert edit.edit_type == 'deletion'
+        assert 100 <= edit.size[0] <= 200
+        assert len(edit.original_seq[0]) == edit.size[0]
 
 
 class TestGenerateSyntheticDataProperties:
