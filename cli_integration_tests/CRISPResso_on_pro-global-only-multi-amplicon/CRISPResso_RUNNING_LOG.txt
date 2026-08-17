@@ -1,0 +1,48 @@
+CRISPResso version 2.3.4
+[Command used]:
+/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/Both.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG,GGAAACGCCCATGCAATTAGTCTATTTCTGCTGCAAGTAAGCATGCATTTGTAGGCTTGATGCTTTTTTTCTGCTTCTCCAGCCCTGGCCTGGGTCAATCCTTGGGGCCCAGACTGAGCACGTGATGGCAGAGGAAAGGAAGCCCTGCTTCCTCCAGAGGGCGTCGCAGGACAGCTTTTCCTAGACAGGGGCTAGTATGTGCAGCTCCTGCACCGGGATACTGGTTGACAAG -n pro-global-only-multi-amplicon --config_file inputs/smoke_single_plot_config.json --place_report_in_output_folder --halt_on_plot_fail --debug
+
+[Execution log]:
+CRISPRessoPro v0.0.3 installed
+Computing quantification windows
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Added 0 guides with flexible matching
+	Original flexiguides: ['None']
+	Found guides: []
+	Mismatch locations: []
+Counting reads in input
+Counting reads after preprocessing...
+Aligning sequences...
+Finished reading fastq file; 441 unique reads found of 500 total reads found 
+Processing Reads; 0 Completed out of 441 Unique Reads
+Finished reads; N_TOT_READS: 500 N_COMPUTED_ALN: 421 N_CACHED_ALN: 59 N_COMPUTED_NOTALN: 20 N_CACHED_NOTALN: 0
+Done!
+Quantifying indels/substitutions...
+Done!
+Calculating allele frequencies...
+Done!
+Saving processed data...
+Making Plots...
+Config does not contain the guardrails key. Defaulting all values.
+Config does not contain the colors key. Defaulting all values.
+Done!
+Removing Intermediate files...
+Low number of total reads: <10000. Total reads: 500.
+Disproportionate percentages of reads were aligned to amplicon: Reference, Percent of aligned reads aligned to this amplicon: 47.0%.
+Disproportionate percentages of reads were aligned to amplicon: Amplicon1, Percent of aligned reads aligned to this amplicon: 49.0%.
+>=1.0% of reads have modifications at the start or end. Total reads: 480, Irregular reads: 480.
+>=0.2% of substitutions were outside of the quantification window. Total substitutions: 470, Substitutions outside window: 60.
+Pro report written to CRISPResso_on_pro-global-only-multi-amplicon/CRISPResso2_report.html
+                                                                               
+                                        _                                      
+                                       '  )                                    
+                                       .-'                                     
+                                      (____                                    
+                                   C)|     \                                   
+                                     \     /                                   
+                                      \___/                                    
+
+Analysis Complete!
