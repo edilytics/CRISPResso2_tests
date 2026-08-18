@@ -1,4 +1,5 @@
 import argparse
+import base64
 import json
 import os
 import re
@@ -60,6 +61,7 @@ PDF_DIFF_MAX_LINES = 100
 # Filtered from PDF text comparison because tick intervals depend on font
 # metrics which differ between macOS and Linux.
 NUMERIC_TICK_REGEXP = re.compile(r'^-?\d[\d,]*\.?\d*$')
+ALLELES_B64GZ_REGEXP = re.compile(r'("alleles_b64gz":\s*")([A-Za-z0-9+/=]+)(")')
 
 
 def which(program):
@@ -101,6 +103,28 @@ def round_float(f):
     return str(round(float(f.group(0)), 3))
 
 
+def _normalize_alleles_b64gz(match):
+    """Normalize platform-dependent gzip header bytes in allele-table payloads.
+
+    CRISPRessoPro embeds gzipped+base64 JSON in HTML reports. The decompressed
+    JSON is identical across platforms, but the gzip OS byte can differ by
+    Python/zlib build (for example macOS vs Linux), which should not count as a
+    real integration-test diff.
+    """
+    try:
+        raw = bytearray(base64.b64decode(match.group(2)))
+    except Exception:
+        return match.group(0)
+
+    # Standard gzip header is 10 bytes; byte 9 (0-based) is the OS field.
+    if len(raw) >= 10 and raw[:3] == b'\x1f\x8b\x08':
+        raw[9] = 255
+
+    normalized = base64.b64encode(raw).decode('ascii')
+    return f'{match.group(1)}{normalized}{match.group(3)}'
+
+
+
 def substitute_line(line):
     """Substitute floats and datetimes in a line
 
@@ -122,6 +146,7 @@ def substitute_line(line):
     line = OUTPUT_REGEXP.sub('CRISPResso2_tests/cli_integration_tests/CRISPResso', line)
     line = SAM_HEADER_BOWTIE_VERSION_REGEXP.sub(r'@PG\tID:bowtie2\tPN:bowtie2\tVN:2.5.4\tCL:bowtie2-align-s <parameters>', line)
     line = SAM_HEADER_REGEXP.sub(r'@HD\tVN:1.0\tSO:unsorted', line)
+    line = ALLELES_B64GZ_REGEXP.sub(_normalize_alleles_b64gz, line)
     return line
 
 

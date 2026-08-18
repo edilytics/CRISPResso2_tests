@@ -7,6 +7,7 @@ don't cause false failures.
 Run with:
     pytest test_diff.py -v
 """
+import base64
 import textwrap
 from argparse import Namespace
 from pathlib import Path
@@ -161,6 +162,25 @@ class TestSubstituteLine:
         assert "0.988" in result
         assert "2024-01-11 12:34:56" in result
 
+    def test_alleles_b64gz_os_byte_normalization(self):
+        payload = bytearray(base64.b64decode("H4sIAAAAAAACE4uOBQApu0wNAgAAAA=="))
+        linux_payload = payload[:]
+        mac_payload = payload[:]
+        linux_payload[9] = 3
+        mac_payload[9] = 19
+        linux_line = (
+            '"alleles_b64gz": "'
+            + base64.b64encode(linux_payload).decode('ascii')
+            + '"'
+        )
+        mac_line = (
+            '"alleles_b64gz": "'
+            + base64.b64encode(mac_payload).decode('ascii')
+            + '"'
+        )
+
+        assert substitute_line(linux_line) == substitute_line(mac_line)
+
 
 # ═══════════════════════════════════════════════════════════════════════════
 # diff (text file comparison)
@@ -207,6 +227,27 @@ class TestDiff:
         make_file(tmp_path, "b.txt", "GCTAGCTA\n")
         result = diff_text(tmp_path / "a.txt", tmp_path / "b.txt")
         assert len(result) > 0
+
+    def test_alleles_b64gz_os_byte_difference_is_ignored(self, tmp_path):
+        payload = bytearray(base64.b64decode("H4sIAAAAAAACE4uOBQApu0wNAgAAAA=="))
+        linux_payload = payload[:]
+        mac_payload = payload[:]
+        linux_payload[9] = 3
+        mac_payload[9] = 19
+        linux_line = (
+            '<script type="text/javascript">const x = {"alleles_b64gz": "'
+            + base64.b64encode(linux_payload).decode('ascii')
+            + '"};</script>\n'
+        )
+        mac_line = (
+            '<script type="text/javascript">const x = {"alleles_b64gz": "'
+            + base64.b64encode(mac_payload).decode('ascii')
+            + '"};</script>\n'
+        )
+        make_file(tmp_path, "a.html", linux_line)
+        make_file(tmp_path, "b.html", mac_line)
+
+        assert diff_text(tmp_path / "a.html", tmp_path / "b.html") == []
 
 
 # ═══════════════════════════════════════════════════════════════════════════
