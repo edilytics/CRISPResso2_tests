@@ -8,6 +8,7 @@ Run with:
     pytest test_diff.py -v
 """
 import base64
+import gzip
 import textwrap
 from argparse import Namespace
 from pathlib import Path
@@ -248,6 +249,28 @@ class TestDiff:
         make_file(tmp_path, "b.html", mac_line)
 
         assert diff_text(tmp_path / "a.html", tmp_path / "b.html") == []
+
+    def test_alleles_b64gz_content_difference_is_flagged(self, tmp_path):
+        """Only the gzip header OS byte is normalized; differing compressed
+        content must still produce a diff."""
+        payload = bytearray(base64.b64decode("H4sIAAAAAAACE4uOBQApu0wNAgAAAA=="))
+        payload[9] = 3
+        other_payload = bytearray(gzip.compress(b'{"alleles": ["edited", "unedited"]}', mtime=0))
+        other_payload[9] = 3
+        a_line = (
+            '<script type="text/javascript">const x = {"alleles_b64gz": "'
+            + base64.b64encode(payload).decode('ascii')
+            + '"};</script>\n'
+        )
+        b_line = (
+            '<script type="text/javascript">const x = {"alleles_b64gz": "'
+            + base64.b64encode(other_payload).decode('ascii')
+            + '"};</script>\n'
+        )
+        make_file(tmp_path, "a.html", a_line)
+        make_file(tmp_path, "b.html", b_line)
+
+        assert len(diff_text(tmp_path / "a.html", tmp_path / "b.html")) > 0
 
 
 # ═══════════════════════════════════════════════════════════════════════════

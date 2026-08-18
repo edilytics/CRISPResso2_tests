@@ -199,6 +199,7 @@ cli_integration_tests/CRISPResso_on_pro-smoke-single-plot*
 cli_integration_tests/CRISPResso_on_pro-no-plots-key*
 
 cli_integration_tests/CRISPResso_on_pro-subset-plots*
+cli_integration_tests/CRISPResso_on_pro-global-only-multi-amplicon*
 # Git worktrees
 .worktrees/
 

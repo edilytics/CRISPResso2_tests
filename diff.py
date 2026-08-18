@@ -124,7 +124,6 @@ def _normalize_alleles_b64gz(match):
     return f'{match.group(1)}{normalized}{match.group(3)}'
 
 
-
 def substitute_line(line):
     """Substitute floats and datetimes in a line
 
