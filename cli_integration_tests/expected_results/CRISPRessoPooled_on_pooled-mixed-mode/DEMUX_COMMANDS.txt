@@ -1,49 +1,7 @@
-samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr11:1047-1270 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.fastq";} \
-                        { \
-                            print "@"$1"\n"$10"\n+\n"$11 > fastq_filename; \
-                            num_records++; \
-                        } \
-                    END{ \
-                      close(fastq_filename); \
-                        if (num_records < 100.0) { \
-                            record_log_str = "chr11\t1047\t1270\t"num_records"\tNA\n"; \
-                        } else { \
-                            system("gzip -f "fastq_filename);  \
-                            record_log_str = "chr11\t1047\t1270\t"num_records"\t"fastq_filename".gz\n"; \
-                        } \
-                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.info"; \
-                    } ' 
+{'mode': 'interval', 'arguments': {'bam_filename': 'CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam', 'chromosome': 'chr11', 'start': 1047, 'end': 1270, 'output_directory': 'CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/', 'minimum_reads': 100, 'exclude_flags': '0x904', 'info_filename': 'CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr11_1047_1270.info'}}
 
 
-samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr9:966-1198 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.fastq";} \
-                        { \
-                            print "@"$1"\n"$10"\n+\n"$11 > fastq_filename; \
-                            num_records++; \
-                        } \
-                    END{ \
-                      close(fastq_filename); \
-                        if (num_records < 100.0) { \
-                            record_log_str = "chr9\t966\t1198\t"num_records"\tNA\n"; \
-                        } else { \
-                            system("gzip -f "fastq_filename);  \
-                            record_log_str = "chr9\t966\t1198\t"num_records"\t"fastq_filename".gz\n"; \
-                        } \
-                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.info"; \
-                    } ' 
+{'mode': 'interval', 'arguments': {'bam_filename': 'CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam', 'chromosome': 'chr9', 'start': 966, 'end': 1198, 'output_directory': 'CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/', 'minimum_reads': 100, 'exclude_flags': '0x904', 'info_filename': 'CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_966_1198.info'}}
 
 
-samtools view -F 4 CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam chr9:1251-1477 2>>CRISPRessoPooled_on_pooled-mixed-mode/CRISPRessoPooled_RUNNING_LOG.txt |awk 'BEGIN{OFS="\t";num_records=0;fastq_filename="CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.fastq";} \
-                        { \
-                            print "@"$1"\n"$10"\n+\n"$11 > fastq_filename; \
-                            num_records++; \
-                        } \
-                    END{ \
-                      close(fastq_filename); \
-                        if (num_records < 100.0) { \
-                            record_log_str = "chr9\t1251\t1477\t"num_records"\tNA\n"; \
-                        } else { \
-                            system("gzip -f "fastq_filename);  \
-                            record_log_str = "chr9\t1251\t1477\t"num_records"\t"fastq_filename".gz\n"; \
-                        } \
-                      print record_log_str > "CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.info"; \
-                    } ' 
+{'mode': 'interval', 'arguments': {'bam_filename': 'CRISPRessoPooled_on_pooled-mixed-mode/pooled-mixed-mode_GENOME_ALIGNED.bam', 'chromosome': 'chr9', 'start': 1251, 'end': 1477, 'output_directory': 'CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/', 'minimum_reads': 100, 'exclude_flags': '0x904', 'info_filename': 'CRISPRessoPooled_on_pooled-mixed-mode/MAPPED_REGIONS/REGION_chr9_1251_1477.info'}}
