@@ -96,6 +96,13 @@ Run unit tests:
 pytest test_syn_gen.py -v
 ```
 
+Run the synthetic pooled CRISPRessoPooled tests (requires CRISPResso2,
+Bowtie2, and samtools):
+
+```bash
+pytest test_pooled_e2e.py -v
+```
+
 Verify with CRISPResso2:
 
 ```bash

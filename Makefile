@@ -12,7 +12,7 @@
 	batch-failing large-batch pooled-prime-editing \
 	params-big-code params-multi-code params-medium params-small params-multiple-codes \
 	code-tests stress web_ui \
-	syn-gen-test syn-gen-e2e syn-gen-all \
+	syn-gen-test syn-gen-e2e syn-gen-pooled-e2e syn-gen-all \
 	pytest pytest-coverage pytest-test coverage-report coverage-clean
 
 CRISPRESSO2_DIR ?= ../CRISPResso2
@@ -437,10 +437,13 @@ syn-gen-test:
 	cd syn-gen && $(PIXI) pytest test_syn_gen.py -v
 
 syn-gen-e2e:
-	cd syn-gen && $(PIXI) pytest test_bwa_e2e.py test_bwa_verify.py -v
+	cd syn-gen && $(PIXI) pytest test_bwa_e2e.py test_bwa_verify.py test_pooled_e2e.py -v
+
+syn-gen-pooled-e2e:
+	cd syn-gen && $(PIXI) pytest test_pooled_e2e.py -v
 
 syn-gen-all:
-	cd syn-gen && $(PIXI) pytest test_syn_gen.py test_bwa_e2e.py test_bwa_verify.py -v
+	cd syn-gen && $(PIXI) pytest test_syn_gen.py test_bwa_e2e.py test_bwa_verify.py test_pooled_e2e.py -v
 
 # ── pytest convenience targets ───────────────────────────────────────
 pytest:

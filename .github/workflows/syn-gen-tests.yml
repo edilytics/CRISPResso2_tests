@@ -38,10 +38,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-conda-
 
-      - name: Install BWA
+      - name: Install pooled and BWA test dependencies
         run: |
-          conda install -y -c bioconda bwa
+          conda install -y -c bioconda crispresso2 bwa bowtie2 samtools
           bwa 2>&1 | head -3 || true
+          bowtie2-build --version
+          samtools --version | head -2
 
       - name: Install test dependencies
         run: |
@@ -53,7 +55,7 @@ jobs:
 
       - name: Run end-to-end tests
         run: |
-          cd syn-gen && pytest test_bwa_e2e.py -v
+          cd syn-gen && pytest test_bwa_e2e.py test_pooled_e2e.py -v
 
       - name: Upload test artifacts on failure
         if: failure()
