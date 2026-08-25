@@ -707,7 +707,7 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-08-24 16:11:25</p>
+  <p><strong>Run completed:</strong> 2026-08-25 15:47:11</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>TCCATCGGCGCTTTGGTCGG</pre></p>
@@ -917,8 +917,8 @@ zip_output: False</pre></p>
       							<div class='card-body'>
 
 								
-										
-										<div class="div_zoom_outer d-none d-md-block" data-cr-zoom-strip="nucs_Reference"
+									
+									<div class="div_zoom_outer d-none d-md-block" data-cr-zoom-strip="nucs_Reference"
      style="height:100px;width:100%;overflow:hidden;position:relative;border:1px solid #DDDDDD">
     <img data-cr-zoom-strip-img="nucs_Reference" src="2a.Nucleotide_percentage_quilt.png" alt=""
          style="height:100%;width:auto;max-width:none;display:block">
@@ -991,12 +991,21 @@ zip_output: False</pre></p>
     };
   }
 
+  /* Build a quoted attribute-value selector for a uid. Amplicon names come
+   * from user FASTA headers and are not guaranteed quote-free; an unescaped
+   * quote or backslash would make querySelector throw (killing wiring for
+   * every figure not yet wired). Escaping " and \\ suffices inside a
+   * quoted CSS string. */
+  function selFor(attr, uid) {
+    return '[' + attr + '="' + uid.replace(/["\\]/g, '\\$&') + '"]';
+  }
+
   function wireOne(figure) {
     var uid = figure.getAttribute('data-cr-zoom-figure');
-    var img = figure.querySelector('[data-cr-zoom-img="' + uid + '"]');
-    var lens = figure.querySelector('[data-cr-zoom-lens="' + uid + '"]');
-    var strip = figure.ownerDocument.querySelector('[data-cr-zoom-strip="' + uid + '"]');
-    var stripImg = strip && strip.querySelector('[data-cr-zoom-strip-img="' + uid + '"]');
+    var img = figure.querySelector(selFor('data-cr-zoom-img', uid));
+    var lens = figure.querySelector(selFor('data-cr-zoom-lens', uid));
+    var strip = figure.ownerDocument.querySelector(selFor('data-cr-zoom-strip', uid));
+    var stripImg = strip && strip.querySelector(selFor('data-cr-zoom-strip-img', uid));
     if (!img || !lens || !strip || !stripImg) { return; }
 
     function update(e) {
@@ -1035,13 +1044,13 @@ zip_output: False</pre></p>
   }
 })();
 </script>
-<figcaption class="labelpadding">
+									<figcaption class="labelpadding">
 										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
-											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
+										Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
 									</figcaption>
-								
-									<p class="cr-data-link">Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></p>
-								
+									
+										<p class="cr-data-link">Data: <a href="Nucleotide_frequency_table.txt">Nucleotide frequency table</a></p>
+									
 								
 								
   									
