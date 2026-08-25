@@ -707,10 +707,10 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-08-17 13:58:36</p>
+  <p><strong>Run completed:</strong> 2026-08-24 16:12:11</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso --fastq_r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_FANCF.fastq.gz --amplicon_seq AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA --name FANCF --output_folder CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --place_report_in_output_folder --debug --halt_on_plot_fail</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2-cole-fix-zoom-nuc-comp/.pixi/envs/test/bin/CRISPResso --fastq_r1 CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome/ANALYZED_REGIONS/REGION_FANCF.fastq.gz --amplicon_seq AGAGCCGTGCGAATGGGGCCATGCCGACCAAAGCGCCGATGGATGTGGCGCAGGTAGCGCGCCCACTGCAAGGCCCGGCGCACGGTGGCGGGGTCCCAGGTGCTGACGTAGGTAGTGCTTGAGACCGCCAGAAGCTCGGAAAAGCGATCCAGGTGCTGCAGAAGGGATTCCATGAGGTGCGCGAAGGCCCTACTTCCGCTTTCACCTTGGAGACGGCGACTCTCTGCGTACTGATTGGAACATCCGCGAA --name FANCF --output_folder CRISPRessoWGS_on_Both.Cas9.fastq.smallGenome --place_report_in_output_folder --debug --halt_on_plot_fail</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -915,18 +915,125 @@ zip_output: False</pre></p>
       							<div class='card-body'>
 
 								
-									<div class='div_zoom_outer d-none d-md-block'>
-										<div id="zoomview_nucs_Reference" style="position:absolute;left:0;height:100%;width:100%;background-image: url(2a.Nucleotide_percentage_quilt.png);background-size:auto 100%;background-repeat:no-repeat;"></div>
-											<div class="d-lg-none" style="overflow-x:scroll;overflow-y:hidden;position:absolute;width:100%;height:100%">
-												<img src="2a.Nucleotide_percentage_quilt.png" style='height:100%'>
-											</div>
-									</div>
-									<div style='position:relative;display:inline-block;width:95%'>
-										<a href="2a.Nucleotide_percentage_quilt.pdf">
-    									<div id='zoomlens_nucs_Reference' class="d-none d-lg-block" style='float: left;position: absolute;left: 0px;top: 0px;z-index: 1000;border: 1px solid #DDDDDD;height:100%;width:10%'></div>
-    										<img id='tozoom_nucs_Reference' src="2a.Nucleotide_percentage_quilt.png" width='100%' style='position:relative'></a>
-									</div>
-									<figcaption class="labelpadding">
+										
+										<div class="div_zoom_outer d-none d-md-block" data-cr-zoom-strip="nucs_Reference"
+     style="height:100px;width:100%;overflow:hidden;position:relative;border:1px solid #DDDDDD">
+    <img data-cr-zoom-strip-img="nucs_Reference" src="2a.Nucleotide_percentage_quilt.png" alt=""
+         style="height:100%;width:auto;max-width:none;display:block">
+    
+    <div class="d-lg-none" style="overflow-x:auto;overflow-y:hidden;position:absolute;left:0;top:0;width:100%;height:100%;background:#fff">
+        <img src="2a.Nucleotide_percentage_quilt.png" alt=""
+             style="height:100%;width:auto;max-width:none;display:block">
+    </div>
+</div>
+<div data-cr-zoom-figure="nucs_Reference" style="position:relative;display:inline-block;width:95%">
+    <a href="2a.Nucleotide_percentage_quilt.pdf">
+        <div class="d-none d-lg-block" data-cr-zoom-lens="nucs_Reference"
+             style="position:absolute;left:0;top:0;height:100%;width:10%;z-index:1000;border:1px solid #DDDDDD;pointer-events:none"></div>
+        <img data-cr-zoom-img="nucs_Reference" src="2a.Nucleotide_percentage_quilt.png" width="100%" alt="report figure" style="position:relative;display:block">
+    </a>
+</div>
+<script>
+/* CRISPRessoReports — hover zoom for wide report figures (figure 2a).
+ *
+ * Rendered INLINE by shared/partials/figure_zoom.html (reports must stay
+ * self-contained: downloaded report zips are opened from file://, so we
+ * cannot depend on any external script).
+ *
+ * The handler is deliberately STATELESS: every pointermove re-measures the
+ * figure and the strip and recomputes the lens/pan from scratch. The previous
+ * implementation cached geometry at first hover ("hasWidthSet"), which locked
+ * in zeros/NaN when the first hover happened inside a hidden tab or before
+ * the image loaded — leaving the zoom dead or out of sync for the rest of
+ * the page view. Per-event recomputation makes those failure modes
+ * impossible: a hidden or unloaded figure simply bails out (computeZoom
+ * returns null) and works on the next event once laid out.
+ *
+ * Kept in sync with js_tests/figure_zoom.test.js in CRISPRessoWEB, which
+ * unit-tests computeZoom() directly from this file.
+ */
+(function () {
+  'use strict';
+
+  /* Pure geometry: given the displayed figure size, the strip size, and the
+   * cursor position (figure-relative px), return the lens size/offset and the
+   * strip-image translation. Returns null when the geometry is unusable
+   * (zero sizes), and {fits: true, ...} when the figure already fits in the
+   * strip at strip height (nothing to zoom; centered). */
+  function computeZoom(imgW, imgH, stripW, stripH, cursorX) {
+    if (!(imgW > 0) || !(imgH > 0) || !(stripW > 0) || !(stripH > 0)) {
+      return null;
+    }
+    var k = stripH / imgH;        /* strip px per figure px */
+    var scaledW = imgW * k;       /* figure width when scaled to strip height */
+    if (scaledW <= stripW) {
+      /* Narrow figure (e.g. a short amplicon quilt): no zoom possible —
+       * center it in the strip and let the lens span the whole figure. */
+      return {
+        fits: true,
+        lensW: imgW,
+        lensX: 0,
+        translateX: Math.round((stripW - scaledW) / 2)
+      };
+    }
+    var lensW = stripW / k;       /* figure px visible through the strip */
+    var lensX = cursorX - lensW / 2;
+    if (lensX < 0) { lensX = 0; }
+    if (lensX > imgW - lensW) { lensX = imgW - lensW; }
+    return {
+      fits: false,
+      lensW: lensW,
+      lensX: lensX,
+      /* 0 - x avoids producing -0 at the left edge (Object.is(-0, 0) is false) */
+      translateX: 0 - Math.round(k * lensX)
+    };
+  }
+
+  function wireOne(figure) {
+    var uid = figure.getAttribute('data-cr-zoom-figure');
+    var img = figure.querySelector('[data-cr-zoom-img="' + uid + '"]');
+    var lens = figure.querySelector('[data-cr-zoom-lens="' + uid + '"]');
+    var strip = figure.ownerDocument.querySelector('[data-cr-zoom-strip="' + uid + '"]');
+    var stripImg = strip && strip.querySelector('[data-cr-zoom-strip-img="' + uid + '"]');
+    if (!img || !lens || !strip || !stripImg) { return; }
+
+    function update(e) {
+      var z = computeZoom(
+        img.offsetWidth, img.offsetHeight,
+        strip.offsetWidth, strip.offsetHeight,
+        e.clientX - img.getBoundingClientRect().left
+      );
+      if (!z) { return; }  /* hidden tab / image not laid out yet: retry next event */
+      lens.style.width = z.lensW + 'px';
+      lens.style.left = z.lensX + 'px';
+      stripImg.style.transform = 'translateX(' + z.translateX + 'px)';
+    }
+
+    figure.addEventListener('pointermove', update, { passive: true });
+  }
+
+  function wireAll(doc) {
+    var figures = doc.querySelectorAll('[data-cr-zoom-figure]:not([data-cr-zoom-wired])');
+    for (var i = 0; i < figures.length; i++) {
+      figures[i].setAttribute('data-cr-zoom-wired', '1');
+      wireOne(figures[i]);
+    }
+  }
+
+  /* Browser: wire every zoom figure rendered so far. figure_zoom.html
+   * includes this file once per figure, right after its markup, so each
+   * inclusion wires any figure not yet wired (idempotent). */
+  if (typeof document !== 'undefined' && document.querySelectorAll) {
+    wireAll(document);
+  }
+
+  /* Test/module loading (jest in CRISPRessoWEB): expose the pure function. */
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { computeZoom: computeZoom };
+  }
+})();
+</script>
+<figcaption class="labelpadding">
 										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
 											Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
 									</figcaption>
@@ -1126,103 +1233,7 @@ zip_output: False</pre></p>
     
     </div>
     
-<script>
-function updateZoom(e) {
-  /*prevent any other actions that may occur when moving over the image:*/
-//  e.preventDefault();
-  var img = e.target.imgObj
-  var view = e.target.viewObj
-  var lens = e.target.lensObj
 
-  if (!lens.hasWidthSet)
-  {
-    view_height = $('#'+view.id).height()
-    view_width = $('#'+view.id).width()
-    img_height = $('#'+img.id).height()
-    img_width = $('#'+img.id).width()
-    lens_height = $('#'+lens.id).height()
-    lens_width = $('#'+lens.id).width()
-
-    new_width = img_height * view_width/view_height  //make up for loss of precision
-    $('#'+lens.id).outerWidth(new_width)
-    lens.hasWidthSet = true
-
-    cx = view_width / new_width
-
-    view.view_height = view_height
-    view.view_width = view_width
-    img.img_height = img_height
-    img.img_width = img_width
-    lens.lens_height = lens_height
-    lens.lens_width = new_width
-
-  }
-
-  var pos, x, y;
-  /*get the cursor's x and y positions:*/
-  pos = getCursorPos(e,img);
-  /*calculate the position of the lens:*/
-  x = pos.x - (lens.lens_width / 2);
-  /*prevent the lens from being positioned outside the image:*/
-  if (x > img.img_width - lens.lens_width) {x = img.img_width - lens.lens_width;;
-  }
-  if (x < 0) {x = 0;}
-  lens.style.left = x + "px";
-  view.style.backgroundPosition = "-" + (x * cx) + "px 0px";
-}
-
-function getCursorPos(e,img) {
-  var a, x = 0, y = 0;
-  e = e || window.event;
-  /*get the x and y positions of the image:*/
-  a = img.getBoundingClientRect();
-  /*calculate the cursor's x and y coordinates, relative to the image:*/
-  x = e.pageX - a.left;
-  y = e.pageY - a.top;
-  /*consider any page scrolling:*/
-  x = x - window.pageXOffset;
-  y = y - window.pageYOffset;
-  return {x : x, y : y};
-}
-
-var passiveSupported = false;
-try {
-  var options = {
-    get passive() { // This function will be called when the browser
-                    //   attempts to access the passive property.
-      passiveSupported = true;
-    }
-  };
-
-  window.addEventListener("test", options, options);
-  window.removeEventListener("test", options, options);
-} catch(err) {
-  passiveSupported = false;
-}
-
-	
-		
-		view = document.getElementById('zoomview_nucs_Reference');
-		img = document.getElementById('tozoom_nucs_Reference');
-		lens = document.getElementById('zoomlens_nucs_Reference')
-
-		img.viewObj = view
-		img.lensObj = lens
-		img.imgObj = img
-
-		lens.viewObj = view
-		lens.lensObj = lens
-		lens.imgObj = img
-
-		lens.addEventListener("mousemove", updateZoom, passiveSupported? { passive: true } : false);
-		img.addEventListener("mousemove", updateZoom, passiveSupported? { passive: true } : false);
-		/*and also for touch screens:*/
-		lens.addEventListener("touchmove", updateZoom, passiveSupported? { passive: true } : false);
-		img.addEventListener("touchmove", updateZoom, passiveSupported? { passive: true } : false);
-
-		
-	
-</script>
 
 
 
