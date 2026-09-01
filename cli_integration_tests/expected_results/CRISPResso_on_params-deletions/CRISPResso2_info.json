@@ -2081,7 +2081,7 @@
       "plot_1e_data": [
         [
           "Alleles Homology Scores",
-          "Alleles_homology_scores.txt"
+          "Alleles_homology_scores.txt.gz"
         ]
       ],
       "plot_6a_root": "6a.Global_frameshift_in-frame_mutation_profiles",

@@ -1,5 +1,6 @@
 import argparse
 import base64
+import gzip
 import json
 import os
 import re
@@ -39,7 +40,7 @@ WARNING_FILE_REGEXP = re.compile(
 
 IGNORE_SUFFIX = ('_RUNNING_LOG.txt', 'fastp_report.html')
 TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
-DATA_SUFFIXES = ('.txt', '.sam', '.vcf')
+DATA_SUFFIXES = ('.txt', '.sam', '.vcf', '.txt.gz')
 HTML_SUFFIXES = ('.html',)
 PDF_SUFFIXES = ('.pdf',)
 
@@ -149,8 +150,25 @@ def substitute_line(line):
     return line
 
 
+def _open_text(path):
+    """Open a text file for diffing, transparently decompressing .gz files."""
+    if str(path).endswith('.gz'):
+        return gzip.open(path, 'rt', encoding='utf-8', errors='replace')
+    return open(path)
+
+
+def _matches_suffixes(path, suffixes):
+    """Suffix match supporting multi-part suffixes like '.txt.gz'.
+
+    ``Path.suffix`` only returns the last extension ('.gz' for
+    'Alleles_homology_scores.txt.gz'), which is too broad for data-file
+    matching — it would also catch '*.fastq.gz' artifacts.
+    """
+    return any(str(path).endswith(s) for s in suffixes)
+
+
 def diff(file_a, file_b):
-    with open(file_a) as fh_a, open(file_b) as fh_b:
+    with _open_text(file_a) as fh_a, _open_text(file_b) as fh_b:
         lines_a = [substitute_line(line).strip() + '\n' for line in fh_a]
         lines_b = [substitute_line(line).strip() + '\n' for line in fh_b]
         return list(unified_diff(lines_a, lines_b))
@@ -793,8 +811,8 @@ def diff_dir(actual, expected, suffixes=TEXT_SUFFIXES, prompt_to_update=False,
     bool
         True if any files differ.
     """
-    files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if f.suffix in suffixes}
-    files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if f.suffix in suffixes}
+    files_actual = {f.relative_to(actual): f for f in Path(actual).glob('**/*') if _matches_suffixes(f, suffixes)}
+    files_expected = {f.relative_to(expected): f for f in Path(expected).glob('**/*') if _matches_suffixes(f, suffixes)}
     diff_exists = False
     for file_basename_actual, file_path_actual in files_actual.items():
         if IGNORE_FILES_REGEXP.match(basename(file_basename_actual)):

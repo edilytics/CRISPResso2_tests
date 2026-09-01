@@ -229,6 +229,22 @@ class TestDiff:
         result = diff_text(tmp_path / "a.txt", tmp_path / "b.txt")
         assert len(result) > 0
 
+    def test_gzipped_files_compared_by_content(self, tmp_path):
+        """Gzipped data files (e.g. Alleles_homology_scores.txt.gz) are diffed
+        by decompressed content, so gzip header differences don't matter."""
+        import gzip as gzip_mod
+        for name, content in (
+            ("a.txt.gz", "homology_score\tsequence\n95.0\tACGT\n"),
+            ("b.txt.gz", "homology_score\tsequence\n95.0\tACGT\n"),
+            ("c.txt.gz", "homology_score\tsequence\n80.0\tACGT\n"),
+        ):
+            # different gzip header metadata (mtime) per file
+            with open(tmp_path / name, 'wb') as raw:
+                with gzip_mod.GzipFile(fileobj=raw, mode='wb', mtime=hash(name) % 2**31) as fh:
+                    fh.write(content.encode())
+        assert diff_text(tmp_path / "a.txt.gz", tmp_path / "b.txt.gz") == []
+        assert len(diff_text(tmp_path / "a.txt.gz", tmp_path / "c.txt.gz")) > 0
+
     def test_alleles_b64gz_os_byte_difference_is_ignored(self, tmp_path):
         payload = bytearray(base64.b64decode("H4sIAAAAAAACE4uOBQApu0wNAgAAAA=="))
         linux_payload = payload[:]
