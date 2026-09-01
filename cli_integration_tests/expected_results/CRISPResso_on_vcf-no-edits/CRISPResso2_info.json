@@ -1164,7 +1164,7 @@
       "plot_1e_data": [
         [
           "Alleles Homology Scores",
-          "Alleles_homology_scores.txt"
+          "Alleles_homology_scores.txt.gz"
         ]
       ]
     },
