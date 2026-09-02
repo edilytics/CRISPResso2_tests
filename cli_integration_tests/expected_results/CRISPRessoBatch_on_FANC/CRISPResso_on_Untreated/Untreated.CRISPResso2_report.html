@@ -707,12 +707,12 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-08-25 15:46:52</p>
+  <p><strong>Run completed:</strong> 2026-09-02 15:41:07</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2-cole-fix-zoom-nuc-comp/.pixi/envs/test/bin/CRISPResso -o /Users/cole/code/edilytics/tests-cole-fix-zoom-nuc-comp/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --min_frequency_alleles_around_cut_to_plot 0.2 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_open -20 --halt_on_plot_fail --guide_seq GGAATCCCTTCTGCAGCACC --default_min_aln_score 60 --base_editor_target_ref_skip_allele_count 0 --needleman_wunsch_gap_incentive 1 --fastp_command fastp --prime_editing_pegRNA_scaffold_min_match_length 1 --min_single_bp_quality 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --conversion_nuc_to T --plot_window_size 20 --flexiguide_gap_open_penalty -20 --min_paired_end_reads_overlap 10 --flexiguide_homology 80 --min_bp_quality_or_N 0 --quantification_window_size 1 --exclude_bp_from_right 15 --base_editor_output --place_report_in_output_folder --conversion_nuc_from C --min_average_read_quality 0 --flexiguide_seq None --n_processes 1 --verbosity 3 --config_file None --max_paired_end_reads_overlap None --max_rows_alleles_around_cut_to_plot 50 --debug --needleman_wunsch_gap_extend -2 --aln_seed_len 10 --flexiguide_gap_extend_penalty -2 --aln_seed_min 2 --amplicon_name Reference --prime_editing_pegRNA_extension_quantification_window_size 5 --aln_seed_count 5 --exclude_bp_from_left 15 --trimmomatic_command None --fastq_r1 inputs/FANC.Untreated.fastq --flash_command None --file_prefix Untreated --quantification_window_center -3 --prime_editing_gap_open_penalty -50</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2-cole-fix-zoom-nuc-comp/.pixi/envs/test/bin/CRISPResso -o /Users/cole/code/edilytics/tests-cole-fix-zoom-nuc-comp/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --base_editor_output --verbosity 3 --base_editor_target_ref_skip_allele_count 0 --needleman_wunsch_gap_open -20 --exclude_bp_from_right 15 --min_average_read_quality 0 --config_file None --quantification_window_center -3 --amplicon_name Reference --flexiguide_homology 80 --file_prefix Untreated --max_paired_end_reads_overlap None --debug --prime_editing_pegRNA_scaffold_min_match_length 1 --n_processes 1 --min_paired_end_reads_overlap 10 --flexiguide_seq None --flash_command None --conversion_nuc_to T --prime_editing_gap_open_penalty -50 --fastq_r1 inputs/FANC.Untreated.fastq --needleman_wunsch_gap_extend -2 --min_bp_quality_or_N 0 --exclude_bp_from_left 15 --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_count 5 --default_min_aln_score 60 --halt_on_plot_fail --flexiguide_gap_extend_penalty -2 --aln_seed_min 2 --min_single_bp_quality 0 --trimmomatic_command None --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_incentive 1 --plot_window_size 20 --flexiguide_gap_open_penalty -20 --max_rows_alleles_around_cut_to_plot 50 --place_report_in_output_folder --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --conversion_nuc_from C --quantification_window_size 1 --fastp_command fastp --aln_seed_len 10 --guide_seq GGAATCCCTTCTGCAGCACC</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -919,7 +919,7 @@ zip_output: False</pre></p>
 								
 									
 									<div class="div_zoom_outer d-none d-md-block" data-cr-zoom-strip="nucs_Reference"
-     style="height:100px;width:100%;overflow:hidden;position:relative;border:1px solid #DDDDDD">
+     style="height:100px;width:100%;overflow:hidden;position:relative">
     <img data-cr-zoom-strip-img="nucs_Reference" src="Untreated.2a.Nucleotide_percentage_quilt.png" alt=""
          style="height:100%;width:auto;max-width:none;display:block">
     
@@ -931,7 +931,7 @@ zip_output: False</pre></p>
 <div data-cr-zoom-figure="nucs_Reference" style="position:relative;display:inline-block;width:95%">
     <a href="Untreated.2a.Nucleotide_percentage_quilt.pdf">
         <div class="d-none d-lg-block" data-cr-zoom-lens="nucs_Reference"
-             style="position:absolute;left:0;top:0;height:100%;width:10%;z-index:1000;border:1px solid #DDDDDD;pointer-events:none"></div>
+             style="position:absolute;left:0;top:0;height:100%;width:10%;z-index:1000;border:1px solid var(--cr-border-emphasis, #DDDDDD);pointer-events:none"></div>
         <img data-cr-zoom-img="nucs_Reference" src="Untreated.2a.Nucleotide_percentage_quilt.png" width="100%" alt="report figure" style="position:relative;display:block">
     </a>
 </div>
@@ -951,8 +951,8 @@ zip_output: False</pre></p>
  * impossible: a hidden or unloaded figure simply bails out (computeZoom
  * returns null) and works on the next event once laid out.
  *
- * Kept in sync with js_tests/figure_zoom.test.js in CRISPRessoWEB, which
- * unit-tests computeZoom() directly from this file.
+ * computeZoom() is unit-tested (numeric cases, via a small node harness)
+ * by tests/unit_tests/test_report_figure_zoom.py in this repo.
  */
 (function () {
   'use strict';
@@ -1006,7 +1006,7 @@ zip_output: False</pre></p>
     var lens = figure.querySelector(selFor('data-cr-zoom-lens', uid));
     var strip = figure.ownerDocument.querySelector(selFor('data-cr-zoom-strip', uid));
     var stripImg = strip && strip.querySelector(selFor('data-cr-zoom-strip-img', uid));
-    if (!img || !lens || !strip || !stripImg) { return; }
+    if (!img || !lens || !strip || !stripImg) { return false; }
 
     function update(e) {
       var z = computeZoom(
@@ -1021,13 +1021,18 @@ zip_output: False</pre></p>
     }
 
     figure.addEventListener('pointermove', update, { passive: true });
+    return true;
   }
 
   function wireAll(doc) {
     var figures = doc.querySelectorAll('[data-cr-zoom-figure]:not([data-cr-zoom-wired])');
     for (var i = 0; i < figures.length; i++) {
-      figures[i].setAttribute('data-cr-zoom-wired', '1');
-      wireOne(figures[i]);
+      /* stamp only on success: a figure whose elements are missing stays
+       * unwired and gets retried by the next include instead of being
+       * silently skipped forever. */
+      if (wireOne(figures[i])) {
+        figures[i].setAttribute('data-cr-zoom-wired', '1');
+      }
     }
   }
 
@@ -1038,7 +1043,8 @@ zip_output: False</pre></p>
     wireAll(document);
   }
 
-  /* Test/module loading (jest in CRISPRessoWEB): expose the pure function. */
+  /* Test loading: expose the pure function for the node-based geometry
+   * tests (TestComputeZoomGeometry in this repo's unit tests). */
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = { computeZoom: computeZoom };
   }

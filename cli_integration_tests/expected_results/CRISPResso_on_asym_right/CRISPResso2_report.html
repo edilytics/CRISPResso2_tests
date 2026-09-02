@@ -707,7 +707,7 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-08-25 15:47:11</p>
+  <p><strong>Run completed:</strong> 2026-09-02 15:41:07</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>TCCATCGGCGCTTTGGTCGG</pre></p>
@@ -919,7 +919,7 @@ zip_output: False</pre></p>
 								
 									
 									<div class="div_zoom_outer d-none d-md-block" data-cr-zoom-strip="nucs_Reference"
-     style="height:100px;width:100%;overflow:hidden;position:relative;border:1px solid #DDDDDD">
+     style="height:100px;width:100%;overflow:hidden;position:relative">
     <img data-cr-zoom-strip-img="nucs_Reference" src="2a.Nucleotide_percentage_quilt.png" alt=""
          style="height:100%;width:auto;max-width:none;display:block">
     
@@ -931,7 +931,7 @@ zip_output: False</pre></p>
 <div data-cr-zoom-figure="nucs_Reference" style="position:relative;display:inline-block;width:95%">
     <a href="2a.Nucleotide_percentage_quilt.pdf">
         <div class="d-none d-lg-block" data-cr-zoom-lens="nucs_Reference"
-             style="position:absolute;left:0;top:0;height:100%;width:10%;z-index:1000;border:1px solid #DDDDDD;pointer-events:none"></div>
+             style="position:absolute;left:0;top:0;height:100%;width:10%;z-index:1000;border:1px solid var(--cr-border-emphasis, #DDDDDD);pointer-events:none"></div>
         <img data-cr-zoom-img="nucs_Reference" src="2a.Nucleotide_percentage_quilt.png" width="100%" alt="report figure" style="position:relative;display:block">
     </a>
 </div>
@@ -951,8 +951,8 @@ zip_output: False</pre></p>
  * impossible: a hidden or unloaded figure simply bails out (computeZoom
  * returns null) and works on the next event once laid out.
  *
- * Kept in sync with js_tests/figure_zoom.test.js in CRISPRessoWEB, which
- * unit-tests computeZoom() directly from this file.
+ * computeZoom() is unit-tested (numeric cases, via a small node harness)
+ * by tests/unit_tests/test_report_figure_zoom.py in this repo.
  */
 (function () {
   'use strict';
@@ -1006,7 +1006,7 @@ zip_output: False</pre></p>
     var lens = figure.querySelector(selFor('data-cr-zoom-lens', uid));
     var strip = figure.ownerDocument.querySelector(selFor('data-cr-zoom-strip', uid));
     var stripImg = strip && strip.querySelector(selFor('data-cr-zoom-strip-img', uid));
-    if (!img || !lens || !strip || !stripImg) { return; }
+    if (!img || !lens || !strip || !stripImg) { return false; }
 
     function update(e) {
       var z = computeZoom(
@@ -1021,13 +1021,18 @@ zip_output: False</pre></p>
     }
 
     figure.addEventListener('pointermove', update, { passive: true });
+    return true;
   }
 
   function wireAll(doc) {
     var figures = doc.querySelectorAll('[data-cr-zoom-figure]:not([data-cr-zoom-wired])');
     for (var i = 0; i < figures.length; i++) {
-      figures[i].setAttribute('data-cr-zoom-wired', '1');
-      wireOne(figures[i]);
+      /* stamp only on success: a figure whose elements are missing stays
+       * unwired and gets retried by the next include instead of being
+       * silently skipped forever. */
+      if (wireOne(figures[i])) {
+        figures[i].setAttribute('data-cr-zoom-wired', '1');
+      }
     }
   }
 
@@ -1038,7 +1043,8 @@ zip_output: False</pre></p>
     wireAll(document);
   }
 
-  /* Test/module loading (jest in CRISPRessoWEB): expose the pure function. */
+  /* Test loading: expose the pure function for the node-based geometry
+   * tests (TestComputeZoomGeometry in this repo's unit tests). */
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = { computeZoom: computeZoom };
   }
