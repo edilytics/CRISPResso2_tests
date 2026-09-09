@@ -707,12 +707,12 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-09-02 15:41:36</p>
+  <p><strong>Run completed:</strong> 2026-09-09 16:02:42</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2-cole-fix-zoom-nuc-comp/.pixi/envs/test/bin/CRISPResso -o /Users/cole/code/edilytics/tests-cole-fix-zoom-nuc-comp/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --base_editor_output --verbosity 3 --base_editor_target_ref_skip_allele_count 0 --needleman_wunsch_gap_open -20 --exclude_bp_from_right 15 --min_average_read_quality 0 --config_file None --quantification_window_center -3 --amplicon_name Reference --flexiguide_homology 80 --file_prefix Cas9 --max_paired_end_reads_overlap None --debug --prime_editing_pegRNA_scaffold_min_match_length 1 --n_processes 1 --min_paired_end_reads_overlap 10 --flexiguide_seq None --flash_command None --conversion_nuc_to T --prime_editing_gap_open_penalty -50 --fastq_r1 inputs/FANC.Cas9.fastq --needleman_wunsch_gap_extend -2 --min_bp_quality_or_N 0 --exclude_bp_from_left 15 --min_frequency_alleles_around_cut_to_plot 0.2 --aln_seed_count 5 --default_min_aln_score 60 --halt_on_plot_fail --flexiguide_gap_extend_penalty -2 --aln_seed_min 2 --min_single_bp_quality 0 --trimmomatic_command None --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_pegRNA_extension_quantification_window_size 5 --prime_editing_gap_extend_penalty 0 --needleman_wunsch_gap_incentive 1 --plot_window_size 20 --flexiguide_gap_open_penalty -20 --max_rows_alleles_around_cut_to_plot 50 --place_report_in_output_folder --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --conversion_nuc_from C --quantification_window_size 1 --fastp_command fastp --aln_seed_len 10 --guide_seq GGAATCCCTTCTGCAGCACC</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -o /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --needleman_wunsch_gap_incentive 1 --min_bp_quality_or_N 0 --prime_editing_gap_extend_penalty 0 --quantification_window_center -3 --config_file None --verbosity 3 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --file_prefix Cas9 --fastq_r1 inputs/FANC.Cas9.fastq --aln_seed_min 2 --exclude_bp_from_left 15 --max_rows_alleles_around_cut_to_plot 50 --needleman_wunsch_gap_extend -2 --flexiguide_gap_open_penalty -20 --place_report_in_output_folder --plot_window_size 20 --trimmomatic_command None --aln_seed_len 10 --exclude_bp_from_right 15 --prime_editing_gap_open_penalty -50 --min_frequency_alleles_around_cut_to_plot 0.2 --quantification_window_size 1 --default_min_aln_score 60 --needleman_wunsch_gap_open -20 --base_editor_output --flexiguide_seq None --prime_editing_pegRNA_extension_quantification_window_size 5 --base_editor_target_ref_skip_allele_count 0 --needleman_wunsch_aln_matrix_loc EDNAFULL --guide_seq GGAATCCCTTCTGCAGCACC --halt_on_plot_fail --debug --conversion_nuc_to T --aln_seed_count 5 --fastp_command fastp --prime_editing_pegRNA_scaffold_min_match_length 1 --flexiguide_homology 80 --flash_command None --max_paired_end_reads_overlap None --amplicon_name Reference --min_average_read_quality 0 --min_paired_end_reads_overlap 10 --flexiguide_gap_extend_penalty -2 --n_processes 1 --conversion_nuc_from C --min_single_bp_quality 0</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -785,7 +785,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /Users/cole/code/edilytics/tests-cole-fix-zoom-nuc-comp/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /Users/cole/code/edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -1402,7 +1402,7 @@ zip_output: False</pre></p>
         <p class="text-center">
       If you like CRISPResso2 please support us by citing it in your work: <br>
           Clement K, Rees H, Canver MC, Gehrke JM, Farouni R, Hsu JY, Cole MA, Liu DR, Joung JK, Bauer DE, Pinello L.<br>
-          <a href="https://rdcu.be/boxVG" target="_blank">CRISPResso2 provides accurate and rapid genome editing sequence analysis. </a><br>
+          <a href="https://trebuchet.public.springernature.app/get_content/4cae1a9e-9ad5-4d90-a5fb-c1ea5c137bb3?format=pdf&from=springerlink" target="_blank">CRISPResso2 provides accurate and rapid genome editing sequence analysis. </a><br>
           Nat Biotechnol. 2019 Mar; 37(3):224-226. doi: 10.1038/s41587-019-0032-3. PubMed PMID: 30809026.
         </p>
         <p class="text-center"><small> &copy; Copyright <a href="http://pinellolab.org">Kendell Clement and Luca Pinello</a></small></p>
