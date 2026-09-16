@@ -690,6 +690,52 @@ details[open] > summary .guardrail-toggle {
 
       
       
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+      
+
+      
+      
+
+      
         
         <div class='card text-center mb-2 breakinpage'>
           <div class='card-header'><h5>Alignment</h5></div>
@@ -801,10 +847,10 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-09-09 16:05:59</p>
+  <p><strong>Run completed:</strong> 2026-09-16 11:07:17</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>None</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --n_processes 1 -n bam-single --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso --bam_input inputs/Both.Cas9.fastq.smallGenome.bam --bam_chr_loc chr9 --auto --n_processes 1 -n bam-single --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -870,6 +916,7 @@ max_rows_alleles_around_cut_to_plot: 50
 min_average_read_quality: 0
 min_bp_quality_or_N: 0
 min_frequency_alleles_around_cut_to_plot: 0.2
+min_large_del: 50
 min_paired_end_reads_overlap: 10
 min_single_bp_quality: 0
 n_processes: 1
@@ -927,6 +974,12 @@ zip_output: False</pre></p>
 
           </div>
         </div>
+        
+
+        
+          
+          
+
         
       
         
@@ -1023,44 +1076,41 @@ zip_output: False</pre></p>
           </div>
         </div>
         
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
 
+        
+          
+          
+
+        
       
+        
+
+        
+          
+          
+
+        
       
         
+
         
           
+          
+
+        
+      
+        
+
         
           
+          
+
+        
+      
+        
+
         
           
-        
-          
-        
-          
-        
           
           <div class='card text-center mb-2 breakinpage'>
             <div class='card-header'><h5>Nucleotide Composition</h5></div>
@@ -1113,7 +1163,13 @@ zip_output: False</pre></p>
             </div>
           </div>
           
+
         
+      
+        
+
+        
+          
           
           <div class='card text-center mb-2 breakinpage'>
             <div class='card-header'><h5>Modification Lengths</h5></div>
@@ -1212,7 +1268,13 @@ zip_output: False</pre></p>
             </div>
           </div>
           
+
         
+      
+        
+
+        
+          
           
           <div class='card text-center mb-2 breakinpage'>
             <div class='card-header'><h5>Indel Characterization</h5></div>
@@ -1377,11 +1439,29 @@ zip_output: False</pre></p>
             </div>
           </div>
           
+
+        
+      
+        
+
         
           
+          
+
+        
+      
+        
+
         
           
+          
+
         
+      
+        
+
+        
+          
           
           <div class='card text-center mb-2 breakinpage'>
             <div class='card-header'><h5>Allele Plots</h5></div>
@@ -1396,7 +1476,7 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_9_Inferred_Alleles_frequency_table_around_Guessed_sgRNA"></div>
-        <script type="text/javascript">const allele_table_9_Inferred_Alleles_frequency_table_around_Guessed_sgRNA = {"plot_type": "allele_table", "reference": "TGGGGCCCAGACTGAGCACGTGATGGCAAAGGAAAGGAAG", "total_alleles": 50, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE72Yy5KDIBBF/yVrsAR8JEuKBT/ALpXFLGZWs5rH/0+Lj2gGabRRktKEQE719dK03u8XZ6EZY7TVxlltjTYWztDddVmrtT/YC4sO1YuhopSsUoWUrPSvn6/f9we7b/iHDUNrxaQsqgZlWT61vawrU4W6QXwe9fH2+R1ijRSaiA2TRV0BMoby83saAVUDSkjWoChOtkbFRNGAgnhUIRuuoHiANaFKD4ugZrbYG5UClGwxX3gWWcGBJXEFHVXBARVV8Kkep0QF4RTXmgmRandOZrUJKOrFGsPCUYZ6sQYUaveZL3RWFA80+lYCqEoyGbA7jzQS65rCyhOXCKb3g+Jaz+8BEjGuWxKLtvOPrGgq/B8YidXiLHJFM7Ca9CKDikKKjKwK1jgrl4IVknYzJiiF7/z9ZkJfxyq9yKAKiBYZfJzvqAJi1bt2xnRvOEOH0c7/sLZtBdqMpLrIUmqMeebNmN9XWbSVJTawiFfrtgFlTkCdZPcnyp6AyrSIE2wR+ov1pRUY+lxaKIpa504otM61mQQsPQy5WTUOymqn4QMkQwhzb27yh7QbY324gn66zqPghsdA9gxSDzHHk+zh6jnf45a3kHH7LYAzUhtyetCzMNFREuDrsxIXyhXd12W22JuWxrAefyVCgiz1FAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": "Guessed sgRNA"}], "quantification_windows": [[19, 20]]};</script>
+        <script type="text/javascript">const allele_table_9_Inferred_Alleles_frequency_table_around_Guessed_sgRNA = {"plot_type": "allele_table", "reference": "TGGGGCCCAGACTGAGCACGTGATGGCAAAGGAAAGGAAG", "total_alleles": 50, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE72YzZKDIAzH36VncAT8aI8MB16Am9PDHnZPe9qP99+I2uoUNBgW2tGWUn6TP0kIDsPFWWjGGG21cVZbo42FO3SPXdZq7S/2wnaH6s1QUUvWqEpKVvvXz9fvOxvudzYkTJIwtFVMyqrpMDjLH+0s7spUpW5gpad9vH1+R3ALiKZmx2TVNkA9oPkpJiCB1gJNSNZhaJzsKQ0TVQdSomwLOWaExgO4B632vH3aykvO2qaAJnuEm3gcWcoZJ1FSOqqUM+1IyqeMnGIbGFVdWyZEQgxwMq7H0agLtxiHohnqws00TAys3ETnpvFAo+87QGskk+EY4DuNhLsicXmsE7GN4J+s290JAjCidTcsjlYyLLijdPlqHgnXo3DkgmjGdUkFCpV2XKBklbJF4XJJ2Rxn54wZTKFKhmnnoYe4SipQqEpiChS+TOGoSiJOBNoZM77hDh1GO/9DbJsLtBVMjfYh65N1gs67E0RxtIgTaTjiyt3SaKYMrVwMPGm2DC1TfOO8JDRLPOQCQ58hh6FRq+YHDVM120xK1p53fCo2Dup0p+EDJEww9mzy8hf0IVyXkNLPoPNImfYcyhaCTRxTBGZLyOh8j9seVPcdcsNcwfqI+wcdGf7rKEky8JjGhTLJ+HWbS87mrZVx9z+tCi5NixUAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": "Guessed sgRNA"}], "quantification_windows": [[19, 20]]};</script>
     
     
     <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the Guessed sgRNA (GGCCCAGACTGAGCACGTGA). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
@@ -1412,12 +1492,27 @@ zip_output: False</pre></p>
             </div>
           </div>
           
+
         
-          
-        
-          
+      
         
 
+        
+          
+          
+
+        
+      
+        
+
+        
+          
+          
+
+        
+      
+
+      
       
 
       <div class="text-center p-3">
@@ -2068,6 +2163,9 @@ async function decodeAlleles(payload) {
     for (var i = 0; i < schema.length; i++) {
       allele[schema[i]] = row[i];
     }
+    // Legacy payloads have no marker column; normalize them at the boundary so
+    // rendering and filtering never need a schema-version branch.
+    allele.large_deletion_markers = allele.large_deletion_markers || [];
     // precomputed once here -- doing this per keystroke is the one real hot spot
     allele.ungapped_sequence = ungapSequence(allele.aligned_sequence);
     return allele;
@@ -2099,6 +2197,17 @@ if (typeof module !== 'undefined' && module.exports) {
     const ROW_PITCH = 15;          // 2px surface gap between rows
     const BAR_W = 64;
     const BAR_H = 7;
+
+    const markerSpan = (marker) => ({
+      length: Number(marker && marker[0]) || 0,
+      start: Number(marker && marker[1]) || 0,
+      end: Number(marker && marker[2]) || 0,
+      left: !!(marker && marker[3]),
+      right: !!(marker && marker[4]),
+    });
+    const markerAt = (allele, index) => (allele.large_deletion_markers || [])
+      .map(markerSpan)
+      .find((marker) => index >= marker.start && index < marker.end);
 
     const container = document.getElementById(slug);
     if (!container) return;
@@ -2431,10 +2540,17 @@ if (typeof module !== 'undefined' && module.exports) {
       const base = allele.aligned_sequence[index];
       const refBase = (allele.reference_sequence || "")[index];
       tipHead.text(allele.pct.toFixed(2) + "% · " + allele.reads.toLocaleString() + " reads");
+      const marker = markerAt(allele, index);
+      const markerText = marker
+        ? " · full boundary-spanning deletion: " + marker.length + "bp"
+          + (marker.left && marker.right ? " (both boundaries)"
+            : marker.left ? " (continues left)" : " (continues right)")
+        : "";
       tipBody.text(
         "Position " + (index + 1) + " · allele " + base + " / reference "
         + (refBase === undefined ? "?" : refBase)
-        + " · " + allele.n_inserted + "I " + allele.n_deleted + "D " + allele.n_mutated + "S",
+        + " · " + allele.n_inserted + "I " + allele.n_deleted + "D " + allele.n_mutated + "S"
+        + markerText,
       );
       const bounds = container.getBoundingClientRect();
       tooltip
@@ -2479,9 +2595,24 @@ if (typeof module !== 'undefined' && module.exports) {
         ctx.textAlign = "center";
         for (let i = 0; i < seq.length; i++) {
           if (seq[i] === ref[i]) continue;
+          if (seq[i] === "-" && markerAt(allele, i)) continue;
           ctx.fillStyle = inkOnCached(baseColor(seq[i]));
           ctx.fillText(seq[i], (i * CELL_W) + (CELL_W / 2), y + CELL_H - 3);
         }
+
+        // Boundary-spanning deletion glyphs are replaced after the normal grid
+        // pass; the cells and their fixed-width positions remain unchanged.
+        (allele.large_deletion_markers || []).forEach((rawMarker) => {
+          const marker = markerSpan(rawMarker);
+          const start = Math.max(0, Math.min(seq.length, marker.start));
+          const end = Math.max(start, Math.min(seq.length, marker.end));
+          if (end <= start) return;
+          ctx.fillStyle = "#ffffff";
+          ctx.font = (end - start <= 2 ? "6px " : "8px ")
+            + "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+          ctx.textAlign = "center";
+          ctx.fillText(marker.length + "bp", ((start + end) / 2) * CELL_W, y + CELL_H - 3);
+        });
 
         // 3. insertions carry a second channel: a rule in the insertion color
         ctx.fillStyle = color["Insertion"];
