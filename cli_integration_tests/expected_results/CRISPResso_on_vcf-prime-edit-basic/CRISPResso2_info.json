@@ -2094,8 +2094,8 @@
       "plot_1e_caption": "Figure 1e: Distribution of read alignment homology scores, showing the best-scoring alignment of each sequencing read to the provided amplicons. The dashed line indicates the minimum alignment score threshold used to discard low-quality alignments.",
       "plot_1e_data": [
         [
-          "Alleles Homology Scores",
-          "Alleles_homology_scores.txt.gz"
+          "Alleles frequency table",
+          "Alleles_frequency_table.zip"
         ]
       ]
     },
