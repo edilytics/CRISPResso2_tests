@@ -43,7 +43,7 @@ WARNING_FILE_REGEXP = re.compile(
 )
 
 IGNORE_SUFFIX = ('_RUNNING_LOG.txt', 'fastp_report.html')
-TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf')
+TEXT_SUFFIXES = ('.txt', '.html', '.sam', '.vcf', '.txt.gz')
 DATA_SUFFIXES = ('.txt', '.sam', '.vcf', '.txt.gz')
 HTML_SUFFIXES = ('.html',)
 PDF_SUFFIXES = ('.pdf',)
@@ -967,9 +967,9 @@ if __name__ == '__main__':
     diff_running_times(
         args.actual, expected, args.percent_time_delta, args.time_info_file,
     )
-    diff_suffixes = ('.txt', '.html', '.sam', '.vcf')
+    diff_suffixes = TEXT_SUFFIXES
     if args.skip_html:
-        diff_suffixes = ('.txt', '.sam', '.vcf')
+        diff_suffixes = DATA_SUFFIXES
     if args.diff_plots:
         diff_suffixes = diff_suffixes + PDF_SUFFIXES
 

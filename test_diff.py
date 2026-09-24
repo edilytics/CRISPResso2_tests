@@ -18,6 +18,7 @@ import pytest
 import diff
 import test_manager
 from diff import (
+    DATA_SUFFIXES,
     IGNORE_FILES_REGEXP,
     IGNORE_SUFFIX,
     WARNING_FILE_REGEXP,
@@ -232,7 +233,6 @@ class TestDiff:
     def test_gzipped_files_compared_by_content(self, tmp_path):
         """Gzipped data files (e.g. Alleles_homology_scores.txt.gz) are diffed
         by decompressed content, so gzip header differences don't matter."""
-        import gzip as gzip_mod
         for name, content in (
             ("a.txt.gz", "homology_score\tsequence\n95.0\tACGT\n"),
             ("b.txt.gz", "homology_score\tsequence\n95.0\tACGT\n"),
@@ -240,7 +240,7 @@ class TestDiff:
         ):
             # different gzip header metadata (mtime) per file
             with open(tmp_path / name, 'wb') as raw:
-                with gzip_mod.GzipFile(fileobj=raw, mode='wb', mtime=hash(name) % 2**31) as fh:
+                with gzip.GzipFile(fileobj=raw, mode='wb', mtime=hash(name) % 2**31) as fh:
                     fh.write(content.encode())
         assert diff_text(tmp_path / "a.txt.gz", tmp_path / "b.txt.gz") == []
         assert len(diff_text(tmp_path / "a.txt.gz", tmp_path / "c.txt.gz")) > 0
@@ -433,6 +433,28 @@ class TestDiffDir:
 
         result = diff_dir(str(actual), str(expected), suffixes=('.txt',))
         assert result is False
+
+    def test_data_suffixes_compare_txt_gz_not_fastq_gz(self, tmp_path):
+        """DATA_SUFFIXES diffs .txt.gz by content and ignores *.fastq.gz."""
+        actual = tmp_path / "actual"
+        expected = tmp_path / "expected"
+        homology = "homology_score\tsequence\n95.0\tACGT\n"
+
+        def write_gz(base, name, content, mtime):
+            path = Path(base) / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            with gzip.GzipFile(filename=str(path), mode='wb', mtime=mtime) as fh:
+                fh.write(content.encode())
+
+        write_gz(actual, "Alleles_homology_scores.txt.gz", homology, 1)
+        write_gz(expected, "Alleles_homology_scores.txt.gz", homology, 99)
+        write_gz(actual, "reads.fastq.gz", "@r1\nACGT\n+\nIIII\n", 1)
+        write_gz(expected, "reads.fastq.gz", "@r1\nTTTT\n+\nIIII\n", 1)
+        assert diff_dir(str(actual), str(expected), suffixes=DATA_SUFFIXES) is False
+
+        write_gz(actual, "Alleles_homology_scores.txt.gz",
+                 "homology_score\tsequence\n80.0\tACGT\n", 1)
+        assert diff_dir(str(actual), str(expected), suffixes=DATA_SUFFIXES) is True
 
     # --- Ignore files (actual side — should work) ---
 
