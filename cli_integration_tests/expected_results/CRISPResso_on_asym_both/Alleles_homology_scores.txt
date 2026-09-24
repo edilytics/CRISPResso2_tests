@@ -1,3 +1,0 @@
-sequence	homology_score	count
-GACATACATACA	100.0	1
-GACATACAGACA	91.667	1
