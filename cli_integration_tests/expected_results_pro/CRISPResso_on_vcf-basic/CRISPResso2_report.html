@@ -801,7 +801,7 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-09-28 16:18:06</p>
+  <p><strong>Run completed:</strong> 2026-09-28 17:17:16</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
@@ -2081,6 +2081,13 @@ function columnPositions(referenceSequence, anchorColumn) {
   return positions;
 }
 
+/* What search reads: the plotted sequence and, so a plain motif can match
+ * across a deletion, its ungapped form. */
+function searchText(alignedSequence) {
+  var upper = (alignedSequence || '').toUpperCase();
+  return upper + '\n' + upper.replace(/-/g, '');
+}
+
 /* Attach what the class filter reads, taken ONLY from the columns inside the
  * in-view quantification windows. The payload's n_* counts span CRISPResso's
  * whole quantification window, which can reach past the plot, so filtering on
@@ -2124,9 +2131,7 @@ function quantifyAllele(allele, windows, anchorColumn) {
   if (counts.deleted > 0) classes.push('deletion');
   if (counts.mutated > 0) classes.push('substitution');
   if (classes.length === 0) classes.push('unedited');
-  var upper = seq.toUpperCase();
-  // the ungapped form lets a plain motif match across a deletion
-  allele.search_text = upper + '\n' + upper.replace(/-/g, '');
+  allele.search_text = searchText(seq);
   allele.quant_edit_classes = classes;
   allele.quant_counts = counts;
   return allele;
@@ -2165,11 +2170,7 @@ function alleleMatchesQuery(allele, query) {
   if (query == null) return true;
   var q = String(query).trim().toUpperCase();
   if (q === '') return true;
-  var text = allele.search_text;
-  if (text === undefined) {
-    var upper = (allele.aligned_sequence || '').toUpperCase();
-    text = upper + '\n' + upper.replace(/-/g, '');
-  }
+  var text = allele.search_text === undefined ? searchText(allele.aligned_sequence) : allele.search_text;
   return text.indexOf(q) !== -1;
 }
 
@@ -2353,8 +2354,6 @@ if (typeof module !== 'undefined' && module.exports) {
     const plotOffset = data.plot_offset || 0;
     const anchor = data.cut_column == null ? null : data.cut_column;
     const expanded = !!data.expand_by_quantification;
-    // everything right of the sequence grid: gutter, bar, gutter, %Reads, #Reads
-    const FIXED_W = 16 + BAR_W + 8 + 68 + 8;
     const geometry = (cellW) => {
       const seqW = seqLength * cellW;
       const barX = seqW + 16;
@@ -2362,6 +2361,8 @@ if (typeof module !== 'undefined' && module.exports) {
       const readsX = pctX + 68;    // right edge of the #Reads column
       return { cellW, seqW, barX, pctX, readsX, totalW: readsX + 8 };
     };
+    // everything right of the sequence grid: gutter, bar, gutter, %Reads, #Reads
+    const FIXED_W = geometry(0).totalW;
     let geo = geometry(CELL_MIN_W);
 
     const sgRNAs = (data.sgRNAs || []).filter(
@@ -2513,7 +2514,7 @@ if (typeof module !== 'undefined' && module.exports) {
     // ticks sit on round amplicon positions, plus the first column so the
     // reader knows where the slice starts; a round one right beside it is skipped
     const tickStep = seqLength > 120 ? 20 : 10;
-    const tickColumns = [0];
+    const tickColumns = seqLength > 0 ? [0] : [];
     for (let i = 3; i < seqLength; i++) {
       if ((plotOffset + i + 1) % tickStep === 0) tickColumns.push(i);
     }
