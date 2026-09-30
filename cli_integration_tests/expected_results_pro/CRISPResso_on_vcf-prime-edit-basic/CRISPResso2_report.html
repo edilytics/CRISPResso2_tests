@@ -805,7 +805,7 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-09-28 17:20:54</p>
+  <p><strong>Run completed:</strong> 2026-09-30 13:54:36</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
@@ -2677,6 +2677,7 @@ zip_output: False</pre></p>
   /* the match count rides the controls row, pushed to its right end */
   .allele-viz .allele-status {
     margin-left: auto;
+    white-space: nowrap;
     font-size: 0.75rem;
     color: var(--allele-ink-2);
     font-variant-numeric: tabular-nums;
@@ -3128,22 +3129,25 @@ if (typeof module !== 'undefined' && module.exports) {
     const headH = tickH + guideH + ROW_PITCH + 2;
 
     // ---- chrome ----------------------------------------------------------
-    const shell = root.append("div").attr("class", "allele-shell");
-    const main = shell.append("div").attr("class", "allele-main");
-    // the class filter only reads the in-view windows (see quantifyAllele);
+    // The note and the controls span the whole widget, above the plot and
+    // the legend, so the match count always fits on the controls row; the
+    // legend starts level with the plot header.
+    // The class filter only reads the in-view windows (see quantifyAllele);
     // with none in view every allele is unedited, and with no window data at
     // all the class filter would claim edits were checked. Said above the
     // controls it disables, as a warning.
     if (!hasQuantData) {
-      main.append("div")
+      root.append("div")
         .attr("class", "allele-note")
         .text("Quantification window data is unavailable for this table, so the edit filters are off.");
     } else if (quantWindows.length === 0) {
-      main.append("div")
+      root.append("div")
         .attr("class", "allele-note")
         .text("No quantification window falls inside this plot, so every allele counts as unedited.");
     }
-    const controls = main.append("div").attr("class", "allele-controls");
+    const controls = root.append("div").attr("class", "allele-controls");
+    const shell = root.append("div").attr("class", "allele-shell");
+    const main = shell.append("div").attr("class", "allele-main");
     const body = main.append("div").attr("class", "allele-body");
     const head = body.append("div").attr("class", "allele-head");
     const legend = shell.append("div").attr("class", "allele-legend");
