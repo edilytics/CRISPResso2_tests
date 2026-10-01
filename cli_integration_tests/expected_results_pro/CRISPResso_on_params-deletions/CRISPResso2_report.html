@@ -692,6 +692,54 @@ details[open] > summary .guardrail-toggle {
 
       
       
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+      
+
+      
+      
+      <p class="breakinpage">Reads are aligned to each amplicon sequence separately:</p>
+      
+
+      
         
         <div class='card text-center mb-2 breakinpage'>
           <div class='card-header'><h5>Alignment</h5></div>
@@ -803,12 +851,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-09-09 16:05:55</p>
+  <p><strong>Run completed:</strong> 2026-09-16 11:07:10</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/FANC.Cas9.deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params-deletions --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --base_editor_consider_changes_outside_qw --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/FANC.Cas9.deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params-deletions --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --base_editor_consider_changes_outside_qw --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -874,6 +922,7 @@ max_rows_alleles_around_cut_to_plot: 50
 min_average_read_quality: 30
 min_bp_quality_or_N: 0
 min_frequency_alleles_around_cut_to_plot: 0.2
+min_large_del: 50
 min_paired_end_reads_overlap: 10
 min_single_bp_quality: 0
 n_processes: max
@@ -931,6 +980,8 @@ zip_output: False</pre></p>
 
           </div>
         </div>
+        
+
         
       
         
@@ -1063,6 +1114,8 @@ zip_output: False</pre></p>
           </div>
         </div>
         
+
+        
       
         
         <div class='card text-center mb-2 breakinpage'>
@@ -1088,6 +1141,8 @@ zip_output: False</pre></p>
 
           </div>
         </div>
+        
+
         
       
         
@@ -1115,74 +1170,49 @@ zip_output: False</pre></p>
           </div>
         </div>
         
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
 
+        
       
-      
-        <p class="breakinpage">Reads are aligned to each amplicon sequence separately:</p>
-        <div id='amplicons-card' class='card text-center mb-2'>
-          <div class='card-header amp-header'>
-            <h5>Amplicons</h5>
-            <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
-              
-              <li class="nav-item">
-                <button class="nav-link active"
-                        data-bs-toggle="tab"
-                        data-bs-target="#div_FANC"
-                        role="tab">FANC</button>
-              </li>
-              
-              <li class="nav-item">
-                <button class="nav-link "
-                        data-bs-toggle="tab"
-                        data-bs-target="#div_HDR"
-                        role="tab">HDR</button>
-              </li>
-              
-            </ul>
-          </div>
+        
 
-          <div class="tab-content pt-3 px-3 amp-body card-body">
+        
+      
+        
+
+        
+          
+          
+          
             
-            <div class="tab-pane fade show active breakinpage"
-                 id="div_FANC" role="tabpanel">
-
               
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Nucleotide Composition</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_5_amplicon_0"
+                          role="tab">FANC</button>
+                </li>
+                
+                
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
               
-                
               
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_5_amplicon_0" role="tabpanel">
                 
-              
-                
-              
-                
-              
-                
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Nucleotide Composition for FANC</h5>
-                  </div>
-                  <div class='card-body'>
-                    
   
     
       
@@ -1267,17 +1297,51 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Modification Lengths</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Modification Lengths for FANC</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_6_amplicon_0"
+                          role="tab">FANC</button>
+                </li>
+                
+                
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_6_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -1368,17 +1432,51 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Indel Characterization</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Indel Characterization for FANC</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_7_amplicon_0"
+                          role="tab">FANC</button>
+                </li>
+                
+                
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_7_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -1588,17 +1686,51 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Frameshift Analysis</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Frameshift Analysis for FANC</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_8_amplicon_0"
+                          role="tab">FANC</button>
+                </li>
+                
+                
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_8_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -1616,17 +1748,51 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Splice Analysis</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Splice Analysis for FANC</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_9_amplicon_0"
+                          role="tab">FANC</button>
+                </li>
+                
+                
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_9_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -1659,17 +1825,51 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Allele Plots</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Allele Plots for FANC</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_10_amplicon_0"
+                          role="tab">FANC</button>
+                </li>
+                
+                
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_10_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -1680,7 +1880,7 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_9_FANC_Alleles_frequency_table_around_hi"></div>
-        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_hi = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 1, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnJ2DHF3d3QMcXZ2DglxDnF3dgQiIBsoGOLsDhQDijq7O7or6ZCg1EjH0MBAz0AHAkuKSlNjYwFnATnlbAAAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": "hi"}, {"interval": [99, 119], "name": "dear"}, {"interval": [98, 112], "name": ""}], "quantification_windows": [[-52, -42], [-27, -22]]};</script>
+        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_hi = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 1, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnJ2DHF3d3QMcXZ2DglxDnF3dgQiIBsoGOLsDhQDijq7O7or6ZCg1EjH0MBAz0AHAkuKSlN1omNjYwELmLVrbwAAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": "hi"}, {"interval": [99, 119], "name": "dear"}, {"interval": [98, 112], "name": ""}], "quantification_windows": [[-52, -42], [-27, -22]]};</script>
     
     
     <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
@@ -1698,7 +1898,7 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_9_FANC_Alleles_frequency_table_around_dear"></div>
-        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_dear = {"plot_type": "allele_table", "reference": "CGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATC", "total_alleles": 1, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnJ2d3d3dg4JcXd2dA8BsUEwxBEoBGI4Ozo7hjiDsJIOCUqNdAwNDPQMdCCwpKg0NTYWAMLUHtxsAAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-94, -75], "name": "hi"}, {"interval": [2, 22], "name": "dear"}, {"interval": [1, 15], "name": ""}], "quantification_windows": [[-149, -139], [-124, -119]]};</script>
+        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_dear = {"plot_type": "allele_table", "reference": "CGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATC", "total_alleles": 1, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnJ2d3d3dg4JcXd2dA8BsUEwxBEoBGI4Ozo7hjiDsJIOCUqNdAwNDPQMdCCwpKg0VSc6NjYWAIiDQ+1vAAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-94, -75], "name": "hi"}, {"interval": [2, 22], "name": "dear"}, {"interval": [1, 15], "name": ""}], "quantification_windows": [[-149, -139], [-124, -119]]};</script>
     
     
     <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
@@ -1716,7 +1916,7 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC"></div>
-        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC = {"plot_type": "allele_table", "reference": "CCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTAC", "total_alleles": 1, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnIGAndnZ0cgGeIOYrm7A4kQINsRKOAOEnJ3DnF0VtIhQamRjqGBgZ6BDgSWFJWmxsYCAFmo6ZVsAAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-78, -59], "name": "hi"}, {"interval": [18, 38], "name": "dear"}, {"interval": [17, 31], "name": ""}], "quantification_windows": [[-133, -123], [-108, -103]]};</script>
+        <script type="text/javascript">const allele_table_9_FANC_Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC = {"plot_type": "allele_table", "reference": "CCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTAC", "total_alleles": 1, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnIGAndnZ0cgGeIOYrm7A4kQINsRKOAOEnJ3DnF0VtIhQamRjqGBgZ6BDgSWFJWm6kTHxsYCAJWFVrxvAAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-78, -59], "name": "hi"}, {"interval": [18, 38], "name": "dear"}, {"interval": [17, 31], "name": ""}], "quantification_windows": [[-133, -123], [-108, -103]]};</script>
     
     
     <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
@@ -1747,17 +1947,51 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Substitution Analysis</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Substitution Analysis for FANC</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_11_amplicon_0"
+                          role="tab">FANC</button>
+                </li>
+                
+                
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_11_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -2139,50 +2373,21 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
-                
               
-
+              
+              
             </div>
-            
-            <div class="tab-pane fade  breakinpage"
-                 id="div_HDR" role="tabpanel">
-
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-
-            </div>
-            
           </div>
-        </div>
+        
+      
+        
+
+        
+      
+
+      
       
 
       <div class="text-center p-3">
@@ -2851,6 +3056,9 @@ async function decodeAlleles(payload) {
     for (var i = 0; i < schema.length; i++) {
       allele[schema[i]] = row[i];
     }
+    // Legacy payloads have no marker column; normalize them at the boundary so
+    // rendering and filtering never need a schema-version branch.
+    allele.large_deletion_markers = allele.large_deletion_markers || [];
     // precomputed once here -- doing this per keystroke is the one real hot spot
     allele.ungapped_sequence = ungapSequence(allele.aligned_sequence);
     return allele;
@@ -2882,6 +3090,17 @@ if (typeof module !== 'undefined' && module.exports) {
     const ROW_PITCH = 15;          // 2px surface gap between rows
     const BAR_W = 64;
     const BAR_H = 7;
+
+    const markerSpan = (marker) => ({
+      length: Number(marker && marker[0]) || 0,
+      start: Number(marker && marker[1]) || 0,
+      end: Number(marker && marker[2]) || 0,
+      left: !!(marker && marker[3]),
+      right: !!(marker && marker[4]),
+    });
+    const markerAt = (allele, index) => (allele.large_deletion_markers || [])
+      .map(markerSpan)
+      .find((marker) => index >= marker.start && index < marker.end);
 
     const container = document.getElementById(slug);
     if (!container) return;
@@ -3214,10 +3433,17 @@ if (typeof module !== 'undefined' && module.exports) {
       const base = allele.aligned_sequence[index];
       const refBase = (allele.reference_sequence || "")[index];
       tipHead.text(allele.pct.toFixed(2) + "% · " + allele.reads.toLocaleString() + " reads");
+      const marker = markerAt(allele, index);
+      const markerText = marker
+        ? " · full boundary-spanning deletion: " + marker.length + "bp"
+          + (marker.left && marker.right ? " (both boundaries)"
+            : marker.left ? " (continues left)" : " (continues right)")
+        : "";
       tipBody.text(
         "Position " + (index + 1) + " · allele " + base + " / reference "
         + (refBase === undefined ? "?" : refBase)
-        + " · " + allele.n_inserted + "I " + allele.n_deleted + "D " + allele.n_mutated + "S",
+        + " · " + allele.n_inserted + "I " + allele.n_deleted + "D " + allele.n_mutated + "S"
+        + markerText,
       );
       const bounds = container.getBoundingClientRect();
       tooltip
@@ -3262,9 +3488,24 @@ if (typeof module !== 'undefined' && module.exports) {
         ctx.textAlign = "center";
         for (let i = 0; i < seq.length; i++) {
           if (seq[i] === ref[i]) continue;
+          if (seq[i] === "-" && markerAt(allele, i)) continue;
           ctx.fillStyle = inkOnCached(baseColor(seq[i]));
           ctx.fillText(seq[i], (i * CELL_W) + (CELL_W / 2), y + CELL_H - 3);
         }
+
+        // Boundary-spanning deletion glyphs are replaced after the normal grid
+        // pass; the cells and their fixed-width positions remain unchanged.
+        (allele.large_deletion_markers || []).forEach((rawMarker) => {
+          const marker = markerSpan(rawMarker);
+          const start = Math.max(0, Math.min(seq.length, marker.start));
+          const end = Math.max(start, Math.min(seq.length, marker.end));
+          if (end <= start) return;
+          ctx.fillStyle = "#ffffff";
+          ctx.font = (end - start <= 2 ? "6px " : "8px ")
+            + "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+          ctx.textAlign = "center";
+          ctx.fillText(marker.length + "bp", ((start + end) / 2) * CELL_W, y + CELL_H - 3);
+        });
 
         // 3. insertions carry a second channel: a rule in the insertion color
         ctx.fillStyle = color["Insertion"];

@@ -694,6 +694,54 @@ details[open] > summary .guardrail-toggle {
 
       
       
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+      
+
+      
+      
+      <p class="breakinpage">Reads are aligned to each amplicon sequence separately:</p>
+      
+
+      
         
         <div class='card text-center mb-2 breakinpage'>
           <div class='card-header'><h5>Alignment</h5></div>
@@ -805,12 +853,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-09-09 16:06:21</p>
+  <p><strong>Run completed:</strong> 2026-09-16 11:07:29</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/vcf_prime_edit_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_spacer_seq GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_extension_seq ATCTGGATCGGCTGCAGAAGGGA --vcf_output --amplicon_coordinates FANC:1,FANC_PE:1 -n vcf-prime-edit-basic --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/vcf_prime_edit_basic.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_spacer_seq GGAATCCCTTCTGCAGCACC --prime_editing_pegRNA_extension_seq ATCTGGATCGGCTGCAGAAGGGA --vcf_output --amplicon_coordinates FANC:1,FANC_PE:1 -n vcf-prime-edit-basic --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -876,6 +924,7 @@ max_rows_alleles_around_cut_to_plot: 50
 min_average_read_quality: 0
 min_bp_quality_or_N: 0
 min_frequency_alleles_around_cut_to_plot: 0.2
+min_large_del: 50
 min_paired_end_reads_overlap: 10
 min_single_bp_quality: 0
 n_processes: 1
@@ -933,6 +982,8 @@ zip_output: False</pre></p>
 
           </div>
         </div>
+        
+
         
       
         
@@ -1029,78 +1080,64 @@ zip_output: False</pre></p>
           </div>
         </div>
         
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
 
+        
       
-      
-        <p class="breakinpage">Reads are aligned to each amplicon sequence separately:</p>
-        <div id='amplicons-card' class='card text-center mb-2'>
-          <div class='card-header amp-header'>
-            <h5>Amplicons</h5>
-            <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
-              
-              <li class="nav-item">
-                <button class="nav-link active"
-                        data-bs-toggle="tab"
-                        data-bs-target="#div_Reference"
-                        role="tab">Reference</button>
-              </li>
-              
-              <li class="nav-item">
-                <button class="nav-link "
-                        data-bs-toggle="tab"
-                        data-bs-target="#div_Prime-edited"
-                        role="tab">Prime-edited</button>
-              </li>
-              
-            </ul>
-          </div>
+        
 
-          <div class="tab-content pt-3 px-3 amp-body card-body">
+        
+      
+        
+
+        
+      
+        
+
+        
+      
+        
+
+        
+          
+          
+          
             
-            <div class="tab-pane fade show active breakinpage"
-                 id="div_Reference" role="tabpanel">
-
               
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Nucleotide Composition</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_5_amplicon_0"
+                          role="tab">Reference</button>
+                </li>
+                
+                
+                
+                <li class="nav-item">
+                  <button class="nav-link "
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_5_amplicon_1"
+                          role="tab">Prime-edited</button>
+                </li>
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
               
-                
               
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_5_amplicon_0" role="tabpanel">
                 
-              
-                
-              
-                
-              
-                
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Nucleotide Composition for Reference</h5>
-                  </div>
-                  <div class='card-body'>
-                    
   
     
       
@@ -1185,17 +1222,128 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              <div class="tab-pane fade  breakinpage"
+                   id="section_5_amplicon_1" role="tabpanel">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Modification Lengths for Reference</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+  
+    
+      
+  
+
+
+<div id="fig_nucleotide_quilt_Prime-edited" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2a_Prime_edited_Nucleotide_percentage_quilt"></div>
+        <script type="text/javascript">const nuc_quilt_2a_Prime_edited_Nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCCGATCCAGATCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.89, "T": 0.11}, {"A": 0.84, "C": 0.11, "-": 0.05}, {"G": 0.11, "T": 0.79, "-": 0.11, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.95, "G": 0.05}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [79, 101], "row": 1, "sequence": "TCCCTTCTGCAGCCGATCCAGAT"}, {"interval": [75, 94], "row": 0, "sequence": "GGAATCCCTTCTGCAGCCGA"}], "quantification_windows": [[91, 92], [97, 106]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
+    
+</div>
+
+    
+  
+    
+      
+        
+  
+
+
+<div id="fig_nucleotide_quilt_sgRNA_Prime-edited_sg0" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_Extension"></div>
+        <script type="text/javascript">const nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_Extension = {"reference": "CTTCTGCAGCCGATCCAGATCTTTTCCGAGCTTCTGGCGG", "batches": [{"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.89, "T": 0.11}, {"A": 0.84, "C": 0.11, "-": 0.05}, {"G": 0.11, "T": 0.79, "-": 0.11, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [-3, 19], "row": 1, "sequence": "TCCCTTCTGCAGCCGATCCAGAT"}, {"interval": [-7, 12], "row": 0, "sequence": "GGAATCCCTTCTGCAGCCGA"}], "quantification_windows": [[9, 10], [15, 24]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 2b: Nucleotide distribution around the PE Extension (ATCTGGATCGGCTGCAGAAGGGA).</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
+    
+</div>
+
+      
+        
+  
+
+
+<div id="fig_nucleotide_quilt_sgRNA_Prime-edited_sg1" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA"></div>
+        <script type="text/javascript">const nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA = {"reference": "CATGGAATCCCTTCTGCAGCCGATCCAGATCTTTTCCGAG", "batches": [{"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.89, "T": 0.11}, {"A": 0.84, "C": 0.11, "-": 0.05}, {"G": 0.11, "T": 0.79, "-": 0.11, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [7, 29], "row": 1, "sequence": "TCCCTTCTGCAGCCGATCCAGAT"}, {"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCCGA"}], "quantification_windows": [[19, 20], [25, 34]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 2b: Nucleotide distribution around the PE spacer sgRNA (GGAATCCCTTCTGCAGCACC).</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
+    
+</div>
+
+      
+    
+  
+
+              </div>
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Modification Lengths</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
+                
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_6_amplicon_0"
+                          role="tab">Reference</button>
+                </li>
+                
+                
+                
+                <li class="nav-item">
+                  <button class="nav-link "
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_6_amplicon_1"
+                          role="tab">Prime-edited</button>
+                </li>
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_6_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -1286,17 +1434,153 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
+              
+              
+              <div class="tab-pane fade  breakinpage"
+                   id="section_6_amplicon_1" role="tabpanel">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Indel Characterization for Reference</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+  
+    
+      
+      <div class="mb-3">
+        <ul class="nav nav-tabs justify-content-center card-header-tabs" role="tablist">
+          
+          
+          
+          <li class="nav-item">
+            <button class="nav-link active"
+                    id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Summary_0"
+                    data-bs-toggle="tab"
+                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Summary_0"
+                    role="tab"
+                    aria-controls="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Summary_0"
+                    aria-selected="true">Summary</button>
+          </li>
+          
+          
+          
+          <li class="nav-item">
+            <button class="nav-link "
+                    id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Indels_1"
+                    data-bs-toggle="tab"
+                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Indels_1"
+                    role="tab"
+                    aria-controls="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Indels_1"
+                    aria-selected="false">Indels</button>
+          </li>
+          
+        </ul>
+        <div class="tab-content pt-3">
+          
+          
+          
+          <div class="tab-pane fade show active"
+               id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Summary_0"
+               role="tabpanel"
+               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Summary_0">
+            
+              
+  
+<div id="fig_indel_size_distribution_Prime-edited" class="d-flex flex-column align-items-center mb-3">
+    
+        <div>                            <div id="hist_aln-prime-edited" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("hist_aln-prime-edited")) {                    Plotly.newPlot(                        "hist_aln-prime-edited",                        [{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Key=Indel\u003cbr\u003eIndel size (bp)=%{x}\u003cbr\u003esum of Sequences %(no.)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Indel","marker":{"color":"blue","pattern":{"shape":""}},"name":"Indel","offsetgroup":"Indel","orientation":"v","showlegend":true,"x":[-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"xaxis":"x","y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,5.26,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,0.0,0.0,0.0,0.0,0.0,0.0,5.26],"yaxis":"y","type":"histogram","xbins":{"end":20.5,"size":1,"start":-15.5}},{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Key=No Indel\u003cbr\u003eIndel size (bp)=%{x}\u003cbr\u003esum of Sequences %(no.)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"No Indel","marker":{"color":"red","pattern":{"shape":""}},"name":"No Indel","offsetgroup":"No Indel","orientation":"v","showlegend":true,"x":[0],"xaxis":"x","y":[78.95],"yaxis":"y","type":"histogram","xbins":{"end":20.5,"size":1,"start":-15.5}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Indel size (bp)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"tickfont":{"size":14},"ticktext":["0%(0)","20%(3)","40%(7)","60%(11)","80%(15)","100%(19)"],"tickvals":[0,20,40,60,80,100],"tickmode":"array"},"legend":{"title":{"text":"Key"},"tracegroupgap":0},"title":{"text":"Indel size distribution: Prime-edited"},"barmode":"relative","bargap":0.2,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+    
+    
+    <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Indel_histogram.txt">Indel histogram</a></small></p>
+    
+</div>
+
+            
+          </div>
+          
+          
+          
+          <div class="tab-pane fade "
+               id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Indels_1"
+               role="tabpanel"
+               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Indels_1">
+            
+              
+  
+<div id="fig_insertion_deletion_substitution_sizes_Prime-edited" class="d-flex flex-column align-items-center mb-3">
+    
+        <div>                            <div id="hist_aln_indels-prime-edited" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("hist_aln_indels-prime-edited")) {                    Plotly.newPlot(                        "hist_aln_indels-prime-edited",                        [{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],"xaxis":"x","y":[89.47,0.0,0.0,10.53,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"bar"},{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"xaxis":"x2","y":[89.47,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,0.0,0.0,0.0,0.0,0.0,0.0,5.26],"yaxis":"y2","type":"bar"},{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0],"xaxis":"x3","y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,5.26,89.47],"yaxis":"y3","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.26666666666666666],"title":{"text":"Positions substituted (number)"},"range":[-1,16]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"xaxis2":{"anchor":"y2","domain":[0.3666666666666667,0.6333333333333333],"title":{"text":"Size (bp)"},"range":[-1,21]},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"xaxis3":{"anchor":"y3","domain":[0.7333333333333334,1.0],"title":{"text":"Size (bp)"},"range":[-16,1]},"yaxis3":{"anchor":"x3","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"annotations":[{"font":{"size":12},"showarrow":false,"text":"Substitutions: Prime-edited","x":0.13333333333333333,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12},"showarrow":false,"text":"Insertions: Prime-edited","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12},"showarrow":false,"text":"Deletions: Prime-edited","x":0.8666666666666667,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"coloraxis":{"colorscale":[[0.0,"rgb(255,0,0)"],[1.0,"rgb(0,0,255)"]]},"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
+    
+    
+    <label class="labelpadding">Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown).</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Insertion_histogram.txt">Insertions frequency</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Deletion_histogram.txt">Deletions Frequency</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Substitution_histogram.txt">Substitutions Frequency</a></small></p>
+    
+</div>
+
+            
+          </div>
+          
+        </div>
+      </div>
+    
+  
+
+              </div>
+              
+              
+            </div>
+          </div>
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Indel Characterization</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
+                
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_7_amplicon_0"
+                          role="tab">Reference</button>
+                </li>
+                
+                
+                
+                <li class="nav-item">
+                  <button class="nav-link "
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_7_amplicon_1"
+                          role="tab">Prime-edited</button>
+                </li>
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_7_amplicon_0" role="tabpanel">
+                
   
     
       
@@ -1453,387 +1737,13 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
-                
               
-                
               
+              <div class="tab-pane fade  breakinpage"
+                   id="section_7_amplicon_1" role="tabpanel">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Allele Plots for Reference</h5>
-                  </div>
-                  <div class='card-body'>
-                    
-  
-    
-      
-        
-  
-
-<div id="fig_allele_table_around_cut_Reference_sg0" class="d-flex flex-column align-items-center mb-3 w-100">
-    
-        
-        <div class="w-100" id="allele_table_9_Reference_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
-        <script type="text/javascript">const allele_table_9_Reference_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 11, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE7XUOwrDMAwG4LtktkrtQKGj+AddQFvI0KGdOvVx/yptAwHbcROn2IMRkj+QH13XgFWEWQGoQgVs09YWVIjFLAphadyC1MPR5m7vPuNxe557l6aIqI4KLhjUvqHL6XrPSkPZBtIw/Lw0KedVknd+sfQtx1pp/pgYUte8XyHL3goq9A4ab5CRiFKpoxRKN88WUX1WokTqKLUFSasfbrp7+MMXEV2I/gWA6vl5jQQAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}, {"interval": [7, 29], "name": "PE Extension"}, {"interval": [3, 22], "name": "PE spacer sgRNA"}], "quantification_windows": [[19, 20], [25, 34]]};</script>
-    
-    
-    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA GGAATCCCTTCTGCAGCACC. Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Reference.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele frequency table</a></small></p>
-    
-</div>
-
-      
-        
-  
-
-<div id="fig_allele_table_around_cut_Reference_sg1" class="d-flex flex-column align-items-center mb-3 w-100">
-    
-        
-        <div class="w-100" id="allele_table_9_Reference_Alleles_frequency_table_around_PE_Extension"></div>
-        <script type="text/javascript">const allele_table_9_Reference_Alleles_frequency_table_around_PE_Extension = {"plot_type": "allele_table", "reference": "CTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGG", "total_alleles": 10, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE62TMQ6DMAxF78LsVCQMnS0PvoA3xMDQTp1Ke3+cICBCKQVh2UPkfOvpO3HbViRCwoSapAdGIdaaVomRp1sm5gpOSO+15q2GKT7v76ODHOWcs0IFCApqEujZv4YNKbaZkmL4nJR6VXZgfLP3f1IPPpGasqesHS96mkkbT7/b6Tqp9CGQ2OqZ9kGqtgeVZieG61QkLY52SRJJ69odJYXl53UjrM/yWyQEAAA=", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-7, 12], "name": ""}, {"interval": [-3, 19], "name": "PE Extension"}, {"interval": [-7, 12], "name": "PE spacer sgRNA"}], "quantification_windows": [[9, 10], [15, 24]]};</script>
-    
-    
-    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the PE Extension (ATCTGGATCGGCTGCAGAAGGGA). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Reference.Alleles_frequency_table_around_PE_Extension.txt">Allele frequency table</a></small></p>
-    
-</div>
-
-      
-        
-  
-
-<div id="fig_allele_table_around_cut_Reference_sg2" class="d-flex flex-column align-items-center mb-3 w-100">
-    
-        
-        <div class="w-100" id="allele_table_9_Reference_Alleles_frequency_table_around_PE_spacer_sgRNA"></div>
-        <script type="text/javascript">const allele_table_9_Reference_Alleles_frequency_table_around_PE_spacer_sgRNA = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 11, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE7XUOwrDMAwG4LtktkrtQKGj+AddQFvI0KGdOvVx/yptAwHbcROn2IMRkj+QH13XgFWEWQGoQgVs09YWVIjFLAphadyC1MPR5m7vPuNxe557l6aIqI4KLhjUvqHL6XrPSkPZBtIw/Lw0KedVknd+sfQtx1pp/pgYUte8XyHL3goq9A4ab5CRiFKpoxRKN88WUX1WokTqKLUFSasfbrp7+MMXEV2I/gWA6vl5jQQAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}, {"interval": [7, 29], "name": "PE Extension"}, {"interval": [3, 22], "name": "PE spacer sgRNA"}], "quantification_windows": [[19, 20], [25, 34]]};</script>
-    
-    
-    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the PE spacer sgRNA (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Reference.Alleles_frequency_table_around_PE_spacer_sgRNA.txt">Allele frequency table</a></small></p>
-    
-</div>
-
-      
-    
-  
-
-                  </div>
-                </div>
-                
-              
-                
-              
-                
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Prime Editing for Reference</h5>
-                  </div>
-                  <div class='card-body'>
-                    
-  
-    
-      
-  
-
-
-<div id="fig_prime_editing_nuc_quilt_Reference" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11a_Prime_editing_nucleotide_percentage_quilt"></div>
-        <script type="text/javascript">const nuc_quilt_11a_Prime_editing_nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"A": 0.01, "C": 0.99}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 0.01, "T": 0.99}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "G": 0.01}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 0.99, "T": 0.01}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.01, "C": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 0.99, "C": 0.01}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99, "T": 0.01}, {"G": 1.0}, {"T": 1.0}, {"C": 0.99, "G": 0.01}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 0.01, "T": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "G": 0.01}, {"A": 1.0}, {"C": 0.99, "G": 0.01}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 0.01, "G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 0.01, "C": 0.99}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 0.01, "T": 0.99}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.95, "G": 0.05}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [75, 94], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [79, 101], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [75, 94], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[91, 92], [97, 106]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 11a: Nucleotide distribution across all amplicons. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
-    
-    
-</div>
-
-    
-  
-    
-      
-        
-  
-
-
-<div id="fig_prime_editing_nuc_quilt_sgRNA_Reference_sg0" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
-        <script type="text/javascript">const nuc_quilt_11b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"A": 0.99, "C": 0.01}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [3, 22], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [7, 29], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[19, 20], [25, 34]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 11b: Nucleotide distribution around the sgRNA GGAATCCCTTCTGCAGCACC.</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Reference.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Reference</a></small></p>
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Prime-edited</a></small></p>
-    
-</div>
-
-      
-        
-  
-
-
-<div id="fig_prime_editing_nuc_quilt_sgRNA_Reference_sg1" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_Extension"></div>
-        <script type="text/javascript">const nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_Extension = {"reference": "CTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99, "T": 0.01}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [-7, 12], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [-3, 19], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [-7, 12], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[9, 10], [15, 24]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 11b: Nucleotide distribution around the PE Extension (ATCTGGATCGGCTGCAGAAGGGA).</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Reference.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Reference</a></small></p>
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Prime-edited</a></small></p>
-    
-</div>
-
-      
-        
-  
-
-
-<div id="fig_prime_editing_nuc_quilt_sgRNA_Reference_sg2" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA"></div>
-        <script type="text/javascript">const nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA = {"reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"A": 0.99, "C": 0.01}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [3, 22], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [7, 29], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[19, 20], [25, 34]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 11b: Nucleotide distribution around the PE spacer sgRNA (GGAATCCCTTCTGCAGCACC).</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Reference.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Reference</a></small></p>
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Prime-edited</a></small></p>
-    
-</div>
-
-      
-    
-  
-
-                  </div>
-                </div>
-                
-              
-
-            </div>
-            
-            <div class="tab-pane fade  breakinpage"
-                 id="div_Prime-edited" role="tabpanel">
-
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Nucleotide Composition for Prime-edited</h5>
-                  </div>
-                  <div class='card-body'>
-                    
-  
-    
-      
-  
-
-
-<div id="fig_nucleotide_quilt_Prime-edited" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2a_Prime_edited_Nucleotide_percentage_quilt"></div>
-        <script type="text/javascript">const nuc_quilt_2a_Prime_edited_Nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCCGATCCAGATCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.89, "T": 0.11}, {"A": 0.84, "C": 0.11, "-": 0.05}, {"G": 0.11, "T": 0.79, "-": 0.11, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.95, "G": 0.05}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [79, 101], "row": 1, "sequence": "TCCCTTCTGCAGCCGATCCAGAT"}, {"interval": [75, 94], "row": 0, "sequence": "GGAATCCCTTCTGCAGCCGA"}], "quantification_windows": [[91, 92], [97, 106]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></small></p>
-    
-</div>
-
-    
-  
-    
-      
-        
-  
-
-
-<div id="fig_nucleotide_quilt_sgRNA_Prime-edited_sg0" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_Extension"></div>
-        <script type="text/javascript">const nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_Extension = {"reference": "CTTCTGCAGCCGATCCAGATCTTTTCCGAGCTTCTGGCGG", "batches": [{"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.89, "T": 0.11}, {"A": 0.84, "C": 0.11, "-": 0.05}, {"G": 0.11, "T": 0.79, "-": 0.11, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [-3, 19], "row": 1, "sequence": "TCCCTTCTGCAGCCGATCCAGAT"}, {"interval": [-7, 12], "row": 0, "sequence": "GGAATCCCTTCTGCAGCCGA"}], "quantification_windows": [[9, 10], [15, 24]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 2b: Nucleotide distribution around the PE Extension (ATCTGGATCGGCTGCAGAAGGGA).</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
-    
-</div>
-
-      
-        
-  
-
-
-<div id="fig_nucleotide_quilt_sgRNA_Prime-edited_sg1" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA"></div>
-        <script type="text/javascript">const nuc_quilt_2b_Prime_edited_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA = {"reference": "CATGGAATCCCTTCTGCAGCCGATCCAGATCTTTTCCGAG", "batches": [{"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.89, "T": 0.11}, {"A": 0.84, "C": 0.11, "-": 0.05}, {"G": 0.11, "T": 0.79, "-": 0.11, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [7, 29], "row": 1, "sequence": "TCCCTTCTGCAGCCGATCCAGAT"}, {"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCCGA"}], "quantification_windows": [[19, 20], [25, 34]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 2b: Nucleotide distribution around the PE spacer sgRNA (GGAATCCCTTCTGCAGCACC).</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window</a></small></p>
-    
-</div>
-
-      
-    
-  
-
-                  </div>
-                </div>
-                
-              
-                
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Modification Lengths for Prime-edited</h5>
-                  </div>
-                  <div class='card-body'>
-                    
-  
-    
-      
-      <div class="mb-3">
-        <ul class="nav nav-tabs justify-content-center card-header-tabs" role="tablist">
-          
-          
-          
-          <li class="nav-item">
-            <button class="nav-link active"
-                    id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Summary_0"
-                    data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Summary_0"
-                    role="tab"
-                    aria-controls="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Summary_0"
-                    aria-selected="true">Summary</button>
-          </li>
-          
-          
-          
-          <li class="nav-item">
-            <button class="nav-link "
-                    id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Indels_1"
-                    data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Indels_1"
-                    role="tab"
-                    aria-controls="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Indels_1"
-                    aria-selected="false">Indels</button>
-          </li>
-          
-        </ul>
-        <div class="tab-content pt-3">
-          
-          
-          
-          <div class="tab-pane fade show active"
-               id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Summary_0"
-               role="tabpanel"
-               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Summary_0">
-            
-              
-  
-<div id="fig_indel_size_distribution_Prime-edited" class="d-flex flex-column align-items-center mb-3">
-    
-        <div>                            <div id="hist_aln-prime-edited" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("hist_aln-prime-edited")) {                    Plotly.newPlot(                        "hist_aln-prime-edited",                        [{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Key=Indel\u003cbr\u003eIndel size (bp)=%{x}\u003cbr\u003esum of Sequences %(no.)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Indel","marker":{"color":"blue","pattern":{"shape":""}},"name":"Indel","offsetgroup":"Indel","orientation":"v","showlegend":true,"x":[-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"xaxis":"x","y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,5.26,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,0.0,0.0,0.0,0.0,0.0,0.0,5.26],"yaxis":"y","type":"histogram","xbins":{"end":20.5,"size":1,"start":-15.5}},{"alignmentgroup":"True","bingroup":"x","histfunc":"sum","hovertemplate":"Key=No Indel\u003cbr\u003eIndel size (bp)=%{x}\u003cbr\u003esum of Sequences %(no.)=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"No Indel","marker":{"color":"red","pattern":{"shape":""}},"name":"No Indel","offsetgroup":"No Indel","orientation":"v","showlegend":true,"x":[0],"xaxis":"x","y":[78.95],"yaxis":"y","type":"histogram","xbins":{"end":20.5,"size":1,"start":-15.5}}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Indel size (bp)"}},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"tickfont":{"size":14},"ticktext":["0%(0)","20%(3)","40%(7)","60%(11)","80%(15)","100%(19)"],"tickvals":[0,20,40,60,80,100],"tickmode":"array"},"legend":{"title":{"text":"Key"},"tracegroupgap":0},"title":{"text":"Indel size distribution: Prime-edited"},"barmode":"relative","bargap":0.2,"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
-    
-    
-    <label class="labelpadding">Figure 3a: Frequency distribution of alleles with indels (blue) and without indels (red).</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Indel_histogram.txt">Indel histogram</a></small></p>
-    
-</div>
-
-            
-          </div>
-          
-          
-          
-          <div class="tab-pane fade "
-               id="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_pane_Indels_1"
-               role="tabpanel"
-               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_Prime-edited_0_btn_Indels_1">
-            
-              
-  
-<div id="fig_insertion_deletion_substitution_sizes_Prime-edited" class="d-flex flex-column align-items-center mb-3">
-    
-        <div>                            <div id="hist_aln_indels-prime-edited" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script type="text/javascript">                                    window.PLOTLYENV=window.PLOTLYENV || {};                                    if (document.getElementById("hist_aln_indels-prime-edited")) {                    Plotly.newPlot(                        "hist_aln_indels-prime-edited",                        [{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],"xaxis":"x","y":[89.47,0.0,0.0,10.53,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0],"yaxis":"y","type":"bar"},{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],"xaxis":"x2","y":[89.47,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,0.0,0.0,0.0,0.0,0.0,0.0,5.26],"yaxis":"y2","type":"bar"},{"alignmentgroup":"True","hovertemplate":"x=%{x}\u003cbr\u003ey=%{y}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"","marker":{"color":"#636efa","pattern":{"shape":""}},"name":"","offsetgroup":"","orientation":"v","showlegend":false,"textposition":"auto","x":[-15,-14,-13,-12,-11,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0],"xaxis":"x3","y":[0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,5.26,5.26,89.47],"yaxis":"y3","type":"bar"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"type":"heatmapgl","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"xaxis":{"anchor":"y","domain":[0.0,0.26666666666666666],"title":{"text":"Positions substituted (number)"},"range":[-1,16]},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"xaxis2":{"anchor":"y2","domain":[0.3666666666666667,0.6333333333333333],"title":{"text":"Size (bp)"},"range":[-1,21]},"yaxis2":{"anchor":"x2","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"xaxis3":{"anchor":"y3","domain":[0.7333333333333334,1.0],"title":{"text":"Size (bp)"},"range":[-16,1]},"yaxis3":{"anchor":"x3","domain":[0.0,1.0],"title":{"text":"Sequences %(no.)"},"showgrid":false,"range":[0,100]},"annotations":[{"font":{"size":12},"showarrow":false,"text":"Substitutions: Prime-edited","x":0.13333333333333333,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12},"showarrow":false,"text":"Insertions: Prime-edited","x":0.5,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"},{"font":{"size":12},"showarrow":false,"text":"Deletions: Prime-edited","x":0.8666666666666667,"xanchor":"center","xref":"paper","y":1.0,"yanchor":"bottom","yref":"paper"}],"coloraxis":{"colorscale":[[0.0,"rgb(255,0,0)"],[1.0,"rgb(0,0,255)"]]},"plot_bgcolor":"#FFFFFF"},                        {"responsive": true, "displaylogo": false}                    )                };                            </script>        </div>
-    
-    
-    <label class="labelpadding">Figure 3b: Left panel, frequency distribution of sequence modifications that increase read length with respect to the reference amplicon, classified as insertions (positive indel size). Middle panel, frequency distribution of sequence modifications that reduce read length with respect to the reference amplicon, classified as deletions (negative indel size). Right panel, frequency distribution of sequence modifications that do not alter read length with respect to the reference amplicon, which are classified as substitutions (number of substituted positions shown).</label>
-    
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Insertion_histogram.txt">Insertions frequency</a></small></p>
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Deletion_histogram.txt">Deletions Frequency</a></small></p>
-    
-        <p class="m-0"><small>Data: <a href="Prime-edited.Substitution_histogram.txt">Substitutions Frequency</a></small></p>
-    
-</div>
-
-            
-          </div>
-          
-        </div>
-      </div>
-    
-  
-
-                  </div>
-                </div>
-                
-              
-                
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Indel Characterization for Prime-edited</h5>
-                  </div>
-                  <div class='card-body'>
-                    
   
     
       
@@ -1990,21 +1900,131 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
-                
               
-                
+            </div>
+          </div>
+        
+      
+        
+
+        
+      
+        
+
+        
+      
+        
+
+        
+          
+          
+          
+            
               
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Allele Plots</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Allele Plots for Prime-edited</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_10_amplicon_0"
+                          role="tab">Reference</button>
+                </li>
+                
+                
+                
+                <li class="nav-item">
+                  <button class="nav-link "
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_10_amplicon_1"
+                          role="tab">Prime-edited</button>
+                </li>
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_10_amplicon_0" role="tabpanel">
+                
+  
+    
+      
+        
+  
+
+<div id="fig_allele_table_around_cut_Reference_sg0" class="d-flex flex-column align-items-center mb-3 w-100">
+    
+        
+        <div class="w-100" id="allele_table_9_Reference_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
+        <script type="text/javascript">const allele_table_9_Reference_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 11, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE7XUvQoCMQwH8He5ORXbA8Ex/Ie8QLajg4NOTn68vzn1QLjWeu1JO5SQ5gfpxzB0YBVhVgCqUAHbtLUFFWIxi0JYOlqQutvb3GzpNW6X+5GGGCmtOefatEDBrP5pnQ7n6zds3LkCNg5fxD4qcBXmyddg7wqoxYpHxpC2Li6wbMNaVrmJ0HmNDOZcKnXCwg930RazElnMJVInrC9j2vyms23EHz6Q1P2ID3ITe0yuBAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}, {"interval": [7, 29], "name": "PE Extension"}, {"interval": [3, 22], "name": "PE spacer sgRNA"}], "quantification_windows": [[19, 20], [25, 34]]};</script>
+    
+    
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA GGAATCCCTTCTGCAGCACC. Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Reference.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele frequency table</a></small></p>
+    
+</div>
+
+      
+        
+  
+
+<div id="fig_allele_table_around_cut_Reference_sg1" class="d-flex flex-column align-items-center mb-3 w-100">
+    
+        
+        <div class="w-100" id="allele_table_9_Reference_Alleles_frequency_table_around_PE_Extension"></div>
+        <script type="text/javascript">const allele_table_9_Reference_Alleles_frequency_table_around_PE_Extension = {"plot_type": "allele_table", "reference": "CTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGG", "total_alleles": 10, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE62TOw7DMAiG75IZV7EzdLYYuACb5aFDM2Xq4/7FjtJajWhSBcFgYeDTj01KHTIjE0ZxlANFRpKYRJEizbeERB38kXruxU89zPa4Pa+QcoaW5pyzogUIwhoqa7xM9zWsVJrCivkvWC2XzB1zXCawlerBV9igKms6xIPKFthamd4Bj8OU/xGRrJ5skyUF9ixliGy4ZhrsresnjAvss457YaH9i/kFpDj7i0IEAAA=", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-7, 12], "name": ""}, {"interval": [-3, 19], "name": "PE Extension"}, {"interval": [-7, 12], "name": "PE spacer sgRNA"}], "quantification_windows": [[9, 10], [15, 24]]};</script>
+    
+    
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the PE Extension (ATCTGGATCGGCTGCAGAAGGGA). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Reference.Alleles_frequency_table_around_PE_Extension.txt">Allele frequency table</a></small></p>
+    
+</div>
+
+      
+        
+  
+
+<div id="fig_allele_table_around_cut_Reference_sg2" class="d-flex flex-column align-items-center mb-3 w-100">
+    
+        
+        <div class="w-100" id="allele_table_9_Reference_Alleles_frequency_table_around_PE_spacer_sgRNA"></div>
+        <script type="text/javascript">const allele_table_9_Reference_Alleles_frequency_table_around_PE_spacer_sgRNA = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 11, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE7XUvQoCMQwH8He5ORXbA8Ex/Ie8QLajg4NOTn68vzn1QLjWeu1JO5SQ5gfpxzB0YBVhVgCqUAHbtLUFFWIxi0JYOlqQutvb3GzpNW6X+5GGGCmtOefatEDBrP5pnQ7n6zds3LkCNg5fxD4qcBXmyddg7wqoxYpHxpC2Li6wbMNaVrmJ0HmNDOZcKnXCwg930RazElnMJVInrC9j2vyms23EHz6Q1P2ID3ITe0yuBAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}, {"interval": [7, 29], "name": "PE Extension"}, {"interval": [3, 22], "name": "PE spacer sgRNA"}], "quantification_windows": [[19, 20], [25, 34]]};</script>
+    
+    
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the PE spacer sgRNA (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Reference.Alleles_frequency_table_around_PE_spacer_sgRNA.txt">Allele frequency table</a></small></p>
+    
+</div>
+
+      
+    
+  
+
+              </div>
+              
+              
+              
+              <div class="tab-pane fade  breakinpage"
+                   id="section_10_amplicon_1" role="tabpanel">
+                
   
     
       
@@ -2015,7 +2035,7 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_9_Prime_edited_Alleles_frequency_table_around_PE_Extension"></div>
-        <script type="text/javascript">const allele_table_9_Prime_edited_Alleles_frequency_table_around_PE_Extension = {"plot_type": "allele_table", "reference": "CTTCTGCAGCCGATCCAGATCTTTTCCGAGCTTCTGGCGG", "total_alleles": 6, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE63SMQ6DMAwF0LswOxUJJ7D+8C/gDTF0aKdObbk/BpKqolQF0SSyEsXWi6W0bQUzGKEEqAbfeDQf45nzLUFWsiM1Nr5Otczzee8vnaxQBh6mkqQMNXI93x5ZwqI8hONNSXQpTdab9FH+Lyn+lIxjuU7VHlU94osUVkaRvKt9VH72FuqVWij/G4XqBnyIPOOAAgAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-3, 19], "name": "PE Extension"}, {"interval": [-7, 12], "name": "PE spacer sgRNA"}], "quantification_windows": [[9, 10], [15, 24]]};</script>
+        <script type="text/javascript">const allele_table_9_Prime_edited_Alleles_frequency_table_around_PE_Extension = {"plot_type": "allele_table", "reference": "CTTCTGCAGCCGATCCAGATCTTTTCCGAGCTTCTGGCGG", "total_alleles": 6, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE63SPQ7CMAwF4Lt0dhBJT2C9wRfwFmVggIkJ2vvz+gcFitSqJJGVKJa/WErOFdzhBjXA1MENo3N0ZxtuDWaVbEiNNdfhKMNsbu1ZcimyoDlst5YkjVYtl9P1/sLwUSGE/a1JJJZ67h37qvAvLK7B3LoK2hdgVGXEDywsjAljb5u18fFrtGfqpPGrzLTyAOGtMg+SAgAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [-3, 19], "name": "PE Extension"}, {"interval": [-7, 12], "name": "PE spacer sgRNA"}], "quantification_windows": [[9, 10], [15, 24]]};</script>
     
     
     <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the PE Extension (ATCTGGATCGGCTGCAGAAGGGA). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
@@ -2033,7 +2053,7 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_9_Prime_edited_Alleles_frequency_table_around_PE_spacer_sgRNA"></div>
-        <script type="text/javascript">const allele_table_9_Prime_edited_Alleles_frequency_table_around_PE_spacer_sgRNA = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCCGATCCAGATCTTTTCCGAG", "total_alleles": 6, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnJ2DHF3d3QMcXZ2DglxDnF3dnR3dnYH8R1BZAgQgPjuSjokKDU0BiI9Ax0ILCkqTY3VwWtViLM7mVYZ6RhBLTLWSUvMKcawyRlNu64uuZ7SMQTaZAS2C6tNGNops8mQBJtC3EHagQx3Z4I26cIBzCYDUITRyyojhK9iAeuLslqAAgAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [7, 29], "name": "PE Extension"}, {"interval": [3, 22], "name": "PE spacer sgRNA"}], "quantification_windows": [[19, 20], [25, 34]]};</script>
+        <script type="text/javascript">const allele_table_9_Prime_edited_Alleles_frequency_table_around_PE_spacer_sgRNA = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCCGATCCAGATCTTTTCCGAG", "total_alleles": 6, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited", "large_deletion_markers"], "alleles_b64gz": "H4sIAAAAAAACE4uOVnJ2DHF3d3QMcXZ2DglxDnF3dnR3dnYH8R1BZAgQgPjuSjokKDU0BiI9Ax0ILCkqTdWJjo3VwWtbiLM7mbYZ6RhB7TLWSUvMKcZmmTOaCbq65HpNxxBomRHYOlyWYZhAmWWGpFkW4g4yAchwdyZomS4cwCwzAEUeHW0zQvFbLABg0ZpXkgIAAA==", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [7, 29], "name": "PE Extension"}, {"interval": [3, 22], "name": "PE spacer sgRNA"}], "quantification_windows": [[19, 20], [25, 34]]};</script>
     
     
     <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the PE spacer sgRNA (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box filters every allele in the table -- by sequence motif, which also matches across deletion gaps, or by edit class.</label>
@@ -2047,19 +2067,155 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
-                
               
+            </div>
+          </div>
+        
+      
+        
+
+        
+      
+        
+
+        
+          
+          
+          
+            
+              
+            
+          
+            
+          
+          <div class='card text-center mb-2'>
+            <div class='card-header amp-header'>
+              <h5>Prime Editing</h5>
+              <ul class="nav nav-tabs amp-header card-header-tabs" role="tablist">
                 
-                <div class='card text-center mb-2'>
-                  <div class='card-header'>
-                    <h5>Prime Editing for Prime-edited</h5>
-                  </div>
-                  <div class='card-body'>
-                    
+                
+                <li class="nav-item">
+                  <button class="nav-link active"
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_12_amplicon_0"
+                          role="tab">Reference</button>
+                </li>
+                
+                
+                
+                <li class="nav-item">
+                  <button class="nav-link "
+                          data-bs-toggle="tab"
+                          data-bs-target="#section_12_amplicon_1"
+                          role="tab">Prime-edited</button>
+                </li>
+                
+                
+              </ul>
+            </div>
+            <div class="tab-content pt-3 px-3 amp-body card-body">
+              
+              
+              <div class="tab-pane fade show active breakinpage"
+                   id="section_12_amplicon_0" role="tabpanel">
+                
+  
+    
+      
+  
+
+
+<div id="fig_prime_editing_nuc_quilt_Reference" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11a_Prime_editing_nucleotide_percentage_quilt"></div>
+        <script type="text/javascript">const nuc_quilt_11a_Prime_editing_nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"A": 0.01, "C": 0.99}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 0.01, "T": 0.99}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "G": 0.01}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 0.99, "T": 0.01}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.01, "C": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 0.99, "C": 0.01}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99, "T": 0.01}, {"G": 1.0}, {"T": 1.0}, {"C": 0.99, "G": 0.01}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 0.01, "T": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "G": 0.01}, {"A": 1.0}, {"C": 0.99, "G": 0.01}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 0.01, "G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 0.01, "C": 0.99}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 0.01, "T": 0.99}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.95, "G": 0.05}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [75, 94], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [79, 101], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [75, 94], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[91, 92], [97, 106]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 11a: Nucleotide distribution across all amplicons. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
+    
+    
+</div>
+
+    
+  
+    
+      
+        
+  
+
+
+<div id="fig_prime_editing_nuc_quilt_sgRNA_Reference_sg0" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
+        <script type="text/javascript">const nuc_quilt_11b_Nucleotide_percentage_quilt_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"A": 0.99, "C": 0.01}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [3, 22], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [7, 29], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[19, 20], [25, 34]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 11b: Nucleotide distribution around the sgRNA GGAATCCCTTCTGCAGCACC.</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Reference.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Reference</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Prime-edited</a></small></p>
+    
+</div>
+
+      
+        
+  
+
+
+<div id="fig_prime_editing_nuc_quilt_sgRNA_Reference_sg1" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_Extension"></div>
+        <script type="text/javascript">const nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_Extension = {"reference": "CTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.99, "T": 0.01}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [-7, 12], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [-3, 19], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [-7, 12], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[9, 10], [15, 24]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 11b: Nucleotide distribution around the PE Extension (ATCTGGATCGGCTGCAGAAGGGA).</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Reference.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Reference</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Prime-edited</a></small></p>
+    
+</div>
+
+      
+        
+  
+
+
+<div id="fig_prime_editing_nuc_quilt_sgRNA_Reference_sg2" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA"></div>
+        <script type="text/javascript">const nuc_quilt_11b_Nucleotide_percentage_quilt_around_PE_spacer_sgRNA = {"reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "batches": [{"name": "Reference", "nuc_pct": [{"C": 1.0}, {"A": 0.99, "C": 0.01}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 0.99, "T": 0.01, "Insertion": 0.02}, {"A": 0.94, "C": 0.04, "-": 0.02}, {"C": 0.94, "G": 0.04, "-": 0.02}, {"A": 0.01, "C": 0.95, "G": 0.01, "-": 0.02}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.01, "T": 0.99}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 0.99, "C": 0.01}, {"G": 1.0}]}, {"name": "Prime-edited", "nuc_pct": [{"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.05, "T": 0.95}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0, "Insertion": 0.11}, {"A": 0.11, "C": 0.79, "-": 0.11}, {"G": 0.84, "T": 0.05, "-": 0.11}, {"A": 0.84, "C": 0.05, "-": 0.11}, {"C": 0.05, "T": 0.84, "-": 0.11}, {"A": 0.05, "C": 0.89, "G": 0.05, "Insertion": 0.05}, {"C": 0.79, "G": 0.21}, {"A": 0.95, "C": 0.05}, {"G": 0.68, "T": 0.32}, {"A": 0.74, "C": 0.21, "G": 0.05, "Insertion": 0.05}, {"C": 0.05, "G": 0.21, "T": 0.74, "Insertion": 0.11}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [3, 22], "row": 2, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [7, 29], "row": 1, "sequence": "TCCCTTCTGCAGCACCTGGATCG"}, {"interval": [3, 22], "row": 0, "sequence": "GGAATCCCTTCTGCAGCACC"}], "quantification_windows": [[19, 20], [25, 34]], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 11b: Nucleotide distribution around the PE spacer sgRNA (GGAATCCCTTCTGCAGCACC).</label>
+    
+    
+        <p class="m-0"><small>Data: <a href="Reference.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Reference</a></small></p>
+    
+        <p class="m-0"><small>Data: <a href="Prime-edited.Quantification_window_nucleotide_frequency_table.txt">Nucleotide frequency in quantification window for Prime-edited</a></small></p>
+    
+</div>
+
+      
+    
+  
+
+              </div>
+              
+              
+              
+              <div class="tab-pane fade  breakinpage"
+                   id="section_12_amplicon_1" role="tabpanel">
+                
   
     
       
@@ -2108,15 +2264,15 @@ zip_output: False</pre></p>
     
   
 
-                  </div>
-                </div>
-                
+              </div>
               
-
+              
             </div>
-            
           </div>
-        </div>
+        
+      
+
+      
       
 
       <div class="text-center p-3">
@@ -2821,6 +2977,9 @@ async function decodeAlleles(payload) {
     for (var i = 0; i < schema.length; i++) {
       allele[schema[i]] = row[i];
     }
+    // Legacy payloads have no marker column; normalize them at the boundary so
+    // rendering and filtering never need a schema-version branch.
+    allele.large_deletion_markers = allele.large_deletion_markers || [];
     // precomputed once here -- doing this per keystroke is the one real hot spot
     allele.ungapped_sequence = ungapSequence(allele.aligned_sequence);
     return allele;
@@ -2852,6 +3011,17 @@ if (typeof module !== 'undefined' && module.exports) {
     const ROW_PITCH = 15;          // 2px surface gap between rows
     const BAR_W = 64;
     const BAR_H = 7;
+
+    const markerSpan = (marker) => ({
+      length: Number(marker && marker[0]) || 0,
+      start: Number(marker && marker[1]) || 0,
+      end: Number(marker && marker[2]) || 0,
+      left: !!(marker && marker[3]),
+      right: !!(marker && marker[4]),
+    });
+    const markerAt = (allele, index) => (allele.large_deletion_markers || [])
+      .map(markerSpan)
+      .find((marker) => index >= marker.start && index < marker.end);
 
     const container = document.getElementById(slug);
     if (!container) return;
@@ -3184,10 +3354,17 @@ if (typeof module !== 'undefined' && module.exports) {
       const base = allele.aligned_sequence[index];
       const refBase = (allele.reference_sequence || "")[index];
       tipHead.text(allele.pct.toFixed(2) + "% · " + allele.reads.toLocaleString() + " reads");
+      const marker = markerAt(allele, index);
+      const markerText = marker
+        ? " · full boundary-spanning deletion: " + marker.length + "bp"
+          + (marker.left && marker.right ? " (both boundaries)"
+            : marker.left ? " (continues left)" : " (continues right)")
+        : "";
       tipBody.text(
         "Position " + (index + 1) + " · allele " + base + " / reference "
         + (refBase === undefined ? "?" : refBase)
-        + " · " + allele.n_inserted + "I " + allele.n_deleted + "D " + allele.n_mutated + "S",
+        + " · " + allele.n_inserted + "I " + allele.n_deleted + "D " + allele.n_mutated + "S"
+        + markerText,
       );
       const bounds = container.getBoundingClientRect();
       tooltip
@@ -3232,9 +3409,24 @@ if (typeof module !== 'undefined' && module.exports) {
         ctx.textAlign = "center";
         for (let i = 0; i < seq.length; i++) {
           if (seq[i] === ref[i]) continue;
+          if (seq[i] === "-" && markerAt(allele, i)) continue;
           ctx.fillStyle = inkOnCached(baseColor(seq[i]));
           ctx.fillText(seq[i], (i * CELL_W) + (CELL_W / 2), y + CELL_H - 3);
         }
+
+        // Boundary-spanning deletion glyphs are replaced after the normal grid
+        // pass; the cells and their fixed-width positions remain unchanged.
+        (allele.large_deletion_markers || []).forEach((rawMarker) => {
+          const marker = markerSpan(rawMarker);
+          const start = Math.max(0, Math.min(seq.length, marker.start));
+          const end = Math.max(start, Math.min(seq.length, marker.end));
+          if (end <= start) return;
+          ctx.fillStyle = "#ffffff";
+          ctx.font = (end - start <= 2 ? "6px " : "8px ")
+            + "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+          ctx.textAlign = "center";
+          ctx.fillText(marker.length + "bp", ((start + end) / 2) * CELL_W, y + CELL_H - 3);
+        });
 
         // 3. insertions carry a second channel: a rule in the insertion color
         ctx.fillStyle = color["Insertion"];
