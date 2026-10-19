@@ -801,12 +801,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-10-01 09:53:20</p>
+  <p><strong>Run completed:</strong> 2026-10-19 14:32:45</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/mnt/c/Users/Snic9/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -o /mnt/c/Users/Snic9/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --min_single_bp_quality 0 --needleman_wunsch_gap_extend -2 --flexiguide_gap_extend_penalty -2 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --conversion_nuc_from C --default_min_aln_score 60 --needleman_wunsch_aln_matrix_loc EDNAFULL --flexiguide_seq None --trimmomatic_command None --min_average_read_quality 0 --exclude_bp_from_left 15 --conversion_nuc_to T --min_bp_quality_or_N 0 --prime_editing_pegRNA_extension_quantification_window_size 5 --base_editor_target_ref_skip_allele_count 0 --needleman_wunsch_gap_open -20 --fastq_r1 inputs/FANC.Cas9.fastq --aln_seed_min 2 --place_report_in_output_folder --aln_seed_count 5 --min_frequency_alleles_around_cut_to_plot 0.2 --quantification_window_size 1 --halt_on_plot_fail --needleman_wunsch_gap_incentive 1 --fastp_command fastp --debug --amplicon_name Reference --max_paired_end_reads_overlap None --flexiguide_gap_open_penalty -20 --prime_editing_pegRNA_scaffold_min_match_length 1 --verbosity 3 --quantification_window_center -3 --n_processes 1 --config_json None --exclude_bp_from_right 15 --max_rows_alleles_around_cut_to_plot 50 --flexiguide_homology 80 --prime_editing_gap_extend_penalty 0 --config_file None --base_editor_output --prime_editing_gap_open_penalty -50 --plot_window_size 20 --file_prefix Cas9 --min_paired_end_reads_overlap 10 --aln_seed_len 10 --flash_command None --guide_seq GGAATCCCTTCTGCAGCACC</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Cas9 --aln_seed_count 5 --needleman_wunsch_gap_incentive 1 --flexiguide_seq None --flexiguide_gap_extend_penalty -2 --min_bp_quality_or_N 0 --plot_window_size 20 --base_editor_target_ref_skip_allele_count 0 --default_min_aln_score 60 --min_average_read_quality 0 --needleman_wunsch_gap_extend -2 --exclude_bp_from_left 15 --conversion_nuc_from C --needleman_wunsch_gap_open -20 --max_rows_alleles_around_cut_to_plot 50 --guide_seq GGAATCCCTTCTGCAGCACC --trimmomatic_command None --config_file None --conversion_nuc_to T --min_single_bp_quality 0 --min_paired_end_reads_overlap 10 --flash_command None --place_report_in_output_folder --quantification_window_center -3 --fastp_command fastp --base_editor_output --min_frequency_alleles_around_cut_to_plot 0.2 --quantification_window_size 1 --fastq_r1 inputs/FANC.Cas9.fastq --file_prefix Cas9 --debug --flexiguide_homology 80 --max_paired_end_reads_overlap None --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --amplicon_name Reference --aln_seed_min 2 --needleman_wunsch_aln_matrix_loc EDNAFULL --aln_seed_len 10 --n_processes 1 --prime_editing_pegRNA_scaffold_min_match_length 1 --prime_editing_gap_open_penalty -50 --halt_on_plot_fail --prime_editing_pegRNA_extension_quantification_window_size 5 --exclude_bp_from_right 15 --config_json None --verbosity 3 --flexiguide_gap_open_penalty -20 --prime_editing_gap_extend_penalty 0</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -881,7 +881,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /mnt/c/Users/Snic9/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -1046,14 +1046,10 @@ zip_output: False</pre></p>
       
         
       
-        
-      
 
       
       
         
-        
-          
         
           
         
@@ -1131,11 +1127,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_6_Modification_Lengths_amplicon_Reference_0_btn_Summary_0"
+                    id="tab_section_5_Modification_Lengths_amplicon_Reference_0_btn_Summary_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_Reference_0_pane_Summary_0"
+                    data-bs-target="#tab_section_5_Modification_Lengths_amplicon_Reference_0_pane_Summary_0"
                     role="tab"
-                    aria-controls="tab_section_6_Modification_Lengths_amplicon_Reference_0_pane_Summary_0"
+                    aria-controls="tab_section_5_Modification_Lengths_amplicon_Reference_0_pane_Summary_0"
                     aria-selected="true">Summary</button>
           </li>
           
@@ -1143,11 +1139,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Modification_Lengths_amplicon_Reference_0_btn_Indels_1"
+                    id="tab_section_5_Modification_Lengths_amplicon_Reference_0_btn_Indels_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_Reference_0_pane_Indels_1"
+                    data-bs-target="#tab_section_5_Modification_Lengths_amplicon_Reference_0_pane_Indels_1"
                     role="tab"
-                    aria-controls="tab_section_6_Modification_Lengths_amplicon_Reference_0_pane_Indels_1"
+                    aria-controls="tab_section_5_Modification_Lengths_amplicon_Reference_0_pane_Indels_1"
                     aria-selected="false">Indels</button>
           </li>
           
@@ -1157,9 +1153,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_6_Modification_Lengths_amplicon_Reference_0_pane_Summary_0"
+               id="tab_section_5_Modification_Lengths_amplicon_Reference_0_pane_Summary_0"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_Reference_0_btn_Summary_0">
+               aria-labelledby="tab_section_5_Modification_Lengths_amplicon_Reference_0_btn_Summary_0">
             
               
   
@@ -1181,9 +1177,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Modification_Lengths_amplicon_Reference_0_pane_Indels_1"
+               id="tab_section_5_Modification_Lengths_amplicon_Reference_0_pane_Indels_1"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_Reference_0_btn_Indels_1">
+               aria-labelledby="tab_section_5_Modification_Lengths_amplicon_Reference_0_btn_Indels_1">
             
               
   
@@ -1230,11 +1226,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_Combined_0"
+                    id="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_Combined_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_Combined_0"
+                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_Combined_0"
                     role="tab"
-                    aria-controls="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_Combined_0"
+                    aria-controls="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_Combined_0"
                     aria-selected="false">All Modifications Combined</button>
           </li>
           
@@ -1242,11 +1238,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_by_Type_1"
+                    id="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_by_Type_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_by_Type_1"
+                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_by_Type_1"
                     role="tab"
-                    aria-controls="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_by_Type_1"
+                    aria-controls="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_by_Type_1"
                     aria-selected="true">All Modifications by Type</button>
           </li>
           
@@ -1254,11 +1250,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_Modifications_in_Quantification_Window_2"
+                    id="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_Modifications_in_Quantification_Window_2"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_Modifications_in_Quantification_Window_2"
+                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_Modifications_in_Quantification_Window_2"
                     role="tab"
-                    aria-controls="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_Modifications_in_Quantification_Window_2"
+                    aria-controls="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_Modifications_in_Quantification_Window_2"
                     aria-selected="false">Modifications in Quantification Window</button>
           </li>
           
@@ -1266,11 +1262,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_Indel_Lengths_3"
+                    id="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_Indel_Lengths_3"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_Indel_Lengths_3"
+                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_Indel_Lengths_3"
                     role="tab"
-                    aria-controls="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_Indel_Lengths_3"
+                    aria-controls="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_Indel_Lengths_3"
                     aria-selected="false">Indel Lengths</button>
           </li>
           
@@ -1280,9 +1276,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_Combined_0"
+               id="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_Combined_0"
                role="tabpanel"
-               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_Combined_0">
+               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_Combined_0">
             
               
   
@@ -1304,9 +1300,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_by_Type_1"
+               id="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_All_Modifications_by_Type_1"
                role="tabpanel"
-               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_by_Type_1">
+               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_All_Modifications_by_Type_1">
             
               
   
@@ -1328,9 +1324,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_Modifications_in_Quantification_Window_2"
+               id="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_Modifications_in_Quantification_Window_2"
                role="tabpanel"
-               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_Modifications_in_Quantification_Window_2">
+               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_Modifications_in_Quantification_Window_2">
             
               
   
@@ -1352,9 +1348,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_7_Indel_Characterization_amplicon_Reference_0_pane_Indel_Lengths_3"
+               id="tab_section_6_Indel_Characterization_amplicon_Reference_0_pane_Indel_Lengths_3"
                role="tabpanel"
-               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_Reference_0_btn_Indel_Lengths_3">
+               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_Reference_0_btn_Indel_Lengths_3">
             
               
   
@@ -1398,7 +1394,7 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_Cas9_9_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
-        <script type="text/javascript">const allele_table_Cas9_9_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 48, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA72XvXKDMAzH36WzzWEDgY4+D3oBbbkMHdqpUz/ev7JJCE1w5CCDYfD5kH8nWf5LHI8v3iGAc+i9R/QI3tFLc1pED7RGqx4cvKgnPjV9rXpbNa2q4/Pz9ft+UkswrbUU9qqaamhUE0kfb5/fiyh9GRJUq0zVE/AhKZgv2SdIevHThkh2IIxJofRsiOJnVV0NnTKWD6A4Mc6slo/gzDuZWyaXJXfrkIMqE8Gbw9LMWHeLCdXSxcpmSRRjZLX1TQgXOVJ1Gln2LjOWUGVY5l4zklEU+9UtpWECJmUlVJfLx1V5mFKNDVhtk2YhRDtHG2hAh0gT8OMmPGsStIlVR5W/R/0/sjJpmCySKdUoeb3mG6RSfyXL8ixX6Co/FvmiqI5F+VIopk8rmBeGK/4FJb7jCnK5s7IcytHXAB6i8TgDwFRTOK+qZ+zsrKhXsw/7DKIJu0JGnGYoDJsEZ8bluJbh1lWeJxRdY5PdFYr03ZqnOlCROJnDs6wNL9eMJU2NIRslzsI+E7WHZFxQMFbozVFF1KnJQJVqdXmUk/4dX4WQRXm9R30M5uh3IpFVkN1gGMtKeNcJbtdy8cP9jmrqaTYvWdEi2I/qFEKajCCLsnmoSKFohkkBFO71Y3z6A/KDr0YkFAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}], "quantification_windows": [[19, 20]], "reads_total": 235, "cut_column": 19, "plot_offset": 72, "expand_by_quantification": false};</script>
+        <script type="text/javascript">const allele_table_Cas9_9_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 48, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE72XvXKDMAzH36WzzWEDgY4+D3oBbbkMHdqpUz/ev7JJCE1w5CCDYfD5kH8nWf5LHI8v3iGAc+i9R/QI3tFLc1pED7RGqx4cvKgnPjV9rXpbNa2q4/Pz9ft+UkswrbUU9qqaamhUE0kfb5/fiyh9GRJUq0zVE/AhKZgv2SdIevHThkh2IIxJofRsiOJnVV0NnTKWD6A4Mc6slo/gzDuZWyaXJXfrkIMqE8Gbw9LMWHeLCdXSxcpmSRRjZLX1TQgXOVJ1Gln2LjOWUGVY5l4zklEU+9UtpWECJmUlVJfLx1V5mFKNDVhtk2YhRDtHG2hAh0gT8OMmPGsStIlVR5W/R/0/sjJpmCySKdUoeb3mG6RSfyXL8ixX6Co/FvmiqI5F+VIopk8rmBeGK/4FJb7jCnK5s7IcytHXAB6i8TgDwFRTOK+qZ+zsrKhXsw/7DKIJu0JGnGYoDJsEZ8bluJbh1lWeJxRdY5PdFYr03ZqnOlCROJnDs6wNL9eMJU2NIRslzsI+E7WHZFxQMFbozVFF1KnJQJVqdXmUk/4dX4WQRXm9R30M5uh3IpFVkN1gGMtKeNcJbtdy8cP9jmrqaTYvWdEi2I/qFEKajCCLsnmoSKFohkkBFO71Y3z6A/KDr0YkFAAA", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}], "quantification_windows": [[19, 20]], "reads_total": 235, "cut_column": 19, "plot_offset": 72, "expand_by_quantification": false};</script>
     
     
     <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA GGAATCCCTTCTGCAGCACC. Nucleotides are indicated by unique colors (A = green; C = orange; G = yellow; T = purple). Bases matching the reference are faded and unlabelled, so only differences are highlighted. Dark cells indicate deleted sequences, and a green rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window, and positions are numbered along the full amplicon. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box and the edit checkboxes filter every allele in the table. The search box matches a sequence motif anywhere in the plotted sequence, including across a deletion. The checkboxes keep alleles by the type of edit they carry inside the plotted part of the quantification window; an allele with no edit there counts as unedited. Alleles that are identical within the plotted window and carry the same types of edit are merged into one row.</label>
@@ -1430,11 +1426,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Frequencies_0"
+                    id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Frequencies_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Frequencies_0"
+                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Frequencies_0"
                     role="tab"
-                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Frequencies_0"
+                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Frequencies_0"
                     aria-selected="true">Substitution Frequencies</button>
           </li>
           
@@ -1442,11 +1438,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Nucleotide_Frequencies_1"
+                    id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Nucleotide_Frequencies_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Nucleotide_Frequencies_1"
+                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Nucleotide_Frequencies_1"
                     role="tab"
-                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Nucleotide_Frequencies_1"
+                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Nucleotide_Frequencies_1"
                     aria-selected="false">Nucleotide Frequencies</button>
           </li>
           
@@ -1454,11 +1450,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Base_Proportions_2"
+                    id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Base_Proportions_2"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Base_Proportions_2"
+                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Base_Proportions_2"
                     role="tab"
-                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Base_Proportions_2"
+                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Base_Proportions_2"
                     aria-selected="false">Base Proportions</button>
           </li>
           
@@ -1466,11 +1462,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Non-reference_Bases_3"
+                    id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Non-reference_Bases_3"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Non-reference_Bases_3"
+                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Non-reference_Bases_3"
                     role="tab"
-                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Non-reference_Bases_3"
+                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Non-reference_Bases_3"
                     aria-selected="false">Non-reference Bases</button>
           </li>
           
@@ -1478,11 +1474,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Base_Edit_Quilt_4"
+                    id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Base_Edit_Quilt_4"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Base_Edit_Quilt_4"
+                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Base_Edit_Quilt_4"
                     role="tab"
-                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Base_Edit_Quilt_4"
+                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Base_Edit_Quilt_4"
                     aria-selected="false">Base Edit Quilt</button>
           </li>
           
@@ -1490,11 +1486,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Co-occurences_5"
+                    id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Co-occurences_5"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Co-occurences_5"
+                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Co-occurences_5"
                     role="tab"
-                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Co-occurences_5"
+                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Co-occurences_5"
                     aria-selected="false">Substitution Co-occurences</button>
           </li>
           
@@ -1504,9 +1500,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Frequencies_0"
+               id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Frequencies_0"
                role="tabpanel"
-               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Frequencies_0">
+               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Frequencies_0">
             
               
   
@@ -1556,9 +1552,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Nucleotide_Frequencies_1"
+               id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Nucleotide_Frequencies_1"
                role="tabpanel"
-               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Nucleotide_Frequencies_1">
+               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Nucleotide_Frequencies_1">
             
               
   
@@ -1582,9 +1578,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Base_Proportions_2"
+               id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Base_Proportions_2"
                role="tabpanel"
-               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Base_Proportions_2">
+               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Base_Proportions_2">
             
               
   
@@ -1608,9 +1604,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Non-reference_Bases_3"
+               id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Non-reference_Bases_3"
                role="tabpanel"
-               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Non-reference_Bases_3">
+               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Non-reference_Bases_3">
             
               
   
@@ -1651,9 +1647,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Base_Edit_Quilt_4"
+               id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Base_Edit_Quilt_4"
                role="tabpanel"
-               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Base_Edit_Quilt_4">
+               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Base_Edit_Quilt_4">
             
               
   
@@ -1675,9 +1671,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_11_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Co-occurences_5"
+               id="tab_section_10_Substitution_Analysis_amplicon_Reference_0_pane_Substitution_Co-occurences_5"
                role="tabpanel"
-               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Co-occurences_5">
+               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_Reference_0_btn_Substitution_Co-occurences_5">
             
               
   
