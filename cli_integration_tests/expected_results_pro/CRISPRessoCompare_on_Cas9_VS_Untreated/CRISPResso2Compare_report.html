@@ -865,14 +865,6 @@ details[open] > summary .guardrail-toggle {
     
     </div>
     
-<script>
-  document.querySelectorAll('#aggregate-modification-summary [data-bs-toggle="tab"]').forEach((tab) => {
-    tab.addEventListener('shown.bs.tab', () => {
-      const pane = document.getElementById(tab.getAttribute('aria-controls'));
-      pane.querySelectorAll('.plotly-graph-div').forEach((plot) => Plotly.Plots.resize(plot));
-    });
-  });
-</script>
 
   </body>
 
