@@ -1,5 +1,6 @@
 """CLI integration tests for CRISPResso2, migrated from the Makefile."""
 from dataclasses import dataclass, field
+import re
 from typing import List
 
 import pytest
@@ -521,13 +522,38 @@ def _make_params():
     return params
 
 
+def assert_modification_summary(output_dir, mode, pro_installed):
+    """The FANC batch and aggregate must embed all four modification pairs."""
+    report = output_dir / f'CRISPResso2{mode.capitalize()}_report.html'
+    html = report.read_text()
+    assert ('<h5>Summary Plots</h5>' in html) == pro_installed
+    if not pro_installed:
+        return
+    ids = re.findall(r'\bid="([^"]+)"', html)
+    assert len(ids) == len(set(ids))
+    targets = re.findall(rf'data-bs-target="#({mode}-modification-[^"]+)"', html)
+    assert len(targets) == 8
+    assert all(target in ids for target in targets)
+    for modification in ('insertions', 'deletions', 'substitutions', 'all_modifications'):
+        for kind in ('heatmap', 'line'):
+            assert f'id="{mode}-0-{modification}-{kind}"' in html
+            files = list(output_dir.glob(f'CRISPResso{mode.capitalize()}_percentage_of_{modification}_across_alleles_*_{kind}.html'))
+            assert len(files) == 1
+            assert 'Plotly.newPlot' in files[0].read_text()
+    data_links = re.findall(r'href="([^"]*MODIFICATION_PERCENTAGE_SUMMARY.txt)"', html)
+    assert len(data_links) == 8
+    assert all((output_dir / link).is_file() for link in data_links)
+
+
 @pytest.mark.parametrize('test_case', _make_params())
-def test_crispresso_cli(test_case, run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
+def test_crispresso_cli(test_case, run_crispresso, check_diffs, assert_no_diff, cli_test_dir, pro_installed):
     result = run_crispresso(test_case.full_cmd)
     assert result.returncode == 0, (
         f'{test_case.id} command failed (exit code {result.returncode}):\n'
         f'{result.stderr}'
     )
+    if test_case.id == 'batch':
+        assert_modification_summary(cli_test_dir / test_case.output_dir, 'batch', pro_installed)
     if check_diffs:
         actual = cli_test_dir / test_case.output_dir
         assert_no_diff(actual)
@@ -555,7 +581,7 @@ def test_compare(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
 
 @pytest.mark.aggregate
 @pytest.mark.xdist_group('batch_deps')
-def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
+def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir, pro_installed):
     """CRISPRessoAggregate — requires batch output from test_crispresso_cli[batch]."""
     batch_dir = cli_test_dir / 'CRISPRessoBatch_on_FANC'
     if not batch_dir.exists():
@@ -569,6 +595,7 @@ def test_aggregate(run_crispresso, check_diffs, assert_no_diff, cli_test_dir):
         f'aggregate command failed (exit code {result.returncode}):\n'
         f'{result.stderr}'
     )
+    assert_modification_summary(cli_test_dir / 'CRISPRessoAggregate_on_aggregate', 'aggregate', pro_installed)
     if check_diffs:
         assert_no_diff(cli_test_dir / 'CRISPRessoAggregate_on_aggregate')
 
