@@ -761,6 +761,21 @@ details[open] > summary .guardrail-toggle {
           
 
           
+            <div class='card text-center mb-2'>
+              <div class='card-header'>
+                <h5>Summary Plots</h5>
+              </div>
+              <div class='card-body p-0'>
+                <div class="list-group list-group-flush scrollable-list-tall">
+							  
+	              <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/Cas9.CRISPResso2_report.html" data-toggle="tooltip" title="CRISPRessoBatch_on_FANC_CRISPResso_on_Cas9 Reference" class="list-group-item list-group-item-action p-0"><img src="../CRISPRessoBatch_on_FANC/CRISPResso_on_Cas9/Cas9.2a.Nucleotide_percentage_quilt.png" width='100%' ></a>
+                  
+	              <a href="../CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/Untreated.CRISPResso2_report.html" data-toggle="tooltip" title="CRISPRessoBatch_on_FANC_CRISPResso_on_Untreated Reference" class="list-group-item list-group-item-action p-0"><img src="../CRISPRessoBatch_on_FANC/CRISPResso_on_Untreated/Untreated.2a.Nucleotide_percentage_quilt.png" width='100%' ></a>
+                  
+                </div>
+              </div>
+            </div>
+            
 
             <div class="text-center p-3">
   
@@ -807,14 +822,6 @@ details[open] > summary .guardrail-toggle {
     
     </div>
     
-<script>
-  document.querySelectorAll('#aggregate-modification-summary [data-bs-toggle="tab"]').forEach((tab) => {
-    tab.addEventListener('shown.bs.tab', () => {
-      const pane = document.getElementById(tab.getAttribute('aria-controls'));
-      pane.querySelectorAll('.plotly-graph-div').forEach((plot) => Plotly.Plots.resize(plot));
-    });
-  });
-</script>
 
   </body>
 

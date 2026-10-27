@@ -526,7 +526,9 @@ def assert_modification_summary(output_dir, mode, pro_installed):
     """The FANC batch and aggregate must embed all four modification pairs."""
     report = output_dir / f'CRISPResso2{mode.capitalize()}_report.html'
     html = report.read_text()
-    assert ('<h5>Summary Plots</h5>' in html) == pro_installed
+    # Base Aggregate reports also have a static "Summary Plots" section.
+    # Only the interactive modification-summary container is Pro-specific.
+    assert (f'id="{mode}-modification-summary"' in html) == pro_installed
     if not pro_installed:
         return
     ids = re.findall(r'\bid="([^"]+)"', html)
