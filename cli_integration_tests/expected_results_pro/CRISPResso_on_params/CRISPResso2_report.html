@@ -805,12 +805,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-10-26 17:31:46</p>
+  <p><strong>Run completed:</strong> 2026-10-28 13:07:48</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --base_editor_consider_changes_outside_qw --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -r1 inputs/FANC.Cas9.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --base_editor_consider_changes_outside_qw --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -1134,6 +1134,36 @@ zip_output: False</pre></p>
         
       
         
+        <div class='card text-center mb-2 breakinpage'>
+          <div class='card-header'><h5>HDR summary report (all reads aligned to 1st amplicon)</h5></div>
+          <div class='card-body'>
+            
+  
+    
+      
+  
+
+
+<div id="fig_hdr_nuc_quilt" class="d-flex flex-column align-items-center mb-3">
+    
+        
+        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_4g_HDR_nucleotide_percentage_quilt"></div>
+        <script type="text/javascript">const nuc_quilt_4g_HDR_nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "FANC", "nuc_pct": [{"C": 0.99}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 0.99}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 0.99}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 0.99}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 0.99}, {"C": 0.99}, {"T": 0.99}, {"T": 1.0}, {"C": 0.99}, {"T": 0.99}, {"G": 0.98, "-": 0.02}, {"C": 0.97, "-": 0.03}, {"A": 0.97, "-": 0.03}, {"G": 0.92, "-": 0.08}, {"A": 0.02, "C": 0.91, "-": 0.07, "Insertion": 0.03}, {"A": 0.93, "-": 0.07}, {"C": 0.95, "G": 0.01, "T": 0.01, "-": 0.03}, {"C": 0.98, "-": 0.02}, {"T": 0.98, "-": 0.02}, {"G": 0.99, "-": 0.01}, {"G": 0.99}, {"A": 0.99}, {"T": 0.99}, {"C": 0.99}, {"G": 0.99}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.99}, {"A": 1.0}, {"A": 1.0}, {"G": 0.99}, {"C": 1.0}, {"A": 0.99}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 0.99}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 0.99}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.99}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 0.99}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 0.99}, {"C": 1.0}, {"C": 0.99}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 0.99}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 0.99}, {"C": 0.99}, {"G": 1.0}, {"G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 0.99}, {"T": 0.99}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}, {"name": "HDR", "nuc_pct": [{"C": 0.94, "T": 0.06}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 0.94, "C": 0.06}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.94, "T": 0.06}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 0.06, "C": 0.94}, {"C": 0.94, "-": 0.06}, {"T": 0.94, "-": 0.06}, {"T": 0.81, "-": 0.19}, {"C": 0.81, "-": 0.19}, {"T": 0.81, "-": 0.19}, {"G": 0.81, "-": 0.19}, {"C": 0.62, "-": 0.38}, {"A": 0.56, "-": 0.44}, {"G": 0.56, "-": 0.44}, {"C": 0.56, "-": 0.44}, {"-": 1.0}, {"-": 1.0}, {"-": 1.0}, {"T": 0.06, "-": 0.94}, {"G": 0.19, "-": 0.81}, {"G": 0.44, "-": 0.56}, {"A": 0.5, "G": 0.06, "-": 0.44}, {"T": 0.62, "-": 0.38}, {"C": 0.69, "-": 0.31}, {"A": 0.06, "G": 0.62, "-": 0.31}, {"C": 0.62, "-": 0.38}, {"T": 0.81, "-": 0.19}, {"T": 0.81, "-": 0.19}, {"T": 0.88, "-": 0.12}, {"T": 0.94, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.06, "G": 0.94}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.94, "C": 0.06}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 0.94, "C": 0.06}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [75, 94], "row": 1, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [171, 191], "row": 1, "sequence": "GGCCTTGCAGTGGGCGCGCTA"}, {"interval": [170, 184], "row": 0, "sequence": "CCCACTGCAAGGCCC"}], "quantification_windows": [], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
+    
+    
+    <label class="labelpadding">Figure 4g: Nucleotide distribution across all amplicons. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
+    
+    
+</div>
+
+    
+  
+
+          </div>
+        </div>
+        
+      
+        
       
         
       
@@ -1180,6 +1210,8 @@ zip_output: False</pre></p>
             <div class="tab-pane fade show active breakinpage"
                  id="div_FANC" role="tabpanel">
 
+              
+                
               
                 
               
@@ -1301,11 +1333,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_5_Modification_Lengths_amplicon_FANC_0_btn_Summary_0"
+                    id="tab_section_6_Modification_Lengths_amplicon_FANC_0_btn_Summary_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_5_Modification_Lengths_amplicon_FANC_0_pane_Summary_0"
+                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_FANC_0_pane_Summary_0"
                     role="tab"
-                    aria-controls="tab_section_5_Modification_Lengths_amplicon_FANC_0_pane_Summary_0"
+                    aria-controls="tab_section_6_Modification_Lengths_amplicon_FANC_0_pane_Summary_0"
                     aria-selected="true">Summary</button>
           </li>
           
@@ -1313,11 +1345,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_5_Modification_Lengths_amplicon_FANC_0_btn_Indels_1"
+                    id="tab_section_6_Modification_Lengths_amplicon_FANC_0_btn_Indels_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_5_Modification_Lengths_amplicon_FANC_0_pane_Indels_1"
+                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_FANC_0_pane_Indels_1"
                     role="tab"
-                    aria-controls="tab_section_5_Modification_Lengths_amplicon_FANC_0_pane_Indels_1"
+                    aria-controls="tab_section_6_Modification_Lengths_amplicon_FANC_0_pane_Indels_1"
                     aria-selected="false">Indels</button>
           </li>
           
@@ -1327,9 +1359,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_5_Modification_Lengths_amplicon_FANC_0_pane_Summary_0"
+               id="tab_section_6_Modification_Lengths_amplicon_FANC_0_pane_Summary_0"
                role="tabpanel"
-               aria-labelledby="tab_section_5_Modification_Lengths_amplicon_FANC_0_btn_Summary_0">
+               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_FANC_0_btn_Summary_0">
             
               
   
@@ -1351,9 +1383,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_5_Modification_Lengths_amplicon_FANC_0_pane_Indels_1"
+               id="tab_section_6_Modification_Lengths_amplicon_FANC_0_pane_Indels_1"
                role="tabpanel"
-               aria-labelledby="tab_section_5_Modification_Lengths_amplicon_FANC_0_btn_Indels_1">
+               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_FANC_0_btn_Indels_1">
             
               
   
@@ -1402,11 +1434,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_Combined_0"
+                    id="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_Combined_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_Combined_0"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_Combined_0"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_Combined_0"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_Combined_0"
                     aria-selected="false">All Modifications Combined</button>
           </li>
           
@@ -1414,11 +1446,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_by_Type_1"
+                    id="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_by_Type_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_by_Type_1"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_by_Type_1"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_by_Type_1"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_by_Type_1"
                     aria-selected="true">All Modifications by Type</button>
           </li>
           
@@ -1426,11 +1458,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_Modifications_in_Quantification_Window_2"
+                    id="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_Modifications_in_Quantification_Window_2"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_Modifications_in_Quantification_Window_2"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_Modifications_in_Quantification_Window_2"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_Modifications_in_Quantification_Window_2"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_Modifications_in_Quantification_Window_2"
                     aria-selected="false">Modifications in Quantification Window</button>
           </li>
           
@@ -1438,11 +1470,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_Indel_Lengths_3"
+                    id="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_Indel_Lengths_3"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_Indel_Lengths_3"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_Indel_Lengths_3"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_Indel_Lengths_3"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_Indel_Lengths_3"
                     aria-selected="false">Indel Lengths</button>
           </li>
           
@@ -1450,11 +1482,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_All_reads_aligned_to_amplicon_4"
+                    id="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_All_reads_aligned_to_amplicon_4"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_reads_aligned_to_amplicon_4"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_reads_aligned_to_amplicon_4"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_reads_aligned_to_amplicon_4"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_reads_aligned_to_amplicon_4"
                     aria-selected="false">All reads aligned to amplicon</button>
           </li>
           
@@ -1462,11 +1494,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_HDR_reads_aligned_to_Amplicon_5"
+                    id="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_HDR_reads_aligned_to_Amplicon_5"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_HDR_reads_aligned_to_Amplicon_5"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_HDR_reads_aligned_to_Amplicon_5"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_HDR_reads_aligned_to_Amplicon_5"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_HDR_reads_aligned_to_Amplicon_5"
                     aria-selected="false">HDR reads aligned to Amplicon</button>
           </li>
           
@@ -1476,9 +1508,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_Combined_0"
+               id="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_Combined_0"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_Combined_0">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_Combined_0">
             
               
   
@@ -1500,9 +1532,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_by_Type_1"
+               id="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_Modifications_by_Type_1"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_by_Type_1">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_All_Modifications_by_Type_1">
             
               
   
@@ -1524,9 +1556,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_Modifications_in_Quantification_Window_2"
+               id="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_Modifications_in_Quantification_Window_2"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_Modifications_in_Quantification_Window_2">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_Modifications_in_Quantification_Window_2">
             
               
   
@@ -1548,9 +1580,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_Indel_Lengths_3"
+               id="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_Indel_Lengths_3"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_Indel_Lengths_3">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_Indel_Lengths_3">
             
               
   
@@ -1570,9 +1602,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_All_reads_aligned_to_amplicon_4"
+               id="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_All_reads_aligned_to_amplicon_4"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_All_reads_aligned_to_amplicon_4">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_All_reads_aligned_to_amplicon_4">
             
               
   
@@ -1592,9 +1624,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_FANC_0_pane_HDR_reads_aligned_to_Amplicon_5"
+               id="tab_section_7_Indel_Characterization_amplicon_FANC_0_pane_HDR_reads_aligned_to_Amplicon_5"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_FANC_0_btn_HDR_reads_aligned_to_Amplicon_5">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_FANC_0_btn_HDR_reads_aligned_to_Amplicon_5">
             
               
   
@@ -1613,25 +1645,6 @@ zip_output: False</pre></p>
           
         </div>
       </div>
-    
-  
-    
-      
-  
-
-
-<div id="fig_hdr_nuc_quilt_FANC" class="d-flex flex-column align-items-center mb-3">
-    
-        
-        <div class="d-flex justify-content-between" style="max-height: 80vh; overflow-y: auto;" id="nuc_quilt_4g_HDR_nucleotide_percentage_quilt"></div>
-        <script type="text/javascript">const nuc_quilt_4g_HDR_nucleotide_percentage_quilt = {"reference": "CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG", "batches": [{"name": "FANC", "nuc_pct": [{"C": 0.99}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 0.99}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 0.99}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 0.99}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 0.99}, {"C": 0.99}, {"T": 0.99}, {"T": 1.0}, {"C": 0.99}, {"T": 0.99}, {"G": 0.98, "-": 0.02}, {"C": 0.97, "-": 0.03}, {"A": 0.97, "-": 0.03}, {"G": 0.92, "-": 0.08}, {"A": 0.02, "C": 0.91, "-": 0.07, "Insertion": 0.03}, {"A": 0.93, "-": 0.07}, {"C": 0.95, "G": 0.01, "T": 0.01, "-": 0.03}, {"C": 0.98, "-": 0.02}, {"T": 0.98, "-": 0.02}, {"G": 0.99, "-": 0.01}, {"G": 0.99}, {"A": 0.99}, {"T": 0.99}, {"C": 0.99}, {"G": 0.99}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 0.99}, {"A": 1.0}, {"A": 1.0}, {"G": 0.99}, {"C": 1.0}, {"A": 0.99}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 0.99}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 0.99}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 0.99}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 0.99}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 0.99}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 0.99}, {"C": 1.0}, {"C": 0.99}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 0.99}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 0.99}, {"C": 0.99}, {"G": 1.0}, {"G": 0.99}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 0.99}, {"T": 0.99}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}, {"name": "HDR", "nuc_pct": [{"C": 0.94, "T": 0.06}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"A": 0.94, "C": 0.06}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 0.94, "T": 0.06}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"T": 1.0}, {"A": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 0.06, "C": 0.94}, {"C": 0.94, "-": 0.06}, {"T": 0.94, "-": 0.06}, {"T": 0.81, "-": 0.19}, {"C": 0.81, "-": 0.19}, {"T": 0.81, "-": 0.19}, {"G": 0.81, "-": 0.19}, {"C": 0.62, "-": 0.38}, {"A": 0.56, "-": 0.44}, {"G": 0.56, "-": 0.44}, {"C": 0.56, "-": 0.44}, {"-": 1.0}, {"-": 1.0}, {"-": 1.0}, {"T": 0.06, "-": 0.94}, {"G": 0.19, "-": 0.81}, {"G": 0.44, "-": 0.56}, {"A": 0.5, "G": 0.06, "-": 0.44}, {"T": 0.62, "-": 0.38}, {"C": 0.69, "-": 0.31}, {"A": 0.06, "G": 0.62, "-": 0.31}, {"C": 0.62, "-": 0.38}, {"T": 0.81, "-": 0.19}, {"T": 0.81, "-": 0.19}, {"T": 0.88, "-": 0.12}, {"T": 0.94, "-": 0.06}, {"C": 0.94, "-": 0.06}, {"C": 1.0}, {"G": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"A": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 0.06, "G": 0.94}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"A": 0.94, "C": 0.06}, {"G": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"A": 0.94, "C": 0.06}, {"C": 1.0}, {"C": 1.0}, {"T": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"C": 1.0}, {"A": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}, {"C": 1.0}, {"G": 1.0}, {"C": 1.0}, {"T": 1.0}, {"T": 1.0}, {"T": 1.0}, {"G": 1.0}, {"G": 1.0}, {"T": 1.0}, {"C": 1.0}, {"G": 1.0}, {"G": 1.0}]}], "sgRNAs": [{"interval": [75, 94], "row": 1, "sequence": "GGAATCCCTTCTGCAGCACC"}, {"interval": [171, 191], "row": 1, "sequence": "GGCCTTGCAGTGGGCGCGCTA"}, {"interval": [170, 184], "row": 0, "sequence": "CCCACTGCAAGGCCC"}], "quantification_windows": [], "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}};</script>
-    
-    
-    <label class="labelpadding">Figure 4g: Nucleotide distribution across all amplicons. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</label>
-    
-    
-</div>
-
     
   
 
@@ -1815,11 +1828,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Substitution_Frequencies_0"
+                    id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Substitution_Frequencies_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Substitution_Frequencies_0"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Substitution_Frequencies_0"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Substitution_Frequencies_0"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Substitution_Frequencies_0"
                     aria-selected="true">Substitution Frequencies</button>
           </li>
           
@@ -1827,11 +1840,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Nucleotide_Frequencies_1"
+                    id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Nucleotide_Frequencies_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Nucleotide_Frequencies_1"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Nucleotide_Frequencies_1"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Nucleotide_Frequencies_1"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Nucleotide_Frequencies_1"
                     aria-selected="false">Nucleotide Frequencies</button>
           </li>
           
@@ -1839,11 +1852,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Base_Proportions_2"
+                    id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Base_Proportions_2"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Base_Proportions_2"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Base_Proportions_2"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Base_Proportions_2"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Base_Proportions_2"
                     aria-selected="false">Base Proportions</button>
           </li>
           
@@ -1851,11 +1864,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Non-reference_Bases_3"
+                    id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Non-reference_Bases_3"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Non-reference_Bases_3"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Non-reference_Bases_3"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Non-reference_Bases_3"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Non-reference_Bases_3"
                     aria-selected="false">Non-reference Bases</button>
           </li>
           
@@ -1863,11 +1876,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Base_Edit_Quilt_4"
+                    id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Base_Edit_Quilt_4"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Base_Edit_Quilt_4"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Base_Edit_Quilt_4"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Base_Edit_Quilt_4"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Base_Edit_Quilt_4"
                     aria-selected="false">Base Edit Quilt</button>
           </li>
           
@@ -1877,9 +1890,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Substitution_Frequencies_0"
+               id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Substitution_Frequencies_0"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Substitution_Frequencies_0">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Substitution_Frequencies_0">
             
               
   
@@ -1929,9 +1942,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Nucleotide_Frequencies_1"
+               id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Nucleotide_Frequencies_1"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Nucleotide_Frequencies_1">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Nucleotide_Frequencies_1">
             
               
   
@@ -1989,9 +2002,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Base_Proportions_2"
+               id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Base_Proportions_2"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Base_Proportions_2">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Base_Proportions_2">
             
               
   
@@ -2049,9 +2062,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Non-reference_Bases_3"
+               id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Non-reference_Bases_3"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Non-reference_Bases_3">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Non-reference_Bases_3">
             
               
   
@@ -2160,9 +2173,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_FANC_0_pane_Base_Edit_Quilt_4"
+               id="tab_section_11_Substitution_Analysis_amplicon_FANC_0_pane_Base_Edit_Quilt_4"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_FANC_0_btn_Base_Edit_Quilt_4">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_FANC_0_btn_Base_Edit_Quilt_4">
             
               
   
@@ -2198,6 +2211,8 @@ zip_output: False</pre></p>
             <div class="tab-pane fade  breakinpage"
                  id="div_HDR" role="tabpanel">
 
+              
+                
               
                 
               
@@ -2319,11 +2334,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_5_Modification_Lengths_amplicon_HDR_0_btn_Summary_0"
+                    id="tab_section_6_Modification_Lengths_amplicon_HDR_0_btn_Summary_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_5_Modification_Lengths_amplicon_HDR_0_pane_Summary_0"
+                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_HDR_0_pane_Summary_0"
                     role="tab"
-                    aria-controls="tab_section_5_Modification_Lengths_amplicon_HDR_0_pane_Summary_0"
+                    aria-controls="tab_section_6_Modification_Lengths_amplicon_HDR_0_pane_Summary_0"
                     aria-selected="true">Summary</button>
           </li>
           
@@ -2331,11 +2346,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_5_Modification_Lengths_amplicon_HDR_0_btn_Indels_1"
+                    id="tab_section_6_Modification_Lengths_amplicon_HDR_0_btn_Indels_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_5_Modification_Lengths_amplicon_HDR_0_pane_Indels_1"
+                    data-bs-target="#tab_section_6_Modification_Lengths_amplicon_HDR_0_pane_Indels_1"
                     role="tab"
-                    aria-controls="tab_section_5_Modification_Lengths_amplicon_HDR_0_pane_Indels_1"
+                    aria-controls="tab_section_6_Modification_Lengths_amplicon_HDR_0_pane_Indels_1"
                     aria-selected="false">Indels</button>
           </li>
           
@@ -2345,9 +2360,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_5_Modification_Lengths_amplicon_HDR_0_pane_Summary_0"
+               id="tab_section_6_Modification_Lengths_amplicon_HDR_0_pane_Summary_0"
                role="tabpanel"
-               aria-labelledby="tab_section_5_Modification_Lengths_amplicon_HDR_0_btn_Summary_0">
+               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_HDR_0_btn_Summary_0">
             
               
   
@@ -2369,9 +2384,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_5_Modification_Lengths_amplicon_HDR_0_pane_Indels_1"
+               id="tab_section_6_Modification_Lengths_amplicon_HDR_0_pane_Indels_1"
                role="tabpanel"
-               aria-labelledby="tab_section_5_Modification_Lengths_amplicon_HDR_0_btn_Indels_1">
+               aria-labelledby="tab_section_6_Modification_Lengths_amplicon_HDR_0_btn_Indels_1">
             
               
   
@@ -2420,11 +2435,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_Combined_0"
+                    id="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_Combined_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_Combined_0"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_Combined_0"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_Combined_0"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_Combined_0"
                     aria-selected="false">All Modifications Combined</button>
           </li>
           
@@ -2432,11 +2447,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_by_Type_1"
+                    id="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_by_Type_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_by_Type_1"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_by_Type_1"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_by_Type_1"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_by_Type_1"
                     aria-selected="true">All Modifications by Type</button>
           </li>
           
@@ -2444,11 +2459,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_Modifications_in_Quantification_Window_2"
+                    id="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_Modifications_in_Quantification_Window_2"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_Modifications_in_Quantification_Window_2"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_Modifications_in_Quantification_Window_2"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_Modifications_in_Quantification_Window_2"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_Modifications_in_Quantification_Window_2"
                     aria-selected="false">Modifications in Quantification Window</button>
           </li>
           
@@ -2456,11 +2471,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_Indel_Lengths_3"
+                    id="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_Indel_Lengths_3"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_Indel_Lengths_3"
+                    data-bs-target="#tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_Indel_Lengths_3"
                     role="tab"
-                    aria-controls="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_Indel_Lengths_3"
+                    aria-controls="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_Indel_Lengths_3"
                     aria-selected="false">Indel Lengths</button>
           </li>
           
@@ -2470,9 +2485,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_Combined_0"
+               id="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_Combined_0"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_Combined_0">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_Combined_0">
             
               
   
@@ -2494,9 +2509,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_by_Type_1"
+               id="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_All_Modifications_by_Type_1"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_by_Type_1">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_All_Modifications_by_Type_1">
             
               
   
@@ -2518,9 +2533,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_Modifications_in_Quantification_Window_2"
+               id="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_Modifications_in_Quantification_Window_2"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_Modifications_in_Quantification_Window_2">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_Modifications_in_Quantification_Window_2">
             
               
   
@@ -2542,9 +2557,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_6_Indel_Characterization_amplicon_HDR_0_pane_Indel_Lengths_3"
+               id="tab_section_7_Indel_Characterization_amplicon_HDR_0_pane_Indel_Lengths_3"
                role="tabpanel"
-               aria-labelledby="tab_section_6_Indel_Characterization_amplicon_HDR_0_btn_Indel_Lengths_3">
+               aria-labelledby="tab_section_7_Indel_Characterization_amplicon_HDR_0_btn_Indel_Lengths_3">
             
               
   
@@ -2763,11 +2778,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link active"
-                    id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Substitution_Frequencies_0"
+                    id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Substitution_Frequencies_0"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Substitution_Frequencies_0"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Substitution_Frequencies_0"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Substitution_Frequencies_0"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Substitution_Frequencies_0"
                     aria-selected="true">Substitution Frequencies</button>
           </li>
           
@@ -2775,11 +2790,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Nucleotide_Frequencies_1"
+                    id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Nucleotide_Frequencies_1"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Nucleotide_Frequencies_1"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Nucleotide_Frequencies_1"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Nucleotide_Frequencies_1"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Nucleotide_Frequencies_1"
                     aria-selected="false">Nucleotide Frequencies</button>
           </li>
           
@@ -2787,11 +2802,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Base_Proportions_2"
+                    id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Base_Proportions_2"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Base_Proportions_2"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Base_Proportions_2"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Base_Proportions_2"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Base_Proportions_2"
                     aria-selected="false">Base Proportions</button>
           </li>
           
@@ -2799,11 +2814,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Non-reference_Bases_3"
+                    id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Non-reference_Bases_3"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Non-reference_Bases_3"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Non-reference_Bases_3"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Non-reference_Bases_3"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Non-reference_Bases_3"
                     aria-selected="false">Non-reference Bases</button>
           </li>
           
@@ -2811,11 +2826,11 @@ zip_output: False</pre></p>
           
           <li class="nav-item">
             <button class="nav-link "
-                    id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Base_Edit_Quilt_4"
+                    id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Base_Edit_Quilt_4"
                     data-bs-toggle="tab"
-                    data-bs-target="#tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Base_Edit_Quilt_4"
+                    data-bs-target="#tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Base_Edit_Quilt_4"
                     role="tab"
-                    aria-controls="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Base_Edit_Quilt_4"
+                    aria-controls="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Base_Edit_Quilt_4"
                     aria-selected="false">Base Edit Quilt</button>
           </li>
           
@@ -2825,9 +2840,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade show active"
-               id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Substitution_Frequencies_0"
+               id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Substitution_Frequencies_0"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Substitution_Frequencies_0">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Substitution_Frequencies_0">
             
               
   
@@ -2877,9 +2892,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Nucleotide_Frequencies_1"
+               id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Nucleotide_Frequencies_1"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Nucleotide_Frequencies_1">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Nucleotide_Frequencies_1">
             
               
   
@@ -2937,9 +2952,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Base_Proportions_2"
+               id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Base_Proportions_2"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Base_Proportions_2">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Base_Proportions_2">
             
               
   
@@ -2997,9 +3012,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Non-reference_Bases_3"
+               id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Non-reference_Bases_3"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Non-reference_Bases_3">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Non-reference_Bases_3">
             
               
   
@@ -3108,9 +3123,9 @@ zip_output: False</pre></p>
           
           
           <div class="tab-pane fade "
-               id="tab_section_10_Substitution_Analysis_amplicon_HDR_0_pane_Base_Edit_Quilt_4"
+               id="tab_section_11_Substitution_Analysis_amplicon_HDR_0_pane_Base_Edit_Quilt_4"
                role="tabpanel"
-               aria-labelledby="tab_section_10_Substitution_Analysis_amplicon_HDR_0_btn_Base_Edit_Quilt_4">
+               aria-labelledby="tab_section_11_Substitution_Analysis_amplicon_HDR_0_btn_Base_Edit_Quilt_4">
             
               
   
@@ -3559,6 +3574,12 @@ zip_output: False</pre></p>
     }
     setTimeout(async () => {
       
+      if (document.getElementById("nuc_quilt_4g_HDR_nucleotide_percentage_quilt") && typeof nuc_quilt_4g_HDR_nucleotide_percentage_quilt !== "undefined") {
+        await buildNucleotideQuilt(nuc_quilt_4g_HDR_nucleotide_percentage_quilt, "nuc_quilt_4g_HDR_nucleotide_percentage_quilt")
+      } else {
+        console.warn("Skipping missing nucleotide quilt payload or container: nuc_quilt_4g_HDR_nucleotide_percentage_quilt")
+      }
+      
       if (document.getElementById("nuc_quilt_2a_FANC_Nucleotide_percentage_quilt") && typeof nuc_quilt_2a_FANC_Nucleotide_percentage_quilt !== "undefined") {
         await buildNucleotideQuilt(nuc_quilt_2a_FANC_Nucleotide_percentage_quilt, "nuc_quilt_2a_FANC_Nucleotide_percentage_quilt")
       } else {
@@ -3581,12 +3602,6 @@ zip_output: False</pre></p>
         await buildNucleotideQuilt(nuc_quilt_2b_FANC_Nucleotide_percentage_quilt_around_sgRNA_CCCACTGAAGGCCC, "nuc_quilt_2b_FANC_Nucleotide_percentage_quilt_around_sgRNA_CCCACTGAAGGCCC")
       } else {
         console.warn("Skipping missing nucleotide quilt payload or container: nuc_quilt_2b_FANC_Nucleotide_percentage_quilt_around_sgRNA_CCCACTGAAGGCCC")
-      }
-      
-      if (document.getElementById("nuc_quilt_4g_HDR_nucleotide_percentage_quilt") && typeof nuc_quilt_4g_HDR_nucleotide_percentage_quilt !== "undefined") {
-        await buildNucleotideQuilt(nuc_quilt_4g_HDR_nucleotide_percentage_quilt, "nuc_quilt_4g_HDR_nucleotide_percentage_quilt")
-      } else {
-        console.warn("Skipping missing nucleotide quilt payload or container: nuc_quilt_4g_HDR_nucleotide_percentage_quilt")
       }
       
       if (document.getElementById("nuc_quilt_2a_HDR_Nucleotide_percentage_quilt") && typeof nuc_quilt_2a_HDR_Nucleotide_percentage_quilt !== "undefined") {
