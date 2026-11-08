@@ -3381,8 +3381,8 @@ if (typeof module !== 'undefined' && module.exports) {
 
     const countOf = (n, noun) => n + " " + noun + (n === 1 ? "" : "s");
     const countsText = (c) => [
-      countOf(c.inserted, "insertion"),
-      countOf(c.deleted, "deletion"),
+      countOf(c.inserted, "inserted base"),
+      countOf(c.deleted, "deleted base"),
       countOf(c.mutated, "substitution"),
     ].join(", ");
     const amplicon = (pos) => plotOffset + pos + 1;   // 1-based, along the whole amplicon
@@ -3418,7 +3418,7 @@ if (typeof module !== 'undefined' && module.exports) {
         }
       }
       let detail = "";
-      let counts = "In plotted window: " + countsText(allele.quant_counts);
+      let counts = "In plotted quantification window: " + countsText(allele.quant_counts);
       if (allele.quant_offplot_classes.length > 0) {
         // the class filter keeps this row for an edit no plotted column shows
         detail += " · also in the quantification window, pushed off the plot by this row's insertion: "
@@ -3499,7 +3499,8 @@ if (typeof module !== 'undefined' && module.exports) {
         }
 
         // 3. insertions carry a second channel: one box around each run, cut at
-        //    the canvas edge; the 0.5 keeps the 1px stroke on whole pixels
+        //    the canvas edge; the 0.5 centers the 1px stroke on a device pixel
+        //    at DPR 1 and 2, and other ratios anti-alias the edge
         ctx.strokeStyle = color["Insertion"];
         ctx.lineWidth = 1;
         for (let i = 0; i < seq.length; i++) {
