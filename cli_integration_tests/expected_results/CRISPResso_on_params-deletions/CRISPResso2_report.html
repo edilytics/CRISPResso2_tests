@@ -709,12 +709,12 @@ details[open] > summary .guardrail-toggle {
 						</div>
 						<div class="tab-pane fade text-start screen-only" id="log_params" role="tabpanel">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-09-09 16:02:06</p>
+  <p><strong>Run completed:</strong> 2026-11-09 14:45:02</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/cole/code/edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -r1 inputs/FANC.Cas9.deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params-deletions --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --base_editor_consider_changes_outside_qw --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test/bin/CRISPResso -r1 inputs/FANC.Cas9.deletions.fastq -a CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -g GGAATCCCTTCTGCAGCACC -e CGGCCGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCTGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG -c GGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTT --dump -qwc 20-30_45-50 -q 30 --default_min_aln_score 80 -an FANC -n params-deletions --base_editor_output -fg AGCCTTGCAGTGGGCGCGCTA,CCCACTGAAGGCCC --dsODN GCTAGATTTCCCAAGAAGA -gn hi -fgn dear -p max --base_editor_consider_changes_outside_qw --place_report_in_output_folder --halt_on_plot_fail --debug</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -936,7 +936,7 @@ zip_output: False</pre></p>
 				<div class='card-body'>
 					<div id="fig_plot_4g" class="d-flex flex-column">
     <a href="4g.HDR_nucleotide_percentage_quilt.pdf"><img src="4g.HDR_nucleotide_percentage_quilt.png" width='100%'></a>
-        <figcaption class="labelpadding">Figure 4g: Nucleotide distribution across all amplicons. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</figcaption>
+        <figcaption class="labelpadding">Figure 4g: Nucleotide distribution across all amplicons. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (see the nucleotide color legend). Gap-colored bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.</figcaption>
             <p class="cr-data-link">Data: <a href="FANC.Reads_from_all_amplicons_nucleotide_percent_table.txt">Nucleotide percentage table for all reads aligned to FANC</a></p>
             <p class="cr-data-link">Data: <a href="FANC.Reads_from_all_amplicons_modification_percent_table.txt">Modification percentage table for all reads aligned to FANC</a></p>
             <p class="cr-data-link">Data: <a href="FANC.Nucleotide_frequency_table.txt">Nucleotide frequency table for FANC</a></p>
@@ -1134,7 +1134,7 @@ zip_output: False</pre></p>
 </script>
 									<figcaption class="labelpadding">
 										<span class='d-none d-md-block'>Hover your mouse over the bottom image to zoom in on a specific region.</span><br>
-										Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (A = green; C = orange; G = yellow; T = purple). Black bars show the percentage of reads for which that base was deleted. Brown bars between bases show the percentage of reads having an insertion at that position.
+										Figure 2a: Nucleotide distribution across amplicon. At each base in the reference amplicon, the percentage of each base as observed in sequencing reads is shown (see the nucleotide color legend). Gap-colored bars show the percentage of reads for which that base was deleted. Bars between bases show the percentage of reads having an insertion at that position.
 									</figcaption>
 									
 										<p class="cr-data-link">Data: <a href="FANC.Nucleotide_frequency_table.txt">Nucleotide frequency table</a></p>
@@ -1367,7 +1367,7 @@ zip_output: False</pre></p>
                   				<div class='mb-4'>
 					  				<div id="fig_plot_9_0" class="d-flex flex-column">
     <a href="9.FANC.Alleles_frequency_table_around_hi.pdf"><img src="9.FANC.Alleles_frequency_table_around_hi.png" width='100%'></a>
-        <figcaption class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</figcaption>
+        <figcaption class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the hi (GGAATCCCTTCTGCAGCACC). Nucleotides are indicated by unique colors (see the nucleotide color legend). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</figcaption>
             <p class="cr-data-link">Data: <a href="FANC.Alleles_frequency_table_around_hi.txt">Allele frequency table</a></p>
 </div>
                 				</div>
@@ -1375,7 +1375,7 @@ zip_output: False</pre></p>
                   				<div class='mb-4'>
 					  				<div id="fig_plot_9_1" class="d-flex flex-column">
     <a href="9.FANC.Alleles_frequency_table_around_dear.pdf"><img src="9.FANC.Alleles_frequency_table_around_dear.png" width='100%'></a>
-        <figcaption class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</figcaption>
+        <figcaption class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the dear (AGCCTTGCAGTGGGCGCGCTA). Nucleotides are indicated by unique colors (see the nucleotide color legend). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</figcaption>
             <p class="cr-data-link">Data: <a href="FANC.Alleles_frequency_table_around_dear.txt">Allele frequency table</a></p>
 </div>
                 				</div>
@@ -1383,7 +1383,7 @@ zip_output: False</pre></p>
                   				<div class='mb-4'>
 					  				<div id="fig_plot_9_2" class="d-flex flex-column">
     <a href="9.FANC.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.pdf"><img src="9.FANC.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.png" width='100%'></a>
-        <figcaption class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</figcaption>
+        <figcaption class="labelpadding">Figure 9: Visualization of the distribution of identified alleles around the cleavage site for the sgRNA CCCACTGAAGGCCC. Nucleotides are indicated by unique colors (see the nucleotide color legend). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences. The vertical dashed line indicates the predicted cleavage site.</figcaption>
             <p class="cr-data-link">Data: <a href="FANC.Alleles_frequency_table_around_sgRNA_CCCACTGAAGGCCC.txt">Allele frequency table</a></p>
 </div>
                 				</div>
@@ -1598,7 +1598,7 @@ zip_output: False</pre></p>
                       <div class='mb-4'>
                       <div id="fig_plot_10h" class="d-flex flex-column">
     <a href="10h.FANC.base_edit_Cs_quilt.pdf"><img src="10h.FANC.base_edit_Cs_quilt.png" width='100%'></a>
-        <figcaption class="labelpadding">Figure 10h: Quilt of target nucleotide: C across entire amplicon. The x-axis shows the corresponding position of the nucleotide in the reference amplicon (1-indexed). Nucleotides are indicated by unique colors (A = green; C = red; G = yellow; T = purple). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences.</figcaption>
+        <figcaption class="labelpadding">Figure 10h: Quilt of target nucleotide: C across entire amplicon. The x-axis shows the corresponding position of the nucleotide in the reference amplicon (1-indexed). Nucleotides are indicated by unique colors (see the nucleotide color legend). Substitutions are shown in bold font. Red rectangles highlight inserted sequences. Horizontal dashed lines indicate deleted sequences.</figcaption>
             <p class="cr-data-link">Data: <a href="FANC.base_edit_Cs_quilt.txt">Allele frequency table</a></p>
 </div>
                       </div>
