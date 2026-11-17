@@ -801,12 +801,12 @@ details[open] > summary .guardrail-toggle {
   
 <div class="text-start screen-only" id="log_params">
   <p><strong>CRISPResso version:</strong> 2.3.4</p>
-  <p><strong>Run completed:</strong> 2026-11-09 15:21:44</p>
+  <p><strong>Run completed:</strong> 2026-11-11 14:34:23</p>
   <p><strong>Amplicon sequence:</strong> <pre class='pre-scrollable'>CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG</pre></p>
   
     <p><strong>Guide sequence:</strong> <pre class='pre-scrollable'>GGAATCCCTTCTGCAGCACC</pre></p>
   
-  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/Users/mckaybowcut/Edilytics/CRISPResso2/.pixi/envs/test-pro/bin/CRISPResso -o /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --exclude_bp_from_right 15 --flexiguide_seq None --debug --min_paired_end_reads_overlap 10 --amplicon_name Reference --prime_editing_pegRNA_extension_quantification_window_size 5 --fastp_command fastp --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --needleman_wunsch_gap_incentive 1 --file_prefix Untreated --flexiguide_gap_open_penalty -20 --needleman_wunsch_gap_extend -2 --aln_seed_min 2 --conversion_nuc_from C --n_processes 1 --needleman_wunsch_gap_open -20 --min_average_read_quality 0 --guide_seq GGAATCCCTTCTGCAGCACC --min_bp_quality_or_N 0 --config_file None --aln_seed_len 10 --flexiguide_homology 80 --place_report_in_output_folder --base_editor_output --base_editor_target_ref_skip_allele_count 0 --prime_editing_pegRNA_scaffold_min_match_length 1 --trimmomatic_command None --plot_window_size 20 --prime_editing_gap_open_penalty -50 --fastq_r1 inputs/FANC.Untreated.fastq --quantification_window_size 1 --needleman_wunsch_aln_matrix_loc EDNAFULL --prime_editing_gap_extend_penalty 0 --min_single_bp_quality 0 --max_rows_alleles_around_cut_to_plot 50 --aln_seed_count 5 --min_frequency_alleles_around_cut_to_plot 0.2 --conversion_nuc_to T --flexiguide_gap_extend_penalty -2 --halt_on_plot_fail --flash_command None --quantification_window_center -3 --exclude_bp_from_left 15 --max_paired_end_reads_overlap None --config_json None --default_min_aln_score 60 --verbosity 3</pre></p>
+  <p><strong>Command used:</strong> <pre class='pre-scrollable'>/home/snichol2/Edilytics/wt/cr2-master/.pixi/envs/test-pro/bin/CRISPResso -o /home/snichol2/Edilytics/wt/tests-quilt/cli_integration_tests/CRISPRessoBatch_on_FANC --name Untreated --exclude_bp_from_left 15 --needleman_wunsch_gap_extend -2 --base_editor_target_ref_skip_allele_count 0 --default_min_aln_score 60 --amplicon_name Reference --quantification_window_center -3 --prime_editing_gap_extend_penalty 0 --flexiguide_homology 80 --aln_seed_count 5 --trimmomatic_command None --flexiguide_gap_open_penalty -20 --aln_seed_min 2 --flash_command None --aln_seed_len 10 --max_rows_alleles_around_cut_to_plot 50 --min_paired_end_reads_overlap 10 --needleman_wunsch_aln_matrix_loc EDNAFULL --flexiguide_seq None --base_editor_output --conversion_nuc_to T --min_frequency_alleles_around_cut_to_plot 0.2 --file_prefix Untreated --verbosity 3 --fastq_r1 inputs/FANC.Untreated.fastq --config_json None --debug --prime_editing_pegRNA_scaffold_min_match_length 1 --fastp_command fastp --flexiguide_gap_extend_penalty -2 --exclude_bp_from_right 15 --min_bp_quality_or_N 0 --max_paired_end_reads_overlap None --config_file None --prime_editing_pegRNA_extension_quantification_window_size 5 --conversion_nuc_from C --plot_window_size 20 --min_average_read_quality 0 --prime_editing_gap_open_penalty -50 --n_processes 1 --guide_seq GGAATCCCTTCTGCAGCACC --needleman_wunsch_gap_open -20 --needleman_wunsch_gap_incentive 1 --place_report_in_output_folder --halt_on_plot_fail --min_single_bp_quality 0 --amplicon_seq CGGATGTTCCAATCAGTACGCAGAGAGTCGCCGTCTCCAAGGTGAAAGCGGAAGTAGGGCCTTCGCGCACCTCATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAGCTTCTGGCGGTCTCAAGCACTACCTACGTCAGCACCTGGGACCCCGCCACCGTGCGCCGGGCCTTGCAGTGGGCGCGCTACCTGCGCCACATCCATCGGCGCTTTGGTCGG --quantification_window_size 1</pre></p>
   <p><strong>Parameters:</strong> <pre class='pre-scrollable'>allele_plot_pcts_only_for_assigned_reference: False
 aln_seed_count: 5
 aln_seed_len: 10
@@ -881,7 +881,7 @@ needleman_wunsch_gap_extend: -2
 needleman_wunsch_gap_incentive: 1
 needleman_wunsch_gap_open: -20
 no_rerun: False
-output_folder: /Users/mckaybowcut/Edilytics/CRISPResso2_tests/cli_integration_tests/CRISPRessoBatch_on_FANC
+output_folder: /home/snichol2/Edilytics/wt/tests-quilt/cli_integration_tests/CRISPRessoBatch_on_FANC
 place_report_in_output_folder: True
 plot_histogram_outliers: False
 plot_window_size: 20
@@ -1398,10 +1398,10 @@ zip_output: False</pre></p>
     
         
         <div class="w-100" id="allele_table_Untreated_9_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC"></div>
-        <script type="text/javascript">const allele_table_Untreated_9_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 7, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACE72SMQqAMAxF7+IcpJVKcQx/yAX+Vjp6AdH7G7rWRdCSDOGRzyOQUiYozVQJgAQN6u2zQ8KcOYWpTfJidUlRtjyvWUKr87j2Kk2Gz2VRwpx60VMao0TUUSLz5BgRv74IP3xeJ6o3tuR+QOQCAAA=", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}], "quantification_windows": [[19, 20]], "reads_total": 247, "cut_column": 19, "plot_offset": 72, "expand_by_quantification": false};</script>
+        <script type="text/javascript">const allele_table_Untreated_9_Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC = {"plot_type": "allele_table", "reference": "CATGGAATCCCTTCTGCAGCACCTGGATCGCTTTTCCGAG", "total_alleles": 7, "schema": ["aligned_sequence", "reference_sequence", "reads", "pct", "n_deleted", "n_inserted", "n_mutated", "unedited"], "alleles_b64gz": "H4sIAAAAAAACA72SMQqAMAxF7+IcpJVKcQx/yAX+Vjp6AdH7G7rWRdCSDOGRzyOQUiYozVQJgAQN6u2zQ8KcOYWpTfJidUlRtjyvWUKr87j2Kk2Gz2VRwpx60VMao0TUUSLz5BgRv74IP3xeJ6o3tuR+QOQCAAA=", "custom_colors": {"Substitution": "#0000FF", "Insertion": "#008000", "Deletion": "#FF0000", "A": "#7FC97F", "T": "#BEAED4", "C": "#FDC086", "G": "#FFFF99", "N": "#C8C8C8", "-": "#1E1E1E", "amino_acid_scheme": "unique"}, "sgRNAs": [{"interval": [3, 22], "name": ""}], "quantification_windows": [[19, 20]], "reads_total": 247, "cut_column": 19, "plot_offset": 72, "expand_by_quantification": false};</script>
     
     
-    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA GGAATCCCTTCTGCAGCACC. Nucleotides are indicated by the nucleotide colors shown in the legend. Bases matching the reference are faded and unlabelled, so only differences are highlighted. Gap-colored cells indicate deleted sequences, and a rule beneath a position indicates an inserted sequence. The dashed rectangle indicates the quantification window, and positions are numbered along the full amplicon. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box and the edit checkboxes filter every allele in the table. The search box matches a sequence motif anywhere in the plotted sequence, including across a deletion. The checkboxes keep alleles by the type of edit they carry inside the plotted part of the quantification window; an allele with no edit there counts as unedited. Alleles that are identical within the plotted window and carry the same types of edit are merged into one row.</label>
+    <label class="labelpadding">Figure 9: Interactive visualization of the distribution of identified alleles around the cleavage site for the sgRNA GGAATCCCTTCTGCAGCACC. Nucleotides are indicated by the nucleotide colors shown in the legend. Bases matching the reference are faded and unlabelled, so only differences are highlighted. Gap-colored cells indicate deleted sequences, and a box around a position indicates an inserted sequence. The dashed rectangle indicates the quantification window, and positions are numbered along the full amplicon. Alleles are sorted by frequency and only the most frequent matches are drawn, but the search box and the edit checkboxes filter every allele in the table. The search box matches a sequence motif anywhere in the plotted sequence, including across a deletion. The checkboxes keep alleles by the type of edit they carry inside the plotted part of the quantification window; an allele with no edit there counts as unedited. Alleles that are identical within the plotted window and carry the same types of edit are merged into one row.</label>
     
     
         <p class="m-0"><small>Data: <a href="Untreated.Alleles_frequency_table_around_sgRNA_GGAATCCCTTCTGCAGCACC.txt">Allele frequency table</a></small></p>
@@ -2693,6 +2693,7 @@ if (typeof module !== 'undefined' && module.exports) {
     const tooltip = root.append("div").attr("class", "allele-tooltip");
     const tipHead = tooltip.append("div").attr("class", "allele-tip-value");
     const tipBody = tooltip.append("div");
+    const tipCounts = tooltip.append("div");
 
     let alleles;
     try {
@@ -2778,7 +2779,7 @@ if (typeof module !== 'undefined' && module.exports) {
       label: base, fill: baseColor(base),
     }));
     legendItems.push({ label: "Deletion", fill: color["-"] });
-    legendItems.push({ label: "Insertion", fill: color["Insertion"] });
+    legendItems.push({ label: "Insertion", fill: color["Insertion"], outline: true });
     // The grid washes matched bases out; a pre-blended tint keeps the caption
     // readable where a low opacity would have faded the text with it.
     legendItems.push({ label: "Matches reference", fill: "#f0f0ee", muted: true });
@@ -2793,6 +2794,12 @@ if (typeof module !== 'undefined' && module.exports) {
         .classed("allele-legend-chip--qw", !!item.qw)
         .text(item.label);
       if (item.qw) return;
+      if (item.outline) {
+        // inset so the chip keeps its siblings' height
+        chip.style("box-shadow", "inset 0 0 0 1px " + item.fill)
+          .style("color", "var(--allele-ink)");
+        return;
+      }
       chip.style("background-color", item.fill)
         .style("color", item.muted ? "var(--allele-ink-2)" : inkOn(item.fill));
     });
@@ -2930,7 +2937,12 @@ if (typeof module !== 'undefined' && module.exports) {
 
     let shown = [];  // rows currently painted; hit-testing reads this
 
-    const countsText = (c) => c.inserted + "I " + c.deleted + "D " + c.mutated + "S";
+    const countOf = (n, noun) => n + " " + noun + (n === 1 ? "" : "s");
+    const countsText = (c) => [
+      countOf(c.inserted, "inserted base"),
+      countOf(c.deleted, "deleted base"),
+      countOf(c.mutated, "substitution"),
+    ].join(", ");
     const amplicon = (pos) => plotOffset + pos + 1;   // 1-based, along the whole amplicon
     const showTip = function (allele, index, evt) {
       const base = allele.aligned_sequence[index];
@@ -2963,7 +2975,8 @@ if (typeof module !== 'undefined' && module.exports) {
           where += " before position " + amplicon(right);
         }
       }
-      let detail = " · in plotted window " + countsText(allele.quant_counts);
+      let detail = "";
+      let counts = "In plotted quantification window: " + countsText(allele.quant_counts);
       if (allele.quant_offplot_classes.length > 0) {
         // the class filter keeps this row for an edit no plotted column shows
         detail += " · also in the quantification window, pushed off the plot by this row's insertion: "
@@ -2972,7 +2985,7 @@ if (typeof module !== 'undefined' && module.exports) {
       if (expanded && typeof allele.n_inserted === "number") {
         // rows that look alike stay apart under --expand_allele_plots_by_quantification;
         // CRISPResso's whole-window counts are what tells them apart
-        detail += " · across the full quantification window " + countsText({
+        counts += " · Across the full quantification window: " + countsText({
           inserted: allele.n_inserted, deleted: allele.n_deleted, mutated: allele.n_mutated,
         });
       } else if (allele.collapsed_count > 1) {
@@ -2980,6 +2993,7 @@ if (typeof module !== 'undefined' && module.exports) {
       }
       tipHead.text(allele.pct.toFixed(2) + "% · " + allele.reads.toLocaleString() + " reads");
       tipBody.text(where + detail);
+      tipCounts.text(counts);
       // measured at the origin so its width is not squeezed by the right edge
       const tipNode = tooltip.style("left", "0px").style("top", "0px").node();
       const tipW = tipNode.offsetWidth;
@@ -3042,12 +3056,21 @@ if (typeof module !== 'undefined' && module.exports) {
           ctx.fillText(seq[i], (i * cellW) + (cellW / 2), y + CELL_H - 3);
         }
 
-        // 3. insertions carry a second channel: a rule in the insertion color
-        ctx.fillStyle = color["Insertion"];
+        // 3. insertions carry a second channel: one box around each run, cut at
+        //    the canvas edge; the 0.5 centers the 1px stroke on a device pixel
+        //    at DPR 1 and 2, and other ratios anti-alias the edge
+        ctx.strokeStyle = color["Insertion"];
+        ctx.lineWidth = 1;
         for (let i = 0; i < seq.length; i++) {
-          if (ref[i] === "-" && seq[i] !== "-") {
-            ctx.fillRect(i * cellW, y + CELL_H - 2, cellW, 2);
+          if (ref[i] !== "-" || seq[i] === "-") continue;
+          let end = i + 1;
+          while (end < seq.length && ref[end] === "-" && seq[end] !== "-") end++;
+          const left = i * cellW;
+          if (left < seqW) {
+            const right = Math.min(end * cellW, seqW);
+            ctx.strokeRect(left + 0.5, y + 0.5, right - left - 1, CELL_H - 1);
           }
+          i = end;
         }
       }
     };
